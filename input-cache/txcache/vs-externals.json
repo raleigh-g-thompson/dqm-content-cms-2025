@@ -5240,6 +5240,7 @@
     "server" : "https://tx.fhir.org/r4",
     "filename" : "vs-583aed74-3ce4-44fb-8c09-69f68ff028fc.json"
   },
+  "http://hl7.org/fhir/us/qicore/Library/QICore-ModelInfo|6.0.0" : null,
   "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.600.1.1550|20230216" : {
     "server" : "https://tx.fhir.org/r4",
     "filename" : "vs-2ce389e4-a224-4f5d-9c05-b6806d6a6909.json"

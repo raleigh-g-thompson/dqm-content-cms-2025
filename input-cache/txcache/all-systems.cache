@@ -34449,7 +34449,6 @@ v: {
   "system" : "urn:ietf:bcp:47",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Analysing http://hl7.org/fhir/ValueSet/languages|4.0.1 for validation purposes\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:47)(ar,bn,cs,da,de,de-AT,de-CH,de-DE,el,en,en-AU,en-CA,en-GB,en-IN,en-NZ,en-SG,en-US,es,es-AR,es-ES,es-UY,fi,fr,fr-BE,fr-CH,fr-FR,fy,fy-NL,hi,hr,it,it-CH,it-IT,ja,ko,nl,nl-BE,nl-NL,no,no-NO,pa,pl,pt,pt-BR,ru,ru-RU,sr,sr-RS,sv,sv-SE,te,zh,zh-CN,zh-HK,zh-SG,zh-TW)\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: CodeSystem found: \"urn:ietf:bcp:47|null\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Validate \"[undefined#en (\"undefined\")]\" and infer system\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Check \"undefined#en\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:47\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: CodeSystem found: urn:ietf:bcp:47|null for urn:ietf:bcp:47\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: check code in (urn:ietf:bcp:47)(ar,bn,cs,da,de,de-AT,de-CH,de-DE,el,en,en-AU,en-CA,en-GB,en-IN,en-NZ,en-SG,en-US,es,es-AR,es-ES,es-UY,fi,fr,fr-BE,fr-CH,fr-FR,fy,fy-NL,hi,hr,it,it-CH,it-IT,ja,ko,nl,nl-BE,nl-NL,no,no-NO,pa,pl,pt,pt-BR,ru,ru-RU,sr,sr-RS,sv,sv-SE,te,zh,zh-CN,zh-HK,zh-SG,zh-TW) at \n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Code \"en\" found in urn:ietf:bcp:47|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -34627,7 +34626,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Analysing urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786 for validation purposes\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Check \"undefined#text/cql\"\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:53adb72d-5ffb-435d-9839-fa790be97786: Code \"text/cql\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -34798,7 +34796,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#text/cql\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"text/cql\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -34976,7 +34973,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Analysing urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583 for validation purposes\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Check \"undefined#application/elm+xml\"\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:e3ef6a77-1680-407f-a123-1700bb461583: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -35147,7 +35143,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+xml\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -35325,7 +35320,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Analysing urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41 for validation purposes\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Check \"undefined#application/elm+json\"\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:2b3b8df6-319b-429c-bf06-1ddca4d1fe41: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -35496,7 +35490,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+json\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -35674,7 +35667,6 @@ v: {
   "system" : "urn:ietf:bcp:13",
   "server" : "https://tx.fhir.org/r4",
   "diagnostics" : "0ms tx-op\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Analysing urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e for validation purposes\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Validate \"[undefined#text/cql-identifier (\"undefined\")]\" and infer system\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Check \"undefined#text/cql-identifier\"\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:b3983d55-a89e-4e6a-b310-9e5c133cb31e: Code \"text/cql-identifier\" found in urn:ietf:bcp:13|null",
-  "unknown-systems" : "",
   "issues" : {
   "resourceType" : "OperationOutcome"
 }
@@ -35789,6 +35781,2559 @@ v: {
   {
     "name" : "default-canonical-version",
     "valueString" : "http://hl7.org/fhir/StructureDefinition/Resource|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql-identifier",
+  "code" : "text/cql-identifier",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#text/cql-identifier (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#text/cql-identifier\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"text/cql-identifier\" found in urn:ietf:bcp:13|null",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en-US", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql",
+  "code" : "text/cql",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Analysing urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf for validation purposes\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Check \"undefined#text/cql\"\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:83327adf-a43a-454d-af8a-b81c811216bf: Code \"text/cql\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en-US", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql",
+  "code" : "text/cql",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#text/cql\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"text/cql\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+xml"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en-US", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+xml",
+  "code" : "application/elm+xml",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Analysing urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977 for validation purposes\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Check \"undefined#application/elm+xml\"\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:73aa78f2-f42b-49e3-baaa-122660f9d977: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+xml"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en-US", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+xml",
+  "code" : "application/elm+xml",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+xml\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+json"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en-US", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+json",
+  "code" : "application/elm+json",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Analysing urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b for validation purposes\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Check \"undefined#application/elm+json\"\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:8ce520b8-a859-48a2-b597-afe41a57731b: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+json"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en-US", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+json",
+  "code" : "application/elm+json",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+json\"\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n4ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "en"
+}, "url": "http://hl7.org/fhir/ValueSet/languages", "version": "4.0.1", "langs":"en", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "English",
+  "code" : "en",
+  "system" : "urn:ietf:bcp:47",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Analysing http://hl7.org/fhir/ValueSet/languages|4.0.1 for validation purposes\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:47)(ar,bn,cs,da,de,de-AT,de-CH,de-DE,el,en,en-AU,en-CA,en-GB,en-IN,en-NZ,en-SG,en-US,es,es-AR,es-ES,es-UY,fi,fr,fr-BE,fr-CH,fr-FR,fy,fy-NL,hi,hr,it,it-CH,it-IT,ja,ko,nl,nl-BE,nl-NL,no,no-NO,pa,pl,pt,pt-BR,ru,ru-RU,sr,sr-RS,sv,sv-SE,te,zh,zh-CN,zh-HK,zh-SG,zh-TW)\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: CodeSystem found: \"urn:ietf:bcp:47|null\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Validate \"[undefined#en (\"undefined\")]\" and infer system\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Check \"undefined#en\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:47\"\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: CodeSystem found: urn:ietf:bcp:47|null for urn:ietf:bcp:47\n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: check code in (urn:ietf:bcp:47)(ar,bn,cs,da,de,de-AT,de-CH,de-DE,el,en,en-AU,en-CA,en-GB,en-IN,en-NZ,en-SG,en-US,es,es-AR,es-ES,es-UY,fi,fr,fr-BE,fr-CH,fr-FR,fy,fy-NL,hi,hr,it,it-CH,it-IT,ja,ko,nl,nl-BE,nl-NL,no,no-NO,pa,pl,pt,pt-BR,ru,ru-RU,sr,sr-RS,sv,sv-SE,te,zh,zh-CN,zh-HK,zh-SG,zh-TW) at \n1ms http://hl7.org/fhir/ValueSet/languages|4.0.1: Code \"en\" found in urn:ietf:bcp:47|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql",
+  "code" : "text/cql",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Analysing urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa for validation purposes\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Check \"undefined#text/cql\"\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:fd9b80a5-4a34-4ba2-9d50-350540ba5faa: Code \"text/cql\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql",
+  "code" : "text/cql",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#text/cql (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#text/cql\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"text/cql\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+xml"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+xml",
+  "code" : "application/elm+xml",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Analysing urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb for validation purposes\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Check \"undefined#application/elm+xml\"\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:986cacad-98e0-4b1e-9bb9-e779146a04bb: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+xml"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+xml",
+  "code" : "application/elm+xml",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+xml (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+xml\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+xml\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+json"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+json",
+  "code" : "application/elm+json",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Analysing urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7 for validation purposes\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Check \"undefined#application/elm+json\"\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:88a18dfc-d9bf-402d-ad0e-84b59025d4c7: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "application/elm+json"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "application/elm+json",
+  "code" : "application/elm+json",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Analysing http://hl7.org/fhir/ValueSet/mimetypes|4.0.1 for validation purposes\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Parameters: disp-lang=en, generate-narrative, default-to-latest\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Validate \"[undefined#application/elm+json (\"undefined\")]\" and infer system\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Check \"undefined#application/elm+json\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: check code in (urn:ietf:bcp:13) at \n0ms http://hl7.org/fhir/ValueSet/mimetypes|4.0.1: Code \"application/elm+json\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql-identifier"
+}, "valueSet" :{
+  "resourceType" : "ValueSet",
+  "compose" : {
+    "include" : [{
+      "system" : "urn:ietf:bcp:13"
+    }]
+  }
+}, "langs":"en-US", "useServer":"true", "useClient":"false", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablemeasure|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/publishable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/executable-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cql-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/elm-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/proportion-measure-cqfm|4.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS122FHIRDiabetesAssessGT9Pct|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS125FHIRBreastCancerScreen|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS130FHIRColorectalCancerScrn|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS165FHIRControllingHighBP|1.0.000"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "https://madie.cms.gov/Library/CMS2FHIRPCSDepScreenAndFollowUp|1.0.000"
+  }]
+}}####
+v: {
+  "display" : "text/cql-identifier",
+  "code" : "text/cql-identifier",
+  "system" : "urn:ietf:bcp:13",
+  "server" : "https://tx.fhir.org/r4",
+  "diagnostics" : "0ms tx-op\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Analysing urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3 for validation purposes\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Parameters: disp-lang=en-US, generate-narrative, default-to-latest\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Version Rules: default:http://snomed.info/sct#http://snomed.info/sct/731000124108\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Prepare include[0]: \"(urn:ietf:bcp:13)\"\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: CodeSystem found: \"urn:ietf:bcp:13|null\"\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Validate \"[undefined#text/cql-identifier (\"undefined\")]\" and infer system\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Check \"undefined#text/cql-identifier\"\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Inferred CodeSystem = \"urn:ietf:bcp:13\"\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: CodeSystem found: urn:ietf:bcp:13|null for urn:ietf:bcp:13\n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: check code in (urn:ietf:bcp:13) at \n0ms urn:uuid:914486f0-fffe-4200-8938-d0633a2401c3: Code \"text/cql-identifier\" found in urn:ietf:bcp:13|null",
+  "unknown-systems" : "",
+  "issues" : {
+  "resourceType" : "OperationOutcome"
+}
+
+}
+-------------------------------------------------------------------------------------
+{"code" : {
+  "code" : "text/cql-identifier"
+}, "url": "http://hl7.org/fhir/ValueSet/mimetypes", "version": "4.0.1", "langs":"en-US", "useServer":"true", "useClient":"true", "guessSystem":"true", "noAbstract":"false", "activeOnly":"false", "membershipOnly":"false", "displayWarningMode":"false", "versionFlexible":"true", "profile": {
+  "resourceType" : "Parameters",
+  "id" : "manifest",
+  "parameter" : [{
+    "name" : "system-version",
+    "valueCanonical" : "http://snomed.info/sct|http://snomed.info/sct/731000124108"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-shareablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-computablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-publishablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-executablelibrary|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/cql-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-json-library|1.0.0"
+  },
+  {
+    "name" : "default-canonical-version",
+    "valueString" : "http://hl7.org/fhir/uv/cql/StructureDefinition/elm-xml-library|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/diagnosis-role|1.1.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/ex-procedure-type|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/HospitalAcqCond/Coding|07/14/2020"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-TimingEvent|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/event-timing|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-ActCode|9.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/request-intent|4.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/medicationrequest-category|1.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-clinical|3.0.0"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-ver-status|2.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/observation-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://terminology.hl7.org/CodeSystem/condition-category|1.0.1"
+  },
+  {
+    "name" : "system-version",
+    "valueString" : "http://hl7.org/fhir/CodeSystem/task-code|4.0.1"
   },
   {
     "name" : "default-canonical-version",
