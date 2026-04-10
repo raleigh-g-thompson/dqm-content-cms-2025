@@ -172,7 +172,7 @@ define "Has Palliative Care prior to or during the Measure Assessment Period":
           and not ( PalliativeIntervention.status in { 'not-done', 'entered-in-error', 'unknown' } )
     )
 
-define fluent function isVerified(condition Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

@@ -84,8 +84,7 @@ define "Qualifying Encounter During Day of Measurement Period":
 
 define "Diabetic Retinopathy Encounter":
   "Qualifying Encounter During Day of Measurement Period" ValidQualifyingEncounter
-    with ( ["ConditionProblemsHealthConcerns": "Diabetic Retinopathy"]
-      union ["ConditionEncounterDiagnosis": "Diabetic Retinopathy"] ) DiabeticRetinopathy
+    with ( [FHIR.Condition: "Diabetic Retinopathy"] ) DiabeticRetinopathy
       such that DiabeticRetinopathy.prevalenceInterval ( ) overlaps day of ValidQualifyingEncounter.period
         and DiabeticRetinopathy.isVerified ( )
 
@@ -153,7 +152,7 @@ define "Medical or Patient Reason for Not Communicating Absence of Macular Edema
         or MacularEdemaAbsentNotCommunicated.statusReason in "Patient Reason"
     )
 
-define fluent function isVerified(condition Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

@@ -55,10 +55,8 @@ define fluent function verified(conditions List<Choice<ConditionProblemsHealthCo
     )
 
 define "Has Advanced Illness or Limited Life Expectancy":
-  ( ( ["ConditionProblemsHealthConcerns": "Advanced Illness"]
-      union ["ConditionEncounterDiagnosis": "Advanced Illness"]
-      union ["ConditionProblemsHealthConcerns": "Limited Life Expectancy"]
-      union ["ConditionEncounterDiagnosis": "Limited Life Expectancy"]
+  ( ( [FHIR.Condition: "Advanced Illness"]
+      union [FHIR.Condition: "Limited Life Expectancy"]
   ).verified ( ) ) AdvancedIllness
     where "AdvancedIllness".onset before day of end of "Measurement Period"
 
@@ -115,8 +113,7 @@ define "Patients Aged 35 to 70 with an Office Visit During the Measurement Perio
     and "Aged 35 to 70 at Start of Measurement Period" is true
 
 define "Prediabetes Diagnosis Overlaps 2 Year Look Back Period":
-  ( ( ["ConditionProblemsHealthConcerns": "Prediabetes (Borderline Diabetes)"]
-      union [USQualityCore.ConditionEncounterDiagnosis: "Prediabetes (Borderline Diabetes)"]
+  ( ( [FHIR.Condition: "Prediabetes (Borderline Diabetes)"]
   ).verified ( ) ) PriorPrediabetes
     where "PriorPrediabetes".prevalenceInterval ( ) overlaps day of "Look Back Period"
 
@@ -129,8 +126,7 @@ define "Denominator Exclusions":
     or "Has Glycemic Laboratory Test Performed During 2 Year Look Back Period"
 
 define "Diabetes Diagnosis Overlaps 2 Year Look Back Period":
-  ( ( ["ConditionProblemsHealthConcerns": "Diabetes"]
-      union [USQualityCore.ConditionEncounterDiagnosis: "Diabetes"]
+  ( ( [FHIR.Condition: "Diabetes"]
   ).verified ( ) ) PriorDiabetes
     where "PriorDiabetes".prevalenceInterval ( ) overlaps day of "Look Back Period"
 

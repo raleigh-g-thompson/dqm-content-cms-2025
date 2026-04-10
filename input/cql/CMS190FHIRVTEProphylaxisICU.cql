@@ -198,7 +198,7 @@ define "Encounter With Medication Oral Factor Xa Inhibitor Administered On Day O
 
 define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Prior Diagnosis Of VTE":
   ( "Encounter With ICU Location" QualifyingEncounterICU
-      with ["ConditionProblemsHealthConcerns": "Atrial Fibrillation or Flutter"] AtrialFibrillation
+      with [USQualityCore.ConditionProblemsHealthConcerns: "Atrial Fibrillation or Flutter"] AtrialFibrillation
         such that AtrialFibrillation.verificationStatus is not null implies ( AtrialFibrillation.verificationStatus !~ FHIRCommon."refuted"
             and AtrialFibrillation.verificationStatus !~ FHIRCommon."entered-in-error"
         )
@@ -208,7 +208,7 @@ define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Prio
         where QualifyingEncounterICU.hasEncDiagnosisOf ( "Atrial Fibrillation or Flutter" )
     )
     union ( "Encounter With ICU Location" QualifyingEncounterICU
-        with ["ConditionProblemsHealthConcerns": "Venous Thromboembolism"] VTEDiagnosis
+        with [USQualityCore.ConditionProblemsHealthConcerns: "Venous Thromboembolism"] VTEDiagnosis
           such that ( VTEDiagnosis.clinicalStatus ~ FHIRCommon."inactive"
               or VTEDiagnosis.clinicalStatus ~ FHIRCommon."remission"
               or VTEDiagnosis.clinicalStatus ~ FHIRCommon."resolved"

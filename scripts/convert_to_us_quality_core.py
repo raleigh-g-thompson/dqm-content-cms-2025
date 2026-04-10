@@ -245,29 +245,29 @@ def _consolidate_condition_unions(content: str) -> str:
     Handles both:
       - Same-line: [CED: "X"] union [CPHC: "X"]
       - Multi-line: [CED: "X"]\n      union [CPHC: "X"]
+    And both quoted and unquoted resource type names:
+      - Unquoted: [ConditionEncounterDiagnosis: "X"]
+      - Quoted:   ["ConditionEncounterDiagnosis": "X"]
     """
-    # Same line patterns
-    content = re.sub(
-        r'\[ConditionEncounterDiagnosis:\s*("(?:[^"]+)")\]\s*union\s*\[ConditionProblemsHealthConcerns:\s*\1\]',
-        r"[FHIR.Condition: \1]",
-        content,
-    )
-    content = re.sub(
-        r'\[ConditionProblemsHealthConcerns:\s*("(?:[^"]+)")\]\s*union\s*\[ConditionEncounterDiagnosis:\s*\1\]',
-        r"[FHIR.Condition: \1]",
-        content,
-    )
-    # Multi-line patterns
-    content = re.sub(
-        r'\[ConditionEncounterDiagnosis:\s*("(?:[^"]+)")\]\s*\n\s*union\s*\[ConditionProblemsHealthConcerns:\s*\1\]',
-        r"[FHIR.Condition: \1]",
-        content,
-    )
-    content = re.sub(
-        r'\[ConditionProblemsHealthConcerns:\s*("(?:[^"]+)")\]\s*\n\s*union\s*\[ConditionEncounterDiagnosis:\s*\1\]',
-        r"[FHIR.Condition: \1]",
-        content,
-    )
+    # Resource type token: optionally surrounded by double quotes (no capturing groups)
+    _CED  = r'"?ConditionEncounterDiagnosis"?'
+    _CPHC = r'"?ConditionProblemsHealthConcerns"?'
+    vs    = r'("(?:[^"]+)")'  # group 1 — captured valueset name
+
+    for ced, cphc in [(_CED, _CPHC), (_CPHC, _CED)]:
+        # Same-line
+        content = re.sub(
+            rf'\[{ced}:\s*{vs}\]\s*union\s*\[{cphc}:\s*\1\]',
+            r"[FHIR.Condition: \1]",
+            content,
+        )
+        # Multi-line
+        content = re.sub(
+            rf'\[{ced}:\s*{vs}\]\s*\n\s*union\s*\[{cphc}:\s*\1\]',
+            r"[FHIR.Condition: \1]",
+            content,
+        )
+
     return content
 
 
@@ -278,6 +278,16 @@ def _qualify_resource_types(content: str) -> str:
         # The lookbehind ensures we're matching right after `[`
         pattern = r"(?<=\[)(" + re.escape(rtype) + r")(?=\s*[\]:])"
         content = re.sub(pattern, r"USQualityCore.\1", content)
+
+    # Quoted Condition profile retrievals that were NOT consolidated by
+    # _consolidate_condition_unions (i.e. lone retrievals, not same-valueset pairs).
+    # e.g. ["ConditionEncounterDiagnosis": "X"]  →  [USQualityCore.ConditionEncounterDiagnosis: "X"]
+    for rtype in ("ConditionEncounterDiagnosis", "ConditionProblemsHealthConcerns"):
+        content = re.sub(
+            r'\["' + re.escape(rtype) + r'"(\s*:)',
+            r"[USQualityCore." + rtype + r"\1",
+            content,
+        )
 
     # USCoreBloodPressureProfile → USCore.BloodPressureProfile
     content = content.replace("[USCoreBloodPressureProfile]", "[USCore.BloodPressureProfile]")
@@ -345,6 +355,22 @@ def _remap_qicorecommon_refs(content: str, qicorecommon_alias: str) -> str:
     return content
 
 
+def _fix_isverified_signature(content: str) -> str:
+    """
+    When a measure defines a local isVerified() fluent function for
+    Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>, update
+    the parameter type to FHIR.Condition.  After _consolidate_condition_unions
+    collapses the CED/CPHC union into [FHIR.Condition: "X"], the with-clause alias
+    is typed as FHIR.Condition and the old choice signature no longer resolves.
+    """
+    return re.sub(
+        r'define fluent function isVerified\s*\(\s*condition\s+Choice\s*<[^>]*'
+        r'Condition(?:EncounterDiagnosis|ProblemsHealthConcerns)[^>]*>\s*\)',
+        "define fluent function isVerified(condition FHIR.Condition)",
+        content,
+    )
+
+
 def _fix_type_casts(content: str) -> str:
     """
     Qualify ambiguous CQL type casts for the FHIR multi-model context:
@@ -409,6 +435,7 @@ def convert_cql(content: str) -> str:
     content = _fix_patient_sex(content)
     content = _fix_medication_request_period(content)
     content = _fix_get_encounter(content)
+    content = _fix_isverified_signature(content)
     content = _fix_type_casts(content)
     content = _fix_extension_to_fluent_functions(content)
 
@@ -522,15 +549,13 @@ def run_sanity_check():
     print(f"\nResults: {pass_count} passed, {fail_count} failed")
     if fail_count > 0:
         print(
-            "\nReview diffs above. Known acceptable differences:\n"
-            "  - CMS165, CMS122, CMS130: marked 'in progress' in process doc; "
-            "may have incomplete type qualification\n"
-            "  - AgeInYearsAt: CMS125 partially converted in Initial Population "
-            "but not stratifications\n"
-            "  - Alias renames in Condition defines (e.g. RightMastectomyProcedure → "
-            "RightMastectomyCondition) are manual changes not automated\n"
-            "  - ObservationCancelled comment-out pattern in CMS2 is not automated\n"
-            "  - DiagnosticReportNote additions in CMS125 are measure-specific, not automated\n"
+            "\nReview diffs above. Known acceptable differences (intentional manual edits):\n"
+            "  - CMS1206: intentional logic change (concept equivalence ~ vs .codes contains)"
+            " + alias rename (AlaraCommonFunctions → AlaraCommon)\n"
+            "  - CMS2: Denominator Exceptions gutted pending ObservationCancelled pattern"
+            " decision; sections commented out\n"
+            "  - CMS125: DiagnosticReportNote added to Numerator (Step 5 pattern,"
+            " measure-specific, not automatable)\n"
         )
     return fail_count == 0
 

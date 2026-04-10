@@ -49,7 +49,7 @@ define "Encounter With A History Of Atrial Ablation":
       )
   )
     union ( TJC."Ischemic Stroke Encounter" IschemicStrokeEncounter
-        with ["ConditionProblemsHealthConcerns": "History of Atrial Ablation"] AtrialAblationDiagnosis
+        with [USQualityCore.ConditionProblemsHealthConcerns: "History of Atrial Ablation"] AtrialAblationDiagnosis
           such that AtrialAblationDiagnosis.verificationStatus is not null implies ( AtrialAblationDiagnosis.verificationStatus !~ FHIRCommon."refuted"
               and AtrialAblationDiagnosis.verificationStatus !~ FHIRCommon."entered-in-error"
           )
@@ -61,7 +61,7 @@ define "Encounter With A History Of Atrial Ablation":
             and AtrialAblationObservation.effective.earliest ( ) on or before end of IschemicStrokeEncounter.period
     )
     union ( TJC."Ischemic Stroke Encounter" IschemicStrokeEncounter
-        with ["ConditionEncounterDiagnosis": "History of Atrial Ablation"] AtrialAblationEncDiagnosis
+        with [USQualityCore.ConditionEncounterDiagnosis: "History of Atrial Ablation"] AtrialAblationEncDiagnosis
           such that AtrialAblationEncDiagnosis.verificationStatus is not null implies ( AtrialAblationEncDiagnosis.verificationStatus !~ FHIRCommon."refuted"
               and AtrialAblationEncDiagnosis.verificationStatus !~ FHIRCommon."entered-in-error"
           )
@@ -70,7 +70,7 @@ define "Encounter With A History Of Atrial Ablation":
 
 define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Flutter":
   ( TJC."Ischemic Stroke Encounter" IschemicStrokeEncounter
-      with ["ConditionProblemsHealthConcerns": "Atrial Fibrillation or Flutter"] AtrialFibrillationFlutter
+      with [USQualityCore.ConditionProblemsHealthConcerns: "Atrial Fibrillation or Flutter"] AtrialFibrillationFlutter
         such that AtrialFibrillationFlutter.verificationStatus is not null implies ( AtrialFibrillationFlutter.verificationStatus !~ FHIRCommon."refuted"
             and AtrialFibrillationFlutter.verificationStatus !~ FHIRCommon."entered-in-error"
         )

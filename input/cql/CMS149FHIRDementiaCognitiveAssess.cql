@@ -96,7 +96,7 @@ define "Patient Reason for Not Performing Assessment of Cognition Using Standard
       such that NoCognitiveAssessment.issued during day of EncounterDementia.period
     where NoCognitiveAssessment.notDoneReason() in "Patient Reason"
 
-define fluent function isVerified(condition Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

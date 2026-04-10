@@ -69,8 +69,7 @@ define "Initial Population":
 
 define "Primary Open Angle Glaucoma Encounter":
   "Qualifying Encounter During Measurement Period" ValidQualifyingEncounter
-    with ( ["ConditionProblemsHealthConcerns": "Primary Open-Angle Glaucoma"]
-      union ["ConditionEncounterDiagnosis": "Primary Open-Angle Glaucoma"] ) PrimaryOpenAngleGlaucoma
+    with ( [FHIR.Condition: "Primary Open-Angle Glaucoma"] ) PrimaryOpenAngleGlaucoma
       such that PrimaryOpenAngleGlaucoma.prevalenceInterval ( ) overlaps day of ValidQualifyingEncounter.period
         and PrimaryOpenAngleGlaucoma.isVerified ( )
 
@@ -104,7 +103,7 @@ define "Medical Reason for Not Performing Optic Disc Exam":
       such that OpticDiscExamNotPerformed.issued during day of EncounterWithPOAG.period
     where OpticDiscExamNotPerformed.notDoneReason() in "Medical Reason"
 
-define fluent function isVerified(condition Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

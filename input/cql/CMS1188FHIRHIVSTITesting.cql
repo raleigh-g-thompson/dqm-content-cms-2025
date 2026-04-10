@@ -66,8 +66,7 @@ define "Has Qualifying Encounter During Measurement Period":
   )
 
 define "Has HIV Diagnosis Before End of Measurement Period":
-  exists ( ["ConditionProblemsHealthConcerns": "HIV"]
-    union ["ConditionEncounterDiagnosis": "HIV"] ) HIVDx
+  exists ( [FHIR.Condition: "HIV"] ) HIVDx
     where HIVDx.prevalenceInterval ( ) starts on or before day of end of "Measurement Period"
       and HIVDx.isVerified ( )
 
@@ -89,7 +88,7 @@ define "Has Syphilis Testing":
       and SyphilisTest.status in { 'final', 'amended', 'corrected' }
       and SyphilisTest.effective.latest ( ) during day of "Measurement Period"
 
-define fluent function isVerified(condition Choice<QICore.ConditionProblemsHealthConcerns, QICore.ConditionEncounterDiagnosis>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

@@ -57,8 +57,7 @@ define "Encounter During Measurement Period With HIV":
       union ["Encounter": "Preventive Care, Established Office Visit, 0 to 17"]
       union ["Encounter": "Telephone Visits"]
       union ["Encounter": "Preventive Care Services Other"] ) ValidEncounter
-      with ( ["ConditionProblemsHealthConcerns": "HIV"]
-        union ["ConditionEncounterDiagnosis": "HIV"] ) HIVDiagnosis
+      with ( [FHIR.Condition: "HIV"] ) HIVDiagnosis
         such that ValidEncounter.period during day of "Measurement Period"
           and ValidEncounter.status = 'finished'
           and HIVDiagnosis.prevalenceInterval ( ) starts on or before day of start of ValidEncounter.period
@@ -66,8 +65,7 @@ define "Encounter During Measurement Period With HIV":
   )
 
 define "Has Active HIV Diagnosis Starts On or Before First 240 Days of Measurement Period":
-  exists ( ( ["ConditionProblemsHealthConcerns": "HIV"]
-      union ["ConditionEncounterDiagnosis": "HIV"] ) HIVDx
+  exists ( ( [FHIR.Condition: "HIV"] ) HIVDx
       where HIVDx.prevalenceInterval ( ) starts on or before day of ( start of "Measurement Period" + 240 days )
         and HIVDx.isVerified ( )
   )
@@ -101,7 +99,7 @@ define "Has Two Encounters With HIV At Least 90 Days Apart":
       such that EncounterWithHIV !~ AnotherEncounterWithHIV
         and AnotherEncounterWithHIV.period starts 90 days or more after day of end of EncounterWithHIV.period
 
-define fluent function isVerified(condition Choice<QICore.ConditionProblemsHealthConcerns, QICore.ConditionEncounterDiagnosis>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

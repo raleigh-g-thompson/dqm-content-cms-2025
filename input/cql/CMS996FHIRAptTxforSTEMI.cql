@@ -112,12 +112,12 @@ define "Numerator":
 
 define "Active Exclusion Diagnosis at Start of ED Encounter":
   "ED Encounter with STEMI Diagnosis" EDwithSTEMI
-    with ( ( ["ConditionProblemsHealthConcerns": "Active Bleeding or Bleeding Diathesis, Excluding Menses"]
-        union ["ConditionProblemsHealthConcerns": "Malignant Intracranial Neoplasm Group"]
-        union ["ConditionProblemsHealthConcerns": "Cerebral Vascular Lesion"]
-        union ["ConditionProblemsHealthConcerns": "Dementia and Related Intracranial Pathologies"]
-        union ["ConditionProblemsHealthConcerns": "Pregnant State"]
-        union ["ConditionProblemsHealthConcerns": "Allergy to thrombolytics"]
+    with ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Active Bleeding or Bleeding Diathesis, Excluding Menses"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Malignant Intracranial Neoplasm Group"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Cerebral Vascular Lesion"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Dementia and Related Intracranial Pathologies"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Pregnant State"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Allergy to thrombolytics"]
     ).verified ( ) ) ActiveExclusionDx
       such that ActiveExclusionDx.prevalenceInterval ( ) overlaps before ( EDwithSTEMI.period )
 
@@ -130,9 +130,9 @@ define "Currently Pregnant":
 
 define "Active Exclusion Diagnosis Within 90 Days Before or At the Start of ED Encounter":
   "ED Encounter with STEMI Diagnosis" EDwSTEMI
-    with ( ( ["ConditionProblemsHealthConcerns": "Ischemic Stroke"]
-        union ["ConditionProblemsHealthConcerns": "Closed Head and Facial Trauma"]
-        union ["ConditionProblemsHealthConcerns": "Active Peptic Ulcer"]
+    with ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Ischemic Stroke"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Closed Head and Facial Trauma"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Active Peptic Ulcer"]
     ).verified ( ) ) ExclusionCondition
       such that ExclusionCondition.prevalenceInterval ( ) starts during Interval[start of ( EDwSTEMI.period ) - 90 days, start of ( EDwSTEMI.period )]
 
@@ -145,8 +145,7 @@ define "Active Oral Anticoagulant Medication at the Start of ED Encounter":
 
 define "Active Long Term use of Anticoagulants":
   "ED Encounter with STEMI Diagnosis" EDwithSTEMI
-    with ( ( ["ConditionProblemsHealthConcerns": "Long term (current) use of anticoagulants"]
-        union ["ConditionEncounterDiagnosis": "Long term (current) use of anticoagulants"]
+    with ( ( [FHIR.Condition: "Long term (current) use of anticoagulants"]
     ).verified ( ) ) LongTermAnticoagulant
       such that ( LongTermAnticoagulant.prevalenceInterval ( ) starts before or on start of EDwithSTEMI.period
           and LongTermAnticoagulant.prevalenceInterval ( ) ends on or after start of EDwithSTEMI.period
@@ -239,14 +238,14 @@ define "ED Encounter with Hospice Services":
 
 define "Exclusion Diagnosis During ED Encounter or Within 24 Hours of ED Encounter Start":
   "ED Encounter with STEMI Diagnosis" EDwithSTEMI
-    with ( ( ["ConditionProblemsHealthConcerns": "Aortic Dissection or Ruptured Aortic Aneurysm"]
-        union ["ConditionProblemsHealthConcerns": "Neurologic impairment"]
-        union ["ConditionProblemsHealthConcerns": "Angina pectoris with documented spasm"]
-        union ["ConditionProblemsHealthConcerns": "Ventricular aneurysm due to and following acute myocardial infarction (disorder)"]
-        union ["ConditionProblemsHealthConcerns": "Aneurysm of heart"]
-        union ["ConditionProblemsHealthConcerns": "Takotsubo cardiomyopathy (disorder)"]
-        union ["ConditionProblemsHealthConcerns": "Takotsubo syndrome"]
-        union ["ConditionProblemsHealthConcerns": "Cardiopulmonary Emergency"]
+    with ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Aortic Dissection or Ruptured Aortic Aneurysm"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Neurologic impairment"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Angina pectoris with documented spasm"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Ventricular aneurysm due to and following acute myocardial infarction (disorder)"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Aneurysm of heart"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Takotsubo cardiomyopathy (disorder)"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Takotsubo syndrome"]
+        union [USQualityCore.ConditionProblemsHealthConcerns: "Cardiopulmonary Emergency"]
     ).verified ( ) ) ExclusionDiagnosis
       such that ( ( ExclusionDiagnosis.prevalenceInterval ( ) starts during EDwithSTEMI.period )
           or ( ExclusionDiagnosis.prevalenceInterval ( ) starts 24 hours or less before start of EDwithSTEMI.period )
@@ -254,8 +253,7 @@ define "Exclusion Diagnosis During ED Encounter or Within 24 Hours of ED Encount
 
 define "Received tPA in Another Facility within 24 hours Prior to Admission":
   "ED Encounter with STEMI Diagnosis" EDwithSTEMI
-    with ( ( ["ConditionProblemsHealthConcerns": "Status post administration of tPA (rtPA) in a different facility within the last 24 hours prior to admission to current facility"]
-        union ["ConditionEncounterDiagnosis": "Status post administration of tPA (rtPA) in a different facility within the last 24 hours prior to admission to current facility"]
+    with ( ( [FHIR.Condition: "Status post administration of tPA (rtPA) in a different facility within the last 24 hours prior to admission to current facility"]
     ).verified ( ) ) TPA
       such that TPA.prevalenceInterval ( ) starts during EDwithSTEMI.period
 

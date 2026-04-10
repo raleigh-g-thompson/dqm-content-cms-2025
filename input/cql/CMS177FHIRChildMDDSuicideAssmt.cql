@@ -88,10 +88,10 @@ define "Encounter With Condition Major Depressive Disorder":
     union ["Encounter": "Telephone Visits"] ) ValidEncounter
     where ValidEncounter.status = 'finished'
       and ValidEncounter.period during day of "Measurement Period"
-      and exists ( ( ["ConditionProblemsHealthConcerns": "Major Depressive Disorder Active"] MDDConditionProb
+      and exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Major Depressive Disorder Active"] MDDConditionProb
             where ValidEncounter.reasonReference.references ( MDDConditionProb )
         )
-          union ( ["ConditionEncounterDiagnosis": "Major Depressive Disorder Active"] MDDEncDx
+          union ( [USQualityCore.ConditionEncounterDiagnosis: "Major Depressive Disorder Active"] MDDEncDx
               where ValidEncounter.reasonReference.references ( MDDEncDx )
           )
       )

@@ -43,8 +43,7 @@ define "Denominator":
   "Initial Population"
 
 define "Has Active HIV Diagnosis Before or in First 90 Days of Measurement Period":
-  exists ( ["ConditionProblemsHealthConcerns": "HIV"]
-    union ["ConditionEncounterDiagnosis": "HIV"] ) HIVDx
+  exists ( [FHIR.Condition: "HIV"] ) HIVDx
     where HIVDx.prevalenceInterval ( ) starts before day of ( start of "Measurement Period" + 90 days )
       and HIVDx.isVerified ( )
 
@@ -81,7 +80,7 @@ define "Numerator":
     or "Most Recent Viral Load Test During Measurement Period".value ~ "Below threshold level (qualifier value)"
     or "Most Recent Viral Load Test During Measurement Period".value ~ "Not detected (qualifier value)"
 
-define fluent function isVerified(condition Choice<QICore.ConditionProblemsHealthConcerns, QICore.ConditionEncounterDiagnosis>):
+define fluent function isVerified(condition FHIR.Condition):
   condition.verificationStatus is not null implies ( condition.verificationStatus ~ FHIRCommon."confirmed"
       or condition.verificationStatus ~ FHIRCommon."unconfirmed"
       or condition.verificationStatus ~ FHIRCommon."provisional"

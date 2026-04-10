@@ -97,25 +97,22 @@ define "Is Currently Taking Beta Blocker Therapy for LVSD":
   )
 
 define "Has Hypotension Diagnosis":
-  exists ( ( ["ConditionProblemsHealthConcerns": "Hypotension"]
-      union ["ConditionEncounterDiagnosis": "Hypotension"] ) HypotensionAlias
+  exists ( ( [FHIR.Condition: "Hypotension"] ) HypotensionAlias
       where HypotensionAlias.overlapsHeartFailureOutpatientEncounter ( )
         and HypotensionAlias.isVerified ( )
   )
 
 define "Has Diagnosis of Cardiac Pacer in Situ":
-  exists ( ( ["ConditionProblemsHealthConcerns": "Cardiac Pacer in Situ"]
-      union ["ConditionEncounterDiagnosis": "Cardiac Pacer in Situ"] ) CardiacPacerDiagnosis
+  exists ( ( [FHIR.Condition: "Cardiac Pacer in Situ"] ) CardiacPacerDiagnosis
       where CardiacPacerDiagnosis.overlapsAfterHeartFailureOutpatientEncounter ( )
         and CardiacPacerDiagnosis.isVerified ( )
   )
 
 define "Has Diagnosis of Allergy or Intolerance to Beta Blocker Therapy":
-  exists ( ( ( ["ConditionProblemsHealthConcerns": "Allergy to Beta Blocker Therapy"]
-        union ["ConditionEncounterDiagnosis": "Allergy to Beta Blocker Therapy"]
+  exists ( ( ( [FHIR.Condition: "Allergy to Beta Blocker Therapy"]
     )
-      union ( ["ConditionProblemsHealthConcerns": "Intolerance to Beta Blocker Therapy"] )
-      union ["ConditionEncounterDiagnosis": "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
+      union ( [USQualityCore.ConditionProblemsHealthConcerns: "Intolerance to Beta Blocker Therapy"] )
+      union [USQualityCore.ConditionEncounterDiagnosis: "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
       where BetaBlockerAllergyOrIntoleranceDiagnosis.overlapsAfterHeartFailureOutpatientEncounter ( )
         and BetaBlockerAllergyOrIntoleranceDiagnosis.isVerified ( )
   )
