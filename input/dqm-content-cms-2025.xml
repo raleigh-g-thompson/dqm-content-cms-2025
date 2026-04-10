@@ -38,7 +38,7 @@
     <dependsOn id="cqlus">
       <uri value="http://hl7.org/fhir/us/cql/ImplementationGuide/hl7.fhir.us.cql"/>
       <packageId value="hl7.fhir.us.cql"/>
-      <version value="dev"/>
+      <version value="2.0.0-ballot"/>
     </dependsOn>
     <!-- Remove dependency on QICore, because there is a pending TC in the model info that results in an error compiling any library that makes use of SimpleObservation.value 
     This error doesn't exist in the version of the QICore ModelInfo that is included in the translator, but it's still in the 6.0.0 published QICore model info
