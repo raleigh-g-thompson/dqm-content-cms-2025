@@ -133,9 +133,11 @@ define "Denominator Exclusions":
     or exists "Narcolepsy Exclusion"
 
 define "Narcolepsy Exclusion":
-  ( ( [ConditionProblemsHealthConcerns: "Narcolepsy"]
-      union [ConditionEncounterDiagnosis: "Narcolepsy"]
-  ).verified ( ) ) NarcolepsyDx
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   [ConditionProblemsHealthConcerns: "Narcolepsy"]
+  //     union [ConditionEncounterDiagnosis: "Narcolepsy"]
+  ( ( [FHIR.Condition: "Narcolepsy"] ).verified ( ) ) NarcolepsyDx
     where NarcolepsyDx.prevalenceInterval ( ) starts on or before end of "Measurement Period"
 
 define "Numerator 1":

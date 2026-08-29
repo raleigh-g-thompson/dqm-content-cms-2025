@@ -60,9 +60,11 @@ define "Denominator Exclusions":
     or exists "Pregnancy Diagnosis Which Overlaps Measurement Period"
 
 define "Pregnancy Diagnosis Which Overlaps Measurement Period":
-  ( ( [ConditionProblemsHealthConcerns: "Pregnancy"]
-      union [ConditionEncounterDiagnosis: "Pregnancy"]
-  ).verified ( ) ) PregnancyDiag
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   [ConditionProblemsHealthConcerns: "Pregnancy"]
+  //     union [ConditionEncounterDiagnosis: "Pregnancy"]
+  ( ( [FHIR.Condition: "Pregnancy"] ).verified ( ) ) PregnancyDiag
     where PregnancyDiag.prevalenceInterval ( ) overlaps "Measurement Period"
 
 define "Numerator 1":

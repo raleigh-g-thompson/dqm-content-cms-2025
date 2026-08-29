@@ -86,8 +86,12 @@ define "Qualifying Encounter During Day of Measurement Period":
 
 define "Diabetic Retinopathy Encounter":
   "Qualifying Encounter During Day of Measurement Period" ValidQualifyingEncounter
-    with ( ["ConditionProblemsHealthConcerns": "Diabetic Retinopathy"]
-      union ["ConditionEncounterDiagnosis": "Diabetic Retinopathy"] ) DiabeticRetinopathy
+    with (
+      // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+      // Original:
+      //   ( ["ConditionProblemsHealthConcerns": "Diabetic Retinopathy"]
+      //     union ["ConditionEncounterDiagnosis": "Diabetic Retinopathy"] )
+      [FHIR.Condition: "Diabetic Retinopathy"] ) DiabeticRetinopathy
       such that DiabeticRetinopathy.prevalenceInterval ( ) overlaps day of ValidQualifyingEncounter.period
         and DiabeticRetinopathy.isVerified ( )
 
