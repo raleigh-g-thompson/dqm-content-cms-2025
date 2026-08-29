@@ -45,8 +45,11 @@ define "Denominator":
   "Initial Population"
 
 define "Has Active HIV Diagnosis Before or in First 90 Days of Measurement Period":
-  exists ( ["ConditionProblemsHealthConcerns": "HIV"]
-    union ["ConditionEncounterDiagnosis": "HIV"] ) HIVDx
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   ( ["ConditionProblemsHealthConcerns": "HIV"]
+  //     union ["ConditionEncounterDiagnosis": "HIV"] )
+  exists ( [FHIR.Condition: "HIV"] ) HIVDx
     where HIVDx.prevalenceInterval ( ) starts before day of ( start of "Measurement Period" + 90 days )
       and HIVDx.isVerified ( )
 

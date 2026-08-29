@@ -27,7 +27,7 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-10 | `singleton from empty list` throws instead of returning null | **Confirmed** | Fixture-side enrichment | CMS156 |
 | E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None — blocked** | CMS135, CMS165 |
 | E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104 |
-| E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (38 site-level edits; 13 measures applied of 30; 17 pending Stages 2–3); inline `is`/`as` interim superseded | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
+| E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (54 site-level edits; 22 measures applied of 30; 8 pending Stage 3); inline `is`/`as` interim superseded | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | ~~E-15~~ | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — | — |
 | E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | **Confirmed** | **None — engine runtime** (see E-16; deferred) | CMS1154 |
@@ -262,13 +262,14 @@ fix as `[E-15]` now read `[E-13]`; any remaining "E-15" mention in this file or 
   base `[FHIR.Condition: "..."]` retrieve — both profiles derive from `Condition`, so the base
   retrieve captures every instance without ever forming the Choice. `.prevalenceInterval()` /
   `.isVerified()` / `.verified()` then resolve against FHIRCommon's base-`Condition` overloads
-  (`defect-tracking/_reference/FHIRCommon.cql` lines 394 / 427 / 438). **38 site-level edits, 13
-  measures applied** (2026-08-28: 7 measures / 25 sites; 2026-08-29 Stage 1: 6 measures / 13 branches);
-  **17 measures pending** Stages 2–3. **Inline `is`/`as` is the SUPERSEDED interim workaround**: the
-  earlier host of attempts on CMS90, CMS129, CMS133, CMS142, CMS143, CMS155, CMS157, CMS159, CMS347,
-  CMS951 used per-call-site `is`/`as` dispatch before the base-retrieve approach was proven; any of
-  those sites still present (CMS90, CMS129, CMS951 — Stage 2; CMS133, CMS157, CMS159 — Stage 3;
-  leftovers on CMS142/143/155/347) are converted to base retrieves as each measure passes. The
+  (`defect-tracking/_reference/FHIRCommon.cql` lines 394 / 427 / 438). **54 site-level edits, 22
+  measures applied** (2026-08-28: 7 measures / 25 sites; 2026-08-29 Stage 1: 6 measures / 13 branches;
+  2026-08-29 Stage 2: 9 measures / 16 defines — CMS90, CMS124, CMS129, CMS314, CMS349, CMS646, CMS771,
+  CMS951, CMS1188); **8 measures pending** Stage 3. **Inline `is`/`as` is the SUPERSEDED interim
+  workaround**: the earlier host of attempts on CMS90, CMS129, CMS133, CMS142, CMS143, CMS155, CMS157,
+  CMS159, CMS347, CMS951 used per-call-site `is`/`as` dispatch before the base-retrieve approach was
+  proven; any of those sites still present (CMS133, CMS157, CMS159 — Stage 3; leftovers on
+  CMS142/143/155/347) are converted to base retrieves as each measure passes. The
   `testE15*` / `defectHelper.cql` isolation artifacts retain their `E15` filenames (not renamed; only
   comment text was updated).
 - **Status**: **Verified / Applied**. Original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28);
@@ -372,8 +373,8 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   `( ( [FHIR.Condition: ...] ... ).verified ( ) ) Alias`). Paren balance re-verified; the 0125
   re-run confirms **0 MR (10 → 0)** with zero `Error=` lines. The single remaining mismatch
   (`bc9c82ca`, DenExcl 1→0) adjudicates as the new **E-16** runtime defect (see E-16), not an E-13
-  regression — corroborated by `input/cql/original_CMS1154.cql` (identical exclusion logic) and the
-  active-vs-inactive natural experiment.
+  regression — corroborated by `defect-tracking/_reference/original_CMS1154.cql` (identical
+  exclusion logic) and the active-vs-inactive natural experiment.
 - **Status (harness-verified 2026-08-28 21:31, `discrepancy_report-20260828-2131-condition-union-fix-applied.md`)**:
   all 7 measures re-ran with **zero translate/eval errors and zero Missing Results** — the
   `prevalenceInterval(choice<...>)` resolver errors are gone (verified by grep on all seven
@@ -408,6 +409,14 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   9 passing + 1 mismatch (`bc9c82ca`, DenExcl 1→0), which adjudicates as the new **E-16** runtime
   defect — the base retrieve is behaviourally identical to the reference (the E-13 mechanism is
   closed for CMS1154). The remaining 17 measures above are still E-13-crashing.
+- **Stage-2 applied (2026-08-29, base retrieves; pending harness verification)**: 9 measures / 16
+  defines converted to base `[FHIR.Condition: ...]` with the same `// [E-13]` + `// Original:`
+  convention — CMS90 (Heart Failure + Severe cognitive impairment), CMS124 (Absence of Cervix),
+  CMS129 (Prostate Cancer Pain + Prostate Cancer Diagnosis), CMS314 & CMS1188 (HIV), CMS349 (HIV DenExcl),
+  CMS646 (Tuberculosis, Excluding HIV/Immunocompromised/Mixed Histology, Bladder Cancer), CMS771
+  (Urinary Retention, Initial BPH Diagnosis, Morbid Obesity), CMS951 (Diabetes, CKD5/ESRD). Paren/define
+  balance re-verified for all 9 files. Remaining E-13-crashing → **8 measures (Stage 3)**: CMS128,
+  CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156.
 - **Class A reconciliation (2026-08-28): triage of all 330 exposed mismatch rows — result: EMPTY
   (zero class A, no CQL or fixture disposition required)**. For every measure the exclusive,
   E-13-edited define(s) were confirmed independent of the mismatched populations, and each mismatch
@@ -562,9 +571,9 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   | `bc9c82ca` | `inactive` | `[2025-12-31, null)` (half-open, null high) | FALSE | DenExcl 0 vs expected 1 — mismatch |
 
   The expected value is sound: reproducible by measure intent and by the reference on the original
-  `input/cql/original_CMS1154.cql`, whose exclusion logic is identical. This is NOT expected-value
-  drift (earlier hypothesis retracted) and NOT an E-13 regression — the E-13 union→Choice fix is
-  verified (CMS1154 10 MR → 0).
+  `defect-tracking/_reference/original_CMS1154.cql`, whose exclusion logic is identical. This is NOT
+  expected-value drift (earlier hypothesis retracted) and NOT an E-13 regression — the E-13
+  union→Choice fix is verified (CMS1154 10 MR → 0).
 - **Confirmed affected**: CMS1154 (residual 1 mismatch). Other measures reaching `prevalenceInterval()`
   with inactive/absent clinicalStatus and no abatement over a bounded window are candidates to sweep
   during Stage 2/3.
@@ -662,9 +671,9 @@ Measures with engine-issue workarounds applied (residual mismatches are non-engi
 | CMS128 | E-07 | Local `AntidepressantCoveragePeriod()` | 0 — fully passing |
 | CMS871 | E-01 | (pending `Min()` fix) | **5 MR** — `Unable to locate ValueSet ... 1196.394` + `Invalid Interval` |
 | CMS645 | **E-13** (was E-15; re-attributed; baseline MR was the union translate failure), E-03 | Base `FHIR.Condition` replace (E-13) + `.ext()` | **0 MR** + 3 mismatches: DenException = Patient-Refusal negation (class B); 2 Numerator 0→1 = E-01/`Min()` candidate |
-| CMS646 | **E-13** (was E-15; re-attributed 2026-08-29) | E-13 fix pending (Stage 2) | **38 MR** baseline — cannot load past the condition union |
-| CMS90, CMS133, CMS142, CMS143, CMS155, CMS157, CMS159, CMS951, CMS347, CMS129 | E-13 (was E-15) | Base `FHIR.Condition` retrieve (inline `is`/`as` interim superseded) | Varies — genuine logic mismatches now visible |
-| original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 | E-13 (was E-15; 30 measures confirmed; CMS22/CMS71 excluded) | Base `FHIR.Condition` retrieve replacing sibling-profile union (38 site-level edits / 13 measures applied; 17 pending Stages 2–3) | **Verified** — original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28); Stage 1 (2026-08-29): CMS1157 & CMS143 fully passing, CMS645 0 MR + 3, CMS75 0 MR + 7, CMS142 0 MR + 5 (residuals = class B), CMS1154 verified 0 MR + 1 mismatch = E-16 (0125) |
+| CMS646 | **E-13** (was E-15; re-attributed 2026-08-29) | E-13 base `FHIR.Condition` fix applied 2026-08-29 (pending harness verification) | **38 MR** baseline — cannot load past the condition union |
+| CMS90, CMS124, CMS129, CMS314, CMS349, CMS771, CMS951, CMS1188 (Stage 2 applied 2026-08-29); CMS133, CMS157, CMS159 (Stage 3 pending); CMS142, CMS143, CMS155, CMS347 (Stage 1 applied) | E-13 (was E-15) | Base `FHIR.Condition` retrieve (inline `is`/`as` interim superseded) | Varies — genuine logic mismatches now visible |
+| original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 | E-13 (was E-15; 30 measures confirmed; CMS22/CMS71 excluded) | Base `FHIR.Condition` retrieve replacing sibling-profile union (54 site-level edits / 22 measures applied; 8 pending Stage 3) | **Verified** — original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28); Stage 1 (2026-08-29): CMS1157 & CMS143 fully passing, CMS645 0 MR + 3, CMS75 0 MR + 7, CMS142 0 MR + 5 (residuals = class B), CMS1154 verified 0 MR + 1 mismatch = E-16 (0125); **Stage 2 (2026-08-29): 9 measures applied, pending harness** |
 | CMS1154 | E-13 (was E-15), **E-16** (2026-08-29) | Base `FHIR.Condition` replace (E-13) | **0 MR** — 9/10 passing; 1 residual mismatch (`bc9c82ca` DenExcl 1→0) = E-16 `overlaps` null-high runtime defect (not class B / not drift) |
 | CMS104 | E-12 | None | 7 — union branch empty |
 | CMS0334, CMS1028 | E-14 | None | 1-2 each — unconfirmed |

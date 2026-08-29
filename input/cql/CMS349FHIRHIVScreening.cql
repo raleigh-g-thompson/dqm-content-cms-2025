@@ -45,8 +45,11 @@ define "Numerator":
   ( "Has HIV Test Performed" )
 
 define "Denominator Exclusions":
-  exists ( ( [ConditionProblemsHealthConcerns: "HIV"]
-      union [ConditionEncounterDiagnosis: "HIV"] ) HIVDiagnosis
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   exists ( ( [ConditionProblemsHealthConcerns: "HIV"]
+  //       union [ConditionEncounterDiagnosis: "HIV"] ) HIVDiagnosis
+  exists ( ( [FHIR.Condition: "HIV"] ) HIVDiagnosis
       where HIVDiagnosis.prevalenceInterval ( ) starts before day of start of "Measurement Period"
         and HIVDiagnosis.isVerified ( )
   )

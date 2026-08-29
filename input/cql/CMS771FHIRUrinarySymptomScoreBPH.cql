@@ -125,8 +125,11 @@ define "Morbid Obesity Diagnosis or BMI Exam Result Greater Than or Equal to 40 
     or "BMI Exam Result Greater Than or Equal To 40 During Measurement Period and On or Before Follow Up USS Assessment"
 
 define "Urinary Retention Diagnosis Starts Within 1 Year After Initial BPH Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Urinary Retention"]
-    union [ConditionEncounterDiagnosis: "Urinary Retention"] ) UrinaryRetention
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   ( [ConditionProblemsHealthConcerns: "Urinary Retention"]
+  //     union [ConditionEncounterDiagnosis: "Urinary Retention"] )
+  ( [FHIR.Condition: "Urinary Retention"] ) UrinaryRetention
     with "Initial BPH Diagnosis Starts Within 6 Months Before the Measurement Period" InitialBPHDiagnosis
       such that UrinaryRetention.prevalenceInterval ( ) starts 1 year or less on or after day of start of InitialBPHDiagnosis.prevalenceInterval ( )
     where UrinaryRetention.verificationStatusIsNotInvalid ( )
@@ -152,16 +155,22 @@ define "Has Initial BPH Diagnosis Starts During or Within 30 Days After End of H
         and UrologyHospitalServices.status = 'finished'
 
 define "Initial BPH Diagnosis Starts Within 6 Months Before the Measurement Period":
-  First(([ConditionProblemsHealthConcerns: "Benign prostatic hyperplasia with lower urinary tract symptoms"]
-      union [ConditionEncounterDiagnosis: "Benign prostatic hyperplasia with lower urinary tract symptoms"]) NewBPHDiagnosis
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   First(([ConditionProblemsHealthConcerns: "Benign prostatic hyperplasia with lower urinary tract symptoms"]
+  //       union [ConditionEncounterDiagnosis: "Benign prostatic hyperplasia with lower urinary tract symptoms"]) NewBPHDiagnosis
+  First(([FHIR.Condition: "Benign prostatic hyperplasia with lower urinary tract symptoms"]) NewBPHDiagnosis
       where NewBPHDiagnosis.prevalenceInterval ( ) starts during Interval[start of "Measurement Period" - 6 months, start of "Measurement Period"]
         and NewBPHDiagnosis.verificationStatusIsNotInvalid ( )
       sort by start of onset.toInterval ( )
   )
 
 define "Morbid Obesity Diagnosis On or Before Follow Up USS Assessment":
-  ( [ConditionProblemsHealthConcerns: "Morbid Obesity"]
-    union [ConditionEncounterDiagnosis: "Morbid Obesity"] ) MorbidObesityDiagnosis
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   ( [ConditionProblemsHealthConcerns: "Morbid Obesity"]
+  //     union [ConditionEncounterDiagnosis: "Morbid Obesity"] )
+  ( [FHIR.Condition: "Morbid Obesity"] ) MorbidObesityDiagnosis
     with "Urinary Symptom Score 6 to 12 Months After Initial BPH Diagnosis" FollowUpUSSAssessment
       such that MorbidObesityDiagnosis.prevalenceInterval ( ) overlaps "Measurement Period"
         and MorbidObesityDiagnosis.prevalenceInterval ( ) starts on or before FollowUpUSSAssessment.effectiveDatetime
