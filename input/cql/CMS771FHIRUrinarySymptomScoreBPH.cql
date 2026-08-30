@@ -13,7 +13,6 @@ include hl7.fhir.us.cql.USCoreCommon version '2.0.0-ballot' called USCoreCommon
 include hl7.fhir.us.cql.USCoreElements version '2.0.0-ballot' called USCoreElements
 
 include CQMCommon version '5.1.000' called CQMCommon
-include USQualityCoreCommon version '0.1.0-cibuild' called USQualityCoreCommon
 include SupplementalDataElements version '6.1.000' called SDE
 include Status version '2.1.000' called Status
 
@@ -193,6 +192,13 @@ define "BMI Exam Result Greater Than or Equal To 40 During Measurement Period an
   )
 
 define fluent function verificationStatusIsNotInvalid(condition Choice<"ConditionEncounterDiagnosis", "ConditionProblemsHealthConcerns">):
+  condition.verificationStatus is null
+    or not ( condition.verificationStatus ~ Status."unconfirmed"
+        or condition.verificationStatus ~ Status."refuted"
+        or condition.verificationStatus ~ Status."entered-in-error"
+    )
+
+define fluent function verificationStatusIsNotInvalid(condition FHIR.Condition):
   condition.verificationStatus is null
     or not ( condition.verificationStatus ~ Status."unconfirmed"
         or condition.verificationStatus ~ Status."refuted"
