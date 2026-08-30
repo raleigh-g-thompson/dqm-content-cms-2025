@@ -58,16 +58,17 @@ def capture_results(file: str) -> Results:
     with open(file, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            key = (row["measure_name"], row["guid"], row["population"])
-            rows[key] = row["count"]
+            if not row['measure_name'].lower().startswith("test"):
+                key = (row["measure_name"], row["guid"], row["population"])
+                rows[key] = row["count"]
 
-            group_and_population = row["population"].split(':')
-            if group_and_population[1] not in ValidMeasurePopulationTypes:
-                continue
+                group_and_population = row["population"].split(':')
+                if group_and_population[1] not in ValidMeasurePopulationTypes:
+                    continue
 
-            result_key = ResultKey(row["measure_name"], row["guid"], group_and_population[0])
-            result = results.setdefault(result_key, {})
-            result[group_and_population[1]] = row["count"]
+                result_key = ResultKey(row["measure_name"], row["guid"], group_and_population[0])
+                result = results.setdefault(result_key, {})
+                result[group_and_population[1]] = row["count"]
     return Results(rows, results)
 
 def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[int, int]:
