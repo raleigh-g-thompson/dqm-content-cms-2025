@@ -1,7 +1,7 @@
 # Measure Failure Tracker
 
-_Baseline: `discrepancy_report`_
-_Generated: 2026-08-31 00:36_
+_Baseline: `discrepancy_report-20260831-0703-fix-cms159`_
+_Generated: 2026-08-31 08:53_
 
 ## Summary
 
@@ -11,15 +11,15 @@ _Generated: 2026-08-31 00:36_
 | Total Test Cases | 3964 |
 | Passing Measures | 15 |
 | Failing Measures | 59 |
-| Total Failing Test Cases | 1603 |
-| Total Rows (incl. multi-pop expansion) | 2389 |
+| Total Failing Test Cases | 1295 |
+| Total Rows (incl. multi-pop expansion) | 2110 |
 
 ### By Failure Type
 
 | Type | Entries |
 |---|---|
-| Missing Results | 588 |
-| Mismatched | 1015 |
+| Missing Results | 218 |
+| Mismatched | 1077 |
 
 ### By Known Root Cause
 
@@ -29,11 +29,11 @@ _Generated: 2026-08-31 00:36_
 | §1 | 1 (CMS347FHIRStatinPreventionTxCVD) | 178 | _pending_ |
 | §2 | 1 (CMS347FHIRStatinPreventionTxCVD) | 178 | _pending_ |
 | §3 | 2 (CMS347FHIRStatinPreventionTxCVD, CMS1264FHIRECATREHQR) | 235 | _pending_ |
-| §4 | 2 (CMS128FHIRAntidepressantMgmt, CMS156FHIRHighRiskMedsElderly) | 193 | _pending_ |
+| §4 | 2 (CMS128FHIRAntidepressantMgmt, CMS156FHIRHighRiskMedsElderly) | 57 | _pending_ |
 | §5.1 | 1 (CMS1173FHIRDiagnosticDelayVTE) | 62 | _pending_ |
 | §5.11 | 2 (CMS135FHIRACEIorARBorARNIforHF, CMS165FHIRControllingHighBP) | 42 | _pending_ |
 | §5.3 | 2 (CMS68FHIRDocumentationCurrentMeds, CMS144FHIRHFBetaBlockerForLVSD) | 4 | _pending_ |
-| Not yet classified | 48 | 1028 | _pending_ |
+| Not yet classified | 48 | 856 | _pending_ |
 
 ---
 
@@ -1152,399 +1152,118 @@ _Generated: 2026-08-31 00:36_
 
 
 ### CMS156FHIRHighRiskMedsElderly
-**Total cases**: 177 | **Failing**: 177 (177 MR, 0 mismatched)
+**Total cases**: 177 | **Failing**: 41 (0 MR, 41 mismatched)
 **Root cause**: **§4** CMD full adaptation (#25)
 
-| Test Case | Type | Group | Resolution |
-|---|---|---|---|
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `60883694-3c84-4343-b12b-b017f1c57587` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `60883694-3c84-4343-b12b-b017f1c57587` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `60883694-3c84-4343-b12b-b017f1c57587` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | Missing Results | Group_1 | §4 — CMD full adaptation (#25) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | Missing Results | Group_2 | §4 — CMD full adaptation (#25) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | Missing Results | Group_3 | §4 — CMD full adaptation (#25) |
+| Test Case | Type | Group | Population | E | A | Resolution |
+|---|---|---|---|---|---|---|
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | Mismatched | Group_1 | Numerator | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | Mismatched | Group_3 | Numerator | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Mismatched | Group_2 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | Mismatched | Group_3 | Denominator Exclusion | 1 | 0 | §4 — CMD full adaptation (#25) |
 
 
 ### CMS157FHIRPainIntensityQuantified
-**Total cases**: 126 | **Failing**: 126 (126 MR, 0 mismatched)
+**Total cases**: 126 | **Failing**: 19 (0 MR, 19 mismatched)
 **Root cause**: _pending classification_
-**Note**: All 126 failing cases are Missing Results — likely a single shared root cause (engine crash or library resolution failure)
 
-| Test Case | Type | Group | Resolution |
-|---|---|---|---|
-| `b0729673-76ed-4c08-ae06-acd214ad203d` | Missing Results | Group_1 | _pending_ |
-| `b0729673-76ed-4c08-ae06-acd214ad203d` | Missing Results | Group_2 | _pending_ |
-| `90d3454a-ca4b-4035-a524-255a2f03bef7` | Missing Results | Group_1 | _pending_ |
-| `90d3454a-ca4b-4035-a524-255a2f03bef7` | Missing Results | Group_2 | _pending_ |
-| `a6620e07-4eac-4f5c-afb4-3e5e43cb1bf4` | Missing Results | Group_1 | _pending_ |
-| `a6620e07-4eac-4f5c-afb4-3e5e43cb1bf4` | Missing Results | Group_2 | _pending_ |
-| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | Missing Results | Group_1 | _pending_ |
-| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | Missing Results | Group_2 | _pending_ |
-| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | Missing Results | Group_1 | _pending_ |
-| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | Missing Results | Group_2 | _pending_ |
-| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | Missing Results | Group_1 | _pending_ |
-| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | Missing Results | Group_2 | _pending_ |
-| `4bf7c1f5-8c25-4cd9-9ca8-d67e9f1283cb` | Missing Results | Group_1 | _pending_ |
-| `4bf7c1f5-8c25-4cd9-9ca8-d67e9f1283cb` | Missing Results | Group_2 | _pending_ |
-| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | Missing Results | Group_1 | _pending_ |
-| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | Missing Results | Group_2 | _pending_ |
-| `ba6d787f-d15f-4e22-8ee4-30c12d53aa37` | Missing Results | Group_1 | _pending_ |
-| `ba6d787f-d15f-4e22-8ee4-30c12d53aa37` | Missing Results | Group_2 | _pending_ |
-| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | Missing Results | Group_1 | _pending_ |
-| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | Missing Results | Group_2 | _pending_ |
-| `bed82a8e-cb87-42ec-8663-17d35c34c060` | Missing Results | Group_1 | _pending_ |
-| `bed82a8e-cb87-42ec-8663-17d35c34c060` | Missing Results | Group_2 | _pending_ |
-| `757c5855-602e-4c25-8783-c22afccc1618` | Missing Results | Group_1 | _pending_ |
-| `757c5855-602e-4c25-8783-c22afccc1618` | Missing Results | Group_2 | _pending_ |
-| `77e4bd8b-a8d2-4aa4-8ff8-f746bd8f4e9d` | Missing Results | Group_1 | _pending_ |
-| `77e4bd8b-a8d2-4aa4-8ff8-f746bd8f4e9d` | Missing Results | Group_2 | _pending_ |
-| `1e0e0760-4753-41f3-9638-424028d00381` | Missing Results | Group_1 | _pending_ |
-| `1e0e0760-4753-41f3-9638-424028d00381` | Missing Results | Group_2 | _pending_ |
-| `bbdccaa6-f3a0-426d-8e77-eff43095cfc9` | Missing Results | Group_1 | _pending_ |
-| `bbdccaa6-f3a0-426d-8e77-eff43095cfc9` | Missing Results | Group_2 | _pending_ |
-| `6c1a8557-73be-4026-9ec6-f0699bfcbfda` | Missing Results | Group_1 | _pending_ |
-| `6c1a8557-73be-4026-9ec6-f0699bfcbfda` | Missing Results | Group_2 | _pending_ |
-| `33592e78-771b-4ed2-85e0-67aeb0175fbe` | Missing Results | Group_1 | _pending_ |
-| `33592e78-771b-4ed2-85e0-67aeb0175fbe` | Missing Results | Group_2 | _pending_ |
-| `18a871b4-b7d2-4fca-bd04-155b44965f4e` | Missing Results | Group_1 | _pending_ |
-| `18a871b4-b7d2-4fca-bd04-155b44965f4e` | Missing Results | Group_2 | _pending_ |
-| `21096f8d-bfa3-4abe-a9b0-150e6dd8a615` | Missing Results | Group_1 | _pending_ |
-| `21096f8d-bfa3-4abe-a9b0-150e6dd8a615` | Missing Results | Group_2 | _pending_ |
-| `4cb92166-501c-46e1-9c52-6693e48b0c6d` | Missing Results | Group_1 | _pending_ |
-| `4cb92166-501c-46e1-9c52-6693e48b0c6d` | Missing Results | Group_2 | _pending_ |
-| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | Missing Results | Group_1 | _pending_ |
-| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | Missing Results | Group_2 | _pending_ |
-| `055640ae-dc71-4e1d-918b-e367013de209` | Missing Results | Group_1 | _pending_ |
-| `055640ae-dc71-4e1d-918b-e367013de209` | Missing Results | Group_2 | _pending_ |
-| `a521979b-9bae-48cf-893d-26b6abef5ce6` | Missing Results | Group_1 | _pending_ |
-| `a521979b-9bae-48cf-893d-26b6abef5ce6` | Missing Results | Group_2 | _pending_ |
-| `08690d2a-e82c-473f-a8c2-9fd5dc6747de` | Missing Results | Group_1 | _pending_ |
-| `08690d2a-e82c-473f-a8c2-9fd5dc6747de` | Missing Results | Group_2 | _pending_ |
-| `d7e9bf7d-2b55-4ae1-ab9e-c03cdedb1a2b` | Missing Results | Group_1 | _pending_ |
-| `d7e9bf7d-2b55-4ae1-ab9e-c03cdedb1a2b` | Missing Results | Group_2 | _pending_ |
-| `0cadffba-143c-4a8f-9260-fcd45aa2c9c1` | Missing Results | Group_1 | _pending_ |
-| `0cadffba-143c-4a8f-9260-fcd45aa2c9c1` | Missing Results | Group_2 | _pending_ |
-| `37eca1e7-49b2-40ae-a3fd-1581c030b62c` | Missing Results | Group_1 | _pending_ |
-| `37eca1e7-49b2-40ae-a3fd-1581c030b62c` | Missing Results | Group_2 | _pending_ |
-| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | Missing Results | Group_1 | _pending_ |
-| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | Missing Results | Group_2 | _pending_ |
-| `64e6ec83-91f3-49be-8a32-cce1f3468a2e` | Missing Results | Group_1 | _pending_ |
-| `64e6ec83-91f3-49be-8a32-cce1f3468a2e` | Missing Results | Group_2 | _pending_ |
-| `1f368295-58dc-4c0e-b23f-704d867ed0ef` | Missing Results | Group_1 | _pending_ |
-| `1f368295-58dc-4c0e-b23f-704d867ed0ef` | Missing Results | Group_2 | _pending_ |
-| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | Missing Results | Group_1 | _pending_ |
-| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | Missing Results | Group_2 | _pending_ |
-| `719a6ae4-ac86-406f-a762-380383e4a74d` | Missing Results | Group_1 | _pending_ |
-| `719a6ae4-ac86-406f-a762-380383e4a74d` | Missing Results | Group_2 | _pending_ |
-| `4863aa47-2ca6-4c00-9e8a-1f14942bbba0` | Missing Results | Group_1 | _pending_ |
-| `4863aa47-2ca6-4c00-9e8a-1f14942bbba0` | Missing Results | Group_2 | _pending_ |
-| `51d8547c-f07f-4441-b616-f458f38e4506` | Missing Results | Group_1 | _pending_ |
-| `51d8547c-f07f-4441-b616-f458f38e4506` | Missing Results | Group_2 | _pending_ |
-| `33bdb226-a5fb-4c20-a429-8dac3875b722` | Missing Results | Group_1 | _pending_ |
-| `33bdb226-a5fb-4c20-a429-8dac3875b722` | Missing Results | Group_2 | _pending_ |
-| `d8cb1d04-842e-4e67-93dc-5510163b7040` | Missing Results | Group_1 | _pending_ |
-| `d8cb1d04-842e-4e67-93dc-5510163b7040` | Missing Results | Group_2 | _pending_ |
-| `b7aad002-16b7-4be2-bc8b-4225e45220d0` | Missing Results | Group_1 | _pending_ |
-| `b7aad002-16b7-4be2-bc8b-4225e45220d0` | Missing Results | Group_2 | _pending_ |
-| `4a6da772-e652-47bf-b596-d1bf4c87f8f7` | Missing Results | Group_1 | _pending_ |
-| `4a6da772-e652-47bf-b596-d1bf4c87f8f7` | Missing Results | Group_2 | _pending_ |
-| `a85a50c2-760c-4bab-837c-a77623961dba` | Missing Results | Group_1 | _pending_ |
-| `a85a50c2-760c-4bab-837c-a77623961dba` | Missing Results | Group_2 | _pending_ |
-| `5595c36f-e82b-40cb-8327-8e691d471868` | Missing Results | Group_1 | _pending_ |
-| `5595c36f-e82b-40cb-8327-8e691d471868` | Missing Results | Group_2 | _pending_ |
-| `5327f324-e0f7-4e95-92ea-a534864a978b` | Missing Results | Group_1 | _pending_ |
-| `5327f324-e0f7-4e95-92ea-a534864a978b` | Missing Results | Group_2 | _pending_ |
-| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | Missing Results | Group_1 | _pending_ |
-| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | Missing Results | Group_2 | _pending_ |
-| `6e225f30-e9e3-4206-8e79-01dc394f6e2f` | Missing Results | Group_1 | _pending_ |
-| `6e225f30-e9e3-4206-8e79-01dc394f6e2f` | Missing Results | Group_2 | _pending_ |
-| `28f57404-e619-4b1e-905f-5d89fffeffcd` | Missing Results | Group_1 | _pending_ |
-| `28f57404-e619-4b1e-905f-5d89fffeffcd` | Missing Results | Group_2 | _pending_ |
-| `be20e6d8-f2f2-49d9-abc1-39e93ba36a1c` | Missing Results | Group_1 | _pending_ |
-| `be20e6d8-f2f2-49d9-abc1-39e93ba36a1c` | Missing Results | Group_2 | _pending_ |
-| `91ebcd41-a1a5-45e0-95fd-e2a2799f4459` | Missing Results | Group_1 | _pending_ |
-| `91ebcd41-a1a5-45e0-95fd-e2a2799f4459` | Missing Results | Group_2 | _pending_ |
-| `e529e266-033b-4aec-abbc-d7fb27b7286c` | Missing Results | Group_1 | _pending_ |
-| `e529e266-033b-4aec-abbc-d7fb27b7286c` | Missing Results | Group_2 | _pending_ |
-| `166cfb40-26ae-4f7a-b878-4c17075f32bc` | Missing Results | Group_1 | _pending_ |
-| `166cfb40-26ae-4f7a-b878-4c17075f32bc` | Missing Results | Group_2 | _pending_ |
-| `08f5e385-dbd5-4405-98ab-673d7d582069` | Missing Results | Group_1 | _pending_ |
-| `08f5e385-dbd5-4405-98ab-673d7d582069` | Missing Results | Group_2 | _pending_ |
-| `1b733c44-815e-4cff-b4e9-6b39623feff8` | Missing Results | Group_1 | _pending_ |
-| `1b733c44-815e-4cff-b4e9-6b39623feff8` | Missing Results | Group_2 | _pending_ |
-| `8e23417a-471a-45bb-b936-57466dc6592c` | Missing Results | Group_1 | _pending_ |
-| `8e23417a-471a-45bb-b936-57466dc6592c` | Missing Results | Group_2 | _pending_ |
-| `f0f73fe9-f8ae-4994-911f-1745e5efbce3` | Missing Results | Group_1 | _pending_ |
-| `f0f73fe9-f8ae-4994-911f-1745e5efbce3` | Missing Results | Group_2 | _pending_ |
-| `ea08cba3-e556-496e-8aab-3b1e6f58fda0` | Missing Results | Group_1 | _pending_ |
-| `ea08cba3-e556-496e-8aab-3b1e6f58fda0` | Missing Results | Group_2 | _pending_ |
-| `2770d3f8-16d0-435c-8a52-287e2ed15870` | Missing Results | Group_1 | _pending_ |
-| `2770d3f8-16d0-435c-8a52-287e2ed15870` | Missing Results | Group_2 | _pending_ |
-| `338b6de7-9fdb-4e6b-a0cf-571459f31127` | Missing Results | Group_1 | _pending_ |
-| `338b6de7-9fdb-4e6b-a0cf-571459f31127` | Missing Results | Group_2 | _pending_ |
-| `99b8fe18-bd93-4c05-ad65-028460e98398` | Missing Results | Group_1 | _pending_ |
-| `99b8fe18-bd93-4c05-ad65-028460e98398` | Missing Results | Group_2 | _pending_ |
-| `e085c0d1-a736-4596-a5cd-7de785d0d144` | Missing Results | Group_1 | _pending_ |
-| `e085c0d1-a736-4596-a5cd-7de785d0d144` | Missing Results | Group_2 | _pending_ |
-| `ae0726cf-ea31-4527-95b4-ed5da7b381bf` | Missing Results | Group_1 | _pending_ |
-| `ae0726cf-ea31-4527-95b4-ed5da7b381bf` | Missing Results | Group_2 | _pending_ |
-| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | Missing Results | Group_1 | _pending_ |
-| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | Missing Results | Group_2 | _pending_ |
-| `da126090-7372-47c7-a703-8a06a0216fc0` | Missing Results | Group_1 | _pending_ |
-| `da126090-7372-47c7-a703-8a06a0216fc0` | Missing Results | Group_2 | _pending_ |
-| `d6434f7f-8639-41c0-aa95-d67ae191ad37` | Missing Results | Group_1 | _pending_ |
-| `d6434f7f-8639-41c0-aa95-d67ae191ad37` | Missing Results | Group_2 | _pending_ |
-| `ede0d103-285f-42f0-807e-ff272f1ae70e` | Missing Results | Group_1 | _pending_ |
-| `ede0d103-285f-42f0-807e-ff272f1ae70e` | Missing Results | Group_2 | _pending_ |
-| `233d84af-d725-4682-8253-d6c4e02da0d5` | Missing Results | Group_1 | _pending_ |
-| `233d84af-d725-4682-8253-d6c4e02da0d5` | Missing Results | Group_2 | _pending_ |
+| Test Case | Type | Group | Population | E | A | Resolution |
+|---|---|---|---|---|---|---|
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ |
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ |
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | Mismatched | Group_1 | Numerator | 2 | 0 | _pending_ |
+| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | Mismatched | Group_2 | Initial Population | 2 | 0 | _pending_ |
+| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | Mismatched | Group_2 | Denominator | 2 | 0 | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | Mismatched | Group_2 | Initial Population | 1 | 0 | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | Mismatched | Group_2 | Denominator | 1 | 0 | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | Mismatched | Group_2 | Numerator | 1 | 0 | _pending_ |
+| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | Mismatched | Group_2 | Initial Population | 1 | 0 | _pending_ |
+| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | Mismatched | Group_2 | Denominator | 1 | 0 | _pending_ |
+| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `757c5855-602e-4c25-8783-c22afccc1618` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `757c5855-602e-4c25-8783-c22afccc1618` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `055640ae-dc71-4e1d-918b-e367013de209` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `055640ae-dc71-4e1d-918b-e367013de209` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | Mismatched | Group_2 | Initial Population | 2 | 0 | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | Mismatched | Group_2 | Denominator | 2 | 0 | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | Mismatched | Group_2 | Numerator | 1 | 0 | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | Mismatched | Group_2 | Initial Population | 1 | 0 | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | Mismatched | Group_2 | Denominator | 1 | 0 | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | Mismatched | Group_2 | Numerator | 1 | 0 | _pending_ |
+| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | Mismatched | Group_2 | Initial Population | 1 | 0 | _pending_ |
+| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | Mismatched | Group_2 | Denominator | 1 | 0 | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | Mismatched | Group_2 | Initial Population | 1 | 0 | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | Mismatched | Group_2 | Denominator | 1 | 0 | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | Mismatched | Group_2 | Numerator | 1 | 0 | _pending_ |
+| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `ede0d103-285f-42f0-807e-ff272f1ae70e` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `ede0d103-285f-42f0-807e-ff272f1ae70e` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ |
 
 
 ### CMS159FHIRDepRemissionat12Months
-**Total cases**: 67 | **Failing**: 67 (67 MR, 0 mismatched)
+**Total cases**: 67 | **Failing**: 2 (0 MR, 2 mismatched)
 **Root cause**: _pending classification_
-**Note**: All 67 failing cases are Missing Results — likely a single shared root cause (engine crash or library resolution failure)
 
-| Test Case | Type | Group | Resolution |
-|---|---|---|---|
-| `702deaa2-e038-4ed9-a804-de9e524a2498` | Missing Results | Group_1 | _pending_ |
-| `d76f4e0d-178a-4a66-9a50-bbb614819879` | Missing Results | Group_1 | _pending_ |
-| `b3921225-60ae-4ad0-a0b9-fa5d02815150` | Missing Results | Group_1 | _pending_ |
-| `8d44efd8-d470-47e4-8051-f5ce02a68f58` | Missing Results | Group_1 | _pending_ |
-| `8467758b-18c6-4576-87cf-c2aeec2e11f9` | Missing Results | Group_1 | _pending_ |
-| `b0477f12-22e7-4717-9c67-879cd8336308` | Missing Results | Group_1 | _pending_ |
-| `cfe7e63e-940a-4eaa-9bb8-738323aef838` | Missing Results | Group_1 | _pending_ |
-| `9879bf57-839e-485e-abf6-51c93a7e31ab` | Missing Results | Group_1 | _pending_ |
-| `9d81b9ca-bbbf-4560-ba4d-61af313324e2` | Missing Results | Group_1 | _pending_ |
-| `72a7c508-6ab5-444d-b306-686793360c8c` | Missing Results | Group_1 | _pending_ |
-| `393ab9f4-1c36-4462-8de5-726ab95d95a2` | Missing Results | Group_1 | _pending_ |
-| `491f554e-e897-40c5-ad2b-0983923df4e8` | Missing Results | Group_1 | _pending_ |
-| `879bf9f1-3681-4e7e-bb6a-d140b0e94077` | Missing Results | Group_1 | _pending_ |
-| `74f77040-7994-4888-9b59-d7bcac07673f` | Missing Results | Group_1 | _pending_ |
-| `8cca688d-fceb-4ef9-823c-b4dc612e5eb6` | Missing Results | Group_1 | _pending_ |
-| `f1a332e3-50bc-4b66-b667-f96eeee06553` | Missing Results | Group_1 | _pending_ |
-| `fa45f7d1-d257-4fcc-9bef-3188d13c92fe` | Missing Results | Group_1 | _pending_ |
-| `3892ef89-5feb-4ca3-b7c6-d47e5c12c65b` | Missing Results | Group_1 | _pending_ |
-| `f96a2a48-8d71-49dc-9fde-eb45015151ff` | Missing Results | Group_1 | _pending_ |
-| `283ac6f1-db12-490f-a248-6abee25939fc` | Missing Results | Group_1 | _pending_ |
-| `3900270d-e047-4ecf-9b26-7bac7625b328` | Missing Results | Group_1 | _pending_ |
-| `9b4f7024-eb2e-4896-90e7-13638aefbe92` | Missing Results | Group_1 | _pending_ |
-| `c907e077-c924-4198-b5ab-69799d4f9ab6` | Missing Results | Group_1 | _pending_ |
-| `d04323b4-e4db-4a9a-9fd1-27d1d48fc595` | Missing Results | Group_1 | _pending_ |
-| `3776140d-948a-4126-908a-6a95af1d80fa` | Missing Results | Group_1 | _pending_ |
-| `624b9027-60eb-4661-9a15-344644178c39` | Missing Results | Group_1 | _pending_ |
-| `8e77e9a0-3406-46f2-8250-92e32da1bc65` | Missing Results | Group_1 | _pending_ |
-| `4963ead8-c4a7-4101-9fac-9a51732f1723` | Missing Results | Group_1 | _pending_ |
-| `8562be3a-0255-4120-8666-c0357bc191e5` | Missing Results | Group_1 | _pending_ |
-| `230e1741-32b1-4d01-8249-84d9cb872af5` | Missing Results | Group_1 | _pending_ |
-| `cf1b6127-e944-4d6b-875e-e410f34a1880` | Missing Results | Group_1 | _pending_ |
-| `2c7de2e3-0aa0-4d6b-bc08-f709d40dfbc1` | Missing Results | Group_1 | _pending_ |
-| `07455a0e-a64a-45f9-bc9f-93eb7078274c` | Missing Results | Group_1 | _pending_ |
-| `7b76e67e-89ec-4ce8-a6e0-2d16b9e4e45b` | Missing Results | Group_1 | _pending_ |
-| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | Missing Results | Group_1 | _pending_ |
-| `0604cc6e-338a-44bf-a89a-d8de53669314` | Missing Results | Group_1 | _pending_ |
-| `9f647f13-3b86-4bba-8f9d-0a07add72c04` | Missing Results | Group_1 | _pending_ |
-| `4888e5a5-18ce-4034-b597-68b631225fc2` | Missing Results | Group_1 | _pending_ |
-| `b2dab5c6-a321-43e0-9702-6b160890a2e7` | Missing Results | Group_1 | _pending_ |
-| `67ae7ee1-9671-4538-b963-59954a17f2b3` | Missing Results | Group_1 | _pending_ |
-| `a7fc8494-7b23-46f5-864c-fdc7e073a4c8` | Missing Results | Group_1 | _pending_ |
-| `8152f580-989d-4f81-9ff5-85688f8e4635` | Missing Results | Group_1 | _pending_ |
-| `3c1d5414-b278-413e-ac39-dd6ae5675671` | Missing Results | Group_1 | _pending_ |
-| `66e74744-5743-4af3-84e7-598a367e4fbd` | Missing Results | Group_1 | _pending_ |
-| `b263321d-43c1-42bd-909c-e93ab2e0cf03` | Missing Results | Group_1 | _pending_ |
-| `fdc596ef-6cea-41b6-97b5-d090af98aff8` | Missing Results | Group_1 | _pending_ |
-| `dc631478-5608-42e4-8225-6bdc4188b16b` | Missing Results | Group_1 | _pending_ |
-| `16eff6ae-362b-458a-b631-834ce4ba9402` | Missing Results | Group_1 | _pending_ |
-| `b120a966-fc33-4768-b057-9e1e686d2c88` | Missing Results | Group_1 | _pending_ |
-| `3d1903ea-dd18-420b-9f1f-0aa798664fb4` | Missing Results | Group_1 | _pending_ |
-| `f737aa8d-fc32-41cd-82be-f0da91e7313c` | Missing Results | Group_1 | _pending_ |
-| `25917324-d22a-4165-9f18-54b2d1e3ddbf` | Missing Results | Group_1 | _pending_ |
-| `7a417e07-f9e1-490d-a175-0fe32c374f52` | Missing Results | Group_1 | _pending_ |
-| `2b4c52e3-daa6-4569-bf24-b9a712a027c3` | Missing Results | Group_1 | _pending_ |
-| `041977d6-9e3e-493b-9260-0b919f02fbcf` | Missing Results | Group_1 | _pending_ |
-| `6c3abc11-1c4b-4877-a256-693f77c9d67d` | Missing Results | Group_1 | _pending_ |
-| `01083d96-9f99-4138-824d-f4a0eab21f75` | Missing Results | Group_1 | _pending_ |
-| `2fb854f8-6582-4506-b16e-c09b01f5af05` | Missing Results | Group_1 | _pending_ |
-| `7b7bd954-f185-43d1-b5fe-08622eb011e9` | Missing Results | Group_1 | _pending_ |
-| `f9bc58d1-b545-404a-b5c5-488c157c21f2` | Missing Results | Group_1 | _pending_ |
-| `5aeeabf3-8f62-4042-abda-99746f34f664` | Missing Results | Group_1 | _pending_ |
-| `aedc0360-4636-4a4e-9617-4bf60c03f767` | Missing Results | Group_1 | _pending_ |
-| `3650cd70-613a-445f-a924-534a05a5a5c0` | Missing Results | Group_1 | _pending_ |
-| `c8f6a83b-060e-4359-a6c0-9f57c8623516` | Missing Results | Group_1 | _pending_ |
-| `5803e753-e2a2-4c62-9914-20f7134f36c3` | Missing Results | Group_1 | _pending_ |
-| `cfe262d9-4bbe-4f41-9b5d-f16d55f4db31` | Missing Results | Group_1 | _pending_ |
-| `b34e3afc-de09-4850-861e-964ad3a94e67` | Missing Results | Group_1 | _pending_ |
+| Test Case | Type | Group | Population | E | A | Resolution |
+|---|---|---|---|---|---|---|
+| `491f554e-e897-40c5-ad2b-0983923df4e8` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ |
+| `491f554e-e897-40c5-ad2b-0983923df4e8` | Mismatched | Group_1 | Numerator | 0 | 1 | _pending_ |
+| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ |
+| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | Mismatched | Group_1 | Numerator | 0 | 1 | _pending_ |
 
 
 ### CMS165FHIRControllingHighBP
@@ -2942,11 +2661,7 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `007fe881-a18d-418f-8ddf-0ee94fc9a10a` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `00829185-d673-4377-91f6-8ef11945ef08` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `00845eb5-a7ef-4edd-a566-813ed3ca749a` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `00da3e6b-9ab1-48b6-8b34-a0f08754fb3c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `00f27092-14a7-4d87-b35a-5a112ca99201` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
-| `01083d96-9f99-4138-824d-f4a0eab21f75` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `017a2267-f463-47a6-8b8b-dc91465e0869` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
 | `017a2267-f463-47a6-8b8b-dc91465e0869` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
 | `01959faf-5ea5-41cb-b960-b74da18cca85` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -2972,14 +2687,10 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `040dc7b1-27f9-43a3-82c9-b1a514db3071` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `040dc7b1-27f9-43a3-82c9-b1a514db3071` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `040dc7b1-27f9-43a3-82c9-b1a514db3071` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `041977d6-9e3e-493b-9260-0b919f02fbcf` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `043f64b7-dd25-42ea-9785-0bdcbe64b27a` | CMS75FHIRChildrenDentalDecay | mismatched | _pending_ |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `0440a9c0-f299-43a6-bfef-cb2cf326ee85` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `048b1f27-6343-4bcd-950d-e228de06aa9c` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `048b1f27-6343-4bcd-950d-e228de06aa9c` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `048b1f27-6343-4bcd-950d-e228de06aa9c` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -2988,13 +2699,13 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `050201c2-c2c4-46e6-8288-a34f99caebdc` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `051c5977-9f2c-4e8b-8e02-ac3ec0c718d6` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ |
 | `051c9480-438e-48d5-b91f-5f8f980b1f8b` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `055640ae-dc71-4e1d-918b-e367013de209` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `055640ae-dc71-4e1d-918b-e367013de209` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `055640ae-dc71-4e1d-918b-e367013de209` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `055640ae-dc71-4e1d-918b-e367013de209` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `0587a75d-0dcc-4c6b-bfc0-f5727342ec1f` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
 | `0587a75d-0dcc-4c6b-bfc0-f5727342ec1f` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `05aa403d-44c1-4c71-acb9-7808568b6a4f` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `05c8cd12-addd-4b94-8f92-da093c556a84` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `05c8cd12-addd-4b94-8f92-da093c556a84` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `05cbc93d-e748-4bca-b68d-3011ebf68e28` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ |
@@ -3002,7 +2713,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `05ec524f-1d2d-4f9e-8eaa-cc2662030fc6` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `05ec524f-1d2d-4f9e-8eaa-cc2662030fc6` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `05f1e2a6-b317-42bb-827f-993ca3995f5b` | CMS142FHIRCommWithDrManagingDiab | mismatched | _pending_ |
-| `0604cc6e-338a-44bf-a89a-d8de53669314` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `068814f1-4270-4e10-b470-9a5433bceb3e` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `06f036ce-62f0-4807-88d2-f3f8e70d2f31` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `06f036ce-62f0-4807-88d2-f3f8e70d2f31` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3010,7 +2720,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `072fc02e-93db-449c-a293-2e8525a49694` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `072fc02e-93db-449c-a293-2e8525a49694` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `072fc02e-93db-449c-a293-2e8525a49694` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `07455a0e-a64a-45f9-bc9f-93eb7078274c` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `0784160c-98b6-43a2-baa1-77ea9f3fe884` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0784160c-98b6-43a2-baa1-77ea9f3fe884` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0784160c-98b6-43a2-baa1-77ea9f3fe884` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3019,14 +2728,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `078ef6a8-509f-4f36-98f3-977174636356` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `07efd4bb-b45d-4bfd-aeb2-08de49742d91` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | §5.3 — AHAOverall Choice-type gap (Blocked) |
 | `07efd4bb-b45d-4bfd-aeb2-08de49742d91` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | §5.3 — AHAOverall Choice-type gap (Blocked) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `07f11229-6e8f-42bf-9905-3d319460fb33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `08473857-1c97-48cf-8ac3-4d70823cac80` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `0852e05c-94f3-4467-ad2c-255ffc5050e9` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `0852e05c-94f3-4467-ad2c-255ffc5050e9` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `08690d2a-e82c-473f-a8c2-9fd5dc6747de` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `08690d2a-e82c-473f-a8c2-9fd5dc6747de` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3037,8 +2741,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `08dfc736-3cb5-467c-93cf-99146604a8f4` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08dfc736-3cb5-467c-93cf-99146604a8f4` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08dfc736-3cb5-467c-93cf-99146604a8f4` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `08f5e385-dbd5-4405-98ab-673d7d582069` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `08f5e385-dbd5-4405-98ab-673d7d582069` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `08f8343e-9a9e-4ff5-b21c-1fb44e29aa9a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08f8343e-9a9e-4ff5-b21c-1fb44e29aa9a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `08f8343e-9a9e-4ff5-b21c-1fb44e29aa9a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3063,8 +2765,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `0c8a299c-b082-4383-b0b4-aebbb0fa9fb4` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `0c8a299c-b082-4383-b0b4-aebbb0fa9fb4` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `0c9d7ae1-4643-4c50-bc48-0274a3f2d234` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
-| `0cadffba-143c-4a8f-9260-fcd45aa2c9c1` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `0cadffba-143c-4a8f-9260-fcd45aa2c9c1` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `0ce81150-5908-49a1-bef9-21406359af63` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0ce81150-5908-49a1-bef9-21406359af63` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0ce81150-5908-49a1-bef9-21406359af63` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3074,9 +2774,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `0dae17b4-e912-4463-896e-4bd78317c9fb` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `0dfafc1a-cf94-4ca1-becf-c1b843896810` | CMS1017FHIRHHFI | mismatched | _pending_ |
 | `0e296f04-855b-42ad-aa20-295a719a96e5` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `0e31d00f-8b4e-4800-a7f7-ab8b824bf689` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `0e334f85-c298-401d-95ab-bad7ae13ced8` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0e334f85-c298-401d-95ab-bad7ae13ced8` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `0e334f85-c298-401d-95ab-bad7ae13ced8` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3156,17 +2853,11 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `162a5913-9989-42f2-8d6a-ae460e245e4c` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `162a5913-9989-42f2-8d6a-ae460e245e4c` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `1633d9cf-11d4-497f-9924-95b10f9dc11b` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `166cfb40-26ae-4f7a-b878-4c17075f32bc` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `166cfb40-26ae-4f7a-b878-4c17075f32bc` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `16acd0ee-60e7-4573-b433-5a9c335c145b` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `16cffb87-15ea-48b7-bd68-f211f48d6f19` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `16cffb87-15ea-48b7-bd68-f211f48d6f19` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `16cffb87-15ea-48b7-bd68-f211f48d6f19` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `16eff6ae-362b-458a-b631-834ce4ba9402` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `172cf64c-b5a3-4245-bd62-d7cd7473eb94` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `1789d80d-bc5b-4e15-ab64-399d05e55a19` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `17be91ec-117d-4767-8271-f0403f0c8f84` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `18031954-8ff7-4bb0-8d54-b5c88ab9c925` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `182103c1-0a38-4d85-819c-148e4e105716` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
@@ -3177,13 +2868,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `184b56d3-9ebd-4802-8e3b-cdaa95a5f50a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `184b56d3-9ebd-4802-8e3b-cdaa95a5f50a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `187cc99d-9cb5-442f-8201-3695e5358101` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `18a871b4-b7d2-4fca-bd04-155b44965f4e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `18a871b4-b7d2-4fca-bd04-155b44965f4e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `1905549a-1783-4195-95b9-b0879cb81d96` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `19608155-9049-41fc-9a02-d856e4143773` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `1968ff78-9027-4ea9-99c8-42282743bfc3` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `19a551f9-e826-4cce-bde3-cc013c182ada` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `19b5b244-6834-40f7-b8a2-ff2c6fb84fb0` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `19b5b244-6834-40f7-b8a2-ff2c6fb84fb0` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
@@ -3195,8 +2881,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `1b102c21-830a-41a5-ac27-9aa77ea5adfe` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `1b24b0b1-92fa-405d-88d1-e550896598c1` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `1b24b0b1-92fa-405d-88d1-e550896598c1` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
-| `1b733c44-815e-4cff-b4e9-6b39623feff8` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `1b733c44-815e-4cff-b4e9-6b39623feff8` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `1ba7b147-b701-424c-bade-4e8270547030` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `1ba7b147-b701-424c-bade-4e8270547030` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `1bc5044a-c449-43be-929c-e1956fe9b983` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -3217,8 +2901,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `1e0720b0-0782-4455-a355-8c1ecec3c653` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `1e0720b0-0782-4455-a355-8c1ecec3c653` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `1e0720b0-0782-4455-a355-8c1ecec3c653` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
-| `1e0e0760-4753-41f3-9638-424028d00381` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `1e0e0760-4753-41f3-9638-424028d00381` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `1e23fb8f-e27b-4553-a62a-f66edeb4528a` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `1e4bf1ad-f3bf-42ef-a6c5-e31f53f3b1ac` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `1e8e8baf-0c27-42b2-93ad-5426418552c7` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
@@ -3230,8 +2912,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `1ef5e948-acd1-46ae-ab8d-267febd63bb0` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `1f16120b-56c9-4d72-8dd4-01d8a0175d77` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
 | `1f16120b-56c9-4d72-8dd4-01d8a0175d77` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
-| `1f368295-58dc-4c0e-b23f-704d867ed0ef` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `1f368295-58dc-4c0e-b23f-704d867ed0ef` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `1f64a697-a90b-4aaf-a315-fa84168ac2b4` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `1f64a697-a90b-4aaf-a315-fa84168ac2b4` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `1f70822b-c513-4c3a-8162-49f0bb9c914b` | CMS145FHIRCADBBlockerTPMIorLVSD | mismatched | content gap — No CQL authored (Not conversion) |
@@ -3243,25 +2923,20 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `20922873-db29-4914-a413-eed415e4504b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `20922873-db29-4914-a413-eed415e4504b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `20922873-db29-4914-a413-eed415e4504b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `21096f8d-bfa3-4abe-a9b0-150e6dd8a615` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `21096f8d-bfa3-4abe-a9b0-150e6dd8a615` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `21b841f6-b863-4c1d-8798-41c527b04a92` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `21b841f6-b863-4c1d-8798-41c527b04a92` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `221f787f-b5b1-4e16-ab64-6ab9d3e8744f` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `221f787f-b5b1-4e16-ab64-6ab9d3e8744f` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `221f787f-b5b1-4e16-ab64-6ab9d3e8744f` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `230e1741-32b1-4d01-8249-84d9cb872af5` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `231a16e4-7d60-4e2c-943b-2f4c98994808` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `231a16e4-7d60-4e2c-943b-2f4c98994808` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `231a16e4-7d60-4e2c-943b-2f4c98994808` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2326f161-b68e-4034-91cb-4eae3c2ba587` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `2326f161-b68e-4034-91cb-4eae3c2ba587` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `233d84af-d725-4682-8253-d6c4e02da0d5` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `233d84af-d725-4682-8253-d6c4e02da0d5` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `233d84af-d725-4682-8253-d6c4e02da0d5` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `2343b3b5-019c-4fce-9e7c-efa024e0e408` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `2389a7bb-16a7-4800-ba4a-2585ebd98a0a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `239d5e6f-38d3-461f-a2a1-52abe106e8bb` | CMS117FHIRChildImmunStatus | mismatched | _pending_ |
 | `24557438-17c9-405c-88dc-0c0bfda17d27` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
 | `245b418f-e6d6-4567-a32d-37187a90738d` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -3269,10 +2944,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `24acf4a1-d67f-4584-9b6b-6c8025ffcc0a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `24acf4a1-d67f-4584-9b6b-6c8025ffcc0a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `24acf4a1-d67f-4584-9b6b-6c8025ffcc0a` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `24d82fc3-13b1-4974-9dc1-7771580853df` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `25917324-d22a-4165-9f18-54b2d1e3ddbf` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `259f8551-1cea-44f5-ae9e-e3f083d9f48f` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `259f8551-1cea-44f5-ae9e-e3f083d9f48f` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `259f8551-1cea-44f5-ae9e-e3f083d9f48f` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
@@ -3287,23 +2958,18 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `2727681a-5857-4de1-a892-0cd4e531541c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2727681a-5857-4de1-a892-0cd4e531541c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2727681a-5857-4de1-a892-0cd4e531541c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `2770d3f8-16d0-435c-8a52-287e2ed15870` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `2770d3f8-16d0-435c-8a52-287e2ed15870` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `27849d59-3cef-40bf-8338-a6ec7c0bcf81` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
-| `283ac6f1-db12-490f-a248-6abee25939fc` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `285c85db-f879-4938-867f-daba78f08494` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `285c85db-f879-4938-867f-daba78f08494` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `285c85db-f879-4938-867f-daba78f08494` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2886b1b6-5834-4788-8cd7-b54bbda54ca9` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
 | `289b7214-0496-425b-8ffa-14b2aaa9f771` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `28ac4ec3-5e02-4834-a778-0c1180d118df` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `28e5e607-d5a9-41a4-8f71-88cfe4f5d6bc` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `28f57404-e619-4b1e-905f-5d89fffeffcd` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `28f57404-e619-4b1e-905f-5d89fffeffcd` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `2930f2ff-3263-4a82-9abe-468b39c142b0` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `298d5342-fa0a-4386-bf48-b9c977a1c367` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `298d5342-fa0a-4386-bf48-b9c977a1c367` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
@@ -3320,19 +2986,17 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `2ae1ab8a-7ef3-407f-a218-d6b304c8c298` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `2aeedd2a-4d15-4bb8-bf8d-58ba8371a988` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `2af66e9f-b6b2-4428-9eb5-c7ab057080fd` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `2b4c52e3-daa6-4569-bf24-b9a712a027c3` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `2b6eca9d-7580-4262-ba2c-97f6c174cc33` | CMS139FHIRFallRiskScreening | mismatched | _pending_ |
 | `2bcbe960-db7d-4088-a574-d771baf0f9c7` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `2c2a7958-4d1a-4142-9360-8045067a1c5b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `2c2a7958-4d1a-4142-9360-8045067a1c5b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `2c2a7958-4d1a-4142-9360-8045067a1c5b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `2c55811b-1571-43e5-919c-f90bf763b3d4` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `2c5a09d4-18c9-4128-86fb-bd49871f9231` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2c5a09d4-18c9-4128-86fb-bd49871f9231` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2c5a09d4-18c9-4128-86fb-bd49871f9231` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `2c7de2e3-0aa0-4d6b-bc08-f709d40dfbc1` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `2ce50e7f-4e04-4d5b-9d9a-2243958c2a92` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `2cff757c-4470-46a2-a685-6e23cf82c045` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `2cff757c-4470-46a2-a685-6e23cf82c045` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3340,9 +3004,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `2d54a94c-edf1-4f92-baf8-3813a8ef452d` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `2d54a94c-edf1-4f92-baf8-3813a8ef452d` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `2d54a94c-edf1-4f92-baf8-3813a8ef452d` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `2dfe5252-0eb7-4519-9f4c-d7f95a7acaae` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `2e0b5b75-22d9-4607-b8fe-f31c86620554` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `2e0b5b75-22d9-4607-b8fe-f31c86620554` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `2e1ee160-9c41-4c6f-b368-56c074cfb592` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
@@ -3355,7 +3016,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `2f7681fa-66b0-4395-aa35-7622e37709ae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `2f7681fa-66b0-4395-aa35-7622e37709ae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `2f7681fa-66b0-4395-aa35-7622e37709ae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `2fb854f8-6582-4506-b16e-c09b01f5af05` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `2fc54731-4fd9-4884-aba5-9a8385111375` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `2fc54731-4fd9-4884-aba5-9a8385111375` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `2fc54731-4fd9-4884-aba5-9a8385111375` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -3384,9 +3044,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `31b40acc-ca5f-4d1d-bd83-4b1a14eb822e` | CMS819FHIRHHORAE | mismatched | _pending_ |
 | `31bee4bc-9ca4-4d84-9f1a-a6a6d2d3fac0` | CMS74FHIRDentalCariesPrevention | mismatched | _pending_ |
 | `31cd9edb-02a8-4208-956a-baac147ed8d8` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `32186189-fe9c-41d5-9654-68c0c60aaac6` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `3264d587-3c02-45ff-b989-044fcc30abae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `3264d587-3c02-45ff-b989-044fcc30abae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `3264d587-3c02-45ff-b989-044fcc30abae` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -3395,15 +3055,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `3302c6ff-8767-4be7-9c81-f1d98351b247` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `3302c6ff-8767-4be7-9c81-f1d98351b247` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `3302c6ff-8767-4be7-9c81-f1d98351b247` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `33592e78-771b-4ed2-85e0-67aeb0175fbe` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `33592e78-771b-4ed2-85e0-67aeb0175fbe` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `338b6de7-9fdb-4e6b-a0cf-571459f31127` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `338b6de7-9fdb-4e6b-a0cf-571459f31127` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `339a989b-722c-4452-9d25-454e2d53eea8` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `339a989b-722c-4452-9d25-454e2d53eea8` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `339a989b-722c-4452-9d25-454e2d53eea8` | CMS816FHIRHHHypo | mismatched | _pending_ |
-| `33bdb226-a5fb-4c20-a429-8dac3875b722` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `33bdb226-a5fb-4c20-a429-8dac3875b722` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `33d162ce-3bc7-4b0a-8c04-fec0a42a6263` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `342d2bec-0acc-43e5-aaf7-3c9a65b09f91` | CMS646FHIRIntravesicalBCGTherapy | MR | _pending_ |
@@ -3425,9 +3079,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `3574f4b8-cbdc-410b-8b6a-7f0737546e56` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `35999af4-f52b-4e73-8f05-4bfca8dee7ec` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `35999af4-f52b-4e73-8f05-4bfca8dee7ec` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `35b521b6-1fdd-4742-8137-36213864b0fb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `35d9e119-50ef-4df1-b303-f348596657ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `35d9e119-50ef-4df1-b303-f348596657ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `35d9e119-50ef-4df1-b303-f348596657ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3439,34 +3093,24 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `362e7398-e10b-46d5-8a2d-d3355f9ca0ca` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `36408f0f-58eb-47fe-8e64-1b98e47e5c36` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `36408f0f-58eb-47fe-8e64-1b98e47e5c36` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `3650cd70-613a-445f-a924-534a05a5a5c0` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `3698ad63-09e3-46e8-ba42-39c9cd235603` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `3698ad63-09e3-46e8-ba42-39c9cd235603` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `36e30d76-0d86-4b72-ba89-4ebaacf48b31` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `3739ae38-6a2c-4197-bda6-e493c9df60e3` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `3776140d-948a-4126-908a-6a95af1d80fa` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `37eca1e7-49b2-40ae-a3fd-1581c030b62c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `37eca1e7-49b2-40ae-a3fd-1581c030b62c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `3803ca64-74ee-442c-ac0d-75a925a2bf30` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `385599b5-a1e9-4b7a-8e9f-281c58fed95e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `387784fd-402b-4aec-988a-8cccae537699` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `388557b1-cf25-4750-88b2-751e475b433f` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `388557b1-cf25-4750-88b2-751e475b433f` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `3892ef89-5feb-4ca3-b7c6-d47e5c12c65b` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `38aac591-8983-4d7c-b29e-c8d145e7ffaa` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `38aac591-8983-4d7c-b29e-c8d145e7ffaa` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `38aac591-8983-4d7c-b29e-c8d145e7ffaa` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `38fba18c-6026-4777-b99b-75996d5968e3` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `3900270d-e047-4ecf-9b26-7bac7625b328` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `39215b49-af59-45a7-a773-65e8353dfafd` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `39215b49-af59-45a7-a773-65e8353dfafd` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
-| `393ab9f4-1c36-4462-8de5-726ab95d95a2` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3483,11 +3127,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `3b5da2bf-0fb9-4efc-bc54-4bd329ed31af` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `3b62b0a8-44f2-4365-bcb9-7cadef5bab2e` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `3b62b0a8-44f2-4365-bcb9-7cadef5bab2e` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
-| `3c1d5414-b278-413e-ac39-dd6ae5675671` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `3c4aa676-8ef0-415c-a71e-09289d57cbfa` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `3c854f27-5103-4367-bdef-97c3cde1edb8` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `3d036fff-bb44-4911-b6d4-23e064783f3a` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `3d1903ea-dd18-420b-9f1f-0aa798664fb4` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `3da60e55-4952-4341-b2eb-a79707f4ec3e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `3da60e55-4952-4341-b2eb-a79707f4ec3e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `3da60e55-4952-4341-b2eb-a79707f4ec3e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -3511,9 +3153,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `404c928b-a752-4792-91c4-8a1fd0656759` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `404fce97-6dc2-4f88-9a23-2a158dd6cf51` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `40518296-e99e-49d4-bad4-f2642f690f44` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `407618d7-e2c7-4aae-9744-b447193c4c15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `408f327a-94aa-4787-a1c6-e6fc7fde341d` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `408f327a-94aa-4787-a1c6-e6fc7fde341d` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `409116c1-3cd5-4f1f-8dd5-6b5646bbaff3` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3530,9 +3169,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `41bc23b2-9bf6-4e81-ae25-2b5f78b61b87` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `41df0dbe-ae84-4496-b355-320ff8707a85` | CMS2FHIRPCSDepScreenAndFollowUp | mismatched | _pending_ |
 | `41f2785f-4c4f-4497-a46b-e17fd8b5ee3f` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `42125b07-9cb2-44df-ba1f-78237b0d3ebc` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `429886b7-c347-43d9-9400-979978760850` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `42be9d46-4c2f-4493-8299-d33dcbb7170e` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `42be9d46-4c2f-4493-8299-d33dcbb7170e` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -3541,9 +3177,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4304f97a-e2bb-4cda-93fa-ab510a136403` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `4304f97a-e2bb-4cda-93fa-ab510a136403` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `4354fbec-b63a-46ce-8465-ec82710ea1c6` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `435702f5-68ca-4f81-a7e1-b5060726bb75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `44a3e280-b4ad-4725-b806-1ea7592114d8` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `44a3e280-b4ad-4725-b806-1ea7592114d8` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
@@ -3568,21 +3201,15 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `476bff0b-a87a-413b-91ae-c3a14b7778b1` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `476bff0b-a87a-413b-91ae-c3a14b7778b1` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `47e1aa2d-d7e6-412f-adcf-499556a3b964` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `47f69fc0-fac8-4f88-876b-cf415ec0e214` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `481692c7-2cf7-48fc-8269-967f5d7753bc` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
-| `4863aa47-2ca6-4c00-9e8a-1f14942bbba0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `4863aa47-2ca6-4c00-9e8a-1f14942bbba0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `4888e5a5-18ce-4034-b597-68b631225fc2` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `48952352-d74c-491c-9420-6e999e60f52a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `48952352-d74c-491c-9420-6e999e60f52a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `48952352-d74c-491c-9420-6e999e60f52a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `4911c0c6-22e1-45ad-b39d-7e4d88c200d8` | CMS1028FHIRPCSevereOBComps | mismatched | _pending_ |
 | `4911c0c6-22e1-45ad-b39d-7e4d88c200d8` | CMS1028FHIRPCSevereOBComps | mismatched | _pending_ |
-| `491f554e-e897-40c5-ad2b-0983923df4e8` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
+| `491f554e-e897-40c5-ad2b-0983923df4e8` | CMS159FHIRDepRemissionat12Months | mismatched | _pending_ |
+| `491f554e-e897-40c5-ad2b-0983923df4e8` | CMS159FHIRDepRemissionat12Months | mismatched | _pending_ |
 | `4944fb9a-bf44-4b09-a49f-aae0b6c0ad82` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `4963ead8-c4a7-4101-9fac-9a51732f1723` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `4974042e-fff4-4a3d-905e-548c6593ce40` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `4990e824-e57c-471e-988b-d2ad0b2ce3d5` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `49997661-cfa3-4554-9d30-18dbb589d95c` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
@@ -3594,14 +3221,11 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4a0c6648-a1b6-4361-b966-d3046c519fea` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `4a1c85c3-e97c-4644-b6a1-2475aa1c27e2` | CMS139FHIRFallRiskScreening | mismatched | _pending_ |
 | `4a3a512c-b5bd-4da7-a8ed-a4cf56dfec29` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `4a6da772-e652-47bf-b596-d1bf4c87f8f7` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `4a6da772-e652-47bf-b596-d1bf4c87f8f7` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `4a9211fc-d757-47ae-8bc0-0803c43a6728` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `4a9211fc-d757-47ae-8bc0-0803c43a6728` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
 | `4a9211fc-d757-47ae-8bc0-0803c43a6728` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `4aa75d19-ac8b-49b0-a686-429fbc033d77` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `4aaf0b0a-ccc6-47a5-bfdf-ef7399a9aad2` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `4b31dc2b-7867-4766-8a8c-e1971d1e570a` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `4b6a9c86-3aad-4828-be61-bab6cd0c3140` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -3610,8 +3234,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4b78839b-3a31-4dc7-9b6b-4e06f005c7e0` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ |
 | `4bc4883f-0770-4a68-824a-5fa4dba72638` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `4bc4883f-0770-4a68-824a-5fa4dba72638` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
-| `4bf7c1f5-8c25-4cd9-9ca8-d67e9f1283cb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `4bf7c1f5-8c25-4cd9-9ca8-d67e9f1283cb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `4c234ec0-3f89-4d55-b767-219d1130f634` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ |
 | `4c2caf57-7168-4149-a596-d0914d7e3fe8` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
 | `4c2caf57-7168-4149-a596-d0914d7e3fe8` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
@@ -3623,8 +3245,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4c95d881-2e7e-4e81-bb4c-b1ae680ff286` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `4c95d881-2e7e-4e81-bb4c-b1ae680ff286` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `4c95d881-2e7e-4e81-bb4c-b1ae680ff286` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `4cb92166-501c-46e1-9c52-6693e48b0c6d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `4cb92166-501c-46e1-9c52-6693e48b0c6d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `4d192f80-7649-4afd-a842-528ef60fc904` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `4d38551c-5f48-499c-9e6f-ef6ba800c320` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -3656,8 +3276,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `50d7cf81-dff4-45eb-b43d-0e40b08c3a75` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `519d1935-5a15-4179-833f-ae10d5732753` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `51d39e56-b8b3-40af-976a-4027addbc1ad` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `51d9e817-1222-4048-b79d-be846ab4b48b` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `5230ea22-66f1-4132-9acf-0e810f578472` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `525e73f2-77be-49b1-920f-6fc31ef38d22` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
@@ -3670,14 +3291,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `52f08670-4df5-4538-b009-eb96e3247618` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5326ef57-57d6-49b8-bdc5-b3179cdcb82d` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5327f324-e0f7-4e95-92ea-a534864a978b` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `5327f324-e0f7-4e95-92ea-a534864a978b` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `5355d1bc-f8b4-4063-945a-0717e9530281` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5355d1bc-f8b4-4063-945a-0717e9530281` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5355d1bc-f8b4-4063-945a-0717e9530281` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3694,8 +3307,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `54381296-da32-4474-85b7-209d99c52e7e` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `54381296-da32-4474-85b7-209d99c52e7e` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `54b4b9a9-00fd-453f-b8c1-61c324fa68da` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `5595c36f-e82b-40cb-8327-8e691d471868` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `5595c36f-e82b-40cb-8327-8e691d471868` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `55a3b23f-dda9-4622-9b9f-ff3351923941` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `55c5c208-190b-4f90-bdbb-0c02332df772` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
 | `55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
@@ -3709,7 +3320,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `57858042-c2aa-49f4-b401-1f1fd9ab289a` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `57a93727-9cac-45c2-83e6-ddb24566bd4d` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `57db5524-8599-4e70-a8b1-be637ec5310e` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `5803e753-e2a2-4c62-9914-20f7134f36c3` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `58169ea2-037f-4302-9c37-4239fe24f73d` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `58169ea2-037f-4302-9c37-4239fe24f73d` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `58169ea2-037f-4302-9c37-4239fe24f73d` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -3753,7 +3363,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `5aee33a0-e42c-4a79-97b7-40e7ac8b270e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `5aee33a0-e42c-4a79-97b7-40e7ac8b270e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `5aee33a0-e42c-4a79-97b7-40e7ac8b270e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `5aeeabf3-8f62-4042-abda-99746f34f664` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `5b37b5a5-0e28-4b28-9889-8878d41ff9cf` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5b37b5a5-0e28-4b28-9889-8878d41ff9cf` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5b37b5a5-0e28-4b28-9889-8878d41ff9cf` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3762,14 +3371,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `5bbad8cc-56b9-4802-a5da-7de376a461f0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5bfa3b7e-2b6f-4eb5-b09b-7c6f1145780b` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `5bfa3b7e-2b6f-4eb5-b09b-7c6f1145780b` | CMS816FHIRHHHypo | mismatched | _pending_ |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5c33755f-40d8-4409-b699-a3499ddddda0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `5c70a969-ae6d-46ca-9a71-92e15292804d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5c70a969-ae6d-46ca-9a71-92e15292804d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5c8bffdf-7ef4-44e1-af5a-8a64f1b7e545` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
-| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `5cca62ff-f856-4b8f-9902-6a018a4599cb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `5cebab0f-d32e-4adc-bef3-90812d6c5819` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5cebab0f-d32e-4adc-bef3-90812d6c5819` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5cebab0f-d32e-4adc-bef3-90812d6c5819` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3792,9 +3399,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `5e65bf6d-6518-44d7-a827-821b59b00cc0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5ef4acf3-4b42-41fd-8793-7d1a9342865a` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `5efcd4e7-f71b-48a6-badb-b1b88c02f161` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `5f200044-e0b1-4e20-8ee7-b9e735d3086c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `5f739500-ee12-4662-8980-ef95d8fa74c8` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `5f799983-39d3-4f03-9a9a-125dc6f12f13` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `5fb0b78c-ffd3-47c3-91a3-252bc4a70177` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -3805,9 +3409,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `5ff2713d-ca89-42ae-91bb-cba3e1d9a487` | CMS1017FHIRHHFI | mismatched | _pending_ |
 | `6078e73e-3265-4022-ae63-216c096b6246` | CMS2FHIRPCSDepScreenAndFollowUp | mismatched | _pending_ |
 | `60823d79-b37f-4358-819f-f39b4e885c6d` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `60883694-3c84-4343-b12b-b017f1c57587` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `6092a810-f9e0-4975-9582-37bbb06e8e56` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `60b9bda6-6c16-4797-8278-0a667008a69e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `60b9bda6-6c16-4797-8278-0a667008a69e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3815,7 +3419,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `61306767-0e74-44b8-ac06-1339c3783355` | CMS145FHIRCADBBlockerTPMIorLVSD | mismatched | content gap — No CQL authored (Not conversion) |
 | `61c9b47c-2223-4e45-b83b-eee21f031cad` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
 | `61dfb0bd-8fe0-4e30-a911-fa07c782afd9` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
-| `624b9027-60eb-4661-9a15-344644178c39` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `6252a858-2362-4c63-8d7d-6db0b7ac9299` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `6252a858-2362-4c63-8d7d-6db0b7ac9299` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `62901c95-5d12-45e8-b5b1-d131e36d8299` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
@@ -3838,12 +3441,7 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `64b49dbf-ca61-4e12-a99c-b2bfb95c53fb` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `64ba4a87-8cf6-4cfb-b0e7-506dd08c8bbe` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `64ba4a87-8cf6-4cfb-b0e7-506dd08c8bbe` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `64c49012-0f98-41da-a00b-9cd673294d16` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `64c8c187-6a67-49c4-b6cc-bb4f746fbc51` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `64e6ec83-91f3-49be-8a32-cce1f3468a2e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `64e6ec83-91f3-49be-8a32-cce1f3468a2e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `64e76766-9760-4385-a977-cbe8136ce425` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `64e76766-9760-4385-a977-cbe8136ce425` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `6553adbf-2a30-4861-97e6-cca7d2274f01` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
@@ -3865,27 +3463,22 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `66803f75-5dc5-43fb-9844-f18d765a64ec` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `66803f75-5dc5-43fb-9844-f18d765a64ec` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `66803f75-5dc5-43fb-9844-f18d765a64ec` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `66de10d2-27b8-429e-9f42-1baa36c146e4` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `66e74744-5743-4af3-84e7-598a367e4fbd` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `673d2f3c-b735-4672-8a4e-2f77060e1802` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `673d2f3c-b735-4672-8a4e-2f77060e1802` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `675ba5dd-80e3-4a2b-bd96-0b0ae9df1533` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `67779bc6-07ee-42cf-8ca7-e71302915dba` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | §5.3 — AHAOverall Choice-type gap (Blocked) |
 | `67779bc6-07ee-42cf-8ca7-e71302915dba` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | §5.3 — AHAOverall Choice-type gap (Blocked) |
-| `67ae7ee1-9671-4538-b963-59954a17f2b3` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `67e19058-917d-43f8-98d3-d16730fc7d32` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
 | `6840a0da-456f-40f7-b939-aac2cdf5620d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `6840a0da-456f-40f7-b939-aac2cdf5620d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `6840a0da-456f-40f7-b939-aac2cdf5620d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `686e2c47-b08f-465c-ab31-1712dd72028b` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `68ccf96b-cdd0-4bd7-b0d5-9ed33ec895ca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `688e8e1b-8054-4c30-83e8-ab99fdd7ccfb` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `68d4cf43-ea72-4eaf-8021-8775bc449f66` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `68d4cf43-ea72-4eaf-8021-8775bc449f66` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `68d4cf43-ea72-4eaf-8021-8775bc449f66` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -3919,9 +3512,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `6bc18290-1925-4239-81d7-0118bd062225` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `6bc18290-1925-4239-81d7-0118bd062225` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `6bd80fce-8086-46d6-a95f-bf70f0a016ca` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `6c1a8557-73be-4026-9ec6-f0699bfcbfda` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `6c1a8557-73be-4026-9ec6-f0699bfcbfda` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `6c3abc11-1c4b-4877-a256-693f77c9d67d` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `6cda22cb-072b-4c1c-a6e4-f8e5a277d2ce` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `6cf51e7c-99f4-4c6d-9b1c-6e371c96b742` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `6cf51e7c-99f4-4c6d-9b1c-6e371c96b742` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -3931,8 +3521,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `6dbaf3b3-8c47-4e0a-91fe-2ec06f2f0339` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ |
 | `6dcaa0a8-25f9-404e-ab0a-41c66f92732f` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `6e225f30-e9e3-4206-8e79-01dc394f6e2f` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `6e225f30-e9e3-4206-8e79-01dc394f6e2f` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `6e5db6e5-8c56-4b08-9491-1a2877933f0d` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `6e82e823-f955-43fa-8b8a-b9cd4ae27778` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `6e82e823-f955-43fa-8b8a-b9cd4ae27778` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -3949,11 +3537,7 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `6fc30283-94af-4a06-8325-cbc65e9b4b7c` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `6fc30283-94af-4a06-8325-cbc65e9b4b7c` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `70208367-16df-46d6-b49c-c1e31b7e1d5f` | CMS74FHIRDentalCariesPrevention | mismatched | _pending_ |
-| `702deaa2-e038-4ed9-a804-de9e524a2498` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `70306180-c713-4fa4-9c39-ae3b15e15d22` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `708b6eaa-5d2e-463b-9d9f-d97b19f4af75` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `70a5b41a-14ac-4e08-b661-d5523ad80fbf` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `70e86911-43d6-41de-bfb9-933d8f539b98` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `70e86911-43d6-41de-bfb9-933d8f539b98` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -3964,8 +3548,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `716760c5-b72e-4d46-b8df-c3b0f86d90ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `716760c5-b72e-4d46-b8df-c3b0f86d90ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `716760c5-b72e-4d46-b8df-c3b0f86d90ad` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `719a6ae4-ac86-406f-a762-380383e4a74d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `719a6ae4-ac86-406f-a762-380383e4a74d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `719a6ae4-ac86-406f-a762-380383e4a74d` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `71a21841-f5bb-4e75-9328-aedf3cdc8a34` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `71a21841-f5bb-4e75-9328-aedf3cdc8a34` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `71a21841-f5bb-4e75-9328-aedf3cdc8a34` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
@@ -3978,7 +3563,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `728a543b-9149-4b2a-9e65-3fb41ce3f35b` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `728a543b-9149-4b2a-9e65-3fb41ce3f35b` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `72a7c508-6ab5-444d-b306-686793360c8c` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
@@ -4000,10 +3584,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `74e5f17e-ae6b-4e3c-8183-e75381377d23` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `74e5f17e-ae6b-4e3c-8183-e75381377d23` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `74e5f17e-ae6b-4e3c-8183-e75381377d23` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `74f77040-7994-4888-9b59-d7bcac07673f` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `7507debb-a991-4de0-bd71-634a684ddcd7` | CMS871FHIRHHHyper | MR | _pending_ |
-| `757c5855-602e-4c25-8783-c22afccc1618` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `757c5855-602e-4c25-8783-c22afccc1618` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `757c5855-602e-4c25-8783-c22afccc1618` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `757c5855-602e-4c25-8783-c22afccc1618` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `759a89b4-51ed-4622-adae-6b0930701ebb` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `759a89b4-51ed-4622-adae-6b0930701ebb` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `759a89b4-51ed-4622-adae-6b0930701ebb` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4025,8 +3608,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `77a6cd7b-4322-4c29-b248-64d8af106ce7` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `77bba430-02fc-4ac7-ab49-f57fd73daa9b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `77bba430-02fc-4ac7-ab49-f57fd73daa9b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `77e4bd8b-a8d2-4aa4-8ff8-f746bd8f4e9d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `77e4bd8b-a8d2-4aa4-8ff8-f746bd8f4e9d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `784a8b22-d1df-478c-9474-a65f050f7a4f` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `78a48c68-f018-47da-a1cc-c96b63c248e8` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `78a48c68-f018-47da-a1cc-c96b63c248e8` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
@@ -4037,16 +3618,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `79a2dd53-a342-41d9-a5c9-1b565bd06fe7` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `79a2dd53-a342-41d9-a5c9-1b565bd06fe7` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `79a2dd53-a342-41d9-a5c9-1b565bd06fe7` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `79c12ad7-f7de-4b87-93c3-ef85e0a644f0` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `79f6bb60-1bdb-4dff-857d-65311e9ccea5` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `79f6bb60-1bdb-4dff-857d-65311e9ccea5` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `7a09940e-c3c8-49a7-bf09-eaf9df116dfb` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
 | `7a273d18-942a-40d1-9bf6-a12275337aae` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `7a273d18-942a-40d1-9bf6-a12275337aae` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `7a273d18-942a-40d1-9bf6-a12275337aae` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `7a417e07-f9e1-490d-a175-0fe32c374f52` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `7a6146eb-721e-44e9-ba23-d72efe1f99f2` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `7abd0282-c461-4c61-9669-f261a689f485` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `7abd0282-c461-4c61-9669-f261a689f485` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -4056,8 +3633,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `7b1ac1a8-b7be-41ec-a77f-db545af22263` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `7b1ac1a8-b7be-41ec-a77f-db545af22263` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `7b34e64e-e7fe-402c-9a26-12da90662897` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
-| `7b76e67e-89ec-4ce8-a6e0-2d16b9e4e45b` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `7b7bd954-f185-43d1-b5fe-08622eb011e9` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `7b8885c5-ad14-4361-9755-c76a6e3b8530` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | §5.3 — AHAOverall Choice-type gap (Blocked) |
 | `7b8b48b3-76d4-4492-81a1-93fdea67b0c1` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `7b8b48b3-76d4-4492-81a1-93fdea67b0c1` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4085,8 +3660,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `7c59efb5-56ab-4a25-af83-bd81daeee026` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `7cedf97f-741c-4c37-9ae9-40e0b8c64576` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `7d01a597-c0da-4bff-9bdd-f3516021db34` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `7d01a597-c0da-4bff-9bdd-f3516021db34` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `7d9affce-5c31-4fcb-b9e5-c0304c3f9406` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -4108,9 +3684,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `7e7f4563-a628-40ab-990b-ca0837313759` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `7edab122-3af3-4172-9231-7c1470ecc1e0` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `7ee1a25c-a4c7-4bd2-8670-4083b32ecc70` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `7f204655-dbf6-47d7-a684-ff1570cf4b05` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `7f26eb5a-f877-458b-b960-5de7ffa5b4d0` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `7fbb7e37-228b-4b3b-8974-871a3e798720` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `7fbb7e37-228b-4b3b-8974-871a3e798720` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -4122,11 +3695,7 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `80644a49-f67d-4124-9c58-1547b7bdd779` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `80644a49-f67d-4124-9c58-1547b7bdd779` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `80644a49-f67d-4124-9c58-1547b7bdd779` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8082ddbf-8d01-4b29-8709-70e70bbc70f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `80ed4488-76a7-41af-ac4d-58362b0753e2` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
-| `8152f580-989d-4f81-9ff5-85688f8e4635` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `816296ad-a84a-48a9-89e4-38817c7e0c8b` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `821087e5-a030-49ac-95b5-5b9ab38e88da` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `821087e5-a030-49ac-95b5-5b9ab38e88da` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4145,8 +3714,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `82fd75d8-4816-4d24-b18c-0e454c430eb5` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `8301c6c8-e50c-4457-add0-1ebd909c8ca7` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `8301c6c8-e50c-4457-add0-1ebd909c8ca7` | CMS816FHIRHHHypo | mismatched | _pending_ |
-| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `837cc0e4-cc26-48cd-9d34-232d7fbcd056` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `839e7c3a-a94f-418f-96cb-d356bf6de1da` | CMS139FHIRFallRiskScreening | mismatched | _pending_ |
 | `83e7cc74-5ae5-4fb9-922f-15faa555890a` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `83ef16cb-ad8a-4ce0-a8c8-c0ff7346d83c` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
@@ -4154,13 +3723,11 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `844d9440-ab79-4206-9893-bcf9a786970e` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `844d9440-ab79-4206-9893-bcf9a786970e` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `844d9440-ab79-4206-9893-bcf9a786970e` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `8467758b-18c6-4576-87cf-c2aeec2e11f9` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `8484e45d-18e0-4742-8b55-8abc877c6a04` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `8493a3fb-9501-4aa2-83a3-39fbafa6644c` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `8493a3fb-9501-4aa2-83a3-39fbafa6644c` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `84ed0de7-7cfb-4ac3-96a3-3c854eff391a` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `8559361b-b9c4-4819-88ea-985c27c2ad51` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `8562be3a-0255-4120-8666-c0357bc191e5` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `85b60f52-7b08-46f3-946b-cb317b28acf5` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `85b60f52-7b08-46f3-946b-cb317b28acf5` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `85e6225c-a9bb-4338-a228-297564e38c4d` | CMS177FHIRChildMDDSuicideAssmt | mismatched | _pending_ |
@@ -4176,7 +3743,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8715fad1-2969-418a-b3d3-45b2581f4fe3` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `8723dbb4-f60f-488a-9da3-f02f04ea03bf` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ |
 | `872dbe15-b15d-4baf-b202-874278bbb317` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `879bf9f1-3681-4e7e-bb6a-d140b0e94077` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `87b32275-37d7-4adf-afa4-8a4518964de0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `87b32275-37d7-4adf-afa4-8a4518964de0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `87b7df35-0de4-4c6a-a030-8afac02454f2` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4205,12 +3771,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8b0f2e04-8c60-4f6e-adc5-8967a540a18f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `8b0f2e04-8c60-4f6e-adc5-8967a540a18f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `8b0f2e04-8c60-4f6e-adc5-8967a540a18f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `8b2f163f-e180-4169-b41a-9c3b77ae0302` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `8b33d091-6e1e-4992-9ae6-63adc9401862` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `8b8ded15-0118-4d0c-ac0f-6797528cefb9` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `8b8ded15-0118-4d0c-ac0f-6797528cefb9` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `8bb7c40b-7447-42ca-b662-161a7026ed8f` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -4224,10 +3790,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8c634b17-4a98-4829-bf96-d8972ace13b2` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `8c6fe4a4-da12-40bd-94c7-0e932653f672` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `8c89947a-a52b-4a41-86a8-166b0560355b` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
-| `8cca688d-fceb-4ef9-823c-b4dc612e5eb6` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `8d44efd8-d470-47e4-8051-f5ce02a68f58` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `8e28076e-2fc9-4170-95e9-a4de9e04fd5e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `8e28076e-2fc9-4170-95e9-a4de9e04fd5e` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `8e2cfc29-0925-45b9-857f-b9ee9b9fa248` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
@@ -4236,16 +3801,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8e43bc64-4242-494d-b47f-fdbbd3372bbe` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `8e43bc64-4242-494d-b47f-fdbbd3372bbe` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8e648527-5b7e-430c-b5ca-fe70a4133d55` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8e77e9a0-3406-46f2-8250-92e32da1bc65` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `8efd6c8c-cefb-4a85-828d-ed59d8a9e8f2` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `8f570399-4bd9-4c38-aa3d-e526d987109b` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `8f713481-66ba-4a58-be92-91b8c7212959` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `8fabf398-d258-4613-b8d8-12bcbc273dc8` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `8fabf398-d258-4613-b8d8-12bcbc273dc8` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `8fd4eb55-cb9d-435c-869b-c49e3d7bf8ac` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -4254,15 +3812,14 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9098f676-4f4e-402c-80e3-331aabb6d414` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9098f676-4f4e-402c-80e3-331aabb6d414` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9098f676-4f4e-402c-80e3-331aabb6d414` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `90d3454a-ca4b-4035-a524-255a2f03bef7` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `90d3454a-ca4b-4035-a524-255a2f03bef7` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `90d3454a-ca4b-4035-a524-255a2f03bef7` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `91986c00-e45b-4e7c-afa7-734d6fe43d16` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `91986c00-e45b-4e7c-afa7-734d6fe43d16` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `91d5385d-09ac-4206-b009-0c7feffc22ff` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `91d5385d-09ac-4206-b009-0c7feffc22ff` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `91d5385d-09ac-4206-b009-0c7feffc22ff` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `91ebcd41-a1a5-45e0-95fd-e2a2799f4459` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `91ebcd41-a1a5-45e0-95fd-e2a2799f4459` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `91ff5f1a-cfdb-472d-b8c3-144f499d1ccc` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `92180acb-2860-4d67-b97a-62e84fcb7c2d` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `925ef058-b2e2-489e-8d5e-1a33299efa30` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
@@ -4293,7 +3850,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `96266910-a2b3-4294-9dc5-8a812622b70b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `964f8143-6ff7-4b80-ad76-4dc59de2af37` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `964f8143-6ff7-4b80-ad76-4dc59de2af37` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
+| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | CMS159FHIRDepRemissionat12Months | mismatched | _pending_ |
+| `96b6579c-1cee-423f-9433-a72db6fb8a0a` | CMS159FHIRDepRemissionat12Months | mismatched | _pending_ |
 | `96c38952-91cc-468c-b16b-32386bb312ec` | CMS74FHIRDentalCariesPrevention | mismatched | _pending_ |
 | `96cfe7f0-b4e1-4e2e-a48d-ef64fb64343d` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `96cfe7f0-b4e1-4e2e-a48d-ef64fb64343d` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
@@ -4311,14 +3869,13 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `98533ccd-24ee-41b3-aab2-ef6cbf89e00d` | CMS871FHIRHHHyper | MR | _pending_ |
 | `98561005-400a-4b9d-8902-f04605b6b168` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `98754eb2-882b-4d6f-afe8-8e7c9979bf18` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
-| `9879bf57-839e-485e-abf6-51c93a7e31ab` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `98d6da30-f55a-411d-94b4-359b204bcb5a` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `98e5cde7-fc04-4b89-9aef-5272087bb5c2` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `9933efe1-3258-4c1b-8162-258f85831467` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `9933efe1-3258-4c1b-8162-258f85831467` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `9933efe1-3258-4c1b-8162-258f85831467` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `9972f780-aa2f-40e0-ba7d-133d7fe38bc9` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `99858043-4084-4412-b66c-dfb830097aa8` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `999617b0-b41a-4a82-910d-f707ce1d7779` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `999617b0-b41a-4a82-910d-f707ce1d7779` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4327,8 +3884,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `99ab4b63-b8b7-432c-91a6-fb38ba7203dd` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `99ab4b63-b8b7-432c-91a6-fb38ba7203dd` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `99b68a44-5e66-4c37-a513-80db8b6249ce` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
-| `99b8fe18-bd93-4c05-ad65-028460e98398` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `99b8fe18-bd93-4c05-ad65-028460e98398` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `99d50203-60f7-466b-a253-a0908d85a7a3` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `99d50203-60f7-466b-a253-a0908d85a7a3` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `99f28510-d75f-48d3-9f36-69739bc27419` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
@@ -4346,7 +3901,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9a8c51a0-bf53-42b6-927d-c1f90b81a31a` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `9a8c51a0-bf53-42b6-927d-c1f90b81a31a` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `9b320087-ff72-49d0-915a-ea51e31a6958` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `9b4f7024-eb2e-4896-90e7-13638aefbe92` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `9b5e4d84-366b-4082-8409-b7e18e0a3c45` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9b5e4d84-366b-4082-8409-b7e18e0a3c45` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9b5e4d84-366b-4082-8409-b7e18e0a3c45` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -4368,7 +3922,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9d28e99e-7eb6-4149-a7e2-800140b13696` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `9d28e99e-7eb6-4149-a7e2-800140b13696` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `9d5d4ffe-710e-4b5d-b84a-ba4ed2de06dd` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `9d81b9ca-bbbf-4560-ba4d-61af313324e2` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `9d92be1d-6fc8-40f2-99a0-4be9ce1f244b` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `9d98b629-9e2a-46f2-8f62-7d6208ee32a9` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `9ddea16c-55d3-4dda-a1d8-a256fbff0b64` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
@@ -4395,13 +3948,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9f2ec6f0-b623-4a28-8012-b1aa1c4e3e18` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `9f647f13-3b86-4bba-8f9d-0a07add72c04` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `9f77830b-ff7c-4060-bf38-295b215ab56d` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9f77830b-ff7c-4060-bf38-295b215ab56d` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `9f77830b-ff7c-4060-bf38-295b215ab56d` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `9f9302aa-f988-4131-a265-3996467aeed7` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `9fba5feb-b77c-496f-981f-6d062f3c1d7c` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `9fba5feb-b77c-496f-981f-6d062f3c1d7c` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
 | `9fba5feb-b77c-496f-981f-6d062f3c1d7c` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ |
@@ -4452,42 +4004,23 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `a42d4cc2-24ca-4637-889f-276bcdd1e7cf` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `a42d4cc2-24ca-4637-889f-276bcdd1e7cf` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `a4a1ed63-89ff-4d27-8819-136873e13171` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a4ece596-2f97-4fbb-88e6-4418d8a7e713` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
 | `a4f53b12-e0e3-4faf-8e66-6ce8193a6477` | CMS986FHIRMalnutritionScore | mismatched | _pending_ |
-| `a521979b-9bae-48cf-893d-26b6abef5ce6` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `a521979b-9bae-48cf-893d-26b6abef5ce6` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a550fe5a-03ad-4eb3-9157-dcb64f8b13be` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `a55c6265-a05c-4fad-beb4-c5338420d1b1` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a584af54-f1b9-4abc-b90b-1a2fa3b2016e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `a5a0b1e6-fd91-4eaa-9019-618ddd0b8455` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `a5ee17bd-75d5-4cdc-b2eb-bf22014b7ba6` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `a5feebb4-d3c0-4435-aed5-9579b75a8a52` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `a5feebb4-d3c0-4435-aed5-9579b75a8a52` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `a6620e07-4eac-4f5c-afb4-3e5e43cb1bf4` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `a6620e07-4eac-4f5c-afb4-3e5e43cb1bf4` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a6b1d740-d580-4e55-970e-3cb4f1e369c2` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `a6cd48c6-fb25-41d4-aea4-da7fb856cc12` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `a6e7ec82-b80e-4f76-b382-91956c4873a9` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ |
 | `a7318ea6-4b51-4c32-aeb5-60668c1b1114` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
 | `a779556b-5041-4d85-9c5f-9af223961ff2` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `a788d38f-a86a-4dc0-8f79-a22a31709495` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `a7935229-6eb1-45c1-ad08-4fcba8ebbde6` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `a7b09e2e-cdb0-4206-986a-45bb70f9d49f` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `a7b90108-4f50-4164-87b9-73817e9fdac2` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `a7b90108-4f50-4164-87b9-73817e9fdac2` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `a7b90108-4f50-4164-87b9-73817e9fdac2` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4495,10 +4028,7 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `a7f7eb97-a44f-4394-bff6-0485ae59bc9e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `a7f7eb97-a44f-4394-bff6-0485ae59bc9e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `a7f7eb97-a44f-4394-bff6-0485ae59bc9e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `a7fc8494-7b23-46f5-864c-fdc7e073a4c8` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `a82cd0c1-900e-4ab3-a498-840ac1608486` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
-| `a85a50c2-760c-4bab-837c-a77623961dba` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `a85a50c2-760c-4bab-837c-a77623961dba` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `a86dcf01-3c5f-43ca-a426-c118d5974332` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `a86dcf01-3c5f-43ca-a426-c118d5974332` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `a8c0ccf4-e672-4c1f-9f33-fbf4464a5fe5` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
@@ -4511,8 +4041,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `a9c3e62b-fd84-4701-8024-7e3e60af9ed1` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `a9c75661-be1c-41b2-aa15-222cc7d2ca81` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `aa1f02c0-ded0-4b30-9f0d-c8be54aa436b` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
-| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `aa355e31-8d29-4b06-8d13-7d00a2c817da` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `aa5f21cc-2d56-4749-a190-2828d579f790` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `aa5f21cc-2d56-4749-a190-2828d579f790` | CMS816FHIRHHHypo | mismatched | _pending_ |
 | `aa87ac34-227b-4424-84d2-62aaba57c232` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
@@ -4547,57 +4077,43 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `ad35c913-a8ba-4d29-b6e9-8652aa5ca20c` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ad35c913-a8ba-4d29-b6e9-8652aa5ca20c` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ad35c913-a8ba-4d29-b6e9-8652aa5ca20c` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `ad4aced6-dec9-4309-86a1-246b7c0dd6d9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `ad737f80-c9ea-41fd-a142-78d9c80a9c7c` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
 | `ad8c4056-7c25-4dba-a861-ec201afd16fb` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `ad8c4056-7c25-4dba-a861-ec201afd16fb` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `ad8c4056-7c25-4dba-a861-ec201afd16fb` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `adb08da2-b4d0-4916-9b9c-7c2c86e1042b` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
-| `ae0726cf-ea31-4527-95b4-ed5da7b381bf` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `ae0726cf-ea31-4527-95b4-ed5da7b381bf` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `ae7150fa-283f-4689-abff-ca7f29101609` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `ae9b2ef7-b1a1-454e-8ada-811a48fd9008` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `aeb0266c-a8ec-4262-a4bc-6bc343a85230` | CMS117FHIRChildImmunStatus | mismatched | _pending_ |
-| `aedc0360-4636-4a4e-9617-4bf60c03f767` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `aeef1eb1-86fa-4af0-b24d-fc7ad8398191` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `af1b9448-3e7a-4b7f-8934-15bb63258b75` | CMSFHIR844HybridHospitalWideMortality | mismatched | _pending_ |
 | `afb2d04b-f766-465a-9215-79cb8dfafd73` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `afd6fd51-72ff-41fa-9cec-7591ab6f5a51` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `afd6fd51-72ff-41fa-9cec-7591ab6f5a51` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `afd6fd51-72ff-41fa-9cec-7591ab6f5a51` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `afdeaa75-d332-40f2-9b30-0b6ddf7e7c14` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
-| `b0477f12-22e7-4717-9c67-879cd8336308` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b05b93b0-e1a1-4b6e-b905-171d4bca2775` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `b0729673-76ed-4c08-ae06-acd214ad203d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `b0729673-76ed-4c08-ae06-acd214ad203d` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `b0932ba4-4dfc-43ad-aa67-fbaee9638d3b` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
-| `b120a966-fc33-4768-b057-9e1e686d2c88` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b1e68658-d64f-4ca4-a4ee-89c64e4536fa` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
 | `b23aa001-1331-46f0-9818-19f6dc890668` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ |
-| `b263321d-43c1-42bd-909c-e93ab2e0cf03` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b2705cfc-a0d5-4fb4-908b-89d00a51cc06` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b2705cfc-a0d5-4fb4-908b-89d00a51cc06` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b2705cfc-a0d5-4fb4-908b-89d00a51cc06` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b29204ac-96ce-4be0-90ad-ae8ecfa4f245` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
 | `b29204ac-96ce-4be0-90ad-ae8ecfa4f245` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
-| `b2dab5c6-a321-43e0-9702-6b160890a2e7` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b3043789-f91a-42f6-848d-6bfd7df331fe` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `b3043789-f91a-42f6-848d-6bfd7df331fe` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `b3043789-f91a-42f6-848d-6bfd7df331fe` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `b312fbc9-083f-4832-8d7c-d3e64df4145b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `b312fbc9-083f-4832-8d7c-d3e64df4145b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `b312fbc9-083f-4832-8d7c-d3e64df4145b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `b34e3afc-de09-4850-861e-964ad3a94e67` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b35ba523-abea-4848-8dac-256c1727447c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b35ba523-abea-4848-8dac-256c1727447c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b35ba523-abea-4848-8dac-256c1727447c` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b371fd28-5026-43db-840e-21466bde11c9` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
 | `b371fd28-5026-43db-840e-21466bde11c9` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
-| `b3921225-60ae-4ad0-a0b9-fa5d02815150` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `b3af1243-c45d-4061-8d36-baa6de256376` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `b3e44f80-29cf-4800-b6cb-1d65a330b7c7` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `b4219e21-be97-4f81-8a31-fee0035179c8` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -4628,8 +4144,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `b7783b8c-ba46-4509-a75e-203659abab3d` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ |
 | `b7a34d3f-446e-4a40-adff-595b8614977c` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `b7a8c85e-3608-44ec-be34-c9089fa3dd17` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
-| `b7aad002-16b7-4be2-bc8b-4225e45220d0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `b7aad002-16b7-4be2-bc8b-4225e45220d0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `b85440e4-b902-49cd-b3d6-363ba7a99bce` | CMS142FHIRCommWithDrManagingDiab | mismatched | _pending_ |
 | `b86e54d1-f8ca-44b6-99a5-d455c5649104` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `b86e54d1-f8ca-44b6-99a5-d455c5649104` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -4640,11 +4154,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `b8893156-afda-4685-9d5e-06d2113f1409` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `b9d52b97-7602-457d-a96d-a1950a01b42a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `b9d52b97-7602-457d-a96d-a1950a01b42a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `ba6d787f-d15f-4e22-8ee4-30c12d53aa37` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `ba6d787f-d15f-4e22-8ee4-30c12d53aa37` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `b9e0084c-8386-48e2-b17d-87c508c566f9` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `ba81ece9-e0dc-42fe-9489-451f28b6f223` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `ba8bb5f1-966b-4ac1-a311-b2550c0e4858` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `ba8bb5f1-966b-4ac1-a311-b2550c0e4858` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4655,15 +4167,10 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `baf1efce-a7e8-45d3-9a8b-50c8e5d8d802` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `bb80a309-08ab-4d5d-b863-111ae594d65d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `bb80a309-08ab-4d5d-b863-111ae594d65d` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `bb83b7f0-6542-4105-b2f0-5d2018167a9e` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `bbb391da-9572-4954-be95-3ea00eb31c91` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ |
-| `bbdccaa6-f3a0-426d-8e77-eff43095cfc9` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `bbdccaa6-f3a0-426d-8e77-eff43095cfc9` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `bc0146d2-5deb-46bc-b7a8-657d4f3ed031` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `bc42a4e7-3a06-4056-bb38-14f1e3ea3894` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ |
 | `bc79e5bc-237e-44be-b5fc-c5c4efb50286` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ |
 | `bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d` | CMS1154ScreeningPrediabetesFHIR | mismatched | _pending_ |
@@ -4673,14 +4180,10 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `bda91aac-a815-4a22-b505-36cef1080d49` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `bda91aac-a815-4a22-b505-36cef1080d49` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `bda91aac-a815-4a22-b505-36cef1080d49` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `be20e6d8-f2f2-49d9-abc1-39e93ba36a1c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `be20e6d8-f2f2-49d9-abc1-39e93ba36a1c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `be29ff82-9191-4b5f-91ca-cc5590fea905` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `be29ff82-9191-4b5f-91ca-cc5590fea905` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `be29ff82-9191-4b5f-91ca-cc5590fea905` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `be5c4068-2639-4b0c-bea3-5b7c80a6fe3b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `bed82a8e-cb87-42ec-8663-17d35c34c060` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `bed82a8e-cb87-42ec-8663-17d35c34c060` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `bee979d5-c118-4e1d-b190-62cf0e084bd1` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `bf0f8968-c2c0-4416-88db-11ea3e3da968` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ |
 | `bf38398e-4c04-4808-af1c-ea0c86b44d45` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4705,9 +4208,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `c0481b47-738b-4a09-8901-915ece2beb7e` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `c0736fec-a1e6-4d86-b39e-2d2bbca87a09` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `c095195c-8893-4bf1-aa7d-ad2bfd9bafa5` | CMS135FHIRACEIorARBorARNIforHF | MR | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c0af145d-bf0c-4b3d-8f65-d446c9f93b15` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `c0e64f12-0d43-4bff-bd50-aae46844e6b6` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
 | `c1340d6e-581d-4775-a0af-b8dcdbcf7320` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `c15bee15-84c1-494a-ac82-2159b06da175` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4727,9 +4227,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `c36eddf7-a780-480c-baf8-ef865ccdb9d2` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `c3caf126-12a2-473f-8f51-1c7828d63d16` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `c3e9651c-c028-4034-86b7-bbe5a0dd9567` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c409fbc9-a31f-4d53-9aa7-9e443e87812a` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `c41f9946-cb0f-4489-8367-581a5b876165` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
 | `c41f9946-cb0f-4489-8367-581a5b876165` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ |
 | `c43150be-5974-4986-b428-6fcb6aa43472` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -4752,9 +4249,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `c58acff5-248b-49c9-b18d-69e4a84a08d9` | CMS0334FHIRPCCesareanBirth | mismatched | _pending_ |
 | `c5bfac21-0dbf-4cf5-bc92-d7eff1d0a6c6` | CMS645FHIRBoneDensityPCADTherapy | mismatched | _pending_ |
 | `c5bfac21-0dbf-4cf5-bc92-d7eff1d0a6c6` | CMS645FHIRBoneDensityPCADTherapy | mismatched | _pending_ |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c5c6788b-16f3-4c11-badf-5739989be2f6` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `c5f2b465-bfa2-4f94-8512-ff04308a8159` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ |
 | `c640ff8f-5b2a-448e-85a2-e739af7a8dc4` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
 | `c640ff8f-5b2a-448e-85a2-e739af7a8dc4` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ |
@@ -4784,13 +4278,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `c8559a93-63e3-4bce-b0a6-01a85fb6db28` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `c85da3dc-b545-42f2-a5d5-d9c7ae88d944` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `c8d42ccd-9523-414f-b568-e0fdae94a84a` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ |
-| `c8f6a83b-060e-4359-a6c0-9f57c8623516` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `c907e077-c924-4198-b5ab-69799d4f9ab6` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
-| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `c9aa1676-c1cd-4d98-aa1d-fe66762d4c73` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `ca6deaeb-459d-4d1a-9daf-e454ff76a6f0` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `ca949c24-f283-493e-a697-426eaec3e9f1` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4801,9 +4290,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `cadbffa0-20b2-4c26-b202-75b9edfd0a07` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ |
 | `cade5021-b1bf-43e9-a0a4-659c05b386d0` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `cade5021-b1bf-43e9-a0a4-659c05b386d0` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `cb01ddd0-a804-4bbe-8544-d4c753898eca` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ |
@@ -4839,18 +4325,14 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `cf0c5672-d86d-47fa-b13b-9bdb299c1d47` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `cf0c5672-d86d-47fa-b13b-9bdb299c1d47` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `cf0c5672-d86d-47fa-b13b-9bdb299c1d47` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `cf1b6127-e944-4d6b-875e-e410f34a1880` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `cfe262d9-4bbe-4f41-9b5d-f16d55f4db31` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `cfe6d907-c9fa-4d4c-9889-803315e8f707` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `cfe6d907-c9fa-4d4c-9889-803315e8f707` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `cfe6d907-c9fa-4d4c-9889-803315e8f707` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
-| `cfe7e63e-940a-4eaa-9bb8-738323aef838` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `cffad22d-5ac8-40a2-a677-a746687b0744` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `d04323b4-e4db-4a9a-9fd1-27d1d48fc595` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4860,9 +4342,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d0a59b97-c3ab-4028-9109-a31359a93c47` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `d0ba1182-26fa-4cfa-9f91-960503b7fe53` | CMS2FHIRPCSDepScreenAndFollowUp | mismatched | _pending_ |
 | `d0c9e870-5e7b-4a9e-b34d-9d600ff8c1c6` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `d0e744f6-9951-4a29-99d9-8052efcde892` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `d1746049-b5df-4a21-a0ea-2b1709c0c502` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ |
 | `d18e37a6-7b66-4e7c-b305-692872c13f8d` | CMS135FHIRACEIorARBorARNIforHF | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `d1b64acd-58bc-4831-b150-a80b4240d6b1` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
@@ -4890,8 +4369,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d496f08e-c55b-44b1-97a7-f86cf9ead1e2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `d496f08e-c55b-44b1-97a7-f86cf9ead1e2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `d496f08e-c55b-44b1-97a7-f86cf9ead1e2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `d4d064be-d55a-47b5-9bfd-993afebd95a5` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
 | `d556f939-81da-4bae-b9a7-314917a20390` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `d556f939-81da-4bae-b9a7-314917a20390` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4901,19 +4380,11 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d5fe6f9c-6036-4004-9993-290f3a2be34a` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `d5fe6f9c-6036-4004-9993-290f3a2be34a` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `d5fe6f9c-6036-4004-9993-290f3a2be34a` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `d641333e-031e-40e1-9552-11d4bbe7cd33` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `d6434f7f-8639-41c0-aa95-d67ae191ad37` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `d6434f7f-8639-41c0-aa95-d67ae191ad37` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `d665c40d-2323-471f-9642-983472d2be7b` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `d6be5093-9772-4e0f-83e1-b56b26d55529` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `d767d545-4fa1-499f-98ef-099563ffc20a` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
-| `d76f4e0d-178a-4a66-9a50-bbb614819879` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `d7aad5bd-638e-402a-92b3-2fb7f3f91151` | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | mismatched | _pending_ |
 | `d7e37bcf-d13b-4415-82ac-a51b5c83151c` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ |
-| `d7e9bf7d-2b55-4ae1-ab9e-c03cdedb1a2b` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `d7e9bf7d-2b55-4ae1-ab9e-c03cdedb1a2b` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `d82d5f38-a1b7-4f28-a3db-25f42f7e64b2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `d82d5f38-a1b7-4f28-a3db-25f42f7e64b2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `d82d5f38-a1b7-4f28-a3db-25f42f7e64b2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -4922,8 +4393,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d8946843-06c7-4b82-992a-91a9c20ec7c0` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `d8b7ff4e-67bb-480d-b2c1-77db6ab0ef1e` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
 | `d8b7ff4e-67bb-480d-b2c1-77db6ab0ef1e` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `d8cb1d04-842e-4e67-93dc-5510163b7040` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `d8cb1d04-842e-4e67-93dc-5510163b7040` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `d8ea50e2-e1a9-41ae-ac73-480bb198d963` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `d8ea50e2-e1a9-41ae-ac73-480bb198d963` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `d8ea50e2-e1a9-41ae-ac73-480bb198d963` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -4936,8 +4405,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d9d151d1-9bd3-40ce-a2c1-cb8a985328fc` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `d9f94b3d-5bba-4965-8364-1d7c87957c3e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `d9f94b3d-5bba-4965-8364-1d7c87957c3e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `da126090-7372-47c7-a703-8a06a0216fc0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `da126090-7372-47c7-a703-8a06a0216fc0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `da34c14f-672e-4f66-827b-3eb08d97559e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `da34c14f-672e-4f66-827b-3eb08d97559e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `da34c14f-672e-4f66-827b-3eb08d97559e` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -4970,7 +4437,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `dc187313-245c-4ed6-b6bb-fcb94c117fec` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `dc187313-245c-4ed6-b6bb-fcb94c117fec` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `dc187313-245c-4ed6-b6bb-fcb94c117fec` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `dc631478-5608-42e4-8225-6bdc4188b16b` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `dc6b0b42-949a-481e-8134-bb536a2f3fe9` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `dc6b0b42-949a-481e-8134-bb536a2f3fe9` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ |
 | `dcaccac3-ef0d-4755-becd-3e6aebe2a06a` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ |
@@ -5001,9 +4467,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `dfd5dc6b-3299-4e4f-ae02-45f251e1f75b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `dfd5dc6b-3299-4e4f-ae02-45f251e1f75b` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `e00c927a-f454-4611-97b2-e3e2bdfed182` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `e00d1066-19b2-4d59-8829-d90f1e7a1233` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `e0286677-4610-4138-b9fe-3ed648ed45f8` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `e0286677-4610-4138-b9fe-3ed648ed45f8` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `e050879d-9d2a-4ecc-855c-16e83906cde0` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
@@ -5014,8 +4477,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `e081bee5-67f8-464f-9356-9b287e32a35a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `e081bee5-67f8-464f-9356-9b287e32a35a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `e0821eec-ff83-49e9-950d-9219dd3612b9` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ |
-| `e085c0d1-a736-4596-a5cd-7de785d0d144` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `e085c0d1-a736-4596-a5cd-7de785d0d144` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `e085c0d1-a736-4596-a5cd-7de785d0d144` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `e126cdec-dbc8-4ee8-964f-e88e46c04f88` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `e126cdec-dbc8-4ee8-964f-e88e46c04f88` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `e126cdec-dbc8-4ee8-964f-e88e46c04f88` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -5053,11 +4517,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `e4547b2c-ce1c-4ffb-b5d4-c99687424bf0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `e4547b2c-ce1c-4ffb-b5d4-c99687424bf0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `e4547b2c-ce1c-4ffb-b5d4-c99687424bf0` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `e4cdfed0-16f0-46cd-a45c-95714744758b` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `e529e266-033b-4aec-abbc-d7fb27b7286c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `e529e266-033b-4aec-abbc-d7fb27b7286c` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `e55d9fc4-44e6-4f00-bf53-b82a5b646222` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `e55d9fc4-44e6-4f00-bf53-b82a5b646222` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `e55d9fc4-44e6-4f00-bf53-b82a5b646222` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -5107,25 +4566,20 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `e982ec87-76b0-4fe2-b437-ac0503cf2159` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `e9a609ba-0f93-4d33-965e-4bca590af192` | CMS149FHIRDementiaCognitiveAssess | MR | content gap — No CQL authored (Not conversion) |
 | `e9b9b388-e663-4533-8484-7d930efd1851` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
-| `ea08cba3-e556-496e-8aab-3b1e6f58fda0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `ea08cba3-e556-496e-8aab-3b1e6f58fda0` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `ea0e556f-387e-4883-a320-047aa3a238e4` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `ea737165-ca06-4304-9964-c157d504c3ee` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ea737165-ca06-4304-9964-c157d504c3ee` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ea737165-ca06-4304-9964-c157d504c3ee` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `ea9af1dc-c26e-4bc3-947b-6c4bbd65523c` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `ea9c34ee-b50e-4d13-bd9c-ab2033d15717` | CMS1218FHIRHHRF | mismatched | _pending_ |
 | `ea9c34ee-b50e-4d13-bd9c-ab2033d15717` | CMS1218FHIRHHRF | mismatched | _pending_ |
 | `eab13a30-13ed-4b28-b460-4893998e0733` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `eabe386d-5bca-4fdd-acb0-8228b4df83c0` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `eabe386d-5bca-4fdd-acb0-8228b4df83c0` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
+| `eac1ad4e-e4cb-49c8-a9b1-6ddf5eec85a1` | CMS156FHIRHighRiskMedsElderly | mismatched | §4 — CMD full adaptation (#25) |
 | `eacbadee-87f7-4ed0-bfc3-b5533128dcbc` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `eacbadee-87f7-4ed0-bfc3-b5533128dcbc` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `eafd6c1f-c099-48b8-8101-b24b4a49cd0b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
@@ -5158,22 +4612,16 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `ed638412-155e-4349-8461-4550fd4fae3b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ed638412-155e-4349-8461-4550fd4fae3b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `ed638412-155e-4349-8461-4550fd4fae3b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `ede0d103-285f-42f0-807e-ff272f1ae70e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `ede0d103-285f-42f0-807e-ff272f1ae70e` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `ede0d103-285f-42f0-807e-ff272f1ae70e` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `ede0d103-285f-42f0-807e-ff272f1ae70e` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `ede0ee7a-18ab-4ba7-934c-23618f1270ea` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
 | `ede0ee7a-18ab-4ba7-934c-23618f1270ea` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `edf5b2e0-54b2-4ec6-a58d-0a2dcef456c4` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `ee13a2d8-61d9-4d2f-8f13-1423bd271950` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `ee13a2d8-61d9-4d2f-8f13-1423bd271950` | CMS1264FHIRECATREHQR | mismatched | §3 — Measurement Period default wrong year (#2) |
 | `ee6d52b0-149c-4ffe-b260-bb214151652c` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
 | `ee6d52b0-149c-4ffe-b260-bb214151652c` | CMS128FHIRAntidepressantMgmt | mismatched | §4 — CMD dispense workaround (#22 — fully fixed) |
 | `eea87300-5d3f-4c9f-8835-9245b4e19059` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `eeaa3999-225d-45e8-befa-56076faffc78` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
-| `eecbda8c-3a85-4880-9973-f67a6cd60db8` | CMS156FHIRHighRiskMedsElderly | MR | §4 — CMD full adaptation (#25) |
 | `ef3f90d1-4954-40bd-b230-e44ffa98ed29` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `ef3f90d1-4954-40bd-b230-e44ffa98ed29` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `ef3f90d1-4954-40bd-b230-e44ffa98ed29` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -5188,8 +4636,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f0b61b7a-4381-486d-9eee-2128ada5280a` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `f0d37c4e-7377-4876-8533-f955963f96f9` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
 | `f0d37c4e-7377-4876-8533-f955963f96f9` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
-| `f0f73fe9-f8ae-4994-911f-1745e5efbce3` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `f0f73fe9-f8ae-4994-911f-1745e5efbce3` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
 | `f101bf69-38b2-4c86-9978-727c665dfb31` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f101bf69-38b2-4c86-9978-727c665dfb31` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f120b2b6-40ba-4ae3-b087-c64e8e3bdf11` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -5197,7 +4643,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f120b2b6-40ba-4ae3-b087-c64e8e3bdf11` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
 | `f17f0643-8f16-435e-a0f7-2f7fc010c924` | CMS1173FHIRDiagnosticDelayVTE | MR | §5.1 — Min() over DateTime (#24 — fully fixed) |
-| `f1a332e3-50bc-4b66-b667-f96eeee06553` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `f1d921e8-bf78-488a-a30e-429e232ffaa9` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `f201c67a-4099-4075-9634-c762fa2bfaa2` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `f2136084-b5c4-4171-9d1b-d759637ddcfa` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -5243,7 +4688,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f71b56bb-42fc-4db0-aa60-6b7b91333295` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `f72b9ae4-40e0-4f28-a5bd-14f09ed84e75` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f72b9ae4-40e0-4f28-a5bd-14f09ed84e75` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `f737aa8d-fc32-41cd-82be-f0da91e7313c` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `f77b9abc-9c77-4e75-96c8-cc3bf25e08f4` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ |
 | `f7d55d17-b25e-4923-a880-dd79ef092ba6` | CMS996FHIRAptTxforSTEMI | MR | _pending_ |
 | `f82746cf-f6cd-4fcc-bc9e-7e569ae26211` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
@@ -5259,18 +4703,15 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f944825a-367c-46c5-b753-d59f088038d2` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f944825a-367c-46c5-b753-d59f088038d2` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f944825a-367c-46c5-b753-d59f088038d2` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `f96a2a48-8d71-49dc-9fde-eb45015151ff` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `f981eba4-4aac-45ce-8c52-f0bc02c9a0dc` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ |
 | `f9a03175-0a16-4c4a-97d5-f7b38e359526` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f9a03175-0a16-4c4a-97d5-f7b38e359526` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `f9a03175-0a16-4c4a-97d5-f7b38e359526` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `f9bc58d1-b545-404a-b5c5-488c157c21f2` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `f9bf76c5-7b85-4fd7-b883-b7c14e8b1801` | CMS165FHIRControllingHighBP | mismatched | §5.11 — Unable to extract codes from fhirType Reference (Blocked) |
 | `f9ef1fd1-cced-47ad-a47b-d9c20254511c` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ |
 | `fa446b35-031d-4eb5-b7f1-5782580e5209` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `fa446b35-031d-4eb5-b7f1-5782580e5209` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `fa446b35-031d-4eb5-b7f1-5782580e5209` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
-| `fa45f7d1-d257-4fcc-9bef-3188d13c92fe` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `faae1173-bc93-4fd2-a22f-e7726430857f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `faae1173-bc93-4fd2-a22f-e7726430857f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `faae1173-bc93-4fd2-a22f-e7726430857f` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
@@ -5290,7 +4731,6 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `fd579f44-757b-4c98-9b09-27b17b935650` | CMS871FHIRHHHyper | MR | _pending_ |
 | `fd5fb311-a466-4c59-966d-48fa7aa88931` | CMS145FHIRCADBBlockerTPMIorLVSD | mismatched | content gap — No CQL authored (Not conversion) |
 | `fdadfa9f-9e7b-4d80-a00e-56e8759b47c1` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ |
-| `fdc596ef-6cea-41b6-97b5-d090af98aff8` | CMS159FHIRDepRemissionat12Months | MR | _pending_ |
 | `fdd3fe25-b12c-4417-a999-91e4583f6cd4` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `fdd3fe25-b12c-4417-a999-91e4583f6cd4` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
 | `fdd3fe25-b12c-4417-a999-91e4583f6cd4` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ |
@@ -5300,8 +4740,8 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `fe38b06e-b202-4620-a5ac-e2d0d99591d7` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `fe38b06e-b202-4620-a5ac-e2d0d99591d7` | CMS347FHIRStatinPreventionTxCVD | mismatched | §1, §2, §3 — onc→astp namespace; UCUM units; doNotPerform, prevalenceInterval (#1; #3; #6/#10) |
 | `fe5f3172-5263-4498-b1ba-0d62de7455ef` | CMS74FHIRDentalCariesPrevention | mismatched | _pending_ |
-| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
-| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | CMS157FHIRPainIntensityQuantified | MR | _pending_ |
+| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
+| `fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ |
 | `feb97651-b478-467e-97c9-3bc514a0a26b` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `feb97651-b478-467e-97c9-3bc514a0a26b` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ |
 | `febd4b3e-99bc-4c55-bba9-3b2136c2160b` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ |
