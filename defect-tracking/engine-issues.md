@@ -27,10 +27,12 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-10 | `singleton from empty list` throws instead of returning null | **Confirmed** | Fixture-side enrichment | CMS156 |
 | E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None — blocked** | CMS135, CMS165 |
 | E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104 |
-| E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (54 site-level edits; 22 measures applied of 30; 8 pending Stage 3); inline `is`/`as` interim superseded | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
+| E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (62 site-level edits; 26 measures applied of 30; 4 pending Stage 3); inline `is`/`as` interim superseded; CMS133, CMS128 & CMS56 VERIFIED 2026-08-30; CMS131 applied 2026-08-30, verified 2026-08-31 (0007 report) | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | ~~E-15~~ | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — | — |
 | E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | **Confirmed** | **None — engine runtime** (see E-16; deferred) | CMS1154 |
+| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration | **Confirmed** | **None — under investigation** | CMS56, CMS131 |
+| E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | **Confirmed** | `FHIRHelpers.ToDateTime(...)` (CMS156 applied 2026-08-31; 45 → 0 MR pending harness re-run) | CMS156 |
 
 ---
 
@@ -52,6 +54,14 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
   "CMS645 attempt regressed" and "CMS156 45 → 0" notes are likewise superseded (CMS156 never loaded
   past E-13; CMS645's post-E-13 numerator 0→1 mismatches — d07cf359, 8c41481d, c5bfac21 — are the
   current E-01/`Min()` candidate under investigation).
+- **Post-E-13 reappearance tracked as E-18**: after the E-13 fix was applied to CMS156, the 45
+  remaining Missing Results surfaced the same `FHIR.dateTime` family as a literal
+  `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` error from
+  `CMS156FHIRHighRiskMedsElderly.cql:230-243` (raw `authoredOn` returned from the Index
+  Prescription Start Date defines feeding `sort` + a mixed-type `Interval` endpoint). Tracked and
+  fixed under **E-18** (`FHIRHelpers.ToDateTime(...)`); see the E-18 entry and
+  `input/cql/testE18DateTimeCompare.cql` repro. This closes the "re-check after the E-13 fix"
+  loop left open here.
 - **Note**: This is a broader family than just `Min()` — see E-02.
 - **References**: External issues log (original); #24.
 
@@ -64,6 +74,11 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 - **Confirmed affected**: CMS1173 (raw `FHIR.dateTime` fed into temporal operators). CMS156 was
   originally grouped here, but its Missing Results are the E-13 (union→`prevalenceInterval()`)
   translate failure (re-attributed 2026-08-29); re-checked after the E-13 fix.
+- **Post-E-13 reappearance tracked as E-18**: once the E-13 fix was applied, CMS156's 45 remaining
+  Missing Results reappeared as this exact family — raw `FHIR.dateTime` (`authoredOn`) returned from
+  `CMS156FHIRHighRiskMedsElderly.cql:230-243` and fed to `sort` plus a mixed-type `Interval`
+  endpoint, throwing `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`. Tracked and
+  fixed under **E-18**; see `input/cql/testE18DateTimeCompare.cql` repro.
 - **Workaround**: Convert to `System.DateTime` (`FHIRHelpers.ToDateTime(...)`) or, for choice types,
   convert to an interval first (`start of X.effective.toInterval()`).
 - **References**: #24.
@@ -262,23 +277,24 @@ fix as `[E-15]` now read `[E-13]`; any remaining "E-15" mention in this file or 
   base `[FHIR.Condition: "..."]` retrieve — both profiles derive from `Condition`, so the base
   retrieve captures every instance without ever forming the Choice. `.prevalenceInterval()` /
   `.isVerified()` / `.verified()` then resolve against FHIRCommon's base-`Condition` overloads
-  (`defect-tracking/_reference/FHIRCommon.cql` lines 394 / 427 / 438). **54 site-level edits, 22
-  measures applied** (2026-08-28: 7 measures / 25 sites; 2026-08-29 Stage 1: 6 measures / 13 branches;
-  2026-08-29 Stage 2: 9 measures / 16 defines — CMS90, CMS124, CMS129, CMS314, CMS349, CMS646, CMS771,
-  CMS951, CMS1188); **8 measures pending** Stage 3. **Inline `is`/`as` is the SUPERSEDED interim
-  workaround**: the earlier host of attempts on CMS90, CMS129, CMS133, CMS142, CMS143, CMS155, CMS157,
-  CMS159, CMS347, CMS951 used per-call-site `is`/`as` dispatch before the base-retrieve approach was
-  proven; any of those sites still present (CMS133, CMS157, CMS159 — Stage 3; leftovers on
-  CMS142/143/155/347) are converted to base retrieves as each measure passes. The
+  (`defect-tracking/_reference/FHIRCommon.cql` lines 394 / 427 / 438). **62 site-level edits, 26
+   measures applied** (2026-08-28: 7 measures / 25 sites; 2026-08-29 Stage 1: 6 measures / 13 branches;
+   2026-08-29 Stage 2: 9 measures / 16 defines — CMS90, CMS124, CMS129, CMS314, CMS349, CMS646, CMS771,
+   CMS951, CMS1188; 2026-08-30 Stage 3: CMS133, CMS128, CMS56, CMS131); **4 measures pending** Stage 3.
+   **Inline `is`/`as` is the SUPERSEDED interim
+   workaround**: the earlier host of attempts on CMS90, CMS129, CMS133, CMS142, CMS143, CMS155, CMS157,
+   CMS159, CMS347, CMS951 used per-call-site `is`/`as` dispatch before the base-retrieve approach was
+   proven; any of those sites still present (CMS157, CMS159 — Stage 3; leftovers on
+   CMS142/143/155/347; CMS133's converted + verified 2026-08-30) are converted to base retrieves as each measure passes. The
   `testE15*` / `defectHelper.cql` isolation artifacts retain their `E15` filenames (not renamed; only
   comment text was updated).
 - **Status**: **Verified / Applied**. Original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28);
   Stage 1 (2026-08-29): CMS1157 & CMS143 fully passing, CMS645 0 MR + 3, CMS75 0 MR + 7, CMS142 0 MR
   + 5 (residuals = class B); **CMS1154 0 MR + 1 residual = E-16** (0125). Full operational record
-  (per-measure site counts, syntax-regression post-mortem, class-A reconciliation) in the block
-  below.
+   (per-measure site counts, syntax-regression post-mortem, class-A reconciliation) in the block
+   below.
 - **References**: E-06; #10, #15, #16, #18, #19, #20 (the full saga); §5 items 4–6;
-  change-classification.md §3 / §5; conversion-notes.md #27.
+   change-classification.md §3 / §5; conversion-notes.md #27.
 
 ### E-14: `PCMaternal.cql` cast type change — suspected, unverified
 
@@ -409,14 +425,69 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   9 passing + 1 mismatch (`bc9c82ca`, DenExcl 1→0), which adjudicates as the new **E-16** runtime
   defect — the base retrieve is behaviourally identical to the reference (the E-13 mechanism is
   closed for CMS1154). The remaining 17 measures above are still E-13-crashing.
-- **Stage-2 applied (2026-08-29, base retrieves; pending harness verification)**: 9 measures / 16
-  defines converted to base `[FHIR.Condition: ...]` with the same `// [E-13]` + `// Original:`
-  convention — CMS90 (Heart Failure + Severe cognitive impairment), CMS124 (Absence of Cervix),
-  CMS129 (Prostate Cancer Pain + Prostate Cancer Diagnosis), CMS314 & CMS1188 (HIV), CMS349 (HIV DenExcl),
-  CMS646 (Tuberculosis, Excluding HIV/Immunocompromised/Mixed Histology, Bladder Cancer), CMS771
-  (Urinary Retention, Initial BPH Diagnosis, Morbid Obesity), CMS951 (Diabetes, CKD5/ESRD). Paren/define
-  balance re-verified for all 9 files. Remaining E-13-crashing → **8 measures (Stage 3)**: CMS128,
-  CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156.
+- **Stage-2 applied (2026-08-29, base retrieves; harness-verified 2026-08-30 via `discrepancy_report-20260830-0733-fix-cms133.md`)**: 9 measures / 16
+   defines converted to base `[FHIR.Condition: ...]` with the same `// [E-13]` + `// Original:`
+   convention — CMS90 (Heart Failure + Severe cognitive impairment), CMS124 (Absence of Cervix),
+   CMS129 (Prostate Cancer Pain + Prostate Cancer Diagnosis), CMS314 & CMS1188 (HIV), CMS349 (HIV DenExcl),
+   CMS646 (Tuberculosis, Excluding HIV/Immunocompromised/Mixed Histology, Bladder Cancer), CMS771
+   (Urinary Retention, Initial BPH Diagnosis, Morbid Obesity), CMS951 (Diabetes, CKD5/ESRD). Paren/define
+   balance re-verified for all 9 files. Verification results (0733): **CMS314, CMS349, CMS1188 fully
+   passing**; CMS90 0 MR + 19, CMS124 0 MR + 13, CMS129 0 MR + 25, CMS771 0 MR + 7, CMS951 0 MR + 13
+   (residuals = genuine logic mismatches, E-13 mechanism closed); **CMS646 0 MR + 1 residual MR** (1 of
+   38, remaining E-13 site). Remaining E-13-crashing → **4 measures (Stage 3)**: CMS159,
+   CMS996, CMS157, CMS156 (CMS133, CMS128, CMS56 applied + verified 2026-08-30; CMS131 applied + verified 2026-08-31).
+- **Stage-3 applied (2026-08-30, base retrieves; harness-verified same day via `discrepancy_report-20260830-0733-fix-cms133.md`, `discrepancy_report-20260830-0851-fix-cms128.md` and `discrepancy_report-20260830-1228.md` and 2026-08-31 `discrepancy_report-20260831-0007.md`)**: CMS133
+   (`Cataract Surgeries ... Impacting the Visual Outcome of Surgery`, 55 sibling-profile union pairs
+   → 55 base `[FHIR.Condition: ...]` retrieves) converted with a compact `// [E-13]` comment (no
+   per-branch `// Original:` lines — the full original union is summarized in the comment); CMS128
+   (`"Has IPSD and Major Depression Diagnosis"`, single `ConditionProblemsHealthConcerns` ∪
+   `ConditionEncounterDiagnosis` union → base `[FHIR.Condition: "Major Depression"]` retrieve, keeping
+   `.verified ( )` / `.prevalenceInterval ( )` resolving against FHIRCommon's base-`Condition`
+   overloads); **CMS56** (4 DenExcl defines — Severe Cognitive Impairment, Lower Body Fractures,
+   Malignant Neoplasm, Mechanical Complication — each a 2-profile union → base `[FHIR.Condition: ...]`
+   retrieve; static-verified 2026-08-30, harness-verified via the 1228 report); **CMS131** (`"Bilateral
+   Absence of Eyes"` and `"Diabetic Retinopathy Overlapping Measurement Period"` — 2 DenExcl/Numerator-
+   adjacent defines, each a `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` union →
+   base `[FHIR.Condition: ...]` retrieve, keeping `.verified ( )` / `.prevalenceInterval ( )` resolving
+   against FHIRCommon's base-`Condition` overloads; static-verified 2026-08-30, harness-verified
+   2026-08-31).
+   Verification:
+   **CMS133 fully passing (0 MR / 0 mismatched)** — it is the only new entry in "Measures with No
+   Discrepancies" (14 → 15); suite Pass 18544 → 18915 (78.17% → 79.74%), MR measures 14 → 13, MR cases
+   947 → 767. No regressions (per-measure delta is exactly CMS133 −73MR, + NHSN result-coverage
+   changes). **CMS128 58 MR → 16 mismatched (42/58 passing)** — the 16 are 8 unique cases × 2 groups,
+   all `Denominator Exclusion 1→0`, every fixture Hospice-triggered (`170935008` Condition, `45755-6`
+   Observation, `385763009` SR/Procedure, `428361000124107` Encounter) = the known class-B Hospice
+   bucket (same as CMS117/136/153/155/138/75); E-13 mechanism closed. Suite 0851: Pass 18915 → 19131
+   (80.65%), Fail 4807 → 4591, MR 767 → 709, MM 957 → 973. Per-measure delta exactly CMS128.
+   **CMS56 58 MR → 18 mismatched (40/58 passing)** — the 18 are all `1→0`: 8 `Denominator
+   Exclusion` = the known class-B Hospice bucket (6 confirmed Hospice codes: `170935008` Condition ×2,
+   `45755-6` Observation, `385763009` Procedure ×2, `428361000124107` Encounter; 2 more
+   Hospice-library encounter-code variants `183452005`+`428371000124100` and `183921001`), NOT the
+   4 E-13-edited excludes (all evaluate `false` correctly); 10 `Numerator` = observation-screening
+   assessment retrieval gap — `Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` in
+   all 58 traces even where fixtures carry all qualifying `ObservationScreeningAssessment` resources
+   (e.g. c19b82ba has all 5 HOOS subscales on 2024-11-01 and 2025-08-28 with `valueInteger: 60`) =
+   new **E-17**. Suite 1228: Pass 19131 → 19345 (81.55%), Fail 4591 → 4377, MR 709 → 651, MM 973 →
+   991. Per-measure delta is exactly CMS56 (no regressions).
+   **CMS131 63 MR → 0 MR (39/63 passing, 24 mismatched)** — the 24 are all `Denominator Exclusion
+   1→0`, and **none flow through the E-13-edited defines** ("Bilateral Absence of Eyes" DenExcl
+   evaluates correctly on both Anophthalmos fixtures 5432b9e7/b70ba99a; "Diabetic Retinopathy
+   Overlapping Measurement Period" is Numerators-side and all Numerator rows match) — same
+   mechanism-closed verdict as CMS128/CMS56. Bucket breakdown (same class-B families as CMS56):
+   ~8 Hospice (`170935008` Condition ×2, `183921001`/`183452005` Encounter ×3, `385763009`
+   Procedure/ServiceRequest ×2, `45755-6` Observation), ~4 PalliativeCare (`305824005` Encounter,
+   `395694002` Procedure, `71007-9` FACIT-Pal Observation ×2), ~11 Advanced Illness & Frailty /
+   LTCF / nursing home (dementia MedReq + `217083007`/`441874000`/`100721000119109` Conditions,
+   Frailty Device order, `98181-1` Medical equipment / `71802-3` Housing status / `R26.89` Frailty
+   Symptom Observations), 1 expected-anomaly (`65c895d1` asserts DenExcl 1 in its own MeasureReport
+   but carries **no** exclusion-triggering resource — fixture/expected-data issue, not engine;
+   logged pending trace). The 6 of 24 flowing through `ObservationScreeningAssessment`/
+   `SimpleObservation` retrieval (`45755-6`, `71007-9` ×2, `98181-1`, `71802-3`, `R26.89`) extend
+   **E-17** (see E-17; CMS131 corroboration). Suite 0007: Pass 19345 → 19573 (82.51%), Fail 4377 →
+   4149, MR 651 → 588, MM 991 → 1015. Per-measure 1228→0007 delta is exactly CMS131 (no regressions).
+   Remaining E-13-crashing → **4 measures (Stage 3)**: CMS159 (67 MR),
+   CMS996 (114 MR), CMS157 (126 MR), CMS156 (177 MR).
 - **Class A reconciliation (2026-08-28): triage of all 330 exposed mismatch rows — result: EMPTY
   (zero class A, no CQL or fixture disposition required)**. For every measure the exclusive,
   E-13-edited define(s) were confirmed independent of the mismatched populations, and each mismatch
@@ -585,6 +656,80 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   `testE15`-style isolation probe locking `[start, null) overlaps` behavior for the engine team. Not
   yet remediated.
 
+### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)
+
+- **Symptom**: the HOOS/HOOSJr/PROMIS10/VR12 Numerator assessment defines evaluate to `[]` even when
+  the fixture carries all required `ObservationScreeningAssessment` resources with the correct
+  profile (`us-quality-core-observation-screening-assessment`), codes, effective dates, and non-null
+  values. Exposed by the CMS56 E-13 fix (1228 report): 10 `Numerator 1→0` mismatches, all flowing
+  through the five `Date {HOOS,HOOSJr,PROMIS10,VR12 Oblique,VR12 Orthogonal} Total Assessment
+  Completed` defines.
+- **Evidence**: `TestCaseResult-c19b82ba-...json` shows `Date HOOS Total Assessment Completed` = `[]`
+  for every one of the 58 CMS56 cases, including c19b82ba whose fixture has all 5 HOOS subscale
+  observations (72093-8, 72094-6, 72095-3, 72096-1, 72097-9) on both 2024-11-01 (initial, same day as
+  the THA) and 2025-08-28 (follow-up) with `status final`, category `survey`, and `valueInteger: 60`.
+  The CQL chains `[ObservationScreeningAssessment: <code>].isAssessmentPerformed()` — this is a
+  `us-quality-core-observation-screening-assessment` profile-retrieve / `isAssessmentPerformed()` gap,
+  not a fixture problem (fixtures match the measure intent, expected Numerator = 1).
+- **Confirmed affected**: CMS56 (10 of 18 mismatches); **CMS131 (6 of 24 mismatches — corroboration
+  via the 0007 report, 2026-08-31)**. The CMS131 DenExcl cases extend the same proof for the
+  observation-assessment analogue of the class-B joins: `45755-6` "Hospice care [Minimum Data Set]"
+  (f77b9abc → Hospice), `71007-9` FACIT-Pal ×2 (a6cd48c6, e9b9b388 → PalliativeCare), `98181-1`
+  "Medical equipment used" (61dfb0bd → Frailty Equipment), `71802-3` "Housing status" (f0b61b7a →
+  LTCF nursing home), and `R26.89` "Frailty Symptom" (f45a1cb0 → `SimpleObservation.isSymptom()`
+  analogue) all evaluate `[]`/absent so their excludes don't fire. This is the same profile-retrieve
+  family as the `[USCore.BMIProfile]` → `[]` / `[USCore.ObservationPregnancyStatusProfile]` gaps
+  catalogued under
+  class B (see E-13 block and "Class B catalog"); `ObservationScreeningAssessment` is the
+  observation-assessment analogue. Other measures using `isAssessmentPerformed()` over a screening-
+  assessment profile are candidates to sweep after the CMS56 numerator path is characterized.
+- **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /
+  `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation
+  probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.
+- **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007
+  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The
+  E-13 objective for both measures (MR → 0) is met.
+
+### E-18: Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`
+
+- **Symptom**: a define returns a raw `FHIR.dateTime` value (no `FHIRHelpers` conversion) and that
+  value is then consumed by (a) a `sort asc` over the returned list, and/or (b) an `Interval`
+  whose other endpoint is a `System.DateTime` — either use throws at runtime:
+  `Values FHIR.dateTime and FHIR.dateTime are not comparable`, which aborts the library and turns
+  every test case into a Missing Result.
+- **Root cause**: `CMS156FHIRHighRiskMedsElderly.cql:230-243` —
+  `"Antipsychotic Index Prescription Start Date"` and `"Benzodiazepine Index Prescription Start
+  Date"` `return AntipsychoticMedication.authoredOn` / `BenzodiazepineMedication.authoredOn` (raw
+  `FHIR.dateTime`, no conversion). Two consuming expressions then fail:
+  1. `sort asc` compares raw `FHIR.dateTime` values from the 2-medication source list (not
+     comparable) — this is why **every one of the 15 failing fixtures carries only antipsychotic
+     `1006801` or benzodiazepine `1366192` codes**, and no passing fixture has them: non-antipsy/benzo
+     fixtures get an empty source → `First(empty) = null`, no sort, no error.
+  2. Numerator 2's mixed-type interval
+     `Interval[start of "Measurement Period" - 1 year, <"…Index Prescription Start Date">]`
+     (lines 168/178) — `System.DateTime` start vs `FHIR.dateTime` end compared during `overlaps` —
+     matching the 14/15 fixtures that ride the benzo side of the 1-2-year window threshold.
+- **Evidence**: all 45 Missing Results (15 fixtures × 3 groups) report
+  `Values FHIR.dateTime and FHIR.dateTime are not comparable`; 15/15 failing fixtures have only
+  `{1006801, 1366192}` med codes; 0/44 passing fixtures have them. `moreThanOneOrder()`
+  (lines 265-273) is **exonerated**: it's exercised identically for antiparkinsonian/antihistamine
+  fixtures that pass (via `date from …authoredOn`, which converts cleanly).
+- **`FHIRHelpers.ToDateTime` workaround (applied 2026-08-31)**: convert in both Index defines:
+  `return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)` (and the benzo analogue). This
+  keeps full timestamp precision, makes `sort asc` comparable, and makes the interval end
+  `System.DateTime` — homogeneous with `prevalenceInterval()` and `start of "Measurement Period"`, so
+  lines 168/178 type-check. Mirrors the proven idiom in CMS137 (`date from start of X.authoredOn
+  .toInterval()`) and CMS128 (IPSD conversion). Expected **45 MR → 0** pending harness re-run.
+- **Unit test / repro**: `input/cql/testE18DateTimeCompare.cql` + registration resources
+  `input/resources/library/testE18DateTimeCompare.json` /
+  `input/resources/measure/testE18DateTimeCompare.json` + fixture
+  `input/tests/measure/testE18DateTimeCompare/<patient-id>/` — FAILING defines reproduce the
+  raw-`FHIR.dateTime` `sort`/`Interval` error; PASSING defines are the `FHIRHelpers.ToDateTime(...)`
+  workaround (and the `date from` variant) that evaluate cleanly. See the "Unit-test (repro)
+  convention" note in `conversion-notes.md`.
+- **Status**: **Confirmed** (2026-08-31, CMS156 0042 report). This is the post-E-13 reappearance of
+  the E-01/E-02 `FHIR.dateTime` family; see the E-01/E-02 entries.
+
 ---
 
 ## Cross-Cutting Lessons
@@ -668,12 +813,14 @@ Measures with engine-issue workarounds applied (residual mismatches are non-engi
 | CMS190 | E-03 | `.ext()` bypass for `.recorded()` | 11 — distinct issues |
 | CMS1173 | E-01, E-02 | **Not applied in current tree** (see E-01) | **62 MR** — `The Minimum operator is not implemented for type {http://hl7.org/fhir}dateTime` |
 | CMS156 | **E-13** (was E-15; re-attributed 2026-08-29; was mis-labelled E-01/E-02) | E-13 fix pending (Stage 3) | **177 MR** baseline — cannot load past the condition union |
-| CMS128 | E-07 | Local `AntidepressantCoveragePeriod()` | 0 — fully passing |
+| CMS128 | E-07; **E-13** (`"Has IPSD and Major Depression Diagnosis"` union, applied 2026-08-30) | Local `AntidepressantCoveragePeriod()` (E-07) + base `FHIR.Condition` retrieve (E-13) | **58 MR → 16 mismatched** (verified 0851): all 8 unique cases × 2 groups `Denominator Exclusion 1→0` = class-B Hospice; E-13 mechanism closed |
+| CMS133 | **E-13** | Base `FHIR.Condition` retrieve applied 2026-08-30 | **0 — fully passing** (73 MR baseline → 0 MR / 0 mismatched; No Discrepancies) |
 | CMS871 | E-01 | (pending `Min()` fix) | **5 MR** — `Unable to locate ValueSet ... 1196.394` + `Invalid Interval` |
 | CMS645 | **E-13** (was E-15; re-attributed; baseline MR was the union translate failure), E-03 | Base `FHIR.Condition` replace (E-13) + `.ext()` | **0 MR** + 3 mismatches: DenException = Patient-Refusal negation (class B); 2 Numerator 0→1 = E-01/`Min()` candidate |
 | CMS646 | **E-13** (was E-15; re-attributed 2026-08-29) | E-13 base `FHIR.Condition` fix applied 2026-08-29 (pending harness verification) | **38 MR** baseline — cannot load past the condition union |
-| CMS90, CMS124, CMS129, CMS314, CMS349, CMS771, CMS951, CMS1188 (Stage 2 applied 2026-08-29); CMS133, CMS157, CMS159 (Stage 3 pending); CMS142, CMS143, CMS155, CMS347 (Stage 1 applied) | E-13 (was E-15) | Base `FHIR.Condition` retrieve (inline `is`/`as` interim superseded) | Varies — genuine logic mismatches now visible |
-| original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 | E-13 (was E-15; 30 measures confirmed; CMS22/CMS71 excluded) | Base `FHIR.Condition` retrieve replacing sibling-profile union (54 site-level edits / 22 measures applied; 8 pending Stage 3) | **Verified** — original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28); Stage 1 (2026-08-29): CMS1157 & CMS143 fully passing, CMS645 0 MR + 3, CMS75 0 MR + 7, CMS142 0 MR + 5 (residuals = class B), CMS1154 verified 0 MR + 1 mismatch = E-16 (0125); **Stage 2 (2026-08-29): 9 measures applied, pending harness** |
+| CMS56 | **E-13**, **E-17** | Base `FHIR.Condition` retrieves applied 2026-08-30 (4 DenExcl defines) | **58 MR → 18 mismatched** (verified 1228): 8 `Denominator Exclusion 1→0` = class-B Hospice (NOT the 4 E-13-edited excludes); 10 `Numerator 1→0` = **E-17** `ObservationScreeningAssessment` retrieve gap; E-13 mechanism closed |
+| CMS90, CMS124, CMS129, CMS314, CMS349, CMS771, CMS951, CMS1188 (Stage 2 applied + verified 2026-08-30); CMS133, CMS128, CMS56 (Stage 3 applied + verified 2026-08-30); CMS131 (Stage 3 applied 2026-08-30, verified 2026-08-31); CMS157, CMS159, CMS996, CMS156 (Stage 3 pending); CMS142, CMS143, CMS155, CMS347 (Stage 1 applied) | E-13 (was E-15) | Base `FHIR.Condition` retrieve (inline `is`/`as` interim superseded) | Varies — genuine logic mismatches now visible |
+| original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS133, CMS128, CMS56, CMS131, CMS159, CMS996, CMS157, CMS156 | E-13 (was E-15; 30 measures confirmed; CMS22/CMS71 excluded) | Base `FHIR.Condition` retrieve replacing sibling-profile union (62 site-level edits / 26 measures applied; 4 pending Stage 3) | **Verified** — original 7: 0 errors / 0 MR, class A EMPTY (2026-08-28); Stage 1 (2026-08-29): CMS1157 & CMS143 fully passing, CMS645 0 MR + 3, CMS75 0 MR + 7, CMS142 0 MR + 5 (residuals = class B), CMS1154 verified 0 MR + 1 mismatch = E-16 (0125); **Stage 2 (2026-08-29/30): 9 measures harness-verified via 0733 report** (CMS314/349/1188 fully passing; CMS646 1 residual MR); **Stage 3 (2026-08-30/31): CMS133 applied + verified fully passing (0733 report); CMS128 verified 58 MR → 16 class-B mismatches (0851 report); CMS56 verified 58 MR → 18 (8 class-B Hospice DenExcl + 10 E-17 Numerator, 1228 report); CMS131 applied + verified 2026-08-31 (63 MR → 0 MR, 24 class-B/E-17 DenExcl mismatches + 1 expected-anomaly, 0007 report)** |
 | CMS1154 | E-13 (was E-15), **E-16** (2026-08-29) | Base `FHIR.Condition` replace (E-13) | **0 MR** — 9/10 passing; 1 residual mismatch (`bc9c82ca` DenExcl 1→0) = E-16 `overlaps` null-high runtime defect (not class B / not drift) |
 | CMS104 | E-12 | None | 7 — union branch empty |
 | CMS0334, CMS1028 | E-14 | None | 1-2 each — unconfirmed |
