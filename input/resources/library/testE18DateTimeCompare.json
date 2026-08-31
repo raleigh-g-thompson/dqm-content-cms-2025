@@ -1,0 +1,29 @@
+{
+  "resourceType": "Library",
+  "id": "testE18DateTimeCompare",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/computable-library-cqfm" ]
+  },
+  "language": "en",
+  "url": "https://madie.cms.gov/Library/testE18DateTimeCompare",
+  "version": "0.0.000",
+  "name": "testE18DateTimeCompare",
+  "title": "E-18 Unit Test: Raw FHIR.dateTime sort / interval compare",
+  "status": "active",
+  "experimental": true,
+  "type": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/library-type",
+      "code": "logic-library"
+    } ]
+  },
+  "date": "2026-08-31",
+  "publisher": "Measure Parity (defect-tracking)",
+  "description": "E-18 unit test library (defect-tracking/engine-issues.md): reproduces the raw FHIR.dateTime 'Values FHIR.dateTime and FHIR.dateTime are not comparable' runtime failure from a define returned/sorted/interval-fed without a FHIRHelpers conversion (CMS156 Index Prescription Start Date), and demonstrates the passing FHIRHelpers.ToDateTime(...) / date from workaround.",
+  "topic": [ {
+    "text": "Engine issue E-18"
+  } ],
+  "content": [ {
+    "id": "ig-loader-testE18DateTimeCompare.cql"
+  } ]
+}
