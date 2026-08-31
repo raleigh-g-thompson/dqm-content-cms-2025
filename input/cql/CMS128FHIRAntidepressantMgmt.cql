@@ -46,12 +46,17 @@ define "April 30 of the Measurement Period":
   DateTime((year from start of "Measurement Period"), 4, 30, 23, 59, 59, 0, 0)
 
 define "Has IPSD and Major Depression Diagnosis":
-  exists ( ( ( [ConditionProblemsHealthConcerns: "Major Depression"]
-        union [ConditionEncounterDiagnosis: "Major Depression"]
-    ).verified ( ) ) MajorDepression
-      where "IPSD" is not null
-        and date from start of MajorDepression.prevalenceInterval ( ) within 60 days of "IPSD"
-  )
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   exists ( ( ( [ConditionProblemsHealthConcerns: "Major Depression"]
+  //         union [ConditionEncounterDiagnosis: "Major Depression"]
+  //     ).verified ( ) ) MajorDepression
+  //       where "IPSD" is not null
+  //         and date from start of MajorDepression.prevalenceInterval ( ) within 60 days of "IPSD"
+  //   )
+  exists ( ( [FHIR.Condition: "Major Depression"] ).verified ( ) ) MajorDepression
+    where "IPSD" is not null
+      and date from start of MajorDepression.prevalenceInterval ( ) within 60 days of "IPSD"
 
 define "IPSD":
   First((([MedicationDispense: "Antidepressant Medication"]).isMedicationDispensed()) Antidepressant

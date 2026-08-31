@@ -93,9 +93,12 @@ define "Autonomous Eye Exam in Measurement Period":
       and AutonomousEyeExam.effective.toInterval ( ) during day of "Measurement Period"
 
 define "Bilateral Absence of Eyes":
-  exists ( ( [ConditionProblemsHealthConcerns: "Anophthalmos of bilateral eyes (disorder)"]
-      union [ConditionEncounterDiagnosis: "Anophthalmos of bilateral eyes (disorder)"]
-  ).verified ( ) ) BilateralAbsenceEyes
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   exists ( ( [ConditionProblemsHealthConcerns: "Anophthalmos of bilateral eyes (disorder)"]
+  //       union [ConditionEncounterDiagnosis: "Anophthalmos of bilateral eyes (disorder)"] ) BilateralAbsenceEyes
+  //     where BilateralAbsenceEyes.prevalenceInterval ( ) starts on or before day of end of "Measurement Period"
+  exists ( ( [FHIR.Condition: "Anophthalmos of bilateral eyes (disorder)"] ).verified ( ) ) BilateralAbsenceEyes
     where BilateralAbsenceEyes.prevalenceInterval ( ) starts on or before day of end of "Measurement Period"
 
 define "Retinal Exam in Measurement Period":
@@ -107,9 +110,12 @@ define "Retinal Exam in Measurement Period or Year Prior":
     where RetinalExam.effective.toInterval ( ) during day of Interval[start of "Measurement Period" - 1 year, end of "Measurement Period"]
 
 define "Diabetic Retinopathy Overlapping Measurement Period":
-  exists ( ( [ConditionProblemsHealthConcerns: "Diabetic Retinopathy"]
-      union [ConditionEncounterDiagnosis: "Diabetic Retinopathy"]
-  ).verified ( ) ) Retinopathy
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  //   exists ( ( [ConditionProblemsHealthConcerns: "Diabetic Retinopathy"]
+  //       union [ConditionEncounterDiagnosis: "Diabetic Retinopathy"] ) Retinopathy
+  //     where Retinopathy.prevalenceInterval ( ) overlaps day of "Measurement Period"
+  exists ( ( [FHIR.Condition: "Diabetic Retinopathy"] ).verified ( ) ) Retinopathy
     where Retinopathy.prevalenceInterval ( ) overlaps day of "Measurement Period"
 
 define "Has Left Eye No Retinopathy in Year Prior":
