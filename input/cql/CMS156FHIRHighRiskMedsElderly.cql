@@ -192,13 +192,19 @@ define "Bipolar Disorder Diagnosis":
   ).verified ( )
 
 define "Schizophrenia Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Schizophrenia"]
-      union [ConditionEncounterDiagnosis: "Schizophrenia"]
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  // ( [ConditionProblemsHealthConcerns: "Schizophrenia"]
+  //     union [ConditionEncounterDiagnosis: "Schizophrenia"]
+  ( [Condition: "Schizophrenia"]
   ).verified ( )
 
 define "Seizure Disorder Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Seizure Disorder"]
-      union [ConditionEncounterDiagnosis: "Seizure Disorder"]
+  // [E-13] base FHIR.Condition retrieve (defect-tracking/engine-issues.md E-13)
+  // Original:
+  // ( [ConditionProblemsHealthConcerns: "Seizure Disorder"]
+  //     union [ConditionEncounterDiagnosis: "Seizure Disorder"]
+  ( [Condition: "Seizure Disorder"]
   ).verified ( )
 
 define "REM Sleep Behavior Disorder Diagnosis":
@@ -224,14 +230,14 @@ define "Generalized Anxiety Disorder Diagnosis":
 define "Antipsychotic Index Prescription Start Date":
   First((([MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"]).isMedicationOrder()) AntipsychoticMedication
       where AntipsychoticMedication.authoredOn during "Measurement Period"
-      return AntipsychoticMedication.authoredOn
+      return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)
       sort asc
   )
 
 define "Benzodiazepine Index Prescription Start Date":
   First((([MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"]).isMedicationOrder()) BenzodiazepineMedication
       where BenzodiazepineMedication.authoredOn during "Measurement Period"
-      return BenzodiazepineMedication.authoredOn
+      return FHIRHelpers.ToDateTime(BenzodiazepineMedication.authoredOn)
       sort asc
   )
 
