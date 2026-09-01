@@ -1,0 +1,447 @@
+#!/usr/bin/env python3
+"""Validate FHIR test-case fixtures for internal-reference consistency.
+
+Each test-case folder under ``input/tests/measure/<Measure>/<patient-guid>/`` is
+self-contained and holds exactly one ``Patient-<guid>.json``.  CQL evaluates in a
+``context Patient`` scoped to that single patient, so any resource whose
+patient-identity reference points at a *different* (or non-existent) patient is
+invisible to the measure logic and silently produces empty retrieves / false
+populations (a data-authoring error, not a CQL bug - see conversion-notes
+entries #7 / #11).
+
+This script walks every test-case folder, determines the authoritative patient
+GUID (the ``id`` of the lone ``Patient-*.json``), discovers every top-level
+field that carries a ``Patient/...`` reference, and classifies each mismatch.
+
+Folders whose Patient resource is misnamed (e.g. a template artifact like
+``null-null.json`` instead of ``Patient-<guid>.json``) are reported as fixable
+structural anomalies; ``--fix --apply`` renames them and injects the folder
+GUID as ``id``.
+
+Fields split into two tiers:
+
+* **Core** patient-identity fields - ``subject``, ``patient``, ``beneficiary``.
+  These are the ones the engine's ``context Patient`` scoping actually keys on,
+  so a mismatch here is what breaks measure logic (e.g. ``subject`` on
+  Encounter/Condition/Observation, ``patient`` on Claim/AllergyIntolerance,
+  ``beneficiary`` on Coverage).  Auto-fix rewrites only these.
+* **Broad** patient-reference fields discovered elsewhere (e.g. ``Task.for`` /
+  ``Task.focus``, ``Coverage.subscriber`` / ``Coverage.policyHolder``,
+  ``MedicationRequest.requester`` / ``MedicationRequest.reportedReference``).
+  These are reported but never auto-fixed, because they may legitimately
+  reference a different actor (a practitioner, a reporter) or a different
+  person (subscriber vs beneficiary).
+
+Run from the repo root (Python 3.12):
+
+    python ./scripts/validate_test_fixtures.py                 # report only
+    python ./scripts/validate_test_fixtures.py --measure CMS104 # one measure
+    python ./scripts/validate_test_fixtures.py --json          # machine output
+    python ./scripts/validate_test_fixtures.py --fix --apply   # rewrite CORE fields
+
+``--fix`` implies dry-run unless ``--apply`` is given; neither flag ever
+commits anything, and ``--apply`` still leaves the change unstaged for review.
+"""
+
+import argparse
+import json
+import os
+import re
+from datetime import datetime
+from typing import Dict, List, Optional, Set, Tuple
+
+# Directory layout constants
+TESTS_ROOT = os.path.join("input", "tests", "measure")
+
+# Core patient-identity fields - the ones that CQL `context Patient` scoping and
+# measure-retrieve logic depend on.  Auto-fix is restricted to this set.
+CORE_PATIENT_FIELDS = ("subject", "patient", "beneficiary")
+
+PATIENT_REF_RE = re.compile(r"^Patient/(?P<id>[A-Za-z0-9\-]+)$")
+
+Finding = Tuple[str, str, str, str, str, str, str]  # (measure, patient, file, field, referenced, expected, category)
+
+
+def load_json(path: str) -> Optional[Dict]:
+    """Load a JSON file, returning None on any parse error."""
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return None
+
+
+def _patient_ref_guid(value) -> Optional[str]:
+    """Return the patient GUID if ``value`` is a {reference: 'Patient/<guid>'}
+    dict, else None.  Ignores non-reference (e.g. display-style) shapes."""
+    if not isinstance(value, dict):
+        return None
+    ref = value.get("reference")
+    if not isinstance(ref, str):
+        return None
+    match = PATIENT_REF_RE.match(ref)
+    if not match:
+        return None
+    return match.group("id")
+
+
+def collect_test_cases(tests_root: str = TESTS_ROOT) -> List[Tuple[str, str, List[str]]]:
+    """Return [(measure, patient_guid, [resource_json_paths])] for every test-case
+    folder.  A measure is every immediate subdir of <tests_root>; a test case is
+    every subdir of a measure.  Folders with no Patient resource are still yielded
+    so the caller can flag the structural anomaly."""
+    cases: List[Tuple[str, str, List[str]]] = []
+    if not os.path.isdir(tests_root):
+        return cases
+    for measure in sorted(os.listdir(tests_root)):
+        measure_dir = os.path.join(tests_root, measure)
+        if not os.path.isdir(measure_dir):
+            continue
+        for guid in sorted(os.listdir(measure_dir)):
+            case_dir = os.path.join(measure_dir, guid)
+            if not os.path.isdir(case_dir):
+                continue
+            resources = [os.path.join(case_dir, f) for f in sorted(os.listdir(case_dir))
+                         if f.endswith(".json")]
+            cases.append((measure, guid, resources))
+    return cases
+
+
+def expected_patient_for(patient_files: List[str]) -> Optional[str]:
+    """Determine the authoritative patient GUID from the folder's Patient
+    resource(s): the ``id`` field of the Patient file whose basename match
+    ``Patient-<guid>.json``.  Returns None if there isn't exactly one
+    unambiguous Patient file."""
+    ids: Set[str] = set()
+    for pf in patient_files:
+        data = load_json(pf)
+        if data and data.get("resourceType") == "Patient":
+            pid = data.get("id")
+            if isinstance(pid, str):
+                ids.add(pid)
+            base = os.path.basename(pf)
+            if base.startswith("Patient-") and base.endswith(".json"):
+                ids.add(base[len("Patient-"):-len(".json")])
+    if len(ids) == 1:
+        return next(iter(ids))
+    return None
+
+
+def is_patient_resource(path: str) -> bool:
+    """True if the JSON at ``path`` is a FHIR Patient resource regardless of the
+    file's name (misnamed templates like ``null-null.json`` still count)."""
+    data = load_json(path)
+    return bool(data) and data.get("resourceType") == "Patient"
+
+
+def patient_resource_files(resources: List[str]) -> List[str]:
+    """The subset of resource file paths whose JSON is a Patient resource."""
+    return [p for p in resources if is_patient_resource(p)]
+
+
+def misnamed_patient_file(resources: List[str]) -> Optional[str]:
+    """Return the basename of the misnamed but otherwise-valid Patient resource in
+    a folder, or None.  A folder is a fixable anomaly when it holds exactly one
+    Patient-typed resource (``null-null.json`` is the known template artifact)
+    whose name does not follow the ``Patient-<guid>.json`` convention."""
+    patient_files = patient_resource_files(resources)
+    if len(patient_files) != 1:
+        return None
+    base = os.path.basename(patient_files[0])
+    if base.startswith("Patient-") and base.endswith(".json"):
+        return None
+    return base
+
+
+def discover_patient_fields(resource_paths: List[str]) -> Set[str]:
+    """Auto-discovery: return every top-level field that carries a Patient/
+    reference across the given resource files."""
+    fields: Set[str] = set()
+    for path in resource_paths:
+        data = load_json(path)
+        if not data or data.get("resourceType") == "MeasureReport":
+            continue
+        for key, value in data.items():
+            if _patient_ref_guid(value) is not None:
+                fields.add(key)
+    return fields
+
+
+def classify(referenced: str, expected: str, patient_ids: Set[str], field: str,
+             measure: str) -> str:
+    """Classify a patient-reference mismatch into a category string.
+
+    Categories:
+      CORE-WRONG    - core field points at a real-but-different patient GUID
+      CORE-PLACEHOLDER - core field points at a GUID that is not any real patient
+                      (template-generation artifact, e.g. d170a0a8-...)
+      BROAD-NOT-FIXED - non-core field mismatch (reported, never auto-fixed)
+    """
+    tier = "CORE" if field in CORE_PATIENT_FIELDS else "BROAD"
+    if referenced not in patient_ids:
+        kind = "PLACEHOLDER"
+    else:
+        kind = "WRONG"
+    return f"{tier}-{kind}-{'FIXABLE' if tier == 'CORE' else 'NOT-FIXED'}"
+
+
+def repo_wide_patient_ids(tests_root: str = TESTS_ROOT) -> Set[str]:
+    """Return every patient GUID that exists anywhere as a real test case (folder
+    name or Patient resource id).  Computed against the full tree so that the
+    placeholder-vs-wrong classification is stable regardless of a `--measure`
+    scope filter."""
+    return patient_ids_from_cases(collect_test_cases(tests_root))
+
+
+def patient_ids_from_cases(test_cases) -> Set[str]:
+    """Derive the universe of real patient GUIDs from a list of test cases
+    (test_cases are ``(measure, guid, [resource_files])`` tuples).  Includes each
+    case's folder GUID plus the ``id`` of every Patient-typed resource file."""
+    ids: Set[str] = set()
+    for _measure, guid, resources in test_cases:
+        ids.add(guid)
+        for pf in resources:
+            data = load_json(pf)
+            if data and data.get("resourceType") == "Patient" and isinstance(data.get("id"), str):
+                ids.add(data["id"])
+    return ids
+
+
+def validate(test_cases, verbose: bool = False,
+             all_patient_ids: Optional[Set[str]] = None) -> Tuple[List[Finding], List[str]]:
+    """Run validation over all test cases.
+
+    Returns (findings, structural_anomalies).  ``structural_anomalies`` captures
+    folders without an unambiguous Patient resource (can't be validated).
+
+    ``all_patient_ids`` is the universe of real patient GUIDs used to
+    distinguish "wrong but real patient" from "placeholder/non-existent"; if not
+    supplied it is derived from the given ``test_cases`` themselves."""
+    findings: List[Finding] = []
+    anomalies: List[str] = []
+
+    if all_patient_ids is None:
+        all_patient_ids = patient_ids_from_cases(test_cases)
+
+    for measure, guid, resources in test_cases:
+        patient_files = patient_resource_files(resources)
+        if not patient_files:
+            anomalies.append(f"{measure}/{guid}: cannot determine patient (found "
+                             f"0 Patient resource(s))")
+            if verbose:
+                print(f"  [anomaly] {measure}/{guid} - no Patient resource")
+            continue
+        misnamed = misnamed_patient_file(resources)
+        if misnamed is not None:
+            expected = guid
+            anomalies.append(f"{measure}/{guid}: Patient resource {misnamed} "
+                             f"misnamed (expected Patient-{guid}.json)")
+            if verbose:
+                print(f"  [anomaly] {measure}/{guid} - misnamed Patient {misnamed}")
+        else:
+            expected = expected_patient_for(patient_files)
+            if expected is None:
+                anomalies.append(f"{measure}/{guid}: cannot determine patient (found "
+                                 f"{len(patient_files)} Patient resource(s))")
+                if verbose:
+                    print(f"  [anomaly] {measure}/{guid} - no unambiguous Patient")
+                continue
+
+        resource_files = [f for f in resources if f not in patient_files]
+        # Auto-discover fields from the whole folder (could include resource files
+        # only; Patient file is excluded but harmless to skip).
+        fields = discover_patient_fields(resources)
+
+        for path in resource_files:
+            data = load_json(path)
+            if not data:
+                continue
+            if data.get("resourceType") == "MeasureReport":
+                continue
+            for field in sorted(fields):
+                value = data.get(field)
+                referenced = _patient_ref_guid(value)
+                if referenced is None or referenced == expected:
+                    continue
+                category = classify(referenced, expected, all_patient_ids, field, measure)
+                findings.append((measure, guid, os.path.basename(path), field,
+                                 referenced, expected, category))
+                if verbose:
+                    print(f"  [{category}] {measure}/{guid} {os.path.basename(path)} "
+                          f".{field} -> {referenced} (expected {expected})")
+    return findings, anomalies
+
+
+def collect_fixable(findings: List[Finding]) -> List[Finding]:
+    """Return only CORE findings eligible for auto-fix."""
+    return [f for f in findings if f[6].startswith("CORE")]
+
+
+def apply_fix_finding(finding: Finding, tests_root: str = TESTS_ROOT) -> bool:
+    """Rewrite one core-field finding's reference to the expected patient GUID,
+    in place.  Returns True if the file was actually edited."""
+    measure, guid, filename, field, _referenced, expected, _cat = finding
+    path = os.path.join(tests_root, measure, guid, filename)
+    data = load_json(path)
+    if data is None:
+        return False
+    value = data.get(field)
+    if _patient_ref_guid(value) is None:
+        return False
+    value["reference"] = f"Patient/{expected}"
+    data[field] = value
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, indent=2)
+        fh.write("\n")
+    return True
+
+
+def collect_anomaly_fixes(test_cases) -> List[Tuple[str, str, str]]:
+    """Return [(measure, guid, misnamed_basename)] for every folder whose sole
+    Patient resource file is misnamed (fixable structural anomaly)."""
+    fixes: List[Tuple[str, str, str]] = []
+    for measure, guid, resources in test_cases:
+        base = misnamed_patient_file(resources)
+        if base is not None:
+            fixes.append((measure, guid, base))
+    return fixes
+
+
+def apply_misnamed_patient_fix(measure: str, guid: str, misnamed_basename: str,
+                               tests_root: str = TESTS_ROOT) -> bool:
+    """Rename a misnamed Patient resource to ``Patient-<guid>.json`` and inject
+    a matching ``id`` field if missing.  Returns True if the folder changed."""
+    src = os.path.join(tests_root, measure, guid, misnamed_basename)
+    if not os.path.isfile(src):
+        return False
+    data = load_json(src)
+    if not data or data.get("resourceType") != "Patient":
+        return False
+    if data.get("id") != guid:
+        data["id"] = guid
+    dst = os.path.join(tests_root, measure, guid, f"Patient-{guid}.json")
+    if src == dst:
+        return False
+    with open(dst, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, indent=2)
+        fh.write("\n")
+    os.remove(src)
+    return True
+
+
+def render_report(findings: List[Finding], anomalies: List[str]) -> str:
+    """Render a markdown report suitable for scripts/comparison/."""
+    lines = [
+        "# Test Fixture Validation Report",
+        "",
+        f"Generated {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        "",
+        f"- **Findings**: {len(findings)} patient-reference mismatch(es)",
+        f"- **Structural anomalies**: {len(anomalies)}",
+        "",
+        "## Mismatch categories",
+        "",
+        "| Category | Count |",
+        "| --- | --- |",
+    ]
+    from collections import Counter
+    counts = Counter(f[6] for f in findings)
+    for cat in sorted(counts):
+        lines.append(f"| {cat} | {counts[cat]} |")
+    lines.append("")
+    lines.append("| Measure | Findings |")
+    lines.append("| --- | --- |")
+    measure_counts = Counter(f[0] for f in findings)
+    for m in sorted(measure_counts):
+        lines.append(f"| {m} | {measure_counts[m]} |")
+    lines.append("")
+    lines.append("## Details")
+    lines.append("")
+    lines.append("| Measure | Patient | Resource file | Field | Referenced patient | Expected patient | Category |")
+    lines.append("| --- | --- | --- | --- | --- | --- | --- |")
+    for (measure, guid, filename, field, referenced, expected, cat) in findings:
+        lines.append(f"| {measure} | {guid} | {filename} | {field} | {referenced} | {expected} | {cat} |")
+    lines.append("")
+    if anomalies:
+        lines.append("## Structural anomalies")
+        lines.append("")
+        for a in anomalies:
+            lines.append(f"- {a}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--measure", metavar="NAME",
+                        help="Only validate a single measure directory (e.g. CMS104FHIRSTKDCAntithrombotic)")
+    parser.add_argument("--json", action="store_true", dest="as_json",
+                        help="Emit findings as JSON to stdout instead of a markdown report")
+    parser.add_argument("--fix", action="store_true",
+                        help="Enable fixing; implies dry-run unless --apply is given")
+    parser.add_argument("--apply", action="store_true",
+                        help="Actually write fixes (only CORE patient-identity fields). Requires --fix.")
+    parser.add_argument("--verbose", "-v", action="store_true",
+                        help="Print each finding as discovered")
+    parser.add_argument("--out", metavar="PATH",
+                        default=os.path.join("scripts", "comparison"),
+                        help="Output directory for the report (default scripts/comparison)")
+    args = parser.parse_args()
+
+    test_cases = collect_test_cases()
+    all_patient_ids = repo_wide_patient_ids()
+    if args.measure:
+        test_cases = [tc for tc in test_cases if tc[0] == args.measure]
+
+    findings, anomalies = validate(test_cases, verbose=args.verbose,
+                                   all_patient_ids=all_patient_ids)
+
+    if args.as_json:
+        records = [
+            {"measure": m, "patient": g, "file": f, "field": field,
+             "referenced": ref, "expected": exp, "category": cat}
+            for (m, g, f, field, ref, exp, cat) in findings
+        ]
+        print(json.dumps({"findings": records, "anomalies": anomalies}, indent=2))
+        return
+
+    # --- fixing ---
+    if args.fix:
+        fixable = collect_fixable(findings)
+        anomaly_fixes = collect_anomaly_fixes(test_cases)
+        summary = (f"FIX DRY-RUN: {len(fixable)} core finding(s) and "
+                   f"{len(anomaly_fixes)} misnamed-Patient file(s) would be rewritten.")
+        if args.apply:
+            fixed = 0
+            for finding in fixable:
+                if apply_fix_finding(finding):
+                    fixed += 1
+            anomalies_fixed = 0
+            for measure, guid, base in anomaly_fixes:
+                if apply_misnamed_patient_fix(measure, guid, base):
+                    anomalies_fixed += 1
+            summary = (f"FIX APPLIED: rewrote {fixed} of {len(fixable)} core finding(s) "
+                       f"and {anomalies_fixed} of {len(anomaly_fixes)} misnamed-Patient "
+                       f"file(s). Review with `git diff` (no commit made).")
+        # Re-run validation after any apply so the report reflects final state.
+        findings, anomalies = validate(collect_test_cases(),
+                                       all_patient_ids=all_patient_ids)
+        if args.measure:
+            test_cases = [tc for tc in collect_test_cases() if tc[0] == args.measure]
+            findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids)
+        print(summary)
+
+    report = render_report(findings, anomalies)
+    os.makedirs(args.out, exist_ok=True)
+    report_name = f"fixture_validation_report-{datetime.now().strftime('%Y%m%d-%H%M')}.md"
+    report_path = os.path.join(args.out, report_name)
+    with open(report_path, "w", encoding="utf-8") as fh:
+        fh.write(report)
+
+    print(report)
+    print(f"\nReport written to {report_path}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1320,11 +1320,11 @@ CMS1028FHIRPCSevereOBComps,46c495dc-7e07-4831-8de3-3f6aa6c478ae,Group_2:Numerato
 CMS1028FHIRPCSevereOBComps,46c495dc-7e07-4831-8de3-3f6aa6c478ae,Group_2:Numerator Exclusion,0
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_1:Initial Population,1
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_1:Denominator,1
-CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_1:Numerator,0
+CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_1:Numerator,1
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_1:Numerator Exclusion,0
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_2:Initial Population,1
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_2:Denominator,1
-CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_2:Numerator,0
+CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_2:Numerator,1
 CMS1028FHIRPCSevereOBComps,4911c0c6-22e1-45ad-b39d-7e4d88c200d8,Group_2:Numerator Exclusion,0
 CMS1028FHIRPCSevereOBComps,4e9a1928-a33f-4be3-aa05-c69e9fc4bff7,Group_1:Initial Population,1
 CMS1028FHIRPCSevereOBComps,4e9a1928-a33f-4be3-aa05-c69e9fc4bff7,Group_1:Denominator,1
@@ -2134,13 +2134,13 @@ CMS1028FHIRPCSevereOBComps,ff09bea0-4af6-4722-a3ef-753a7f147c0c,Group_2:Initial 
 CMS1028FHIRPCSevereOBComps,ff09bea0-4af6-4722-a3ef-753a7f147c0c,Group_2:Denominator,1
 CMS1028FHIRPCSevereOBComps,ff09bea0-4af6-4722-a3ef-753a7f147c0c,Group_2:Numerator,1
 CMS1028FHIRPCSevereOBComps,ff09bea0-4af6-4722-a3ef-753a7f147c0c,Group_2:Numerator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,003b2da3-b46a-4b24-91be-65ef27eef3bc,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator Exception,0
@@ -2149,23 +2149,23 @@ CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,146a6714-8663-4f45-826a-01110ff34490,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,15e67912-9913-4b22-9f1b-3e86879e1d6d,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,162a5913-9989-42f2-8d6a-ae460e245e4c,Group_1:Denominator Exception,0
@@ -2174,13 +2174,13 @@ CMS104FHIRSTKDCAntithrombotic,1af15788-9e3f-4e3a-9cc0-c352ec1d9593,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,1af15788-9e3f-4e3a-9cc0-c352ec1d9593,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,1af15788-9e3f-4e3a-9cc0-c352ec1d9593,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,1af15788-9e3f-4e3a-9cc0-c352ec1d9593,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,1ec7f3ad-fe6d-486b-829b-101ebb721824,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,2326f161-b68e-4034-91cb-4eae3c2ba587,Group_1:Denominator Exception,0
@@ -2189,9 +2189,9 @@ CMS104FHIRSTKDCAntithrombotic,23a8b7f2-ec1b-4d2e-9ad0-5565ce7bba8c,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,23a8b7f2-ec1b-4d2e-9ad0-5565ce7bba8c,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,23a8b7f2-ec1b-4d2e-9ad0-5565ce7bba8c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,23a8b7f2-ec1b-4d2e-9ad0-5565ce7bba8c,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,264ec8d1-8e92-4b73-a6cb-e8856b22890d,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,26e7d59e-7c31-48e1-98e9-2a614ea5e78f,Group_1:Initial Population,0
@@ -2199,34 +2199,34 @@ CMS104FHIRSTKDCAntithrombotic,26e7d59e-7c31-48e1-98e9-2a614ea5e78f,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,26e7d59e-7c31-48e1-98e9-2a614ea5e78f,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,26e7d59e-7c31-48e1-98e9-2a614ea5e78f,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,26e7d59e-7c31-48e1-98e9-2a614ea5e78f,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,2d54a94c-edf1-4f92-baf8-3813a8ef452d,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,2e0b5b75-22d9-4607-b8fe-f31c86620554,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,2ffdd04b-5cee-4904-9ce8-2f68dada9941,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,302f7629-15c3-4e52-86df-5677eab6770c,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Numerator,0
-CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,348471db-5aaa-4bf3-a280-75222f20d599,Group_1:Denominator Exception,1
+CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,34d3361c-95b3-43bf-a2a8-380914e06acb,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,35db40dc-2669-4ea3-98f1-9ef8e45bf6c5,Group_1:Initial Population,0
@@ -2239,13 +2239,13 @@ CMS104FHIRSTKDCAntithrombotic,39a21e09-33d0-45ca-99eb-b839c1676e1a,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,39a21e09-33d0-45ca-99eb-b839c1676e1a,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,39a21e09-33d0-45ca-99eb-b839c1676e1a,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,39a21e09-33d0-45ca-99eb-b839c1676e1a,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,3da60e55-4952-4341-b2eb-a79707f4ec3e,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,3f089430-0edb-485d-9844-b2c58fb715e2,Group_1:Denominator Exception,0
@@ -2254,84 +2254,84 @@ CMS104FHIRSTKDCAntithrombotic,3f52eee2-8cec-45d5-a0c2-0e843e108dc3,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,3f52eee2-8cec-45d5-a0c2-0e843e108dc3,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,3f52eee2-8cec-45d5-a0c2-0e843e108dc3,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,3f52eee2-8cec-45d5-a0c2-0e843e108dc3,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,451b6853-3734-4c1c-b37e-5904629e0350,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,48952352-d74c-491c-9420-6e999e60f52a,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,4d94ffcd-39a0-4e40-83c1-6093ff82d641,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,52a258e1-0a79-4bb7-8f50-1aa519aa4e00,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,591c23ea-1ddd-4800-9203-4b6946979818,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,593382e8-4ad5-4300-b0ad-26c8954281c6,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,5adc911a-c2a1-475c-a347-9da4ee98c6df,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Numerator,0
-CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Denominator Exception,0
+CMS104FHIRSTKDCAntithrombotic,5aee33a0-e42c-4a79-97b7-40e7ac8b270e,Group_1:Denominator Exception,1
 CMS104FHIRSTKDCAntithrombotic,5bbee449-f991-425f-84c3-b389eaa95780,Group_1:Initial Population,0
 CMS104FHIRSTKDCAntithrombotic,5bbee449-f991-425f-84c3-b389eaa95780,Group_1:Denominator,0
 CMS104FHIRSTKDCAntithrombotic,5bbee449-f991-425f-84c3-b389eaa95780,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,5bbee449-f991-425f-84c3-b389eaa95780,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,5bbee449-f991-425f-84c3-b389eaa95780,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,65ef54b4-48ea-4fc0-a9a7-79b3be807393,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,6abe0474-e60b-438d-b661-4be178e6b4bd,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,6cf51e7c-99f4-4c6d-9b1c-6e371c96b742,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,6e82e823-f955-43fa-8b8a-b9cd4ae27778,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,728a543b-9149-4b2a-9e65-3fb41ce3f35b,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,7b1ac1a8-b7be-41ec-a77f-db545af22263,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,7c3ee345-c9da-4ce2-97e8-727de2e5023a,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,7cb8c09d-03d7-4b15-acb1-c30913becab3,Group_1:Initial Population,1
@@ -2339,59 +2339,59 @@ CMS104FHIRSTKDCAntithrombotic,7cb8c09d-03d7-4b15-acb1-c30913becab3,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,7cb8c09d-03d7-4b15-acb1-c30913becab3,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,7cb8c09d-03d7-4b15-acb1-c30913becab3,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,7cb8c09d-03d7-4b15-acb1-c30913becab3,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,7e22eabf-ac1f-4209-a8f6-dcc8b548b71c,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,8493a3fb-9501-4aa2-83a3-39fbafa6644c,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,87b7df35-0de4-4c6a-a030-8afac02454f2,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,88c4fed3-bef0-450a-b9ff-d736d4568838,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,8e28076e-2fc9-4170-95e9-a4de9e04fd5e,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,93459ee6-e397-477e-b7da-250fb75f5974,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,964f8143-6ff7-4b80-ad76-4dc59de2af37,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,999617b0-b41a-4a82-910d-f707ce1d7779,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,9f18a5c2-e59f-4582-91b5-401a86234284,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,a7b90108-4f50-4164-87b9-73817e9fdac2,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,a7ced87d-e4aa-4f80-a4c2-8f183cb0a8dd,Group_1:Initial Population,0
@@ -2399,29 +2399,29 @@ CMS104FHIRSTKDCAntithrombotic,a7ced87d-e4aa-4f80-a4c2-8f183cb0a8dd,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,a7ced87d-e4aa-4f80-a4c2-8f183cb0a8dd,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,a7ced87d-e4aa-4f80-a4c2-8f183cb0a8dd,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,a7ced87d-e4aa-4f80-a4c2-8f183cb0a8dd,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,a86dcf01-3c5f-43ca-a426-c118d5974332,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,a9c3e62b-fd84-4701-8024-7e3e60af9ed1,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,ac56c496-c5d6-4c23-be20-130ee8327fd2,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,ad8c4056-7c25-4dba-a861-ec201afd16fb,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,b536acae-02c7-4c6e-914b-4ea199d98f79,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,b76d4e25-b8bb-4f81-83b4-9693f9890f9f,Group_1:Initial Population,0
@@ -2429,33 +2429,33 @@ CMS104FHIRSTKDCAntithrombotic,b76d4e25-b8bb-4f81-83b4-9693f9890f9f,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,b76d4e25-b8bb-4f81-83b4-9693f9890f9f,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,b76d4e25-b8bb-4f81-83b4-9693f9890f9f,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,b76d4e25-b8bb-4f81-83b4-9693f9890f9f,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,b9d52b97-7602-457d-a96d-a1950a01b42a,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,ba8bb5f1-966b-4ac1-a311-b2550c0e4858,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Numerator,0
-CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,c15bee15-84c1-494a-ac82-2159b06da175,Group_1:Denominator Exception,1
+CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,cf0c5672-d86d-47fa-b13b-9bdb299c1d47,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,cfe6d907-c9fa-4d4c-9889-803315e8f707,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,d21be273-87ad-4ab5-a936-9de820872e73,Group_1:Denominator Exception,0
@@ -2464,34 +2464,34 @@ CMS104FHIRSTKDCAntithrombotic,d3bfef01-fbcd-47a1-912b-c27c23a4280b,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,d3bfef01-fbcd-47a1-912b-c27c23a4280b,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,d3bfef01-fbcd-47a1-912b-c27c23a4280b,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,d3bfef01-fbcd-47a1-912b-c27c23a4280b,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,d8ea50e2-e1a9-41ae-ac73-480bb198d963,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,db5afa02-02e2-4c0d-88c8-d3c0682333a1,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,dd6c17ad-396b-4ff5-9538-e06da5f0a39c,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,e081bee5-67f8-464f-9356-9b287e32a35a,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,e1342986-862c-461b-8963-d545238550ab,Group_1:Initial Population,0
 CMS104FHIRSTKDCAntithrombotic,e1342986-862c-461b-8963-d545238550ab,Group_1:Denominator,0
 CMS104FHIRSTKDCAntithrombotic,e1342986-862c-461b-8963-d545238550ab,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,e1342986-862c-461b-8963-d545238550ab,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e1342986-862c-461b-8963-d545238550ab,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e13ab79b-1b28-4a37-96cc-e63baa5f88cd,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,e6202628-baf6-4d44-acd6-d1affdf3c989,Group_1:Initial Population,1
@@ -2499,9 +2499,9 @@ CMS104FHIRSTKDCAntithrombotic,e6202628-baf6-4d44-acd6-d1affdf3c989,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,e6202628-baf6-4d44-acd6-d1affdf3c989,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,e6202628-baf6-4d44-acd6-d1affdf3c989,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,e6202628-baf6-4d44-acd6-d1affdf3c989,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Initial Population,0
@@ -2509,39 +2509,39 @@ CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e9074892-9513-48d7-999e-afeace427512,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,eb5173bb-769a-4c95-b0e9-362a271f72ea,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Denominator Exclusion,0
-CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Numerator,0
+CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Numerator,1
 CMS104FHIRSTKDCAntithrombotic,f705cc70-0d7d-4dc1-88f7-9b37ab5290d2,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,fdd3fe25-b12c-4417-a999-91e4583f6cd4,Group_1:Denominator Exception,0
 CMS1056FHIRCTClinical,03da9890-9eda-480c-99c8-d04a4e2f4204,Group_1:Initial Population,1
@@ -2862,7 +2862,7 @@ CMS108FHIRVTEProphylaxis,6ce8d015-efcf-4c8e-a715-cc7c460e3ba8,Group_1:Denominato
 CMS108FHIRVTEProphylaxis,6ce8d015-efcf-4c8e-a715-cc7c460e3ba8,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,70a5b41a-14ac-4e08-b661-d5523ad80fbf,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,70a5b41a-14ac-4e08-b661-d5523ad80fbf,Group_1:Denominator,1
-CMS108FHIRVTEProphylaxis,70a5b41a-14ac-4e08-b661-d5523ad80fbf,Group_1:Denominator Exclusion,0
+CMS108FHIRVTEProphylaxis,70a5b41a-14ac-4e08-b661-d5523ad80fbf,Group_1:Denominator Exclusion,1
 CMS108FHIRVTEProphylaxis,70a5b41a-14ac-4e08-b661-d5523ad80fbf,Group_1:Numerator,0
 CMS108FHIRVTEProphylaxis,73673965-9b35-446e-bad7-1701991e6906,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,73673965-9b35-446e-bad7-1701991e6906,Group_1:Denominator,1
@@ -3138,7 +3138,7 @@ CMS108FHIRVTEProphylaxis,ea49dc35-7378-4436-aa37-53ec9f13b05d,Group_1:Denominato
 CMS108FHIRVTEProphylaxis,ea49dc35-7378-4436-aa37-53ec9f13b05d,Group_1:Numerator,2
 CMS108FHIRVTEProphylaxis,eb754c68-82c7-48cd-a2f0-26ee1cd92544,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,eb754c68-82c7-48cd-a2f0-26ee1cd92544,Group_1:Denominator,1
-CMS108FHIRVTEProphylaxis,eb754c68-82c7-48cd-a2f0-26ee1cd92544,Group_1:Denominator Exclusion,0
+CMS108FHIRVTEProphylaxis,eb754c68-82c7-48cd-a2f0-26ee1cd92544,Group_1:Denominator Exclusion,1
 CMS108FHIRVTEProphylaxis,eb754c68-82c7-48cd-a2f0-26ee1cd92544,Group_1:Numerator,0
 CMS108FHIRVTEProphylaxis,eda87b8e-5b2a-46f5-af96-a7c0b75131ec,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,eda87b8e-5b2a-46f5-af96-a7c0b75131ec,Group_1:Denominator,1
@@ -11885,7 +11885,7 @@ CMS190FHIRVTEProphylaxisICU,2ccdf3cd-9f94-4d9c-ab2a-e78a4dd46876,Group_1:Numerat
 CMS190FHIRVTEProphylaxisICU,2ccdf3cd-9f94-4d9c-ab2a-e78a4dd46876,Group_1:Denominator Exception,0
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Initial Population,1
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator,1
-CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator Exclusion,0
+CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator Exclusion,1
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Numerator,0
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator Exception,0
 CMS190FHIRVTEProphylaxisICU,324eb2e7-2beb-4c84-88ff-bdf9fa5d8171,Group_1:Initial Population,1
@@ -12265,7 +12265,7 @@ CMS190FHIRVTEProphylaxisICU,d5d8e66a-01da-462b-95b6-e47b16285b1f,Group_1:Numerat
 CMS190FHIRVTEProphylaxisICU,d5d8e66a-01da-462b-95b6-e47b16285b1f,Group_1:Denominator Exception,0
 CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Initial Population,1
 CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Denominator,1
-CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Denominator Exclusion,0
+CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Denominator Exclusion,1
 CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Numerator,0
 CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Denominator Exception,0
 CMS190FHIRVTEProphylaxisICU,d70dcaf9-4e69-4395-9612-ee1e156f6184,Group_1:Initial Population,2
@@ -14017,11 +14017,11 @@ CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Den
 CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Denominator Exclusion,0
 CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Numerator,0
 CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Denominator Exception,0
-CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Initial Population,0
-CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Denominator,0
+CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Initial Population,1
+CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Denominator,1
 CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Denominator Exclusion,0
 CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Numerator,0
-CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Denominator Exception,0
+CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_1:Denominator Exception,1
 CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_2:Initial Population,0
 CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_2:Denominator,0
 CMS347FHIRStatinPreventionTxCVD,4120512a-d0f4-4ffa-acd9-0191db3b7f46,Group_2:Denominator Exclusion,0
@@ -18587,21 +18587,21 @@ CMS71FHIRSTKAnticoagAFFlutter,fd13e14c-cd97-4e81-9a69-e638b0a1fa58,Group_1:Denom
 CMS71FHIRSTKAnticoagAFFlutter,fd13e14c-cd97-4e81-9a69-e638b0a1fa58,Group_1:Denominator Exclusion,0
 CMS71FHIRSTKAnticoagAFFlutter,fd13e14c-cd97-4e81-9a69-e638b0a1fa58,Group_1:Numerator,0
 CMS71FHIRSTKAnticoagAFFlutter,fd13e14c-cd97-4e81-9a69-e638b0a1fa58,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,05ec524f-1d2d-4f9e-8eaa-cc2662030fc6,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,072fc02e-93db-449c-a293-2e8525a49694,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,075dc91f-0aef-4a59-aee5-a95ec22fe2b5,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,075dc91f-0aef-4a59-aee5-a95ec22fe2b5,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,075dc91f-0aef-4a59-aee5-a95ec22fe2b5,Group_1:Denominator Exclusion,1
@@ -18612,13 +18612,13 @@ CMS72FHIRSTKAntithromboticDay2,07663bba-9abe-46e2-b2e6-bcfc26e57a45,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,07663bba-9abe-46e2-b2e6-bcfc26e57a45,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,07663bba-9abe-46e2-b2e6-bcfc26e57a45,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,07663bba-9abe-46e2-b2e6-bcfc26e57a45,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,09a132b9-b03c-4a8d-a09f-f18c544bb660,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,09a4fe70-dc7a-48ed-9b97-47f0a119eabd,Group_1:Denominator Exception,0
@@ -18632,8 +18632,8 @@ CMS72FHIRSTKAntithromboticDay2,0bc6d4d8-81a0-42a2-9efb-9efbfc3ebe2a,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,0bc6d4d8-81a0-42a2-9efb-9efbfc3ebe2a,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,0bc6d4d8-81a0-42a2-9efb-9efbfc3ebe2a,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,0bc6d4d8-81a0-42a2-9efb-9efbfc3ebe2a,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,0c8a299c-b082-4383-b0b4-aebbb0fa9fb4,Group_1:Denominator Exception,0
@@ -18647,33 +18647,33 @@ CMS72FHIRSTKAntithromboticDay2,0dde3070-5a99-4be7-94d1-1a7161a7787b,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,0dde3070-5a99-4be7-94d1-1a7161a7787b,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,0dde3070-5a99-4be7-94d1-1a7161a7787b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,0dde3070-5a99-4be7-94d1-1a7161a7787b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,0eecd949-77bf-4ded-bb95-40e11c2116c7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,11fc1901-7cc7-46c6-bbd0-58b614082170,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,144370a9-c9cf-43db-ba18-f92f4f8cec29,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,145ddce1-5ecd-4bcb-b58d-6c39b55e4f54,Group_1:Initial Population,0
 CMS72FHIRSTKAntithromboticDay2,145ddce1-5ecd-4bcb-b58d-6c39b55e4f54,Group_1:Denominator,0
 CMS72FHIRSTKAntithromboticDay2,145ddce1-5ecd-4bcb-b58d-6c39b55e4f54,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,145ddce1-5ecd-4bcb-b58d-6c39b55e4f54,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,145ddce1-5ecd-4bcb-b58d-6c39b55e4f54,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,155afb0b-baef-4e1a-8255-dd3bc96c9c0d,Group_1:Denominator Exception,0
@@ -18682,10 +18682,10 @@ CMS72FHIRSTKAntithromboticDay2,1b785f3f-23e7-4b52-889c-d9f66945e7f1,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,1b785f3f-23e7-4b52-889c-d9f66945e7f1,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,1b785f3f-23e7-4b52-889c-d9f66945e7f1,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,1b785f3f-23e7-4b52-889c-d9f66945e7f1,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,1ef5e77a-dea5-4f1f-873b-44ea79810330,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,205bc592-1309-48f1-a8f7-5d4dc03d8430,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,205bc592-1309-48f1-a8f7-5d4dc03d8430,Group_1:Denominator,1
@@ -18717,11 +18717,11 @@ CMS72FHIRSTKAntithromboticDay2,29e634bc-c361-4e6b-a44e-444abb79b2de,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,29e634bc-c361-4e6b-a44e-444abb79b2de,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,29e634bc-c361-4e6b-a44e-444abb79b2de,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,29e634bc-c361-4e6b-a44e-444abb79b2de,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,2a1812bc-465a-438c-934c-e85a3591512a,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,2b3d9d90-4c15-43cc-b738-faeae8b0836b,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,2b3d9d90-4c15-43cc-b738-faeae8b0836b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,2b3d9d90-4c15-43cc-b738-faeae8b0836b,Group_1:Denominator Exclusion,1
@@ -18732,34 +18732,34 @@ CMS72FHIRSTKAntithromboticDay2,2bdb83c0-fcd9-4f06-b908-e373a7dcf91e,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,2bdb83c0-fcd9-4f06-b908-e373a7dcf91e,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,2bdb83c0-fcd9-4f06-b908-e373a7dcf91e,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,2bdb83c0-fcd9-4f06-b908-e373a7dcf91e,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,2ecbb381-211e-421a-8053-21c820f33043,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,2f7681fa-66b0-4395-aa35-7622e37709ae,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,3264d587-3c02-45ff-b989-044fcc30abae,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,3432dedb-7130-4614-9283-6c1569fab90f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,388557b1-cf25-4750-88b2-751e475b433f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,3ab85f43-dd45-4827-8f13-ad9d1208d2e0,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,3ae29ae5-1ae5-4eaf-ba7b-1e7b7780982a,Group_1:Initial Population,1
@@ -18792,28 +18792,28 @@ CMS72FHIRSTKAntithromboticDay2,4a276dfb-e77e-4b19-96af-96bd653b21b7,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,4a276dfb-e77e-4b19-96af-96bd653b21b7,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,4a276dfb-e77e-4b19-96af-96bd653b21b7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,4a276dfb-e77e-4b19-96af-96bd653b21b7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,4b6a9c86-3aad-4828-be61-bab6cd0c3140,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,4e232654-578a-4526-bd7d-1b354c3c748f,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,4e232654-578a-4526-bd7d-1b354c3c748f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,4e232654-578a-4526-bd7d-1b354c3c748f,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,4e232654-578a-4526-bd7d-1b354c3c748f,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,4e232654-578a-4526-bd7d-1b354c3c748f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,53e176e2-42f5-4c27-a1fe-23a280982bde,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,53e176e2-42f5-4c27-a1fe-23a280982bde,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,53e176e2-42f5-4c27-a1fe-23a280982bde,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,53e176e2-42f5-4c27-a1fe-23a280982bde,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,53e176e2-42f5-4c27-a1fe-23a280982bde,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,54381296-da32-4474-85b7-209d99c52e7e,Group_1:Denominator Exception,0
@@ -18822,28 +18822,28 @@ CMS72FHIRSTKAntithromboticDay2,5450abfd-a667-4eb9-9b59-e85feed4865c,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,5450abfd-a667-4eb9-9b59-e85feed4865c,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,5450abfd-a667-4eb9-9b59-e85feed4865c,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,5450abfd-a667-4eb9-9b59-e85feed4865c,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,5736982d-6c82-4815-b0d2-3416ebe105f4,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,58169ea2-037f-4302-9c37-4239fe24f73d,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Denominator Exception,0
@@ -18852,13 +18852,13 @@ CMS72FHIRSTKAntithromboticDay2,624c0305-d8a4-41eb-bbc9-30aea2c53304,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,624c0305-d8a4-41eb-bbc9-30aea2c53304,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,624c0305-d8a4-41eb-bbc9-30aea2c53304,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,624c0305-d8a4-41eb-bbc9-30aea2c53304,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,64a75df8-8bed-49ea-9c90-ee3569d233df,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,6678ed6f-3c94-4630-a7c5-d35a003b4535,Group_1:Denominator Exception,0
@@ -18867,8 +18867,8 @@ CMS72FHIRSTKAntithromboticDay2,67023b3d-31a7-444d-a689-76697cc9dfd5,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,67023b3d-31a7-444d-a689-76697cc9dfd5,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,67023b3d-31a7-444d-a689-76697cc9dfd5,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,67023b3d-31a7-444d-a689-76697cc9dfd5,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed,Group_1:Denominator Exception,0
@@ -18877,80 +18877,80 @@ CMS72FHIRSTKAntithromboticDay2,7068d447-aa53-4f18-be8b-8b0edaa74217,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,7068d447-aa53-4f18-be8b-8b0edaa74217,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,7068d447-aa53-4f18-be8b-8b0edaa74217,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,7068d447-aa53-4f18-be8b-8b0edaa74217,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,70e86911-43d6-41de-bfb9-933d8f539b98,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,7317795b-638b-4d0c-9e9e-b55ade45958c,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,763c581d-7398-47e7-ba78-eaa5853df551,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,77a6cd7b-4322-4c29-b248-64d8af106ce7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,77bba430-02fc-4ac7-ab49-f57fd73daa9b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,79a2dd53-a342-41d9-a5c9-1b565bd06fe7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,79f6bb60-1bdb-4dff-857d-65311e9ccea5,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,7abd0282-c461-4c61-9669-f261a689f485,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,7d9affce-5c31-4fcb-b9e5-c0304c3f9406,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,7e3bf20a-7a5b-4d50-aa34-267ab19da7b2,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,82399522-ba6c-4997-afc9-23f55bb7da89,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,82fd75d8-4816-4d24-b18c-0e454c430eb5,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,844d9440-ab79-4206-9893-bcf9a786970e,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,871d38c3-6822-4136-8fe0-2ed0f226888f,Group_1:Initial Population,0
 CMS72FHIRSTKAntithromboticDay2,871d38c3-6822-4136-8fe0-2ed0f226888f,Group_1:Denominator,0
@@ -18962,9 +18962,9 @@ CMS72FHIRSTKAntithromboticDay2,8873f644-9b17-4ee1-9152-8c77c7374bd1,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,8873f644-9b17-4ee1-9152-8c77c7374bd1,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,8873f644-9b17-4ee1-9152-8c77c7374bd1,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,8873f644-9b17-4ee1-9152-8c77c7374bd1,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,89275dc4-f4c1-41b5-a215-9c7228933cc0,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,89884742-86cd-4b6f-bed3-00f1929e06b2,Group_1:Initial Population,1
@@ -18977,73 +18977,73 @@ CMS72FHIRSTKAntithromboticDay2,91c80186-6eab-4021-b80d-03aa63b6eaa0,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,91c80186-6eab-4021-b80d-03aa63b6eaa0,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,91c80186-6eab-4021-b80d-03aa63b6eaa0,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,91c80186-6eab-4021-b80d-03aa63b6eaa0,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,93798745-af1c-4eb6-8dc4-446a531c05a4,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,96266910-a2b3-4294-9dc5-8a812622b70b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,9843e92a-751f-4b3c-86b8-50397a64c8fd,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,9915271c-d175-41e1-8550-2f698a2b9dc7,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,9915271c-d175-41e1-8550-2f698a2b9dc7,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9915271c-d175-41e1-8550-2f698a2b9dc7,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,9915271c-d175-41e1-8550-2f698a2b9dc7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,9915271c-d175-41e1-8550-2f698a2b9dc7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,9a297d79-90eb-46f1-9068-1a7c7b6c7147,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,9a42c820-29ec-464e-b2f5-eb8114985a0c,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,9a8c51a0-bf53-42b6-927d-c1f90b81a31a,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,9bfee327-99be-48de-ba09-5b64e4435f8d,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,a0ced1fb-191d-404b-80f4-761e51cf9de2,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,a1a37483-1a67-4dd9-a8ca-b4d49a28a19d,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,a2cb4956-d7e5-45a9-8007-80dcb893203c,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,a3aa4397-179c-4024-929d-2aa45a6ca0a9,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,a3aa4397-179c-4024-929d-2aa45a6ca0a9,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a3aa4397-179c-4024-929d-2aa45a6ca0a9,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,a3aa4397-179c-4024-929d-2aa45a6ca0a9,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,a3aa4397-179c-4024-929d-2aa45a6ca0a9,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,a5feebb4-d3c0-4435-aed5-9579b75a8a52,Group_1:Denominator Exception,0
@@ -19052,63 +19052,63 @@ CMS72FHIRSTKAntithromboticDay2,a64c6f30-eb93-4973-8f79-b84ed1950962,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,a64c6f30-eb93-4973-8f79-b84ed1950962,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,a64c6f30-eb93-4973-8f79-b84ed1950962,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,a64c6f30-eb93-4973-8f79-b84ed1950962,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,a938e0ff-51b3-4001-b33e-5fd2c00a9147,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,aadbfade-4898-4931-9e11-e5d7ba64ab27,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,ab024aef-425c-43ba-a856-882a3e3c91f1,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ab28178c-eadb-41a3-861e-ee22c8f12d16,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,ac23e6a6-3f36-49db-9eba-2da744a41c57,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,ac56c88f-5f25-4f75-946a-cadf775f0f8f,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,ac56c88f-5f25-4f75-946a-cadf775f0f8f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ac56c88f-5f25-4f75-946a-cadf775f0f8f,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ac56c88f-5f25-4f75-946a-cadf775f0f8f,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ac56c88f-5f25-4f75-946a-cadf775f0f8f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ad35c913-a8ba-4d29-b6e9-8652aa5ca20c,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,b3043789-f91a-42f6-848d-6bfd7df331fe,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,b4cd9b20-6d41-4034-907c-b24e362a0699,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,b569157b-b263-4b72-ab40-132bea1d8f71,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,b83b6e42-6291-4b2c-83e0-06e09e30e973,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,b83b6e42-6291-4b2c-83e0-06e09e30e973,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,b83b6e42-6291-4b2c-83e0-06e09e30e973,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,b83b6e42-6291-4b2c-83e0-06e09e30e973,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,b83b6e42-6291-4b2c-83e0-06e09e30e973,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,b86e54d1-f8ca-44b6-99a5-d455c5649104,Group_1:Denominator Exception,0
@@ -19127,28 +19127,28 @@ CMS72FHIRSTKAntithromboticDay2,bb3dcb0a-5efb-4f55-99a3-56084dd48191,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,bb3dcb0a-5efb-4f55-99a3-56084dd48191,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,bb3dcb0a-5efb-4f55-99a3-56084dd48191,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,bb3dcb0a-5efb-4f55-99a3-56084dd48191,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,bda91aac-a815-4a22-b505-36cef1080d49,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,c014ff5d-792f-45c9-9659-4999537005b0,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,c075959b-dafd-4dfd-a310-23bd9c53fe68,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,c075959b-dafd-4dfd-a310-23bd9c53fe68,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c075959b-dafd-4dfd-a310-23bd9c53fe68,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,c075959b-dafd-4dfd-a310-23bd9c53fe68,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c075959b-dafd-4dfd-a310-23bd9c53fe68,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2,Group_1:Denominator Exception,0
@@ -19162,28 +19162,28 @@ CMS72FHIRSTKAntithromboticDay2,c417d5e6-4cef-4d7b-93c6-d25a61a8a6ca,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,c417d5e6-4cef-4d7b-93c6-d25a61a8a6ca,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,c417d5e6-4cef-4d7b-93c6-d25a61a8a6ca,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c417d5e6-4cef-4d7b-93c6-d25a61a8a6ca,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c48c3487-44cf-4a09-bc17-e60e66d19002,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c5085136-65ef-498f-8aa9-449bf48f6a63,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c7382fb6-053b-4424-b5c2-87d79179b016,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,c787d9c8-9645-4da6-a607-85dbefdf129e,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c84cc10b-29f5-41cb-84a7-fbb23f52e0d5,Group_1:Denominator Exception,0
@@ -19192,9 +19192,9 @@ CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Initial Population,1
@@ -19202,33 +19202,33 @@ CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,cc23329d-6635-4347-8669-a98c921f4381,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,d0a59b97-c3ab-4028-9109-a31359a93c47,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,d496f08e-c55b-44b1-97a7-f86cf9ead1e2,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Denominator Exception,0
+CMS72FHIRSTKAntithromboticDay2,d82d5f38-a1b7-4f28-a3db-25f42f7e64b2,Group_1:Denominator Exception,1
 CMS72FHIRSTKAntithromboticDay2,d8ca26ff-f3dd-42e7-ab8c-17647582f5bb,Group_1:Initial Population,0
 CMS72FHIRSTKAntithromboticDay2,d8ca26ff-f3dd-42e7-ab8c-17647582f5bb,Group_1:Denominator,0
 CMS72FHIRSTKAntithromboticDay2,d8ca26ff-f3dd-42e7-ab8c-17647582f5bb,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,d8ca26ff-f3dd-42e7-ab8c-17647582f5bb,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,d8ca26ff-f3dd-42e7-ab8c-17647582f5bb,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,da480fb9-7501-46f5-9575-f15a638bc751,Group_1:Denominator Exception,0
@@ -19237,8 +19237,8 @@ CMS72FHIRSTKAntithromboticDay2,daede659-35ef-47bc-90f0-7882f07f6c50,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,daede659-35ef-47bc-90f0-7882f07f6c50,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,daede659-35ef-47bc-90f0-7882f07f6c50,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,daede659-35ef-47bc-90f0-7882f07f6c50,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,dc187313-245c-4ed6-b6bb-fcb94c117fec,Group_1:Denominator Exception,0
@@ -19247,13 +19247,13 @@ CMS72FHIRSTKAntithromboticDay2,dce7a5ea-accf-4d47-acee-26bbf654eb56,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,dce7a5ea-accf-4d47-acee-26bbf654eb56,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,dce7a5ea-accf-4d47-acee-26bbf654eb56,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,dce7a5ea-accf-4d47-acee-26bbf654eb56,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Numerator,0
-CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,dd40e582-8c3f-44a2-b781-84acead6120f,Group_1:Denominator Exception,1
+CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,de4005d0-549c-40bb-93b9-26650c194d04,Group_1:Denominator Exception,0
@@ -19262,8 +19262,8 @@ CMS72FHIRSTKAntithromboticDay2,deeafe68-b561-4d1c-9d73-5f343f809d8c,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,deeafe68-b561-4d1c-9d73-5f343f809d8c,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,deeafe68-b561-4d1c-9d73-5f343f809d8c,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,deeafe68-b561-4d1c-9d73-5f343f809d8c,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,e0286677-4610-4138-b9fe-3ed648ed45f8,Group_1:Denominator Exception,0
@@ -19282,23 +19282,23 @@ CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ea737165-ca06-4304-9964-c157d504c3ee,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,eafd6c1f-c099-48b8-8101-b24b4a49cd0b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ed638412-155e-4349-8461-4550fd4fae3b,Group_1:Denominator Exception,0
@@ -19312,8 +19312,8 @@ CMS72FHIRSTKAntithromboticDay2,f0289acb-3172-4690-8b6a-dbd4d4913db5,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,f0289acb-3172-4690-8b6a-dbd4d4913db5,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,f0289acb-3172-4690-8b6a-dbd4d4913db5,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f0289acb-3172-4690-8b6a-dbd4d4913db5,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f0d37c4e-7377-4876-8533-f955963f96f9,Group_1:Denominator Exception,0
@@ -19322,8 +19322,8 @@ CMS72FHIRSTKAntithromboticDay2,f1d38509-ab13-4afe-9dc5-4dbc6ac213c3,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,f1d38509-ab13-4afe-9dc5-4dbc6ac213c3,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,f1d38509-ab13-4afe-9dc5-4dbc6ac213c3,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f1d38509-ab13-4afe-9dc5-4dbc6ac213c3,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f25baf5f-2980-416c-a8ef-3b9e42d751c3,Group_1:Denominator Exception,0
@@ -19332,8 +19332,8 @@ CMS72FHIRSTKAntithromboticDay2,f53d8150-0e5a-43b1-be8e-7a356f74f045,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,f53d8150-0e5a-43b1-be8e-7a356f74f045,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,f53d8150-0e5a-43b1-be8e-7a356f74f045,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f53d8150-0e5a-43b1-be8e-7a356f74f045,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,f5f317c7-69f1-4a89-850a-8a58789c80f2,Group_1:Denominator Exception,0
@@ -19357,23 +19357,23 @@ CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,fed7bfb0-5746-4029-a64c-f40cc30ce946,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Denominator,0
+CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Denominator,1
 CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Denominator Exclusion,0
 CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb,Group_1:Denominator Exception,0
@@ -24620,33 +24620,33 @@ CMSFHIR844HybridHospitalWideMortality,bd0c87d4-b1d8-470b-beba-df7f7b9af87e,Group
 CMSFHIR844HybridHospitalWideMortality,c25ff376-c6dd-4f49-8d4a-953a70341e4f,Group_1:Initial Population,1
 CMSFHIR844HybridHospitalWideMortality,dbb82192-d268-4e50-be41-8e371d33bacd,Group_1:Initial Population,1
 CMSFHIR844HybridHospitalWideMortality,dbc046b4-83e5-41d8-8e5a-e3b9a5022a79,Group_1:Initial Population,1
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,025529dc-5384-4544-acb2-c2b6f7c9a23c,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,0353da56-ca21-45d3-8f96-8954167143ae,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,09431e3b-b1d9-491a-b6a3-76b3868e6213,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,16acd0ee-60e7-4573-b433-5a9c335c145b,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,19feaae6-8985-4444-9182-d3c785698710,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,1c06a652-f116-4307-80b7-342c16d20de1,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,24ab1538-bc59-454b-bd24-961288f4eea8,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,2ce50e7f-4e04-4d5b-9d9a-2243958c2a92,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,2ea03a1a-cefe-4eac-9e34-7bf434b30d2b,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,36e30d76-0d86-4b72-ba89-4ebaacf48b31,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,3e86234e-4999-4e8e-a4a2-420d1343b079,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,4974042e-fff4-4a3d-905e-548c6593ce40,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,4c8f4dd1-193e-4239-80ac-63e9ac2bd053,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,4d192f80-7649-4afd-a842-528ef60fc904,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,5efcd4e7-f71b-48a6-badb-b1b88c02f161,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,6409f1eb-d338-4bf6-a3df-4da1eb997c48,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,70306180-c713-4fa4-9c39-ae3b15e15d22,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,7f26eb5a-f877-458b-b960-5de7ffa5b4d0,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,8a407b28-6668-43be-9148-31ed08b8c0c4,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,8ffa77ff-8591-442d-84b1-6c6cb86fd09e,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,98561005-400a-4b9d-8902-f04605b6b168,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,a1ec5d8e-4926-456a-8523-786a93f2348b,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,bf9e53b4-e10c-4a11-a9be-8d5b944c1d51,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,d7aad5bd-638e-402a-92b3-2fb7f3f91151,Group_1:Initial Population,0
-NHSNAcuteCareHospitalMonthlyInitialPopulation1,ec296057-82c9-41b2-9e32-8ec2ea4f3687,Group_1:Initial Population,0
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,025529dc-5384-4544-acb2-c2b6f7c9a23c,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,0353da56-ca21-45d3-8f96-8954167143ae,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,09431e3b-b1d9-491a-b6a3-76b3868e6213,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,16acd0ee-60e7-4573-b433-5a9c335c145b,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,19feaae6-8985-4444-9182-d3c785698710,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,1c06a652-f116-4307-80b7-342c16d20de1,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,24ab1538-bc59-454b-bd24-961288f4eea8,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,2ce50e7f-4e04-4d5b-9d9a-2243958c2a92,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,2ea03a1a-cefe-4eac-9e34-7bf434b30d2b,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,36e30d76-0d86-4b72-ba89-4ebaacf48b31,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,3e86234e-4999-4e8e-a4a2-420d1343b079,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,4974042e-fff4-4a3d-905e-548c6593ce40,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,4c8f4dd1-193e-4239-80ac-63e9ac2bd053,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,4d192f80-7649-4afd-a842-528ef60fc904,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,5efcd4e7-f71b-48a6-badb-b1b88c02f161,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,6409f1eb-d338-4bf6-a3df-4da1eb997c48,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,70306180-c713-4fa4-9c39-ae3b15e15d22,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,7f26eb5a-f877-458b-b960-5de7ffa5b4d0,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,8a407b28-6668-43be-9148-31ed08b8c0c4,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,8ffa77ff-8591-442d-84b1-6c6cb86fd09e,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,98561005-400a-4b9d-8902-f04605b6b168,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,a1ec5d8e-4926-456a-8523-786a93f2348b,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,bf9e53b4-e10c-4a11-a9be-8d5b944c1d51,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,d7aad5bd-638e-402a-92b3-2fb7f3f91151,Group_1:Initial Population,1
+NHSNAcuteCareHospitalMonthlyInitialPopulation1,ec296057-82c9-41b2-9e32-8ec2ea4f3687,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,081a12b5-6d27-4380-9085-d44680b7bb3b,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,0abd9346-f086-4111-8614-d41be2e03979,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,0b97cf11-42c5-4f2d-b80d-be2f0e3d2501,Group_1:Initial Population,1
@@ -24667,7 +24667,7 @@ NHSNGlycemicControlHypoglycemiaInitialPopulation,2f5f0d25-506b-482a-9465-91137ed
 NHSNGlycemicControlHypoglycemiaInitialPopulation,37487559-c99d-4919-a6a8-661ed96a9692,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,3f89276c-e75b-4619-9f93-f0f9c58ea699,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,3fdb535d-0a7f-4ec9-80a6-845e002a76cb,Group_1:Initial Population,1
-NHSNGlycemicControlHypoglycemiaInitialPopulation,40b66b90-4811-4f6f-8eec-c46d1a5e6eeb,Group_1:Initial Population,0
+NHSNGlycemicControlHypoglycemiaInitialPopulation,40b66b90-4811-4f6f-8eec-c46d1a5e6eeb,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,49766095-dc01-4019-9bbe-79c5eade2b74,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,4d3218d8-7fc5-4d7f-a1f8-93a3324a18fd,Group_1:Initial Population,1
 NHSNGlycemicControlHypoglycemiaInitialPopulation,4dfc0e9d-b9e5-423c-9354-e9fcb83eda20,Group_1:Initial Population,1

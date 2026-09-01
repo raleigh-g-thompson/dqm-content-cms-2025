@@ -135,6 +135,24 @@ def sort_populations(populations: List[str]) -> List[str]:
         'numerator exclusion': 6}
     return sorted(populations, key=lambda x: order[x.lower()] if x.lower() in order else 99)
 
+def sort_by_test_case(patient_guid: str, group: str) -> Tuple[str, str]:
+    """Alphabetical sort key for a test case, ordered by patient GUID then group."""
+    return (patient_guid.casefold(), group)
+
+def sort_result_keys(result_keys: List[ResultKey]) -> List[ResultKey]:
+    """Sort Missing Results alphabetically by test case."""
+    return sorted(result_keys, key=lambda r: sort_by_test_case(r.patient_guid, r.group))
+
+def sort_missing_populations(missing_populations: List[MissingPopulation]) -> List[MissingPopulation]:
+    """Sort Missing Populations alphabetically by test case."""
+    return sorted(missing_populations,
+                  key=lambda mp: sort_by_test_case(mp.result_key.patient_guid, mp.result_key.group))
+
+def sort_mismatched_test_cases(mismatched_test_cases: Dict[TestCaseGroupId, Dict[str, Comparison]]) -> List[Tuple[TestCaseGroupId, Dict[str, Comparison]]]:
+    """Sort Mismatched Test Cases alphabetically by test case."""
+    return sorted(mismatched_test_cases.items(),
+                  key=lambda kv: sort_by_test_case(kv[0].patient_guid, kv[0].group))
+
 def cql_file_link(measure_name: str, custom_id: str = None) -> str:
     return f'[ {custom_id} ](../../input/cql/{measure_name}.cql)' if custom_id else f'[ {measure_name} ](../../input/cql/{measure_name}.cql)'
 
@@ -248,7 +266,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
                             missing_id.group
-                         ] for missing_id in discrepancy.missing_results]))
+                         ] for missing_id in sort_result_keys(discrepancy.missing_results)]))
             
                 if discrepancy.missing_populations:
                     f.write(f'Missing Populations ({len(discrepancy.missing_populations)} of {len(discrepancy.all_test_cases)} test cases)\n')
@@ -257,7 +275,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
                             missing_id.group,
-                            ','.join(populations)] for (missing_id, populations) in discrepancy.missing_populations]))
+                            ','.join(populations)] for (missing_id, populations) in sort_missing_populations(discrepancy.missing_populations)]))
             
                 if discrepancy.mismatched_test_cases:
                     f.write(f'Mismatched Test Cases ({len(discrepancy.mismatched_test_cases)} of  of {len(discrepancy.all_test_cases)})\n')
@@ -269,7 +287,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                             '<br>'.join([population for population in sort_populations(populations.keys())]),
                             '<br>'.join([populations[population].expected for population in sort_populations(populations.keys())]),
                             '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())])
-                         ] for test_group_id, populations in discrepancy.mismatched_test_cases.items()],
+                         ] for test_group_id, populations in sort_mismatched_test_cases(discrepancy.mismatched_test_cases)],
                         '|---|---|---|:---:|:---:|\n'))
 
 def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str):

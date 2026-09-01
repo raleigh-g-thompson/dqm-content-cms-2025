@@ -12,3 +12,4 @@
 __pycache__
 script_env
 *__MACOSX
+scripts/comparison/fixture_validation_report-*.md
