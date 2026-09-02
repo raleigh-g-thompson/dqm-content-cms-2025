@@ -1,15 +1,15 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-02 16:58:36.571698 |
+| Generated | 2026-09-02 13:00:46.092521 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Measures with Discrepancies | 54 |
+| Measures with Discrepancies | 55 |
 | Known Issues (resolution pending) | 11 issues / 4 test cases |
-| Pass Count (all) | 22353 (94.23%) |
-| Fail Count (all) | 1369 (5.77%) |
-| Pass Count (excl. resolution-pending) | 22353 (94.30%) |
-| Fail Count (excl. resolution-pending) | 1350 (5.70%) |
+| Pass Count (all) | 22198 (93.58%) |
+| Fail Count (all) | 1524 (6.42%) |
+| Pass Count (excl. resolution-pending) | 22198 (93.65%) |
+| Fail Count (excl. resolution-pending) | 1505 (6.35%) |
 
 
 
@@ -34,12 +34,12 @@
 |---|:---:|:---:|
 | Missing Results | 4 | 9 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 53 | 852 |
+| Mismatched Test Cases | 54 | 904 |
 
 
 
 _Note: Measures can have multiple discrepancies, so the Measures with Discrepancies count may not match the summary counts._
-## Measures with No Discrepancies (20)
+## Measures with No Discrepancies (19)
 - CMS50FHIRReceiptofSpecialistReport [ [cql] ](../../input/cql/CMS50FHIRReceiptofSpecialistReport.cql) [ [test results] ](../../input/tests/results/CMS50FHIRReceiptofSpecialistReport.txt)
 - CMS133FHIRCataracts2040BCVA90Days [ [cql] ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ [test results] ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt)
 - CMS143FHIRPOAGOpticNerveEval [ [cql] ](../../input/cql/CMS143FHIRPOAGOpticNerveEval.cql) [ [test results] ](../../input/tests/results/CMS143FHIRPOAGOpticNerveEval.txt)
@@ -53,14 +53,13 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 - CMS1056FHIRCTClinical [ [cql] ](../../input/cql/CMS1056FHIRCTClinical.cql) [ [test results] ](../../input/tests/results/CMS1056FHIRCTClinical.txt)
 - CMS1074FHIRCTIQR [ [cql] ](../../input/cql/CMS1074FHIRCTIQR.cql) [ [test results] ](../../input/tests/results/CMS1074FHIRCTIQR.txt)
 - CMS1157FHIRHIVRetention [ [cql] ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ [test results] ](../../input/tests/results/CMS1157FHIRHIVRetention.txt)
-- CMS1173FHIRDiagnosticDelayVTE [ [cql] ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ [test results] ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt)
 - CMS1188FHIRHIVSTITesting [ [cql] ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ [test results] ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt)
 - CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt)
 - CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt)
 - CMS1264FHIRECATREHQR [ [cql] ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ [test results] ](../../input/tests/results/CMS1264FHIRECATREHQR.txt)
 - NHSNAcuteCareHospitalMonthlyInitialPopulation1 [ [cql] ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ [test results] ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt)
 - NHSNGlycemicControlHypoglycemiaInitialPopulation [ [cql] ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ [test results] ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt)
-## Measures with Discrepancies (54)
+## Measures with Discrepancies (55)
 | Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases |
 |---|:---:|:---:|:---:|:---:|
 | [CMS2FHIRPCSDepScreenAndFollowUp](#cms2fhirpcsdepscreenandfollowup) | 36 | 0 | 0 | 22.22%   (8) |
@@ -116,6 +115,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS1017FHIRHHFI](#cms1017fhirhhfi) | 65 | 0 | 0 | 3.08%   (2) |
 | [CMS1028FHIRPCSevereOBComps](#cms1028fhirpcsevereobcomps) | 282 | 0 | 0 | 0.71%   (2) |
 | [CMS1154ScreeningPrediabetesFHIR](#cms1154screeningprediabetesfhir) | 10 | 0 | 0 | 10.00%   (1) |
+| [CMS1173FHIRDiagnosticDelayVTE](#cms1173fhirdiagnosticdelayvte) | 65 | 0 | 0 | 80.00%   (52) |
 | [CMS1218FHIRHHRF](#cms1218fhirhhrf) | 69 | 0 | 0 | 1.45%   (1) |
 
 
@@ -1417,6 +1417,66 @@ Mismatched Test Cases (1 of  of 10)
 | Test Case | Group | Population | Expected | Actual | Known Issue |
 |---|---|---|:---:|:---:|---|
 | [ bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d ](../.././input/tests/measure/CMS1154ScreeningPrediabetesFHIR/bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d/MeasureReport-466dec57-6ceb-4f37-8daa-40f26f14a191.json) | Group_1 | Denominator Exclusion | 1 | 0 | — |
+
+
+#### CMS1173FHIRDiagnosticDelayVTE
+[ [cql] ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ [test results] ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt)
+
+Mismatched Test Cases (52 of  of 65)
+| Test Case | Group | Population | Expected | Actual | Known Issue |
+|---|---|---|:---:|:---:|---|
+| [ 00829185-d673-4377-91f6-8ef11945ef08 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/00829185-d673-4377-91f6-8ef11945ef08/MeasureReport-e2af4366-0f8c-4b77-af38-7a36a36ff577.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 08473857-1c97-48cf-8ac3-4d70823cac80 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/08473857-1c97-48cf-8ac3-4d70823cac80/MeasureReport-8ecded0a-a5a3-48a0-bb95-456db33af8f3.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 28ac4ec3-5e02-4834-a778-0c1180d118df ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/28ac4ec3-5e02-4834-a778-0c1180d118df/MeasureReport-fa3e07f8-e4b5-4888-aeff-ffd81771d135.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 2a342927-ec88-48d7-8ed2-f5a4eeeabacf ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/2a342927-ec88-48d7-8ed2-f5a4eeeabacf/MeasureReport-165c5c60-b81c-411d-bf6e-685f4029debf.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 33e8f298-ea35-46d2-b1b4-e36f74ef0656 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/33e8f298-ea35-46d2-b1b4-e36f74ef0656/MeasureReport-cab13cd0-374f-4844-ac27-0dabb45a2abb.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion<br>Numerator | 2<br>2<br>1<br>1 | 0<br>0<br>0<br>0 | — |
+| [ 366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a/MeasureReport-ae572867-75a6-46cf-bfed-0510478255ca.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 3739ae38-6a2c-4197-bda6-e493c9df60e3 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/3739ae38-6a2c-4197-bda6-e493c9df60e3/MeasureReport-34076b56-7caf-44a0-8a9a-56b6e4aa2c53.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 3ae13373-5b1a-425b-b5db-7fe7ad03ed4a ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/3ae13373-5b1a-425b-b5db-7fe7ad03ed4a/MeasureReport-14b84301-e2be-4de4-85da-5d4af8491a71.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 40518296-e99e-49d4-bad4-f2642f690f44 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/40518296-e99e-49d4-bad4-f2642f690f44/MeasureReport-f95c7935-b5a3-4e0c-92dc-6930d57da783.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1/MeasureReport-4f357115-da6e-45a4-a734-e9cbbe4c6e88.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 47e1aa2d-d7e6-412f-adcf-499556a3b964 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/47e1aa2d-d7e6-412f-adcf-499556a3b964/MeasureReport-b0f106b1-ef95-458c-8309-a34c866a79aa.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 4d2c483a-5020-4cf8-92ad-5b03dcfe4090 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/4d2c483a-5020-4cf8-92ad-5b03dcfe4090/MeasureReport-d27f3c34-87b5-4a72-84b7-67a77e9be7be.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 51d9e817-1222-4048-b79d-be846ab4b48b ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/51d9e817-1222-4048-b79d-be846ab4b48b/MeasureReport-17a96ec2-47ae-456f-8edf-9054b266b705.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 52aac38f-8225-4a76-9ead-75a5d9e59133 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/52aac38f-8225-4a76-9ead-75a5d9e59133/MeasureReport-1ea5839d-854b-4994-b287-ab04084a5f98.json) | Group_1 | Initial Population<br>Denominator | 1<br>1 | 0<br>0 | — |
+| [ 5d812504-d8f7-4896-afd7-47c644eab47d ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/5d812504-d8f7-4896-afd7-47c644eab47d/MeasureReport-5ae15dce-87d5-4cbe-bba8-88fbc18595e6.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 6338004a-79a2-44e2-bbab-01757f5d4255 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/6338004a-79a2-44e2-bbab-01757f5d4255/MeasureReport-f2141d1f-dab3-4e3c-8c03-ffbb35267088.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 66de10d2-27b8-429e-9f42-1baa36c146e4 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/66de10d2-27b8-429e-9f42-1baa36c146e4/MeasureReport-5a09f776-4da6-4dc5-a45a-13cee0b9761c.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 0<br>0<br>0 | — |
+| [ 6aada3b3-23fe-42fe-a01e-e0398e64461e ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/6aada3b3-23fe-42fe-a01e-e0398e64461e/MeasureReport-2f1f830a-6c55-452b-b739-2c55fff5c779.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 6df8ca8a-cc8a-448f-8d37-6710be1bae7f ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/6df8ca8a-cc8a-448f-8d37-6710be1bae7f/MeasureReport-f5b797f8-63c4-44e2-9aa1-1b870db5662b.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 72a0ce6d-cfb0-4cc1-a558-de429743db8d ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/72a0ce6d-cfb0-4cc1-a558-de429743db8d/MeasureReport-35d08ea1-045c-471a-b787-08406e9aa6d5.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 74418ec7-63de-4779-a59b-00946db9289e ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/74418ec7-63de-4779-a59b-00946db9289e/MeasureReport-35b9b029-39a3-4e3a-a2cf-d7b27492f4da.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 8c1e3699-383f-4f17-94af-830d5a8af82b ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/8c1e3699-383f-4f17-94af-830d5a8af82b/MeasureReport-85691113-8482-47e5-9b05-c5514c2447a2.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 8c634b17-4a98-4829-bf96-d8972ace13b2 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/8c634b17-4a98-4829-bf96-d8972ace13b2/MeasureReport-9cd64168-bc2a-493f-9354-be5789d9cb43.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 8e599e9d-397f-46e6-be1c-dceb2e8ae4ef ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/8e599e9d-397f-46e6-be1c-dceb2e8ae4ef/MeasureReport-b46a6cbc-d8f2-4807-9836-25fe385227c9.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 958a8884-0ecc-4955-9d85-3a0637cc3513 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/958a8884-0ecc-4955-9d85-3a0637cc3513/MeasureReport-d981e286-b37f-4279-9103-5d67a7808fcd.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 95df04ca-45f8-4ae8-818c-579beab1ff7c ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/95df04ca-45f8-4ae8-818c-579beab1ff7c/MeasureReport-75848863-6780-475f-8b47-8166bc5e6d48.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 977bf457-d20e-4a81-bd4e-3f1fe48bd898 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/977bf457-d20e-4a81-bd4e-3f1fe48bd898/MeasureReport-78258038-679f-4072-8990-bac11781e342.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 9b320087-ff72-49d0-915a-ea51e31a6958 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/9b320087-ff72-49d0-915a-ea51e31a6958/MeasureReport-6e2b2ec4-8a0d-481a-80ac-130acdf78062.json) | Group_1 | Initial Population<br>Denominator | 1<br>1 | 0<br>0 | — |
+| [ 9c81fa03-9b46-455e-9cf7-d77d650a7b92 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/9c81fa03-9b46-455e-9cf7-d77d650a7b92/MeasureReport-1329777f-3981-4061-a31d-444b501566e8.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ 9de7a897-b0f0-4211-aeb7-9240c5828427 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/9de7a897-b0f0-4211-aeb7-9240c5828427/MeasureReport-74d428f5-973f-4c45-b3e7-7ce790f71784.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ a788d38f-a86a-4dc0-8f79-a22a31709495 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/a788d38f-a86a-4dc0-8f79-a22a31709495/MeasureReport-fcd3003c-a2c1-4af4-a358-f28239aa7c35.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion<br>Numerator | 2<br>2<br>1<br>1 | 0<br>0<br>0<br>0 | — |
+| [ b452cab7-9e94-46a7-bfbd-757bbabe48f3 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/b452cab7-9e94-46a7-bfbd-757bbabe48f3/MeasureReport-bbdc2eed-cb83-4efc-b4f7-c1c786051ffb.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ b486fbcd-6122-4238-812d-ed538bdf8bfc ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/b486fbcd-6122-4238-812d-ed538bdf8bfc/MeasureReport-20908f40-2c20-4d12-9d77-2ae654993cb6.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ b5a06f19-e1a3-4643-acae-98ab4334e08c ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/b5a06f19-e1a3-4643-acae-98ab4334e08c/MeasureReport-987e4bb6-951c-4655-a62a-4340c1a0a7b3.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ c9d1abe0-f4e2-4837-8614-7c6f81e308dd ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/c9d1abe0-f4e2-4837-8614-7c6f81e308dd/MeasureReport-9a22ac8d-2798-476c-a744-be0d6fddae0c.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ ca961cfb-a923-4ace-a62b-76521493586d ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/ca961cfb-a923-4ace-a62b-76521493586d/MeasureReport-d874a1f8-9004-4bde-ae62-cfa9befbc4c2.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ cb4f0532-5dd7-42f9-83a5-a45747bf9fdc ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/cb4f0532-5dd7-42f9-83a5-a45747bf9fdc/MeasureReport-95e2304a-27b4-4432-b6f3-b3b5576e25ac.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df/MeasureReport-f4f20cb8-aec9-49a8-a628-fc6c2f61ca83.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ d48f4307-df8d-4533-88bb-923c458d7501 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/d48f4307-df8d-4533-88bb-923c458d7501/MeasureReport-01d873a1-8253-4c6f-bca2-636d7f729fa9.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 0<br>0<br>0 | — |
+| [ d9b5275a-a62b-4bb2-b64b-4f7562910e84 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/d9b5275a-a62b-4bb2-b64b-4f7562910e84/MeasureReport-d6f5b9c5-baa6-4a73-b2c6-9d6e256f69f0.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ dec3b692-1735-4de3-8609-492d7208abfc ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/dec3b692-1735-4de3-8609-492d7208abfc/MeasureReport-ae731533-9e49-4d92-9ec7-f98270f52141.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ e6e92b90-d9fa-4774-bec0-6700ed567dae ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/e6e92b90-d9fa-4774-bec0-6700ed567dae/MeasureReport-b127c59d-7454-4149-9ef6-2ddcd5de48ee.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ e70ab50d-19ec-488c-bcbd-356471469a8e ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/e70ab50d-19ec-488c-bcbd-356471469a8e/MeasureReport-44302001-ec5e-4156-bea1-6c44dcc410d0.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ e7c5cce7-09dd-443d-8c1c-bde45e10c82e ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/e7c5cce7-09dd-443d-8c1c-bde45e10c82e/MeasureReport-6a8ba7b4-1de7-4104-adb6-f973560c2cdc.json) | Group_1 | Initial Population<br>Denominator | 1<br>1 | 0<br>0 | — |
+| [ e7e70ee6-834a-471f-a10d-62dd96df214d ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/e7e70ee6-834a-471f-a10d-62dd96df214d/MeasureReport-ddeb019b-7dd6-4bb0-bb5d-c9150f9b98e1.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ efdaaeef-185d-40ae-b758-41bf0170a838 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/efdaaeef-185d-40ae-b758-41bf0170a838/MeasureReport-921fbe32-04b3-4361-b0f2-4b9bb44250ff.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ f15fd7ef-5c1a-4202-8d65-5afa27f1c35f ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/f15fd7ef-5c1a-4202-8d65-5afa27f1c35f/MeasureReport-62cbbd3d-f0eb-4e94-80db-d15dfa9ca71a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ f17f0643-8f16-435e-a0f7-2f7fc010c924 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/f17f0643-8f16-435e-a0f7-2f7fc010c924/MeasureReport-e629a7b7-dd97-4946-9e7a-2fdc6bc39598.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ f3cea901-c841-424e-bcd8-dbf794b48abf ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/f3cea901-c841-424e-bcd8-dbf794b48abf/MeasureReport-99d8136d-8e21-44ff-a957-f83ddfb22ea1.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ f654a226-f4a3-44ad-9763-90fe13f82ff6 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/f654a226-f4a3-44ad-9763-90fe13f82ff6/MeasureReport-cb8194f4-ae40-4c41-b84d-814d04898669.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59 ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59/MeasureReport-65b1b443-5e51-4b30-83ab-fd9fa0e46bd0.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
+| [ fcf71d81-6341-486a-aca4-236516cad3cd ](../.././input/tests/measure/CMS1173FHIRDiagnosticDelayVTE/fcf71d81-6341-486a-aca4-236516cad3cd/MeasureReport-765a1f55-3f70-41c1-b9b0-ae5f85203346.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 1<br>1<br>1 | 0<br>0<br>0 | — |
 
 
 #### CMS1218FHIRHHRF

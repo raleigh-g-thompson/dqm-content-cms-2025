@@ -17,10 +17,19 @@ Output is a markdown document with:
 """
 
 import re
+import shutil
 import sys
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+
+# known-issues catalog is the source of truth; KNOWN_ROOT_CAUSES below is used
+# only as a fallback when the catalog file is missing.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "comparison"))
+import known_issues as known_issues_lib
+
+CATALOG_PATH = Path(__file__).resolve().parent / "comparison" / "known_issues.json"
 
 # ---------------------------------------------------------------------------
 # Known root causes — keyed by measure name
@@ -270,7 +279,23 @@ def parse_report(path: str) -> tuple[dict, dict, dict]:
 # ---------------------------------------------------------------------------
 # Pre-populate known root causes
 # ---------------------------------------------------------------------------
-def apply_known_root_causes(measures: dict[str, Measure]) -> None:
+def apply_known_root_causes(measures: dict[str, Measure], issues: list[dict] | None = None) -> None:
+    """Set each test case's Resolution from the known-issues catalog.
+
+    For a case enumerated as an ``affected_test_case`` of an issue:
+      * unresolved issue  -> "<id> — <title> (resolution pending)"
+      * resolved issue    -> "<id> (resolved — historical)"
+    If the catalog is empty (or a case is not enumerated), fall back to the
+    legacy per-measure KNOWN_ROOT_CAUSES dict, then to "_pending_ (unclassified)".
+    """
+    if issues:
+        # Build a per-case map from the catalog.
+        for name, m in measures.items():
+            for case in m.cases:
+                case.resolution = resolution_for_case(issues, name, case.guid)
+        return
+
+    # Fallback: legacy per-measure dict.
     for name, causes in KNOWN_ROOT_CAUSES.items():
         if name in measures:
             tags = ", ".join(tag for tag, _, _ in causes)
@@ -282,6 +307,19 @@ def apply_known_root_causes(measures: dict[str, Measure]) -> None:
                     case.resolution += f" ({notes})"
 
 
+def resolution_for_case(issues: list[dict], measure: str, guid: str) -> str:
+    """Return a resolution label for one (measure, guid) from the catalog."""
+    matches = known_issues_lib.issues_for_case({"issues": issues}, measure, guid)
+    if not matches:
+        return "_pending_ (unclassified)"
+    pending = [i for i in matches if not i.get("resolved", False)]
+    if pending:
+        label = ", ".join(f"{i['id']} — {i.get('title', '')}" for i in pending)
+        return f"{label} (resolution pending)"
+    label = ", ".join(f"{i['id']}" for i in matches)
+    return f"{label} (resolved — historical)"
+
+
 # ---------------------------------------------------------------------------
 # Output
 # ---------------------------------------------------------------------------
@@ -290,6 +328,7 @@ def generate_output(
     summary: dict,
     passing: dict,
     measures: dict[str, Measure],
+    issues: list[dict] | None = None,
 ) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     report_name = Path(report_path).stem
@@ -303,15 +342,32 @@ def generate_output(
     total_mr = sum(m.mr_count for m in measures.values())
     total_mm = sum(m.mismatched_count for m in measures.values())
 
-    # Build root-cause category summary
+    # Build root-cause category summary from the known-issues catalog (grouped
+    # by category). Fall back to the legacy per-measure dict when no catalog.
     rc_categories: dict[str, dict] = {}
-    for m in measures.values():
-        for cause in KNOWN_ROOT_CAUSES.get(m.name, []):
-            tag = cause[0]
-            if tag not in rc_categories:
-                rc_categories[tag] = {"measures": [], "cases": 0}
-            rc_categories[tag]["measures"].append(m.name)
-            rc_categories[tag]["cases"] += m.mr_count + m.mismatched_count
+    if issues:
+        for m in measures.values():
+            for case in m.cases:
+                matches = known_issues_lib.issues_for_case({"issues": issues}, m.name, case.guid)
+                if not matches:
+                    continue
+                for issue in matches:
+                    if issue.get("resolved", False):
+                        continue
+                    cat = issue.get("category", "unknown")
+                    info = rc_categories.setdefault(cat, {"measures": set(), "cases": 0})
+                    info["measures"].add(m.name)
+                    info["cases"] += 1
+        rc_categories = {k: {"measures": sorted(v["measures"]), "cases": v["cases"]}
+                         for k, v in rc_categories.items()}
+    else:
+        for m in measures.values():
+            for cause in KNOWN_ROOT_CAUSES.get(m.name, []):
+                tag = cause[0]
+                if tag not in rc_categories:
+                    rc_categories[tag] = {"measures": [], "cases": 0}
+                rc_categories[tag]["measures"].append(m.name)
+                rc_categories[tag]["cases"] += m.mr_count + m.mismatched_count
 
     out: list[str] = []
     w = out.append
@@ -352,12 +408,14 @@ def generate_output(
             measure_list = ", ".join(info["measures"])
             w(f"| {tag} | {len(info['measures'])} ({measure_list}) | {info['cases']} | _pending_ |")
         # Unclassified measures
-        classified = set()
-        for m_name, causes in KNOWN_ROOT_CAUSES.items():
-            classified.add(m_name)
-        unclassified = [
-            m for m in measures if m not in classified
-        ]
+        if issues:
+            classified_measures = set()
+            for v in rc_categories.values():
+                classified_measures.update(v["measures"])
+            unclassified = [m for m in measures if m not in classified_measures]
+        else:
+            classified = set(KNOWN_ROOT_CAUSES.keys())
+            unclassified = [m for m in measures if m not in classified]
         if unclassified:
             w(f"| Not yet classified | {len(unclassified)} | {sum(m.mr_count + m.mismatched_count for m in [measures[n] for n in unclassified])} | _pending_ |")
         w("")
@@ -375,20 +433,34 @@ def generate_output(
         w(f"**Total cases**: {m.total_cases} | **Failing**: {total_failing} ({m.mr_count} MR, {m.mismatched_count} mismatched)")
 
         # Root cause line
-        causes = KNOWN_ROOT_CAUSES.get(name, [])
-        if causes:
+        if issues:
             cause_parts = []
-            for tag, desc, notes in causes:
-                s = f"**{tag}** {desc}"
-                if notes:
-                    s += f" ({notes})"
-                cause_parts.append(s)
-            w(f"**Root cause**: {'; '.join(cause_parts)}")
+            seen = set()
+            for case in m.cases:
+                if case.resolution and not case.resolution.startswith("_pending_"):
+                    if case.resolution not in seen:
+                        seen.add(case.resolution)
+                        cause_parts.append(case.resolution)
+            if cause_parts:
+                w(f"**Root cause**: {'; '.join(cause_parts)}")
+            else:
+                w(f"**Root cause**: _pending classification_")
+                if m.mr_count > 0 and m.mismatched_count == 0:
+                    w(f"**Note**: All {m.mr_count} failing cases are Missing Results — likely a single shared root cause (engine crash or library resolution failure)")
         else:
-            w(f"**Root cause**: _pending classification_")
-            # Hint: if all MR, suggest it might be a single engine crash
-            if m.mr_count > 0 and m.mismatched_count == 0:
-                w(f"**Note**: All {m.mr_count} failing cases are Missing Results — likely a single shared root cause (engine crash or library resolution failure)")
+            causes = KNOWN_ROOT_CAUSES.get(name, [])
+            if causes:
+                cause_parts = []
+                for tag, desc, notes in causes:
+                    s = f"**{tag}** {desc}"
+                    if notes:
+                        s += f" ({notes})"
+                    cause_parts.append(s)
+                w(f"**Root cause**: {'; '.join(cause_parts)}")
+            else:
+                w(f"**Root cause**: _pending classification_")
+                if m.mr_count > 0 and m.mismatched_count == 0:
+                    w(f"**Note**: All {m.mr_count} failing cases are Missing Results — likely a single shared root cause (engine crash or library resolution failure)")
         w("")
 
         # Split cases by type
@@ -492,15 +564,30 @@ def process_report(input_path: Path, output_path: Path) -> None:
     print(f"  Generating {output_path.name} from {input_path.name} ...", file=sys.stderr)
 
     summary, passing, measures = parse_report(str(input_path))
-    apply_known_root_causes(measures)
+    issues = known_issues_lib.load_catalog(str(CATALOG_PATH)).get("issues", []) if CATALOG_PATH.exists() else []
+    apply_known_root_causes(measures, issues)
 
     total_mr = sum(m.mr_count for m in measures.values())
     total_mm = sum(m.mismatched_count for m in measures.values())
     print(f"    Parsed {len(measures)} failing measures: {total_mr} MR, {total_mm} mismatched entries", file=sys.stderr)
 
-    doc = generate_output(str(input_path), summary, passing, measures)
+    doc = generate_output(str(input_path), summary, passing, measures, issues)
     output_path.write_text(doc, encoding="utf-8")
     print(f"    Written to {output_path}", file=sys.stderr)
+
+    archive_failure_report(output_path)
+
+
+def archive_failure_report(output_path: Path) -> None:
+    """Copy the generated measure-failure-report to _archive/ with a timestamp."""
+    if not output_path.exists():
+        return
+    archive_dir = output_path.parent / "_archive"
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M")
+    dest = archive_dir / f"{output_path.stem}-{stamp}{output_path.suffix}"
+    shutil.copy2(output_path, dest)
+    print(f"    Archived -> {dest}", file=sys.stderr)
 
 
 def main():

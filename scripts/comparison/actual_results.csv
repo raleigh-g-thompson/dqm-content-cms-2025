@@ -3305,18 +3305,18 @@ CMS1157FHIRHIVRetention,f2044a96-a0a7-4d28-8a38-ec5458468acf,Group_1:Numerator,0
 CMS1157FHIRHIVRetention,fbc7c974-0ed5-4441-a147-4c69ec98bf14,Group_1:Initial Population,1
 CMS1157FHIRHIVRetention,fbc7c974-0ed5-4441-a147-4c69ec98bf14,Group_1:Denominator,1
 CMS1157FHIRHIVRetention,fbc7c974-0ed5-4441-a147-4c69ec98bf14,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,00829185-d673-4377-91f6-8ef11945ef08,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,0170a407-20f1-4d94-8a33-bb861e4c7697,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,0170a407-20f1-4d94-8a33-bb861e4c7697,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,0170a407-20f1-4d94-8a33-bb861e4c7697,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,0170a407-20f1-4d94-8a33-bb861e4c7697,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,08473857-1c97-48cf-8ac3-4d70823cac80,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,0acae6f0-e619-416a-98a9-3075c019a2b0,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,0acae6f0-e619-416a-98a9-3075c019a2b0,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,0acae6f0-e619-416a-98a9-3075c019a2b0,Group_1:Denominator Exclusion,0
@@ -3325,193 +3325,193 @@ CMS1173FHIRDiagnosticDelayVTE,0f9df40c-6f85-49cb-bb90-43a6246ac36a,Group_1:Initi
 CMS1173FHIRDiagnosticDelayVTE,0f9df40c-6f85-49cb-bb90-43a6246ac36a,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,0f9df40c-6f85-49cb-bb90-43a6246ac36a,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,0f9df40c-6f85-49cb-bb90-43a6246ac36a,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,28ac4ec3-5e02-4834-a778-0c1180d118df,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,2a342927-ec88-48d7-8ed2-f5a4eeeabacf,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Initial Population,2
+CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Denominator,2
+CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Denominator Exclusion,1
+CMS1173FHIRDiagnosticDelayVTE,33e8f298-ea35-46d2-b1b4-e36f74ef0656,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,3739ae38-6a2c-4197-bda6-e493c9df60e3,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,3ae13373-5b1a-425b-b5db-7fe7ad03ed4a,Group_1:Numerator,0
 CMS1173FHIRDiagnosticDelayVTE,404fce97-6dc2-4f88-9a23-2a158dd6cf51,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,404fce97-6dc2-4f88-9a23-2a158dd6cf51,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,404fce97-6dc2-4f88-9a23-2a158dd6cf51,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,404fce97-6dc2-4f88-9a23-2a158dd6cf51,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,40518296-e99e-49d4-bad4-f2642f690f44,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,47e1aa2d-d7e6-412f-adcf-499556a3b964,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,4d2c483a-5020-4cf8-92ad-5b03dcfe4090,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,51d9e817-1222-4048-b79d-be846ab4b48b,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,52640335-0fcf-4b29-8711-3e60fa0b795b,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,52640335-0fcf-4b29-8711-3e60fa0b795b,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,52640335-0fcf-4b29-8711-3e60fa0b795b,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,52640335-0fcf-4b29-8711-3e60fa0b795b,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,52aac38f-8225-4a76-9ead-75a5d9e59133,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,5d812504-d8f7-4896-afd7-47c644eab47d,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,6338004a-79a2-44e2-bbab-01757f5d4255,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Initial Population,2
+CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Denominator,2
 CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,66de10d2-27b8-429e-9f42-1baa36c146e4,Group_1:Numerator,2
+CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,6aada3b3-23fe-42fe-a01e-e0398e64461e,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,6df8ca8a-cc8a-448f-8d37-6710be1bae7f,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,72a0ce6d-cfb0-4cc1-a558-de429743db8d,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,74418ec7-63de-4779-a59b-00946db9289e,Group_1:Numerator,0
 CMS1173FHIRDiagnosticDelayVTE,8abac9e3-7e92-48c4-854c-4e9e98cf8f80,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,8abac9e3-7e92-48c4-854c-4e9e98cf8f80,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,8abac9e3-7e92-48c4-854c-4e9e98cf8f80,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,8abac9e3-7e92-48c4-854c-4e9e98cf8f80,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,8c1e3699-383f-4f17-94af-830d5a8af82b,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,8c634b17-4a98-4829-bf96-d8972ace13b2,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,8e599e9d-397f-46e6-be1c-dceb2e8ae4ef,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,958a8884-0ecc-4955-9d85-3a0637cc3513,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,95df04ca-45f8-4ae8-818c-579beab1ff7c,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,977bf457-d20e-4a81-bd4e-3f1fe48bd898,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,9b320087-ff72-49d0-915a-ea51e31a6958,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,9c81fa03-9b46-455e-9cf7-d77d650a7b92,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,9de7a897-b0f0-4211-aeb7-9240c5828427,Group_1:Numerator,0
 CMS1173FHIRDiagnosticDelayVTE,9f2ec6f0-b623-4a28-8012-b1aa1c4e3e18,Group_1:Initial Population,1
 CMS1173FHIRDiagnosticDelayVTE,9f2ec6f0-b623-4a28-8012-b1aa1c4e3e18,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,9f2ec6f0-b623-4a28-8012-b1aa1c4e3e18,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,9f2ec6f0-b623-4a28-8012-b1aa1c4e3e18,Group_1:Numerator,1
-CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Initial Population,2
+CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Denominator,2
+CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Denominator Exclusion,1
+CMS1173FHIRDiagnosticDelayVTE,a788d38f-a86a-4dc0-8f79-a22a31709495,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,b452cab7-9e94-46a7-bfbd-757bbabe48f3,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,b454bad8-f479-47fc-af11-1f9cb6fccea5,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,b454bad8-f479-47fc-af11-1f9cb6fccea5,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,b454bad8-f479-47fc-af11-1f9cb6fccea5,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,b454bad8-f479-47fc-af11-1f9cb6fccea5,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,b486fbcd-6122-4238-812d-ed538bdf8bfc,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,b5a06f19-e1a3-4643-acae-98ab4334e08c,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,c1fe7157-3ff7-4bb8-bf05-69c28a111600,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,c1fe7157-3ff7-4bb8-bf05-69c28a111600,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,c1fe7157-3ff7-4bb8-bf05-69c28a111600,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,c1fe7157-3ff7-4bb8-bf05-69c28a111600,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,c9d1abe0-f4e2-4837-8614-7c6f81e308dd,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,ca961cfb-a923-4ace-a62b-76521493586d,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,cb4f0532-5dd7-42f9-83a5-a45747bf9fdc,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Numerator,0
 CMS1173FHIRDiagnosticDelayVTE,d1e00565-85ef-4b47-b241-d4cbf05cdad3,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,d1e00565-85ef-4b47-b241-d4cbf05cdad3,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,d1e00565-85ef-4b47-b241-d4cbf05cdad3,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,d1e00565-85ef-4b47-b241-d4cbf05cdad3,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Initial Population,2
+CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Denominator,2
 CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,d48f4307-df8d-4533-88bb-923c458d7501,Group_1:Numerator,2
+CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,d9b5275a-a62b-4bb2-b64b-4f7562910e84,Group_1:Numerator,1
 CMS1173FHIRDiagnosticDelayVTE,daeb8000-bb34-48e7-a458-6c9a01c3a143,Group_1:Initial Population,1
 CMS1173FHIRDiagnosticDelayVTE,daeb8000-bb34-48e7-a458-6c9a01c3a143,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,daeb8000-bb34-48e7-a458-6c9a01c3a143,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,daeb8000-bb34-48e7-a458-6c9a01c3a143,Group_1:Numerator,1
-CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,dec3b692-1735-4de3-8609-492d7208abfc,Group_1:Numerator,0
 CMS1173FHIRDiagnosticDelayVTE,e23e06b9-b684-4e7b-8e24-c8a86e143d6f,Group_1:Initial Population,0
 CMS1173FHIRDiagnosticDelayVTE,e23e06b9-b684-4e7b-8e24-c8a86e143d6f,Group_1:Denominator,0
@@ -3521,50 +3521,50 @@ CMS1173FHIRDiagnosticDelayVTE,e2e50ebd-691f-4bf6-8f22-812a05abb608,Group_1:Initi
 CMS1173FHIRDiagnosticDelayVTE,e2e50ebd-691f-4bf6-8f22-812a05abb608,Group_1:Denominator,0
 CMS1173FHIRDiagnosticDelayVTE,e2e50ebd-691f-4bf6-8f22-812a05abb608,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,e2e50ebd-691f-4bf6-8f22-812a05abb608,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,e6e92b90-d9fa-4774-bec0-6700ed567dae,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,e70ab50d-19ec-488c-bcbd-356471469a8e,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Denominator Exclusion,0
 CMS1173FHIRDiagnosticDelayVTE,e7c5cce7-09dd-443d-8c1c-bde45e10c82e,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,e7e70ee6-834a-471f-a10d-62dd96df214d,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,efdaaeef-185d-40ae-b758-41bf0170a838,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,f15fd7ef-5c1a-4202-8d65-5afa27f1c35f,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Denominator,0
-CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Denominator Exclusion,0
+CMS1173FHIRDiagnosticDelayVTE,f17f0643-8f16-435e-a0f7-2f7fc010c924,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Denominator,1
+CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Denominator Exclusion,1
 CMS1173FHIRDiagnosticDelayVTE,f3cea901-c841-424e-bcd8-dbf794b48abf,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,f654a226-f4a3-44ad-9763-90fe13f82ff6,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Numerator,0
-CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Initial Population,0
-CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Denominator,0
+CMS1173FHIRDiagnosticDelayVTE,fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59,Group_1:Numerator,1
+CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Initial Population,1
+CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Denominator,1
 CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Denominator Exclusion,0
-CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Numerator,0
+CMS1173FHIRDiagnosticDelayVTE,fcf71d81-6341-486a-aca4-236516cad3cd,Group_1:Numerator,1
 CMS117FHIRChildImmunStatus,019295df-da9f-4616-9600-e4a6dfe43d44,Group_1:Initial Population,1
 CMS117FHIRChildImmunStatus,019295df-da9f-4616-9600-e4a6dfe43d44,Group_1:Denominator,1
 CMS117FHIRChildImmunStatus,019295df-da9f-4616-9600-e4a6dfe43d44,Group_1:Denominator Exclusion,0
@@ -20020,8 +20020,8 @@ CMS871FHIRHHHyper,0a3e9a4e-05a6-4b3f-9e24-4e999291e944,Group_1:Numerator,0
 CMS871FHIRHHHyper,0a3e9a4e-05a6-4b3f-9e24-4e999291e944,Group_1:Numerator Exclusion,0
 CMS871FHIRHHHyper,0a3e9a4e-05a6-4b3f-9e24-4e999291e944,Group_1:Denominator Observation,0
 CMS871FHIRHHHyper,0a3e9a4e-05a6-4b3f-9e24-4e999291e944,Group_1:Numerator Observation,0
-CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Initial Population,0
-CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Denominator,0
+CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Initial Population,1
+CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Denominator,1
 CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Denominator Exclusion,0
 CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Numerator,0
 CMS871FHIRHHHyper,113a6e72-7049-4a7f-90cf-5ec3435b0dee,Group_1:Numerator Exclusion,0

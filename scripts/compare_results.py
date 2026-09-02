@@ -2,10 +2,18 @@ import os
 import csv
 import glob
 import re
+import shutil
+import sys
 from collections import namedtuple
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, NamedTuple, Set, Tuple, TypedDict
+
+_SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _SCRIPTS_DIR)
+sys.path.insert(0, os.path.join(_SCRIPTS_DIR, "comparison"))
+import known_issues as known_issues_lib
 
 measure_id_pattern = r"(?:CMS|CMSFHIR)(?P<measure_id>\d+)"
 
@@ -71,6 +79,13 @@ def capture_results(file: str) -> Results:
                 result[group_and_population[1]] = row["count"]
     return Results(rows, results)
 
+def row_outcome(expected_result: str, actual_result: str) -> Tuple[str, str]:
+    """Return (result, actual_display) for a single expected/actual comparison."""
+    if actual_result is None or str(expected_result) != str(actual_result):
+        return ("FAIL", actual_result if actual_result is not None else "MISSING")
+    return ("PASS", actual_result)
+
+
 def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[int, int]:
     header = ["result", "measure_name", "guid", "population", "expected_result", "actual_result"]
     output = []
@@ -86,12 +101,12 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[
             continue
 
         actual_result = actual_rows.get(key)
-        if actual_result is None or str(expected_result) != str(actual_result):
-            output.append(["FAIL", key[0], key[1], key[2], expected_result, actual_result if actual_result is not None else "MISSING"])
-            fail_count += 1
-        else:
-            output.append(["PASS", key[0], key[1], key[2], expected_result, actual_result])
+        result, actual_display = row_outcome(expected_result, actual_result)
+        output.append([result, key[0], key[1], key[2], expected_result, actual_display])
+        if result == "PASS":
             pass_count += 1
+        else:
+            fail_count += 1
 
     with open(file, "w", newline="") as f:
         writer = csv.writer(f)
@@ -99,6 +114,41 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[
         writer.writerows(output)
 
     return (pass_count, fail_count)
+
+
+def scores(expected_rows: Dict[str, str], actual_rows: Dict[str, str]) -> Tuple[int, int]:
+    """Compute (pass, fail) over expected rows compared against actual rows."""
+    pass_count = 0
+    fail_count = 0
+    for key, expected_result in expected_rows.items():
+        if key[2].split(':')[1] not in ValidMeasurePopulationTypes:
+            continue
+        actual_result = actual_rows.get(key)
+        result, _ = row_outcome(expected_result, actual_result)
+        if result == "PASS":
+            pass_count += 1
+        else:
+            fail_count += 1
+    return (pass_count, fail_count)
+
+
+def exclude_pending_rows(expected_rows: Dict, actual_rows: Dict, pending: Set) -> Tuple[Dict[str, str], Dict[str, str]]:
+    """Return (expected, actual) rows with resolution-pending cases removed.
+
+    ``pending`` is a set of (measure_name, patient_guid) flagged by an unresolved
+    known issue; all groups of a pending case are dropped from both dicts.
+    """
+    filt_expected = {}
+    filt_actual = {}
+    for key, value in expected_rows.items():
+        if (key[0], key[1]) in pending:
+            continue
+        filt_expected[key] = value
+    for key, value in actual_rows.items():
+        if (key[0], key[1]) in pending:
+            continue
+        filt_actual[key] = value
+    return filt_expected, filt_actual
 
 def create_markdown_table(headers: List[str], data: List[str], custom_separator_row: str=None) -> List[str]:
     table_rows = []
@@ -194,8 +244,43 @@ def capture_discrepancies_by_measure(expected_results: Dict[ResultKey, Dict[str,
                     measure_discrepancy.mismatched_test_cases[TestCaseGroupId(expected_results_key.patient_guid, expected_results_key.group)] = mismatched_populations
     return {measure: discrepancies[measure] for measure in sort_measure_names([k for k,v in discrepancies.items() if has_discrepancy(v)])}
 
-def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int):
+def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
+    """Return a markdown label of known-issue IDs affecting a case, or '—'.
+
+    Only unresolved issues whose enumerated affected_test_cases include the case
+    are reported; resolved/historical issues do not appear (their cases pass).
+    """
+    labels = []
+    for issue in issues:
+        if issue.get("resolved", False):
+            continue
+        for case in issue.get("affected_test_cases", []):
+            if case.get("measure") == measure_name and case.get("guid") == patient_guid:
+                labels.append(f"{issue['id']} — resolution pending")
+                break
+    return "<br>".join(labels) if labels else "—"
+
+
+def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
+    issues = issues or []
+    expected_keys = (list(expected_rows.keys()) if expected_rows is not None
+                     else list(expected_results.keys()))
+    pending = known_issues_lib.pending_case_set({"issues": issues})
+    pending_issues = known_issues_lib.pending_issues({"issues": issues})
+
+    # Dual scores: all vs excluding resolution-pending cases.
+    if expected_rows is not None and actual_rows is not None:
+        excl_expected, excl_actual = exclude_pending_rows(expected_rows, actual_rows, pending)
+        excl_pass, excl_fail = scores(excl_expected, excl_actual)
+    else:
+        excl_pass, excl_fail = pass_count, fail_count
+    pending_case_count = len({(k[0], k[1]) for k in expected_keys}
+                             & pending) if expected_keys else 0
+
+    def pad(_pass, _fail):
+        denom = _pass + _fail
+        return f'{_pass} ({_pass / denom * 100:.2f}%)' if denom else f'{_pass} (0.00%)'
 
     with open(file, "w", newline="") as f:
         f.write('# Discrepancy Report\n')
@@ -206,10 +291,28 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                 ['Total Measures', len(set([result_key.measure_name for result_key in expected_results.keys()]))],
                 ['Total Test Cases', len(set([(result_key.measure_name, result_key.patient_guid) for result_key in expected_results.keys()]))],
                 ['Measures with Discrepancies', len(discrepancies)],
-                ['Pass Count', f'{pass_count} ({pass_count / (pass_count + fail_count) * 100:.2f}%)'],
-                ['Fail Count', f'{fail_count} ({fail_count / (pass_count + fail_count) * 100:.2f}%)'],
+                ['Known Issues (resolution pending)', f'{len(pending_issues)} issues / {pending_case_count} test cases'],
+                ['Pass Count (all)', pad(pass_count, fail_count)],
+                ['Fail Count (all)', pad(fail_count, pass_count)],
+                ['Pass Count (excl. resolution-pending)', pad(excl_pass, excl_fail)],
+                ['Fail Count (excl. resolution-pending)', pad(excl_fail, excl_pass)],
             ]
         ))
+        if pending_issues:
+            f.write('\n## Known Issues (resolution-pending)\n\n')
+            f.writelines(create_markdown_table(
+                ['ID', 'Issue', 'Category', 'Status', 'Affected measures', 'Tracked test cases'],
+                [
+                    [
+                        issue["id"],
+                        issue.get('title', ''),
+                        issue.get('category', ''),
+                        issue.get('status', ''),
+                        ', '.join(dict.fromkeys(issue.get('affected_measures', []))),
+                        str(len(issue.get('affected_test_cases', []))),
+                    ] for issue in pending_issues
+                ],
+                '|---|------|---------|-------|-----|------|\n'))
         f.writelines(create_markdown_table(
             ['Discrepancy Summary', 'Measure Count', 'Test Case Count'],
             [
@@ -262,10 +365,11 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                 if discrepancy.missing_results:
                     f.write(f'Missing Results ({len(discrepancy.missing_results)} of {len(discrepancy.all_test_cases)} test cases)\n')
                     f.writelines(create_markdown_table(
-                        ['Test Case', 'Group'],
+                        ['Test Case', 'Group', 'Known Issue'],
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
-                            missing_id.group
+                            missing_id.group,
+                            known_issue_label(issues, missing_id.measure_name, missing_id.patient_guid)
                          ] for missing_id in sort_result_keys(discrepancy.missing_results)]))
             
                 if discrepancy.missing_populations:
@@ -280,31 +384,80 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                 if discrepancy.mismatched_test_cases:
                     f.write(f'Mismatched Test Cases ({len(discrepancy.mismatched_test_cases)} of  of {len(discrepancy.all_test_cases)})\n')
                     f.writelines(create_markdown_table(
-                        ['Test Case', 'Group', 'Population', 'Expected', 'Actual'],
+                        ['Test Case', 'Group', 'Population', 'Expected', 'Actual', 'Known Issue'],
                         [[
                             measure_report_file_link(measure, test_group_id.patient_guid),
                             test_group_id.group,
                             '<br>'.join([population for population in sort_populations(populations.keys())]),
                             '<br>'.join([populations[population].expected for population in sort_populations(populations.keys())]),
-                            '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())])
+                            '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())]),
+                            known_issue_label(issues, measure, test_group_id.patient_guid)
                          ] for test_group_id, populations in sort_mismatched_test_cases(discrepancy.mismatched_test_cases)],
-                        '|---|---|---|:---:|:---:|\n'))
+                        '|---|---|---|:---:|:---:|---|\n'))
 
-def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str):
+def archive_report(report_path: str) -> str:
+    """Copy the generated discrepancy report to _archive/ with a timestamp.
+
+    Returns the archive path written (or None if the report file is absent).
+    """
+    src = Path(report_path)
+    if not src.exists():
+        return None
+    archive_dir = src.parent / "_archive"
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M")
+    dest = archive_dir / f"{src.stem}-{stamp}{src.suffix}"
+    shutil.copy2(src, dest)
+    return str(dest)
+
+
+def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None):
     expected_results = capture_results(expected_file)
     actual_results = capture_results(actual_file)
+
+    issues = known_issues_lib.load_catalog(known_issues_file).get("issues", [])
 
     pass_fail_count = generate_output(output_file, expected_results[0], actual_results[0])
     pass_pct = pass_fail_count[0] / (pass_fail_count[0] + pass_fail_count[1]) * 100
     print(f"PASS: {pass_fail_count[0]} ({pass_pct:.2f})%")
     print(f"FAIL: {pass_fail_count[1]} ({(100 - pass_pct):.2f})%")
+    if issues:
+        pending = known_issues_lib.pending_case_set({"issues": issues})
+        excl_expected, excl_actual = exclude_pending_rows(expected_results[0], actual_results[0], pending)
+        p, fl = scores(excl_expected, excl_actual)
+        denom = p + fl
+        print(f"PASS (excl. resolution-pending): {p} ({p / denom * 100:.2f}%)" if denom else f"PASS (excl. resolution-pending): {p}")
+        print(f"FAIL (excl. resolution-pending): {fl} ({(100 - p / denom * 100) if denom else 0:.2f})%")
     
-    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1])
+    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0])
+
+    archived = archive_report(comparison_report)
+    if archived:
+        print(f"Archived report -> {archived}")
 
 if __name__ == '__main__':
     expected_file = "./scripts/comparison/expected_results.csv"
     actual_file = "./scripts/comparison/actual_results.csv"
     output_file = "./scripts/comparison/output_results.csv"
     comparison_report = "./scripts/comparison/discrepancy_report.md"
+    known_issues_file = "./scripts/comparison/known_issues.json"
 
-    main(expected_file, actual_file, output_file, comparison_report)
+    args = sys.argv[1:]
+    if "--known-issues" in args:
+        idx = args.index("--known-issues")
+        if idx + 1 < len(args):
+            known_issues_file = args[idx + 1]
+        args = args[:idx] + args[idx + 2:]
+    if args:
+        # positional: expected actual output report [known-issues]
+        expected_file = args[0]
+        if len(args) > 1:
+            actual_file = args[1]
+        if len(args) > 2:
+            output_file = args[2]
+        if len(args) > 3:
+            comparison_report = args[3]
+        if len(args) > 4:
+            known_issues_file = args[4]
+
+    main(expected_file, actual_file, output_file, comparison_report, known_issues_file)

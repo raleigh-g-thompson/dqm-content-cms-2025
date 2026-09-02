@@ -1,7 +1,7 @@
 # Measure Failure Tracker
 
 _Baseline: `discrepancy_report`_
-_Generated: 2026-09-02 16:58_
+_Generated: 2026-09-02 13:04_
 
 ## Summary
 
@@ -9,24 +9,24 @@ _Generated: 2026-09-02 16:58_
 |---|---|
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Passing Measures | 20 |
-| Failing Measures | 54 |
-| Total Failing Test Cases | 861 |
-| Total Rows (incl. multi-pop expansion) | 1334 |
+| Passing Measures | 19 |
+| Failing Measures | 55 |
+| Total Failing Test Cases | 913 |
+| Total Rows (incl. multi-pop expansion) | 1489 |
 
 ### By Failure Type
 
 | Type | Entries |
 |---|---|
 | Missing Results | 9 |
-| Mismatched | 852 |
+| Mismatched | 904 |
 
 ### By Known Root Cause
 
 | Category | Measures | Entries | Status |
 |---|---|---|---|
 | engine | 2 (CMS135FHIRACEIorARBorARNIforHF, CMS165FHIRControllingHighBP) | 4 | _pending_ |
-| Not yet classified | 52 | 819 | _pending_ |
+| Not yet classified | 53 | 871 | _pending_ |
 
 ---
 
@@ -147,6 +147,169 @@ _Generated: 2026-09-02 16:58_
 | Test Case | Type | Group | Population | E | A | Resolution |
 |---|---|---|---|---|---|---|
 | `bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+
+
+### CMS1173FHIRDiagnosticDelayVTE
+**Total cases**: 65 | **Failing**: 52 (0 MR, 52 mismatched)
+**Root cause**: _pending classification_
+
+| Test Case | Type | Group | Population | E | A | Resolution |
+|---|---|---|---|---|---|---|
+| `00829185-d673-4377-91f6-8ef11945ef08` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `00829185-d673-4377-91f6-8ef11945ef08` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `00829185-d673-4377-91f6-8ef11945ef08` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `52aac38f-8225-4a76-9ead-75a5d9e59133` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `52aac38f-8225-4a76-9ead-75a5d9e59133` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | Mismatched | Group_1 | Numerator | 2 | 0 | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `9b320087-ff72-49d0-915a-ea51e31a6958` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `9b320087-ff72-49d0-915a-ea51e31a6958` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | Mismatched | Group_1 | Initial Population | 2 | 0 | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | Mismatched | Group_1 | Denominator | 2 | 0 | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | Mismatched | Group_1 | Numerator | 2 | 0 | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `e7c5cce7-09dd-443d-8c1c-bde45e10c82e` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `e7c5cce7-09dd-443d-8c1c-bde45e10c82e` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | Mismatched | Group_1 | Denominator Exclusion | 1 | 0 | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | Mismatched | Group_1 | Initial Population | 1 | 0 | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | Mismatched | Group_1 | Denominator | 1 | 0 | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | Mismatched | Group_1 | Numerator | 1 | 0 | _pending_ (unclassified) |
 
 
 ### CMS117FHIRChildImmunStatus
@@ -1829,6 +1992,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `007ec5f1-08cf-474a-a472-f6a92cca4b79` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ (unclassified) |
 | `007fe881-a18d-418f-8ddf-0ee94fc9a10a` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `007fe881-a18d-418f-8ddf-0ee94fc9a10a` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
+| `00829185-d673-4377-91f6-8ef11945ef08` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `00829185-d673-4377-91f6-8ef11945ef08` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `00829185-d673-4377-91f6-8ef11945ef08` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `00f27092-14a7-4d87-b35a-5a112ca99201` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `017a2267-f463-47a6-8b8b-dc91465e0869` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ (unclassified) |
 | `017a2267-f463-47a6-8b8b-dc91465e0869` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ (unclassified) |
@@ -1872,6 +2038,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `078ef6a8-509f-4f36-98f3-977174636356` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `07efd4bb-b45d-4bfd-aeb2-08de49742d91` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | _pending_ (unclassified) |
 | `07efd4bb-b45d-4bfd-aeb2-08de49742d91` | CMS144FHIRHFBetaBlockerForLVSD | mismatched | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `08473857-1c97-48cf-8ac3-4d70823cac80` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `08882e8d-afd1-4a5e-a30b-a5a0ed9e1010` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2029,12 +2198,18 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `285c85db-f879-4938-867f-daba78f08494` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `2886b1b6-5834-4788-8cd7-b54bbda54ca9` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ (unclassified) |
 | `289b7214-0496-425b-8ffa-14b2aaa9f771` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `28ac4ec3-5e02-4834-a778-0c1180d118df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | _pending_ (unclassified) |
 | `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | _pending_ (unclassified) |
 | `28da77ab-fe4d-44f2-a2fe-9c260e941cfb` | CMS156FHIRHighRiskMedsElderly | mismatched | _pending_ (unclassified) |
 | `298d5342-fa0a-4386-bf48-b9c977a1c367` | CMS135FHIRACEIorARBorARNIforHF | mismatched | _pending_ (unclassified) |
 | `298d5342-fa0a-4386-bf48-b9c977a1c367` | CMS135FHIRACEIorARBorARNIforHF | mismatched | _pending_ (unclassified) |
 | `29d930b1-1bb6-4089-9ed6-aa2b7b77d5a4` | CMS165FHIRControllingHighBP | mismatched | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `2a342927-ec88-48d7-8ed2-f5a4eeeabacf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `2a7112e7-5937-4288-9271-cdc2d7e5eaa4` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ (unclassified) |
 | `2adf5469-46a1-4020-be3b-01f91f8acc9d` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `2adf5469-46a1-4020-be3b-01f91f8acc9d` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
@@ -2083,6 +2258,10 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `339a989b-722c-4452-9d25-454e2d53eea8` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `339a989b-722c-4452-9d25-454e2d53eea8` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `33d162ce-3bc7-4b0a-8c04-fec0a42a6263` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `33e8f298-ea35-46d2-b1b4-e36f74ef0656` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `342d2bec-0acc-43e5-aaf7-3c9a65b09f91` | CMS646FHIRIntravesicalBCGTherapy | MR | _pending_ (unclassified) |
 | `3432dedb-7130-4614-9283-6c1569fab90f` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ (unclassified) |
 | `348471db-5aaa-4bf3-a280-75222f20d599` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ (unclassified) |
@@ -2106,8 +2285,14 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `3624228c-097b-4f91-9211-f29f72b8ddaf` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `36408f0f-58eb-47fe-8e64-1b98e47e5c36` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `36408f0f-58eb-47fe-8e64-1b98e47e5c36` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `366c0866-e2cb-4a7e-a3f4-3aaaa7ce7e6a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `3698ad63-09e3-46e8-ba42-39c9cd235603` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
 | `3698ad63-09e3-46e8-ba42-39c9cd235603` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `3739ae38-6a2c-4197-bda6-e493c9df60e3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `37fd9c7e-bf9e-4769-b448-094ed97bd3e8` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
@@ -2120,6 +2305,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `3ab3ac1d-9b5e-4087-8862-dcb2562fb90f` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `3ae13373-5b1a-425b-b5db-7fe7ad03ed4a` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `3aef97c8-9529-433c-95d3-ea01f188e156` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ (unclassified) |
 | `3b5da2bf-0fb9-4efc-bc54-4bd329ed31af` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `3b5da2bf-0fb9-4efc-bc54-4bd329ed31af` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2142,6 +2330,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `3f860c8e-e5fc-4843-ac4e-acb8e63471f3` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ (unclassified) |
 | `404859c4-6f6e-4376-ae4d-d02a479e62aa` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
 | `404859c4-6f6e-4376-ae4d-d02a479e62aa` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `40518296-e99e-49d4-bad4-f2642f690f44` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `408f327a-94aa-4787-a1c6-e6fc7fde341d` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
 | `408f327a-94aa-4787-a1c6-e6fc7fde341d` | CMS137FHIRSUDTxInitEngagement | mismatched | _pending_ (unclassified) |
 | `409116c1-3cd5-4f1f-8dd5-6b5646bbaff3` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2159,6 +2350,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4304f97a-e2bb-4cda-93fa-ab510a136403` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ (unclassified) |
 | `4304f97a-e2bb-4cda-93fa-ab510a136403` | CMS155FHIRWgtAssessCounseling | mismatched | _pending_ (unclassified) |
 | `4354fbec-b63a-46ce-8465-ec82710ea1c6` | CMS951FHIRKidneyHealthEval | mismatched | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `43b86425-1ea2-43d5-b4d6-fb6d2c5c3ec1` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `44a3e280-b4ad-4725-b806-1ea7592114d8` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `44a3e280-b4ad-4725-b806-1ea7592114d8` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `44a3e280-b4ad-4725-b806-1ea7592114d8` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
@@ -2181,6 +2375,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `476bff0b-a87a-413b-91ae-c3a14b7778b1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `476bff0b-a87a-413b-91ae-c3a14b7778b1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `476bff0b-a87a-413b-91ae-c3a14b7778b1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `47e1aa2d-d7e6-412f-adcf-499556a3b964` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `481692c7-2cf7-48fc-8269-967f5d7753bc` | CMS165FHIRControllingHighBP | mismatched | _pending_ (unclassified) |
 | `48952352-d74c-491c-9420-6e999e60f52a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ (unclassified) |
 | `48952352-d74c-491c-9420-6e999e60f52a` | CMS104FHIRSTKDCAntithrombotic | mismatched | _pending_ (unclassified) |
@@ -2210,6 +2407,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `4c8a6a20-c5cc-496b-950f-68d6997bf4d1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `4c8a6a20-c5cc-496b-950f-68d6997bf4d1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `4c8a6a20-c5cc-496b-950f-68d6997bf4d1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `4d2c483a-5020-4cf8-92ad-5b03dcfe4090` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `4d6fb0e2-636d-426f-802b-5ecb4f059440` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `4d6fb0e2-636d-426f-802b-5ecb4f059440` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `4d6fb0e2-636d-426f-802b-5ecb4f059440` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2233,7 +2433,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `51d8547c-f07f-4441-b616-f458f38e4506` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `51d9e817-1222-4048-b79d-be846ab4b48b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `525e73f2-77be-49b1-920f-6fc31ef38d22` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ (unclassified) |
+| `52aac38f-8225-4a76-9ead-75a5d9e59133` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `52aac38f-8225-4a76-9ead-75a5d9e59133` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `52b48d35-f47c-4013-9cdc-700baad0fc0f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2302,6 +2507,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `5cebab0f-d32e-4adc-bef3-90812d6c5819` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `5d34e56e-f4f1-4817-b7e4-e4c57f811300` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `5d48c3b8-93e9-4e29-8c20-a002761d9e24` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `5d812504-d8f7-4896-afd7-47c644eab47d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `5d926cc3-70dc-4c82-9513-d39f01765baf` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `5d926cc3-70dc-4c82-9513-d39f01765baf` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `5d926cc3-70dc-4c82-9513-d39f01765baf` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2340,6 +2548,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `62ea0c3d-46da-48a1-87dd-d1927ed2df75` | CMS128FHIRAntidepressantMgmt | mismatched | _pending_ (unclassified) |
 | `62ea0c3d-46da-48a1-87dd-d1927ed2df75` | CMS128FHIRAntidepressantMgmt | mismatched | _pending_ (unclassified) |
 | `632831b0-1ebf-47b5-b439-3a124cd77c37` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6338004a-79a2-44e2-bbab-01757f5d4255` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `63ae0b9f-2636-4bf3-85ef-4ff20bdb09de` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `63ae0b9f-2636-4bf3-85ef-4ff20bdb09de` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `6410550a-c928-415b-b8bc-aa1284ca6933` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
@@ -2358,6 +2569,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `65c895d1-ba13-410a-bcfc-be3b771b5eb8` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `66c60f6c-2a7b-4868-b9bd-5ede60b61463` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `66de10d2-27b8-429e-9f42-1baa36c146e4` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `673d2f3c-b735-4672-8a4e-2f77060e1802` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ (unclassified) |
 | `673d2f3c-b735-4672-8a4e-2f77060e1802` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ (unclassified) |
 | `675ba5dd-80e3-4a2b-bd96-0b0ae9df1533` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
@@ -2390,6 +2604,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `6a96556a-075b-4361-8a8d-fd8c8b4f125a` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `6a96556a-075b-4361-8a8d-fd8c8b4f125a` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `6a96556a-075b-4361-8a8d-fd8c8b4f125a` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6aada3b3-23fe-42fe-a01e-e0398e64461e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `6aaff09e-4a7b-4efa-93f8-13033e95c230` | CMS2FHIRPCSDepScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `6aef5a18-59bd-4a47-80bc-2bd44636e41f` | CMS142FHIRCommWithDrManagingDiab | mismatched | _pending_ (unclassified) |
 | `6b6a5f96-c2a8-43f1-a353-7b5700ecb031` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
@@ -2400,6 +2617,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `6d9426d1-5554-4d6b-9ed0-e3736dd17482` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `6d9426d1-5554-4d6b-9ed0-e3736dd17482` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `6dbaf3b3-8c47-4e0a-91fe-2ec06f2f0339` | CMS130FHIRColorectalCancerScrn | mismatched | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `6df8ca8a-cc8a-448f-8d37-6710be1bae7f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `6e5db6e5-8c56-4b08-9491-1a2877933f0d` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ (unclassified) |
 | `6ee7c92c-c8cd-4025-8002-ca1253ba830b` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ (unclassified) |
 | `6f0553ac-e12a-4af5-ad27-05339f4b4ec0` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
@@ -2432,6 +2652,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `72194a73-a0fe-4d50-8f07-0ad92320a467` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `72194a73-a0fe-4d50-8f07-0ad92320a467` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `728333bf-6ff0-4d29-9181-3b6a30b7059a` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `72a0ce6d-cfb0-4cc1-a558-de429743db8d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `72c8b10f-fffd-411f-bf81-c7d0608ad314` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
@@ -2442,6 +2665,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `73d69a14-7e70-4c9f-89e3-62da4a370fd3` | CMS138FHIRTobaccoScrnCessation | mismatched | _pending_ (unclassified) |
 | `73f77133-4d08-438a-ac81-6bb858a74c31` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ (unclassified) |
 | `741236df-31ad-463b-b730-fb113cfa09a8` | CMS139FHIRFallRiskScreening | mismatched | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `74418ec7-63de-4779-a59b-00946db9289e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `74499ca5-db3b-4ce1-92e0-e19c6590d138` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `74e5f17e-ae6b-4e3c-8183-e75381377d23` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `74e5f17e-ae6b-4e3c-8183-e75381377d23` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2566,11 +2792,17 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8b8ded15-0118-4d0c-ac0f-6797528cefb9` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `8bb7c40b-7447-42ca-b662-161a7026ed8f` | CMS996FHIRAptTxforSTEMI | mismatched | _pending_ (unclassified) |
 | `8bb999a1-696a-497b-a5f4-aa55e146a16e` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8c1e3699-383f-4f17-94af-830d5a8af82b` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `8c357499-cb9a-41c9-9060-1bbbefb0fd7e` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `8c357499-cb9a-41c9-9060-1bbbefb0fd7e` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `8c357499-cb9a-41c9-9060-1bbbefb0fd7e` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `8c41481d-f89e-4113-ba12-df7c53e93d80` | CMS645FHIRBoneDensityPCADTherapy | mismatched | _pending_ (unclassified) |
 | `8c41481d-f89e-4113-ba12-df7c53e93d80` | CMS645FHIRBoneDensityPCADTherapy | mismatched | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8c634b17-4a98-4829-bf96-d8972ace13b2` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `8c6fe4a4-da12-40bd-94c7-0e932653f672` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
 | `8c89947a-a52b-4a41-86a8-166b0560355b` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
@@ -2578,6 +2810,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `8e23417a-471a-45bb-b936-57466dc6592c` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `8e2cfc29-0925-45b9-857f-b9ee9b9fa248` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ (unclassified) |
 | `8e38b797-4dec-437d-8bf0-6f0fc78f8ea7` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `8e599e9d-397f-46e6-be1c-dceb2e8ae4ef` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
 | `8efd6c8c-cefb-4a85-828d-ed59d8a9e8f2` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
 | `8fabf398-d258-4613-b8d8-12bcbc273dc8` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
@@ -2597,10 +2832,16 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `93aea3e2-4736-4be0-830f-54c1ef6df6d5` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `93aea3e2-4736-4be0-830f-54c1ef6df6d5` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `953ef59d-4c39-40ef-8067-87b5ecf84727` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `958a8884-0ecc-4955-9d85-3a0637cc3513` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `95a54d01-197e-48ef-bb48-d3d398aecbe8` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
 | `95ab5fd7-b1be-4dd3-ba42-1b48215fab70` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `95ab5fd7-b1be-4dd3-ba42-1b48215fab70` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `95ab5fd7-b1be-4dd3-ba42-1b48215fab70` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `95df04ca-45f8-4ae8-818c-579beab1ff7c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `95fad34f-db86-4e4a-a8a2-42a3b7ac15dc` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `95fad34f-db86-4e4a-a8a2-42a3b7ac15dc` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `95fad34f-db86-4e4a-a8a2-42a3b7ac15dc` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2612,6 +2853,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `972c7128-f3c2-401d-89f3-a0752dd02620` | CMS165FHIRControllingHighBP | mismatched | _pending_ (unclassified) |
 | `974284eb-fc89-452a-9b38-a884c0e0477e` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
 | `974284eb-fc89-452a-9b38-a884c0e0477e` | CMS816FHIRHHHypo | mismatched | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `977bf457-d20e-4a81-bd4e-3f1fe48bd898` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `97935b1b-262b-4c05-9a56-2124a3aa1de0` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `97ec6179-f96b-4d88-a042-c482f8fe525a` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
 | `98533ccd-24ee-41b3-aab2-ef6cbf89e00d` | CMS871FHIRHHHyper | MR | _pending_ (unclassified) |
@@ -2634,10 +2878,15 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9a06f385-0bed-4f35-9af4-1ff7971c07f5` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `9a72ea26-595f-4442-8b00-fc52ed228aa6` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ (unclassified) |
 | `9a72ea26-595f-4442-8b00-fc52ed228aa6` | CMS71FHIRSTKAnticoagAFFlutter | mismatched | _pending_ (unclassified) |
+| `9b320087-ff72-49d0-915a-ea51e31a6958` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `9b320087-ff72-49d0-915a-ea51e31a6958` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `9be591a0-517b-4be2-b652-a29be0c75c15` | CMS771FHIRUrinarySymptomScoreBPH | mismatched | _pending_ (unclassified) |
 | `9c2afd42-581e-418b-9eaa-3ddf4918c9ac` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `9c2afd42-581e-418b-9eaa-3ddf4918c9ac` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `9c2afd42-581e-418b-9eaa-3ddf4918c9ac` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `9c81fa03-9b46-455e-9cf7-d77d650a7b92` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `9cba6cfa-9671-4850-803d-e286c7d59ee7` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `9cba6cfa-9671-4850-803d-e286c7d59ee7` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `9d28e99e-7eb6-4149-a7e2-800140b13696` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2646,6 +2895,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `9d5d4ffe-710e-4b5d-b84a-ba4ed2de06dd` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
 | `9d92be1d-6fc8-40f2-99a0-4be9ce1f244b` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `9ddea16c-55d3-4dda-a1d8-a256fbff0b64` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `9de7a897-b0f0-4211-aeb7-9240c5828427` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `9e01f70e-cb9c-451b-8993-8664e31d92e2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `9e01f70e-cb9c-451b-8993-8664e31d92e2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `9e01f70e-cb9c-451b-8993-8664e31d92e2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2700,6 +2952,10 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `a6cd48c6-fb25-41d4-aea4-da7fb856cc12` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `a6e7ec82-b80e-4f76-b382-91956c4873a9` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ (unclassified) |
 | `a779556b-5041-4d85-9c5f-9af223961ff2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `a788d38f-a86a-4dc0-8f79-a22a31709495` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `a7ec972f-f0c1-428d-aba5-ba76cba5cd73` | CMS165FHIRControllingHighBP | mismatched | _pending_ (unclassified) |
 | `a7f7eb97-a44f-4394-bff6-0485ae59bc9e` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `a7f7eb97-a44f-4394-bff6-0485ae59bc9e` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2753,7 +3009,16 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `b371fd28-5026-43db-840e-21466bde11c9` | CMS128FHIRAntidepressantMgmt | mismatched | _pending_ (unclassified) |
 | `b3af1243-c45d-4061-8d36-baa6de256376` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `b3e44f80-29cf-4800-b6cb-1d65a330b7c7` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b452cab7-9e94-46a7-bfbd-757bbabe48f3` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b486fbcd-6122-4238-812d-ed538bdf8bfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `b532c8f5-b38a-4337-8661-7b744e271a9c` | CMS75FHIRChildrenDentalDecay | mismatched | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `b5a06f19-e1a3-4643-acae-98ab4334e08c` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `b5f9f533-30c2-4fbe-b06e-3f8dccc8792c` | CMS117FHIRChildImmunStatus | mismatched | _pending_ (unclassified) |
 | `b65680a0-9768-4ce4-b08d-972fcd84e28e` | CMS145FHIRCADBBlockerTPMIorLVSD | mismatched | _pending_ (unclassified) |
 | `b6a4b9f8-21c1-44f2-a834-72f0906b4f88` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
@@ -2854,9 +3119,15 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `c8d42ccd-9523-414f-b568-e0fdae94a84a` | CMS146FHIRApproTestPharyngitis | mismatched | _pending_ (unclassified) |
 | `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `c97c9ecf-6c31-4868-bbd3-7a5509bb3882` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `c9d1abe0-f4e2-4837-8614-7c6f81e308dd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `ca6deaeb-459d-4d1a-9daf-e454ff76a6f0` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `ca949c24-f283-493e-a697-426eaec3e9f1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `ca949c24-f283-493e-a697-426eaec3e9f1` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `ca961cfb-a923-4ace-a62b-76521493586d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `cac03a54-f595-411e-bc00-c9146222a68c` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ (unclassified) |
 | `cac03a54-f595-411e-bc00-c9146222a68c` | CMS154FHIRAppropriateTxforURI | mismatched | _pending_ (unclassified) |
 | `cadbffa0-20b2-4c26-b202-75b9edfd0a07` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ (unclassified) |
@@ -2866,6 +3137,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `cb044844-e03d-4758-bf40-1e4db68ed10e` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `cb4f0532-5dd7-42f9-83a5-a45747bf9fdc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `cb7c95fc-6d6b-4e07-81e8-a79385142b94` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ (unclassified) |
 | `cb7c95fc-6d6b-4e07-81e8-a79385142b94` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ (unclassified) |
 | `cb7c95fc-6d6b-4e07-81e8-a79385142b94` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ (unclassified) |
@@ -2884,6 +3158,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `cf1d9246-dbe4-4c59-a955-e2301e37732b` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `d06256e5-091f-445e-898f-b8c31d8d3772` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2905,6 +3182,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d4091ecf-638c-41ae-bae9-2b0c3bea864e` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
 | `d4540640-2561-4ebd-b7c6-15878a4dc582` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ (unclassified) |
 | `d46ab51c-9b21-4b1c-b1dd-090c7f3e831a` | CMS131FHIRDiabetesEyeExam | mismatched | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `d48f4307-df8d-4533-88bb-923c458d7501` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `d496f08e-c55b-44b1-97a7-f86cf9ead1e2` | CMS72FHIRSTKAntithromboticDay2 | mismatched | _pending_ (unclassified) |
 | `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
 | `d4b441fb-5b3a-40f7-ada1-ecf06376f4fb` | CMS157FHIRPainIntensityQuantified | mismatched | _pending_ (unclassified) |
@@ -2922,6 +3202,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `d95789b9-f144-43e7-81c6-fed3adba5d8f` | CMS136FHIRChildADHDMedFollowUp | mismatched | _pending_ (unclassified) |
 | `d9840e8c-3359-42c2-b354-4b236c3c1b15` | CMS142FHIRCommWithDrManagingDiab | mismatched | _pending_ (unclassified) |
 | `d986061c-de3e-4d5d-95e7-f5ec93c5665c` | CMS124FHIRCervicalCancerScreen | mismatched | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `d9b5275a-a62b-4bb2-b64b-4f7562910e84` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1` | CMS108FHIRVTEProphylaxis | mismatched | _pending_ (unclassified) |
 | `d9d151d1-9bd3-40ce-a2c1-cb8a985328fc` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `d9d151d1-9bd3-40ce-a2c1-cb8a985328fc` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -2957,6 +3240,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `de136bce-fffc-4af7-834e-e51944655d67` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `de136bce-fffc-4af7-834e-e51944655d67` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `de136bce-fffc-4af7-834e-e51944655d67` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `dec3b692-1735-4de3-8609-492d7208abfc` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `df05b853-3e6d-4a12-b1db-fd9d0ec790a2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `df05b853-3e6d-4a12-b1db-fd9d0ec790a2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `df05b853-3e6d-4a12-b1db-fd9d0ec790a2` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -3009,9 +3295,20 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `e656adac-2016-40a4-833f-0c5a02952ba3` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e656adac-2016-40a4-833f-0c5a02952ba3` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e656adac-2016-40a4-833f-0c5a02952ba3` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e6e92b90-d9fa-4774-bec0-6700ed567dae` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e70ab50d-19ec-488c-bcbd-356471469a8e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `e7908699-646c-410f-9c1f-76539b412955` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e7908699-646c-410f-9c1f-76539b412955` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e7908699-646c-410f-9c1f-76539b412955` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `e7c5cce7-09dd-443d-8c1c-bde45e10c82e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e7c5cce7-09dd-443d-8c1c-bde45e10c82e` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `e7e70ee6-834a-471f-a10d-62dd96df214d` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `e8020421-14a3-4c64-99c4-3366c1400bd7` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e8020421-14a3-4c64-99c4-3366c1400bd7` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `e8020421-14a3-4c64-99c4-3366c1400bd7` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -3060,6 +3357,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `ef3f90d1-4954-40bd-b230-e44ffa98ed29` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `ef8cad07-6254-4461-ba1a-86aaf95eeb6e` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
 | `ef9a58ac-e252-480a-bed8-2309c503587d` | CMS22FHIRPCSBPScreeningFollowUp | mismatched | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `efdaaeef-185d-40ae-b758-41bf0170a838` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `f00f3778-6ad1-466d-a3bd-bcbc63d62b55` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
 | `f01072cb-c5a0-4c51-a24a-3fa503fe41fb` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
 | `f035a977-30d0-487c-b542-a596e718420c` | CMS190FHIRVTEProphylaxisICU | mismatched | _pending_ (unclassified) |
@@ -3069,6 +3369,12 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f120b2b6-40ba-4ae3-b087-c64e8e3bdf11` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f120b2b6-40ba-4ae3-b087-c64e8e3bdf11` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f120b2b6-40ba-4ae3-b087-c64e8e3bdf11` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f15fd7ef-5c1a-4202-8d65-5afa27f1c35f` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f17f0643-8f16-435e-a0f7-2f7fc010c924` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `f2136084-b5c4-4171-9d1b-d759637ddcfa` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f2136084-b5c4-4171-9d1b-d759637ddcfa` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f2136084-b5c4-4171-9d1b-d759637ddcfa` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -3078,6 +3384,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f38ce16a-658f-4aa0-b4a6-fac61d2e58a8` | CMS125FHIRBreastCancerScreen | mismatched | _pending_ (unclassified) |
 | `f3b17514-f40d-43f9-baa9-a0418142ca98` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f3b17514-f40d-43f9-baa9-a0418142ca98` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f3cea901-c841-424e-bcd8-dbf794b48abf` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `f3fd3dca-ae0d-4f2f-915b-8ec0775f5d84` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f3fd3dca-ae0d-4f2f-915b-8ec0775f5d84` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f3fd3dca-ae0d-4f2f-915b-8ec0775f5d84` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -3094,6 +3403,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `f5771b74-a7de-439a-a51f-49a3863e086b` | CMS122FHIRDiabetesAssessGT9Pct | mismatched | _pending_ (unclassified) |
 | `f5ae6269-d09b-47f8-a519-f1a8a81549fc` | CMS69FHIRPCSBMIScreenAndFollowUp | mismatched | _pending_ (unclassified) |
 | `f5b461d7-e382-4616-a763-d745867735d0` | CMS165FHIRControllingHighBP | mismatched | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `f654a226-f4a3-44ad-9763-90fe13f82ff6` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `f6a5913b-bfdd-4ccf-8700-3c949b0639ed` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `f6a69563-6b05-4dcb-87e6-dd3bdd25f597` | CMS153FHIRChlamydiaScreening | mismatched | _pending_ (unclassified) |
 | `f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847` | CMS996FHIRAptTxforSTEMI | mismatched | _pending_ (unclassified) |
@@ -3127,6 +3439,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `faae1173-bc93-4fd2-a22f-e7726430857f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `faae1173-bc93-4fd2-a22f-e7726430857f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `faeabeab-c8ca-4e6f-91c8-83edc69a464a` | CMS56FHIRFuncStatHipReplacement | mismatched | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `fb95f47d-a7a0-4fe2-a29a-bdca9fc1be59` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `fbc2546d-c004-493c-b38b-8d088c6514d4` | CMS90FHIRFSAforHeartFailure | mismatched | _pending_ (unclassified) |
 | `fc82f4cb-7c62-41bd-9779-dd0f2e6e437f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `fc82f4cb-7c62-41bd-9779-dd0f2e6e437f` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
@@ -3135,6 +3450,9 @@ _Sorted by test case GUID for quick lookup from subsequent reports._
 | `fcd4fe20-9013-4d1c-965b-1445f0088624` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `fcd4fe20-9013-4d1c-965b-1445f0088624` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
 | `fcd4fe20-9013-4d1c-965b-1445f0088624` | CMS347FHIRStatinPreventionTxCVD | mismatched | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
+| `fcf71d81-6341-486a-aca4-236516cad3cd` | CMS1173FHIRDiagnosticDelayVTE | mismatched | _pending_ (unclassified) |
 | `fd579f44-757b-4c98-9b09-27b17b935650` | CMS871FHIRHHHyper | MR | _pending_ (unclassified) |
 | `fd5fb311-a466-4c59-966d-48fa7aa88931` | CMS145FHIRCADBBlockerTPMIorLVSD | mismatched | _pending_ (unclassified) |
 | `fdadfa9f-9e7b-4d80-a00e-56e8759b47c1` | CMS129FHIRProstCaBoneScanUse | mismatched | _pending_ (unclassified) |
