@@ -310,5 +310,84 @@ class ApplyFixTest(unittest.TestCase):
         self.assertEqual(collect_anomaly_fixes(collect_test_cases(self.tests_root)), [])
 
 
+class ProfileNamespaceMigrationTest(unittest.TestCase):
+
+    OLD = "http://fhir.org/guides/onc/us-quality-core/StructureDefinition"
+    NEW = "http://fhir.org/guides/astp/us-quality-core/StructureDefinition"
+
+    def setUp(self):
+        self._tmp = tempfile.mkdtemp()
+        self.tests_root = self._tmp
+        self.measure = os.path.join(self.tests_root, "CMS104X")
+        self.case = os.path.join(self.measure, "11111111-1111-1111-1111-111111111111")
+        os.makedirs(self.case)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self._tmp, ignore_errors=True)
+
+    def test_migrate_rewrites_occurrences_in_place(self):
+        write_json(self.case, "Observation-o.json",
+                   {"resourceType": "Observation",
+                    "meta": {"profile": [self.OLD + "/us-quality-core-observation"]}})
+        path = os.path.join(self.case, "Observation-o.json")
+        from scripts.validate_test_fixtures import migrate_profile_namespace, profile_namespace_occurrences
+        self.assertEqual(profile_namespace_occurrences(path), 1)
+        self.assertEqual(migrate_profile_namespace(path), 1)
+        with open(path) as fh:
+            data = json.load(fh)
+        self.assertEqual(data["meta"]["profile"][0],
+                         self.NEW + "/us-quality-core-observation")
+        self.assertEqual(profile_namespace_occurrences(path), 0)
+
+    def test_migrate_dry_run_does_not_write(self):
+        write_json(self.case, "Observation-o.json",
+                   {"resourceType": "Observation",
+                    "extension": [{"url": self.OLD + "/doNotPerformReason"}]})
+        path = os.path.join(self.case, "Observation-o.json")
+        from scripts.validate_test_fixtures import migrate_profile_namespace
+        self.assertEqual(migrate_profile_namespace(path, dry_run=True), 1)
+        with open(path) as fh:
+            data = json.load(fh)
+        self.assertEqual(data["extension"][0]["url"], self.OLD + "/doNotPerformReason")
+
+    def test_migrate_ignores_unrelated_onc_tokens(self):
+        # The `onc/not108` DOI (and any `onc/foo`) must be preserved verbatim.
+        write_json(self.case, "Patient-11111111-1111-1111-1111-111111111111.json",
+                   {"resourceType": "Patient",
+                    "id": "11111111-1111-1111-1111-111111111111",
+                    "text": {"status": "generated",
+                             "div": "<div>onc/not108 a citation</div>"}})
+        path = os.path.join(self.case, "Patient-11111111-1111-1111-1111-111111111111.json")
+        from scripts.validate_test_fixtures import migrate_profile_namespace
+        self.assertEqual(migrate_profile_namespace(path), 0)
+        with open(path) as fh:
+            data = json.load(fh)
+        self.assertIn("onc/not108", data["text"]["div"])
+
+    def test_migrate_non_json_untouched(self):
+        with open(os.path.join(self.case, "notes.txt"), "w", encoding="utf-8") as fh:
+            fh.write("onc/us-quality-core\n")
+        from scripts.validate_test_fixtures import migrate_profile_namespace
+        self.assertEqual(migrate_profile_namespace(os.path.join(self.case, "notes.txt")), 0)
+
+    def test_tree_migration_counts_files_and_tokens(self):
+        write_json(self.case, "Observation-a.json",
+                   {"resourceType": "Observation",
+                    "meta": {"profile": [self.OLD + "/one", self.NEW + "/two"]}})
+        write_json(self.case, "Observation-b.json",
+                   {"resourceType": "Observation",
+                    "meta": {"profile": [self.OLD + "/x"]}})
+        from scripts.validate_test_fixtures import migrate_profile_namespace_tree, still_uses_old_namespace
+        result = migrate_profile_namespace_tree(self.tests_root, dry_run=True)
+        self.assertEqual(result["tokens"], 2)
+        self.assertEqual(result["scanned"], 2)
+        self.assertEqual(len(result["files"]), 2)
+        self.assertEqual(len(still_uses_old_namespace(self.tests_root)), 2)
+        result = migrate_profile_namespace_tree(self.tests_root)
+        self.assertEqual(result["tokens"], 2)
+        self.assertEqual(still_uses_old_namespace(self.tests_root), [])
+
+
 if __name__ == "__main__":
     unittest.main()

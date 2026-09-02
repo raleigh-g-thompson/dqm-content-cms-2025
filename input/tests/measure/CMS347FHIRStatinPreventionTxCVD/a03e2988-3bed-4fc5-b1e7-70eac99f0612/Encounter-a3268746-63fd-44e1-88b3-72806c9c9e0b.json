@@ -3,7 +3,7 @@
   "id": "a3268746-63fd-44e1-88b3-72806c9c9e0b",
   "meta": {
     "profile": [
-      "http://fhir.org/guides/onc/us-quality-core/StructureDefinition/us-quality-core-encounter"
+      "http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-encounter"
     ]
   },
   "status": "finished",

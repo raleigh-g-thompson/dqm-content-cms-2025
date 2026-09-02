@@ -3,7 +3,7 @@
   "id": "ef8f041f-5759-48e7-a115-2906ed347740",
   "meta": {
     "profile": [
-      "http://fhir.org/guides/onc/us-quality-core/StructureDefinition/us-quality-core-observation-lab"
+      "http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-observation-lab"
     ]
   },
   "status": "final",

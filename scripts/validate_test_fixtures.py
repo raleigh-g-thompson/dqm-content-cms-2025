@@ -39,8 +39,15 @@ Run from the repo root (Python 3.12):
     python ./scripts/validate_test_fixtures.py --json          # machine output
     python ./scripts/validate_test_fixtures.py --fix --apply   # rewrite CORE fields
 
-``--fix`` implies dry-run unless ``--apply`` is given; neither flag ever
-commits anything, and ``--apply`` still leaves the change unstaged for review.
+    python ./scripts/validate_test_fixtures.py --fix-profile-ns               # dry-run: report only
+    python ./scripts/validate_test_fixtures.py --fix-profile-ns --apply       # migrate onc->astp base
+
+``--fix-profile-ns`` migrates fixtures that still carry the legacy
+``onc/us-quality-core`` universal-profile base to ``astp/us-quality-core``.  It
+implies dry-run unless ``--apply`` is given, rewrites only ``*.json`` files
+under ``input/tests/measure``, is anchored to the ``us-quality-core`` token (so
+unrelated ``onc/*`` strings like the ``onc/not108`` DOI are untouched), and
+never commits anything - ``--apply`` leaves the change unstaged for review.
 """
 
 import argparse
@@ -60,6 +67,14 @@ CORE_PATIENT_FIELDS = ("subject", "patient", "beneficiary")
 PATIENT_REF_RE = re.compile(r"^Patient/(?P<id>[A-Za-z0-9\-]+)$")
 
 Finding = Tuple[str, str, str, str, str, str, str]  # (measure, patient, file, field, referenced, expected, category)
+
+# Universal profile namespace: the US Quality Core IG base.  Fixtures generated
+# under the older `onc` publisher namespace carry `http://fhir.org/guides/onc/
+# us-quality-core/StructureDefinition/...`; the canonical base is now `astp`.
+# This exact-token replacement is anchored to `us-quality-core` so other `onc/*`
+# tokens (e.g. the `onc/not108` DOI cited in measure resources) are untouched.
+UNIVERSAL_PROFILE_OLD = "onc/us-quality-core"
+UNIVERSAL_PROFILE_NEW = "astp/us-quality-core"
 
 
 def load_json(path: str) -> Optional[Dict]:
@@ -329,6 +344,109 @@ def apply_misnamed_patient_fix(measure: str, guid: str, misnamed_basename: str,
     return True
 
 
+def _read_text(path: str) -> Optional[str]:
+    """Read a file as UTF-8 text, returning None on any error."""
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return fh.read()
+    except (OSError, ValueError):
+        return None
+
+
+def profile_namespace_occurrences(path: str) -> int:
+    """Count `onc/us-quality-core` occurrences in a file, or -1 if unreadable."""
+    text = _read_text(path)
+    if text is None:
+        return -1
+    return text.count(UNIVERSAL_PROFILE_OLD)
+
+
+def _replace_profile_namespace_text(text: str, old: str = UNIVERSAL_PROFILE_OLD,
+                                    new: str = UNIVERSAL_PROFILE_NEW) -> str:
+    """Rewrite ``onc/us-quality-core`` -> ``astp/us-quality-core`` in ``text``.
+
+    The token is anchored to the full ``us-quality-core`` segment so unrelated
+    ``onc/*`` strings (e.g. an ``onc/not108`` DOI) are preserved verbatim.
+    """
+    return text.replace(old, new)
+
+
+def migrate_profile_namespace(path: str, dry_run: bool = False) -> int:
+    """Migrate a fixture file's universal-profile base namespace in place.
+
+    Returns the number of tokens rewritten (0 if none or unreadable, or None if
+    the file name is excluded from migration).  ``dry_run`` rewrites nothing but
+    still reports the count.  Only ``*.json`` files under a measure tree are
+    touched; the migration is a plain-text substring rewrite and does not try to
+    re-serialize/format the JSON (preserving the file's existing encoding and
+    layout).
+    """
+    if not path.endswith(".json"):
+        return 0
+    text = _read_text(path)
+    if text is None:
+        return 0
+    rewritten = _replace_profile_namespace_text(text)
+    count = rewritten.count(UNIVERSAL_PROFILE_NEW) - text.count(UNIVERSAL_PROFILE_NEW)
+    if count <= 0:
+        return 0
+    if not dry_run:
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(rewritten)
+    return count
+
+
+def migrate_profile_namespace_tree(tests_root: str = TESTS_ROOT,
+                                   dry_run: bool = False) -> Dict:
+    """Walk the test-fixture tree and migrate every `onc/us-quality-core` token.
+
+    Returns a summary dict: ``files`` (paths changed, or would-be-changed in a
+    dry run), ``tokens`` (total rewritten), and ``scanned`` (JSON files checked).
+    """
+    result: Dict = {"files": [], "tokens": 0, "scanned": 0}
+    cases = collect_test_cases(tests_root)
+    for _measure, _guid, resources in cases:
+        for rel_or_abs in resources:
+            result["scanned"] += 1
+            count = migrate_profile_namespace(path=rel_or_abs, dry_run=dry_run)
+            if count > 0:
+                result["tokens"] += count
+                result["files"].append(rel_or_abs)
+    return result
+
+
+def still_uses_old_namespace(tests_root: str = TESTS_ROOT) -> List[str]:
+    """Return every fixture file under ``tests_root`` still containing the old
+    `onc/us-quality-core` base.  Used to assert the migration is complete."""
+    old = []
+    for _measure, _guid, resources in collect_test_cases(tests_root):
+        for path in resources:
+            if profile_namespace_occurrences(path) > 0:
+                old.append(path)
+    return old
+
+
+def render_profile_ns_report(result: Dict) -> str:
+    """Render a short markdown summary of a profile-namespace migration run."""
+    files = result["files"]
+    lines = [
+        f"- **Files**: {len(files)} fixture file(s) affected",
+        f"- **Occurrences rewritten**: {result['tokens']}",
+        f"- **Files scanned**: {result['scanned']}",
+        "",
+    ]
+    if files:
+        from collections import Counter
+        measures = Counter(os.path.basename(os.path.dirname(os.path.dirname(f)))
+                           for f in files)
+        lines.append("| Measure | Files |")
+        lines.append("| --- | --- |")
+        for m in sorted(measures):
+            lines.append(f"| {m} | {measures[m]} |")
+        lines.append("")
+    return "\n".join(lines)
+
+
 def render_report(findings: List[Finding], anomalies: List[str]) -> str:
     """Render a markdown report suitable for scripts/comparison/."""
     lines = [
@@ -387,7 +505,23 @@ def main():
     parser.add_argument("--out", metavar="PATH",
                         default=os.path.join("scripts", "comparison"),
                         help="Output directory for the report (default scripts/comparison)")
+    parser.add_argument("--fix-profile-ns", action="store_true",
+                        help="Migrate fixtures' universal-profile base from onc to astp; "
+                             "implies dry-run unless --apply is given")
     args = parser.parse_args()
+
+    if args.fix_profile_ns:
+        result = migrate_profile_namespace_tree(dry_run=not args.apply)
+        print("PROFILE-NS " + ("DRY-RUN" if not args.apply else "APPLIED") + ":")
+        print(render_profile_ns_report(result))
+        if not args.apply:
+            print("Pass --apply to write the migration (no commit is made).")
+        if args.apply:
+            remaining = still_uses_old_namespace()
+            print(f"Remaining files with old base: {len(remaining)}")
+            for p in remaining[:20]:
+                print(f"  {p}")
+        return
 
     test_cases = collect_test_cases()
     all_patient_ids = repo_wide_patient_ids()

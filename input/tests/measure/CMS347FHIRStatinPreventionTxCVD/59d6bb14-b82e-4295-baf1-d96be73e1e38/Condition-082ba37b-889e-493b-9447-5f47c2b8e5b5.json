@@ -3,7 +3,7 @@
   "id": "082ba37b-889e-493b-9447-5f47c2b8e5b5",
   "meta": {
     "profile": [
-      "http://fhir.org/guides/onc/us-quality-core/StructureDefinition/us-quality-core-condition-encounter-diagnosis"
+      "http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-condition-encounter-diagnosis"
     ]
   },
   "clinicalStatus": {
