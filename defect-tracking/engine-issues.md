@@ -868,3 +868,5 @@ Measures with engine-issue workarounds applied (residual mismatches are non-engi
 | CMS1154 | E-13 (was E-15), **E-16** (2026-08-29) | Base `FHIR.Condition` replace (E-13) | **0 MR** — 9/10 passing; 1 residual mismatch (`bc9c82ca` DenExcl 1→0) = E-16 `overlaps` null-high runtime defect (not class B / not drift) |
 | CMS104 | E-12 | None | 7 — union branch empty |
 | CMS0334, CMS1028 | E-14 | None | 1-2 each — unconfirmed |
+
+<!-- GENERATED from scripts/comparison/known_issues.json — do not edit by hand -->
