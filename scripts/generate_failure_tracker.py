@@ -7,7 +7,12 @@ Usage:
     python generate_failure_tracker.py <input.md> <output.md>   # single report, explicit output
 
 In no-args mode, scans scripts/comparison/ for discrepancy_report*.md files and
-generates a measure-failure-report for each one that doesn't already have one.
+generates a measure-failure-report for each one.  The live report
+``discrepancy_report.md`` is always regenerated (mirroring the current state, so a
+stale ``measure-failure-report.md`` is never skipped); historical timestamped
+snapshots (``discrepancy_report-*.md``) are only generated when their paired
+``measure-failure-report-*.md`` does not already exist.  Every overwrite is
+snapshotted to ``_archive/`` so nothing is lost.
 
 Output is a markdown document with:
   - Summary statistics
@@ -551,6 +556,29 @@ def find_reports(comparison_dir: Path) -> list[Path]:
     return reports
 
 
+def split_reports_to_process(reports: list[Path]) -> tuple[list[Path], list[Path], list[Path]]:
+    """Partition discrepancy reports into ``(always, to_process, skipped)``.
+
+    The live report ``discrepancy_report.md`` is always regenerated regardless of
+    whether its ``measure-failure-report.md`` already exists, so the caller can
+    refresh it from freshly-updated input data.  Timestamped historical snapshots
+    (``discrepancy_report-*.md``) are only reprocessed when their paired output is
+    missing, preserving frozen history; ``archived`` reports are excluded
+    entirely.
+    """
+    always: list[Path] = []
+    to_process: list[Path] = []
+    skipped: list[Path] = []
+    for report in reports:
+        if report.stem == "discrepancy_report":
+            always.append(report)
+        elif derive_output_path(report).exists():
+            skipped.append(report)
+        else:
+            to_process.append(report)
+    return always, to_process, skipped
+
+
 def is_failure_report(path: Path) -> bool:
     """Return True if the path looks like a measure-failure-report (not an input)."""
     return path.stem.startswith("measure-failure-report")
@@ -610,8 +638,7 @@ def main():
         for r in reports:
             print(f"  {r.name}", file=sys.stderr)
 
-        to_process = [r for r in reports if not derive_output_path(r).exists()]
-        skipped = [r for r in reports if derive_output_path(r).exists()]
+        always, to_process, skipped = split_reports_to_process(reports)
 
         if skipped:
             print(file=sys.stderr)
@@ -619,19 +646,20 @@ def main():
             for r in skipped:
                 print(f"  {derive_output_path(r).name}", file=sys.stderr)
 
-        if not to_process:
+        if not always and not to_process:
             print(file=sys.stderr)
             print("All reports already have measure-failure-report files. Nothing to do.", file=sys.stderr)
             return
 
         print(file=sys.stderr)
-        print(f"Processing {len(to_process)} report(s) ...", file=sys.stderr)
+        process_list = always + to_process
+        print(f"Processing {len(process_list)} report(s) ...", file=sys.stderr)
         print(file=sys.stderr)
-        for report in to_process:
+        for report in process_list:
             process_report(report, derive_output_path(report))
             print(file=sys.stderr)
 
-        print(f"Done — processed {len(to_process)} report(s), skipped {len(skipped)} already-generated", file=sys.stderr)
+        print(f"Done — processed {len(process_list)} report(s), skipped {len(skipped)} already-generated", file=sys.stderr)
     elif len(args) == 1:
         input_path = Path(args[0])
         if not input_path.exists():
