@@ -25,7 +25,7 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-08 | `ConvertQuantity` rejects calendar-word units from `ToQuantity` | **Confirmed** | Same `ToDays()` helper | CMS156 |
 | E-09 | Quantity division across dimensions rounds to zero | **Confirmed** | `System.Quantity` construction | CMS156 |
 | E-10 | `singleton from empty list` throws instead of returning null | **Confirmed** | Fixture-side enrichment | CMS156 |
-| E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None — blocked** | CMS135, CMS165 |
+| E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None (CQL) — fixture-side deflection only, engine fix blocked on JVM stack trace** | CMS135, CMS165 |
 | E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104 |
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (62 site-level edits; 26 measures applied of 30; 4 pending Stage 3); inline `is`/`as` interim superseded; CMS133, CMS128 & CMS56 VERIFIED 2026-08-30; CMS131 applied 2026-08-30, verified 2026-08-31 (0007 report) | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
@@ -204,14 +204,58 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 
 - **Symptom**: `"Unable to extract codes from fhirType Reference"` thrown before any CQL `define`
   evaluates. Trace output for affected test cases is completely empty (no `Patient=`, no population
-  values). Root-caused to `CodeExtractor.getCodesFromBase` in `cqf-fhir-cql`.
-- **Confirmed affected**: CMS135 (3 cases — `MedicationRequest.medication` as
-  `Reference(Medication)` choice type); CMS165 (1 case — **no** `MedicationRequest` or
-  `Reference`-bearing resource in the fixture at all, confirmed a different trigger).
-- **Workaround**: **None.** Two independent CQL rewrites (explicit Reference branch + valueset
-  filter on `Medication.code`) both failed identically. Needs a live JVM stack trace (debugger
-  breakpoint or increased engine log verbosity) — static analysis is exhausted.
-- **References**: Tried-and-reverted section; §5 item 11.
+  values); the extension harness records only the single error line in
+  `input/tests/results/<Measure>/TestCaseResult-<id>.json` (`"errors": ["Unable to extract codes
+  from fhirType Reference"]`).
+- **Exact throw site / mechanism (root-caused via engine source)**:
+  `org.opencds.cqf.fhir.cql.engine.utility.CodeExtractor.getCodesFromBase` (`cqf-fhir-cql`,
+  Kotlin — `/Users/raleigh.thompson/projects/smile/vs-code-cql/_repo/clinical-reasoning/cqf-fhir-cql`).
+  It extracts codes only from `IBaseEnumeration`, `CodeableConcept`, and `Coding`, and throws
+  `IllegalArgumentException` on any other type, including `Reference`. It is invoked via
+  `BaseRetrieveProvider.filterByTerminology` → `getElmCodesFromObject(values)` during a
+  terminology-filtered retrieve (e.g. `[MedicationRequest: <code>]`). `MedicationRequest.medication`
+  is a FHIR choice type (`CodeableConcept | Reference(Medication)`), declared in the USQualityCore
+  model info (`usqualitycore-modelinfo-0.1.0-cibuild.xml`) with `primaryCodePath="medication"`. When
+  a fixture carries the medication as `medicationReference` (a valid, spec-compliant representation
+  pointing to a separate `Medication` resource whose `.code` holds the coding), the choice path
+  resolves `medication` to a `Reference` object and code extraction crashes. The engine does **not**
+  follow the reference to the target `Medication.code`.
+- **Confirmed affected**:
+  - **CMS135** (3 cases — `TestCaseResult-ec508dbb`, `-cba5a449`, `-c095195c`): ACE/ARB/ARNI
+    fixtures use `MedicationRequest.medication` as `Reference(Medication)` only, e.g.
+    ec508dbb "Angiotensin Medication Request authored 1 minute after edge of encounter".
+  - **CMS165** (1 case — `TestCaseResult-45e01fed-56bb-483d-a860-af3d566bda11`, testCaseDescription
+    "Dementia MedicationRequest.medication as Reference"): the fix-site is
+    `AdvancedIllnessandFrailty.cql:77` `[FHIR.MedicationRequest: "Dementia Medications"]`; the
+    fixture's `MedicationRequest-1cfbb1ef` uses only `medicationReference` →
+    `Medication/63369663` (RxNorm `312836`). The other **10** CMS165 test cases use
+    `medicationCodeableConcept` and pass. **Correction (2026-09-02)**: the earlier conversion-notes
+    attribution to `43efb820-9e6e-4180-9a4d-2d7459896e5f` was wrong — that case carries **no**
+    `MedicationRequest`/`Reference`-bearing resource at all (`ls` shows none); the current failing
+    case is `45e01fed` (confirmed by its `TestCaseResult` testCaseName/testCaseDescription).
+- **Why no CQL workaround works**: Two independent CQL rewrites on CMS135 (explicit Reference
+  branch; valueset filter moved onto `Medication.code`) both failed byte-identically, because the
+  failure happens during retrieve code-extraction, **before** any `define` body runs (empty trace
+  blocks). Verified against the engine/translator source: the generated ELM is spec-compliant and
+  null-safe at every step; nothing in the ELM explains the crash (see conversion-notes "Tried and
+  reverted"). **Only a live JVM stack trace (debugger breakpoint on
+  `CodeExtractor.getCodesFromBase`, or increased engine log verbosity) can pin the missing frame**
+  (which `MedicationRequest`, which `medication` value, and at what point in
+  `filterByTerminology`/`getElmCodesFromObject`) needed to file the upstream fix. The single-line
+  extension-harness error is NOT a stack trace and is insufficient for that purpose.
+- **Workaround**: **None at the CQL level.** **Fixture-side deflection only** (not an engine fix):
+  populate `medicationCodeableConcept` alongside `medicationReference` so the choice path resolves
+  to a `CodeableConcept` for code extraction. The engine's `CodeExtractor` Reference-resolution gap
+  remains and requires the upstream stack trace.
+- **Unit test / repro**: `input/cql/testE11MedicationReference.cql` + fixture
+  `input/tests/measure/testE11MedicationReference/62577993-8c88-440d-ba30-d4a0a72990f9/` (one
+  Patient carrying two MedicationRequests for RxNorm `312836` rivastigmine — one `medicationReference`
+  → `Medication/89f079aa` reproducing the crash, one `medicationCodeableConcept` passing), +
+  registration resources `input/resources/library/testE11MedicationReference.json` (id/version
+  `0.0.000`) and `input/resources/measure/testE11MedicationReference.json`. The `FAILING
+  Reference-Only Medication` define reproduces `Unable to extract codes from fhirType Reference`;
+  the `PASSING CodeableConcept Medication` define evaluates cleanly.
+- **References**: Tried-and-reverted section; §5 item 11; conversion-notes #25 (CMS135/CMS165).
 
 ### E-12: Union branch evaluates empty despite correct data
 
