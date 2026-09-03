@@ -1,15 +1,15 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-03 16:56:54.246390 |
+| Generated | 2026-09-03 16:54:45.384070 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Measures with Discrepancies | 39 |
+| Measures with Discrepancies | 40 |
 | Known Issues (resolution pending) | 11 issues / 4 test cases |
-| Pass Count (all) | 22494 (94.82%) |
-| Fail Count (all) | 1228 (5.18%) |
-| Pass Count (excl. resolution-pending) | 22494 (94.90%) |
-| Fail Count (excl. resolution-pending) | 1209 (5.10%) |
+| Pass Count (all) | 22449 (94.63%) |
+| Fail Count (all) | 1273 (5.37%) |
+| Pass Count (excl. resolution-pending) | 22449 (94.71%) |
+| Fail Count (excl. resolution-pending) | 1254 (5.29%) |
 | QICore Pass Count | 22678 (95.60%) |
 | QICore Fail Count | 1044 (4.40%) |
 | QICore Measures with Discrepancies | 35 |
@@ -37,7 +37,7 @@
 |---|:---:|:---:|
 | Missing Results | 6 | 14 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 37 | 808 |
+| Mismatched Test Cases | 38 | 845 |
 
 
 
@@ -65,7 +65,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | CMS125FHIRBreastCancerScreen | 237 / 27 | 256 / 8 | Both have discrepancies |
 | CMS128FHIRAntidepressantMgmt | 232 / 0 | 98 / 134 | CMS passes, QICore has discrepancies |
 | CMS129FHIRProstCaBoneScanUse | 204 / 0 | 204 / 0 | Match — both pass |
-| CMS130FHIRColorectalCancerScrn | 256 / 0 | 255 / 1 | CMS passes, QICore has discrepancies |
+| CMS130FHIRColorectalCancerScrn | 211 / 45 | 255 / 1 | Both have discrepancies |
 | CMS131FHIRDiabetesEyeExam | 211 / 41 | 246 / 6 | Both have discrepancies |
 | CMS133FHIRCataracts2040BCVA90Days | 292 / 0 | 292 / 0 | Match — both pass |
 | CMS135FHIRACEIorARBorARNIforHF | 170 / 30 | 185 / 15 | Both have discrepancies |
@@ -124,7 +124,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 
 ## Measures with No Discrepancies
 
-### CMS Measures (35)
+### CMS Measures (34)
 - CMS50FHIRReceiptofSpecialistReport [ [cql] ](../../input/cql/CMS50FHIRReceiptofSpecialistReport.cql) [ [test results] ](../../input/tests/results/CMS50FHIRReceiptofSpecialistReport.txt) — matches QICore
 - CMS56FHIRFuncStatHipReplacement [ [cql] ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ [test results] ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) — matches QICore
 - CMS74FHIRDentalCariesPrevention [ [cql] ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ [test results] ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) — matches QICore
@@ -133,7 +133,6 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 - CMS117FHIRChildImmunStatus [ [cql] ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ [test results] ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) — matches QICore
 - CMS128FHIRAntidepressantMgmt [ [cql] ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ [test results] ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) — QICore has discrepancies
 - CMS129FHIRProstCaBoneScanUse [ [cql] ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ [test results] ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) — matches QICore
-- CMS130FHIRColorectalCancerScrn [ [cql] ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ [test results] ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) — QICore has discrepancies
 - CMS133FHIRCataracts2040BCVA90Days [ [cql] ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ [test results] ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt) — matches QICore
 - CMS136FHIRChildADHDMedFollowUp [ [cql] ](../../input/cql/CMS136FHIRChildADHDMedFollowUp.cql) [ [test results] ](../../input/tests/results/CMS136FHIRChildADHDMedFollowUp.txt) — QICore has discrepancies
 - CMS137FHIRSUDTxInitEngagement [ [cql] ](../../input/cql/CMS137FHIRSUDTxInitEngagement.cql) [ [test results] ](../../input/tests/results/CMS137FHIRSUDTxInitEngagement.txt) — matches QICore
@@ -201,7 +200,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 - CMS1188FHIRHIVSTITesting [ [cql] ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ [test results] ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) — also passes in CMS
 - CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt) — also passes in CMS
 - CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) — also passes in CMS
-## Measures with Discrepancies (39)
+## Measures with Discrepancies (40)
 | Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases | QICore Pass / Fail | QICore Status |
 |---|:---:|:---:|:---:|:---:|:---:|---|
 | [CMS2FHIRPCSDepScreenAndFollowUp](#cms2fhirpcsdepscreenandfollowup) | 36 | 0 | 0 | 22.22%   (8) | 173 / 7 | has discrepancies (7) |
@@ -215,6 +214,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS122FHIRDiabetesAssessGT9Pct](#cms122fhirdiabetesassessgt9pct) | 55 | 0 | 0 | 47.27%   (26) | 208 / 12 | has discrepancies (6) |
 | [CMS124FHIRCervicalCancerScreen](#cms124fhircervicalcancerscreen) | 34 | 0 | 0 | 41.18%   (14) | 136 / 0 | passes |
 | [CMS125FHIRBreastCancerScreen](#cms125fhirbreastcancerscreen) | 66 | 0 | 0 | 37.88%   (25) | 256 / 8 | has discrepancies (8) |
+| [CMS130FHIRColorectalCancerScrn](#cms130fhircolorectalcancerscrn) | 64 | 0 | 0 | 57.81%   (37) | 255 / 1 | has discrepancies (1) |
 | [CMS131FHIRDiabetesEyeExam](#cms131fhirdiabeteseyeexam) | 63 | 0 | 0 | 49.21%   (31) | 246 / 6 | has discrepancies (6) |
 | [CMS135FHIRACEIorARBorARNIforHF](#cms135fhiraceiorarborarniforhf) | 40 | 3 | 0 | 22.50%   (9) | 185 / 15 | has discrepancies (0) |
 | [CMS142FHIRCommWithDrManagingDiab](#cms142fhircommwithdrmanagingdiab) | 32 | 0 | 0 | 15.62%   (5) | 123 / 5 | has discrepancies (5) |
@@ -539,6 +539,53 @@ Mismatched Test Cases (25 of  of 66)
 | [ f7574a1c-122e-45ef-9ab5-cfa35a40d6d6 ](../.././input/tests/measure/CMS125FHIRBreastCancerScreen/f7574a1c-122e-45ef-9ab5-cfa35a40d6d6/MeasureReport-102319bd-d710-4adf-bee0-40ff88a7b838.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
 | [ f9de4c72-b2ed-4c8f-94fe-8c934e42e0a0 ](../.././input/tests/measure/CMS125FHIRBreastCancerScreen/f9de4c72-b2ed-4c8f-94fe-8c934e42e0a0/MeasureReport-9d2d1444-f7a9-4497-a785-cacfab3639fb.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
 | [ ffbb03e1-7188-42ef-8deb-c6cf3f790bfe ](../.././input/tests/measure/CMS125FHIRBreastCancerScreen/ffbb03e1-7188-42ef-8deb-c6cf3f790bfe/MeasureReport-c4910aaf-43c1-4f7f-bfaa-4f1ba4385ba3.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+
+
+#### CMS130FHIRColorectalCancerScrn
+[ [cql] ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ [test results] ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt)
+
+QICore: 255 / 1 — has discrepancies (1 mismatched, 0 missing)
+
+Mismatched Test Cases (37 of  of 64)
+| Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
+|---|---|---|:---:|:---:|---|:---:|
+| [ 06934496-0ea0-4ccd-af2e-da5b94410b58 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/06934496-0ea0-4ccd-af2e-da5b94410b58/MeasureReport-e98816af-9900-4323-be88-a91f73f59792.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 2292adf2-3232-43f8-9497-8448349c51a9 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/2292adf2-3232-43f8-9497-8448349c51a9/MeasureReport-263140ad-e031-4377-ba90-f5ec426c32f2.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ 2847411d-a6c5-4f86-ac1f-d229ffa5a00c ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/2847411d-a6c5-4f86-ac1f-d229ffa5a00c/MeasureReport-649fdce0-61f0-41c1-8c8b-bc79363d03dd.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 2b0d64f9-9f3a-4adf-aadb-c231a8ab98ac ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/2b0d64f9-9f3a-4adf-aadb-c231a8ab98ac/MeasureReport-6dea3ea3-6b0c-4808-ab0e-abae8e81ee20.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ 394fbf45-d81c-49d1-be1f-3907227d8940 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/394fbf45-d81c-49d1-be1f-3907227d8940/MeasureReport-ab6d329c-4a71-4c02-8afc-2b179db2ce86.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 39fd4a5e-0db2-478d-ba85-4400a1b7e35e ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/39fd4a5e-0db2-478d-ba85-4400a1b7e35e/MeasureReport-e464de81-75b0-4ce4-9be9-60f6ae9930c9.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 3d75185a-d8e1-4861-9b36-528548e57fc4 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/3d75185a-d8e1-4861-9b36-528548e57fc4/MeasureReport-da0cb1e8-1b6e-4d05-b3fd-1c601686ab4b.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 487de25d-a184-42ed-b1c6-389ed217a0a1 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/487de25d-a184-42ed-b1c6-389ed217a0a1/MeasureReport-50422f5a-106f-4d11-8581-f6b87f7beb6c.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 4fc22b6a-0cca-4e61-bedf-2cb73cf66698 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/4fc22b6a-0cca-4e61-bedf-2cb73cf66698/MeasureReport-0edd6f05-3509-4e51-9ea4-03e9aace158c.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 5445cc72-68a1-4b73-b06d-4cf52098e0db ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/5445cc72-68a1-4b73-b06d-4cf52098e0db/MeasureReport-3a0446fc-e3dd-4aa8-ba10-fb2043f42bc8.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 54db46c1-fa2a-4e6e-96aa-da6dd67c5f18 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/54db46c1-fa2a-4e6e-96aa-da6dd67c5f18/MeasureReport-12823813-3d41-4881-a248-7a824a7e1410.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 58b6a190-8a9c-4631-a102-6048f3e62a19 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/58b6a190-8a9c-4631-a102-6048f3e62a19/MeasureReport-c1bf067c-1bf9-4c5f-845c-846f1146bad9.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 5ebc158d-0736-4467-8bc0-72182bc0f5af ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/5ebc158d-0736-4467-8bc0-72182bc0f5af/MeasureReport-4e09539d-a2fc-4cc9-97e4-1eaaf4ae8131.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 642aafde-fabb-458d-ae4d-5db7343f310c ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/642aafde-fabb-458d-ae4d-5db7343f310c/MeasureReport-9739f023-ced3-438c-953a-c97686e9f634.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 650f4ed7-9418-42ad-a9d7-59fe79e951da ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/650f4ed7-9418-42ad-a9d7-59fe79e951da/MeasureReport-9bc05576-7a01-4d5a-a6d4-00ef26ce88b5.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 683cec0c-5368-467b-85f7-4b70c269e8ea ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/683cec0c-5368-467b-85f7-4b70c269e8ea/MeasureReport-fe3ce79b-2c98-4d8f-8525-1ed26dd33abd.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 7822bd0a-ba96-46f0-8c57-204d37156184 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/7822bd0a-ba96-46f0-8c57-204d37156184/MeasureReport-13aec26c-f40b-461e-b8cb-3f645e8af9a3.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 84ebbde4-0ea8-42ae-908b-ef1721748290 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/84ebbde4-0ea8-42ae-908b-ef1721748290/MeasureReport-f3d72a79-c241-427e-bdf0-f39c75af2ae7.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 95d56325-022c-4bdc-8778-bf02f46139cb ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/95d56325-022c-4bdc-8778-bf02f46139cb/MeasureReport-ec8ad8b0-ca91-4326-a7ac-2b28d3db7306.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ 9943e220-d0f1-4718-8377-0d407a529f52 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/9943e220-d0f1-4718-8377-0d407a529f52/MeasureReport-c292eb92-c37a-4b8e-a124-9234237be4c5.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ 9c6fd73e-9005-4518-b7f0-5d9db57a7ef5 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/9c6fd73e-9005-4518-b7f0-5d9db57a7ef5/MeasureReport-6c994ed2-5767-4c1e-8271-2f10c95f0036.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ b20cd591-3625-4d95-8081-6f2566c51fa6 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/b20cd591-3625-4d95-8081-6f2566c51fa6/MeasureReport-77482e2e-2dbf-4d37-9eb5-bdd8f5f2eb9f.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ be630df2-cc71-47b9-a600-a715912f90be ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/be630df2-cc71-47b9-a600-a715912f90be/MeasureReport-f42a5f9f-b45e-47dd-98a4-1feb3d0c834f.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ bf3f2c9a-a802-4522-8e38-d1c806e71483 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/bf3f2c9a-a802-4522-8e38-d1c806e71483/MeasureReport-7f292764-9689-4cfc-b8fa-4632e783d532.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ c002ae0a-709f-4a5e-82e3-f0a4d8f3a839 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/c002ae0a-709f-4a5e-82e3-f0a4d8f3a839/MeasureReport-13d8bfbe-4b56-4e49-809f-e45fea6b1c45.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ cdacf996-8b20-49af-8f75-0cfd26fafacb ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/cdacf996-8b20-49af-8f75-0cfd26fafacb/MeasureReport-4770ab12-dcd7-4282-bd79-969abaf565dc.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ d0306f4f-06a9-407d-ac0d-e5628fd1cc59 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/d0306f4f-06a9-407d-ac0d-e5628fd1cc59/MeasureReport-8909651a-01b2-436c-8563-a81110d041ef.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ da1e1656-54ae-49f6-ab1b-b8ba9f99b6c2 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/da1e1656-54ae-49f6-ab1b-b8ba9f99b6c2/MeasureReport-c53aa81d-4125-4618-831d-6654068e3306.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ dbead888-2672-453c-8005-d4b9f62b72c9 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/dbead888-2672-453c-8005-d4b9f62b72c9/MeasureReport-20d9fd93-6f99-4c78-85af-74e35a454dee.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ dc337be7-7328-4fce-8f6f-71ee2cb75752 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/dc337be7-7328-4fce-8f6f-71ee2cb75752/MeasureReport-9336e43c-1919-4714-940d-af809a6c713b.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ df2c9d36-96e4-4ab6-9a2a-d3b5b0a44328 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/df2c9d36-96e4-4ab6-9a2a-d3b5b0a44328/MeasureReport-2fe698c5-e59f-49b7-9596-3b76a6e4a896.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ e4215f63-f195-48bd-865d-ecb718f742ff ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/e4215f63-f195-48bd-865d-ecb718f742ff/MeasureReport-c2001cbb-6e40-42fe-bd19-b17265d81fd3.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ e904e28b-ec42-4ca5-8dab-f1cf72f705e6 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/e904e28b-ec42-4ca5-8dab-f1cf72f705e6/MeasureReport-2cdc141c-16bb-4303-80e4-309471842edd.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ e9d86ff6-da48-43c9-9e16-dd95d8bc49c3 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/e9d86ff6-da48-43c9-9e16-dd95d8bc49c3/MeasureReport-74afcc62-1ff0-47ca-a90b-0e2fa300dc64.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ ecd9203b-716e-49ee-be53-eecdea8bef86 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/ecd9203b-716e-49ee-be53-eecdea8bef86/MeasureReport-8622a7a1-615e-4c77-a003-dc0af404035e.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
+| [ f0dae4e3-d82d-422f-883c-4e5238c14a54 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/f0dae4e3-d82d-422f-883c-4e5238c14a54/MeasureReport-96e56c55-a81a-43fb-b24c-ecf6730a4b48.json) | Group_1 | Denominator Exclusion<br>Numerator | 0<br>1 | 1<br>0 | — | PASS<br>PASS |
+| [ fd8d8328-c766-4c9f-a463-ec53957e0276 ](../.././input/tests/measure/CMS130FHIRColorectalCancerScrn/fd8d8328-c766-4c9f-a463-ec53957e0276/MeasureReport-d70a94e0-3a9b-4526-b25c-1a7b1a956027.json) | Group_1 | Denominator Exclusion | 0 | 1 | — | PASS |
 
 
 #### CMS131FHIRDiabetesEyeExam
@@ -1496,7 +1543,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | CMS124FHIRCervicalCancerScreen | 18 | 0 | 0 |
 | CMS125FHIRBreastCancerScreen | 35 | 0 | 0 |
 | CMS128FHIRAntidepressantMgmt | 134 | 0 | 0 |
-| CMS130FHIRColorectalCancerScrn | 1 | 0 | 0 |
+| CMS130FHIRColorectalCancerScrn | 46 | 0 | 0 |
 | CMS131FHIRDiabetesEyeExam | 47 | 0 | 0 |
 | CMS135FHIRACEIorARBorARNIforHF | 15 | 0 | 0 |
 | CMS136FHIRChildADHDMedFollowUp | 5 | 0 | 0 |
@@ -1519,7 +1566,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 | 0 | 0 |
 | NHSNGlycemicControlHypoglycemiaInitialPopulation | 1 | 0 | 0 |
 
-| **Total** | **1479** | **7** | **9** |
+| **Total** | **1524** | **7** | **9** |
 
 ### CMS2FHIRPCSDepScreenAndFollowUp
 
@@ -2369,7 +2416,52 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
+| 06934496-0ea0-4ccd-af2e-da5b94410b58 | Denominator Exclusion | 1 | 0 | mismatch |
+| 2292adf2-3232-43f8-9497-8448349c51a9 | Denominator Exclusion | 1 | 0 | mismatch |
+| 2292adf2-3232-43f8-9497-8448349c51a9 | Numerator | 0 | 1 | mismatch |
+| 2847411d-a6c5-4f86-ac1f-d229ffa5a00c | Denominator Exclusion | 1 | 0 | mismatch |
+| 2b0d64f9-9f3a-4adf-aadb-c231a8ab98ac | Denominator Exclusion | 1 | 0 | mismatch |
+| 2b0d64f9-9f3a-4adf-aadb-c231a8ab98ac | Numerator | 0 | 1 | mismatch |
+| 394fbf45-d81c-49d1-be1f-3907227d8940 | Denominator Exclusion | 1 | 0 | mismatch |
+| 39fd4a5e-0db2-478d-ba85-4400a1b7e35e | Denominator Exclusion | 1 | 0 | mismatch |
+| 3d75185a-d8e1-4861-9b36-528548e57fc4 | Denominator Exclusion | 1 | 0 | mismatch |
+| 487de25d-a184-42ed-b1c6-389ed217a0a1 | Denominator Exclusion | 1 | 0 | mismatch |
+| 4fc22b6a-0cca-4e61-bedf-2cb73cf66698 | Denominator Exclusion | 1 | 0 | mismatch |
+| 5445cc72-68a1-4b73-b06d-4cf52098e0db | Denominator Exclusion | 1 | 0 | mismatch |
+| 54db46c1-fa2a-4e6e-96aa-da6dd67c5f18 | Denominator Exclusion | 1 | 0 | mismatch |
+| 58b6a190-8a9c-4631-a102-6048f3e62a19 | Denominator Exclusion | 1 | 0 | mismatch |
+| 5ebc158d-0736-4467-8bc0-72182bc0f5af | Denominator Exclusion | 1 | 0 | mismatch |
+| 642aafde-fabb-458d-ae4d-5db7343f310c | Denominator Exclusion | 1 | 0 | mismatch |
+| 650f4ed7-9418-42ad-a9d7-59fe79e951da | Denominator Exclusion | 1 | 0 | mismatch |
+| 683cec0c-5368-467b-85f7-4b70c269e8ea | Denominator Exclusion | 1 | 0 | mismatch |
+| 7822bd0a-ba96-46f0-8c57-204d37156184 | Denominator Exclusion | 1 | 0 | mismatch |
+| 84ebbde4-0ea8-42ae-908b-ef1721748290 | Denominator Exclusion | 1 | 0 | mismatch |
+| 95d56325-022c-4bdc-8778-bf02f46139cb | Denominator Exclusion | 1 | 0 | mismatch |
+| 95d56325-022c-4bdc-8778-bf02f46139cb | Numerator | 0 | 1 | mismatch |
+| 9943e220-d0f1-4718-8377-0d407a529f52 | Denominator Exclusion | 1 | 0 | mismatch |
+| 9c6fd73e-9005-4518-b7f0-5d9db57a7ef5 | Denominator Exclusion | 1 | 0 | mismatch |
+| b20cd591-3625-4d95-8081-6f2566c51fa6 | Denominator Exclusion | 1 | 0 | mismatch |
+| b20cd591-3625-4d95-8081-6f2566c51fa6 | Numerator | 0 | 1 | mismatch |
+| be630df2-cc71-47b9-a600-a715912f90be | Denominator Exclusion | 1 | 0 | mismatch |
+| be630df2-cc71-47b9-a600-a715912f90be | Numerator | 0 | 1 | mismatch |
+| bf3f2c9a-a802-4522-8e38-d1c806e71483 | Denominator Exclusion | 1 | 0 | mismatch |
+| bf3f2c9a-a802-4522-8e38-d1c806e71483 | Numerator | 0 | 1 | mismatch |
+| c002ae0a-709f-4a5e-82e3-f0a4d8f3a839 | Denominator Exclusion | 1 | 0 | mismatch |
+| cdacf996-8b20-49af-8f75-0cfd26fafacb | Denominator Exclusion | 1 | 0 | mismatch |
+| d0306f4f-06a9-407d-ac0d-e5628fd1cc59 | Denominator Exclusion | 1 | 0 | mismatch |
+| da1e1656-54ae-49f6-ab1b-b8ba9f99b6c2 | Denominator Exclusion | 1 | 0 | mismatch |
+| dbead888-2672-453c-8005-d4b9f62b72c9 | Denominator Exclusion | 1 | 0 | mismatch |
+| dc337be7-7328-4fce-8f6f-71ee2cb75752 | Denominator Exclusion | 1 | 0 | mismatch |
+| df2c9d36-96e4-4ab6-9a2a-d3b5b0a44328 | Denominator Exclusion | 1 | 0 | mismatch |
+| e4215f63-f195-48bd-865d-ecb718f742ff | Denominator Exclusion | 1 | 0 | mismatch |
+| e904e28b-ec42-4ca5-8dab-f1cf72f705e6 | Denominator Exclusion | 1 | 0 | mismatch |
+| e904e28b-ec42-4ca5-8dab-f1cf72f705e6 | Numerator | 0 | 1 | mismatch |
+| e9d86ff6-da48-43c9-9e16-dd95d8bc49c3 | Denominator Exclusion | 1 | 0 | mismatch |
+| ecd9203b-716e-49ee-be53-eecdea8bef86 | Denominator Exclusion | 1 | 0 | mismatch |
+| f0dae4e3-d82d-422f-883c-4e5238c14a54 | Denominator Exclusion | 1 | 0 | mismatch |
+| f0dae4e3-d82d-422f-883c-4e5238c14a54 | Numerator | 0 | 1 | mismatch |
 | f9ef1fd1-cced-47ad-a47b-d9c20254511c | Denominator Exclusion | 1 | 0 | mismatch |
+| fd8d8328-c766-4c9f-a463-ec53957e0276 | Denominator Exclusion | 1 | 0 | mismatch |
 
 ### CMS131FHIRDiabetesEyeExam
 
