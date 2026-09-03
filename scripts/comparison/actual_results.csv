@@ -17148,8 +17148,8 @@ CMS56FHIRFuncStatHipReplacement,0f65b705-a1fd-41b4-8834-2a200e582472,Group_1:Ini
 CMS56FHIRFuncStatHipReplacement,0f65b705-a1fd-41b4-8834-2a200e582472,Group_1:Denominator,1
 CMS56FHIRFuncStatHipReplacement,0f65b705-a1fd-41b4-8834-2a200e582472,Group_1:Denominator Exclusion,0
 CMS56FHIRFuncStatHipReplacement,0f65b705-a1fd-41b4-8834-2a200e582472,Group_1:Numerator,0
-CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Initial Population,0
-CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator,0
+CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Initial Population,1
+CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator,1
 CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator Exclusion,0
 CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Numerator,0
 CMS56FHIRFuncStatHipReplacement,11c8c8ff-97d1-4b46-8297-0a85d5caa1f3,Group_1:Initial Population,1
