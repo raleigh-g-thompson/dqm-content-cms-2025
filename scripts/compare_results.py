@@ -79,11 +79,159 @@ def capture_results(file: str) -> Results:
                 result[group_and_population[1]] = row["count"]
     return Results(rows, results)
 
+
+# ---------------------------------------------------------------------------
+# Cross-engine diffs: this project's engine output vs the QI-Core engine output.
+# The QI-Core project's `actual_results.csv` is copied in as the source of truth
+# for QI-Core measures; comparing it against this project's own `actual_results`
+# surfaces every population where the two engines disagree.
+# ---------------------------------------------------------------------------
+EngineDiffClass = namedtuple('EngineDiffClass', ['label', 'detail'])
+
+def diff_actual_results(cms_rows: Dict, qicore_rows: Dict) -> Dict[str, Dict]:
+    """Compare two engines' per-case actual results.
+
+    ``cms_rows`` / ``qicore_rows`` are the ``Results.rows`` dicts from
+    ``capture_results``, keyed ``(measure_name, patient_guid, population)`` where
+    population is the full ``Group_N:PopulationType`` string.
+
+    The QI-Core actuals are treated as the reference ("source of truth"); a row
+    present only in the QI-Core input is reported as QICORE-ONLY so a missing CMS
+    population is surfaced, while a row present only in CMS is reported as
+    CMS-ONLY.
+
+    Returns a nested dict keyed by measure name:
+        { measure: { "mismatch": [(key, cms_count, qicore_count), ...],
+                     "cms_only":  [key, ...],
+                     "qicore_only": [key, ...],
+                     "match": int } }
+    """
+    result: Dict[str, Dict] = {}
+    cms_keys = set(cms_rows)
+    qi_keys = set(qicore_rows)
+
+    for key in qi_keys:
+        measure, _guid, _pop = key
+        bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
+        if key not in cms_keys:
+            bucket["qicore_only"].append(key)
+            continue
+        if cms_rows[key] == qicore_rows[key]:
+            bucket["match"] += 1
+        else:
+            bucket["mismatch"].append((key, cms_rows[key], qicore_rows[key]))
+
+    for key in cms_keys - qi_keys:
+        measure, _guid, _pop = key
+        bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
+        bucket["cms_only"].append(key)
+
+    return result
+
+
+def render_engine_diff_section(engine_diff: Dict[str, Dict]) -> List[str]:
+    """Render the Engine Diff (CMS vs QI-Core) markdown section.
+
+    Ordered by measure (numeric), listing per-measure mismatch/cms-only/qicore-only
+    tallies and the individual differing population rows.
+    """
+    if not engine_diff:
+        return []
+
+    def row_total(m):
+        return len(engine_diff[m]["mismatch"]) + len(engine_diff[m]["cms_only"]) + len(engine_diff[m]["qicore_only"])
+
+    non_empty = [m for m in engine_diff if row_total(m) > 0]
+    out = ["## Engine Diff: CMS vs QI-Core (qicore-2025)\n",
+           "\n"]
+    out.append("_Where the CMS engine's actual results differ from the QI-Core engine's "
+               "(source of truth) on the same test case and population. QI-Core-only rows "
+               "are populations the QI-Core engine produced that are absent from CMS._\n")
+    out.append("\n")
+    out.append(f"| Measure | Mismatch | CMS-Only | QI-Core-Only |\n")
+    out.append("| --- | ---: | ---: | ---: |\n")
+    total_mm = sum(len(engine_diff[m]["mismatch"]) for m in engine_diff)
+    total_cms = sum(len(engine_diff[m]["cms_only"]) for m in engine_diff)
+    total_qi = sum(len(engine_diff[m]["qicore_only"]) for m in engine_diff)
+    for measure in sort_measure_names(non_empty):
+        d = engine_diff[measure]
+        out.append(f"| {measure} | {len(d['mismatch'])} | {len(d['cms_only'])} | {len(d['qicore_only'])} |\n")
+    out.append(f"\n")
+    out.append(f"| **Total** | **{total_mm}** | **{total_cms}** | **{total_qi}** |\n")
+    out.append("\n")
+
+    def population_label(pop_key):
+        group, _, pop = pop_key.partition(":")
+        return pop if pop else pop_key
+
+    for measure in sort_measure_names(non_empty):
+        d = engine_diff[measure]
+        out.append(f"### {measure}\n\n")
+        rows = []
+        for key, cms_cnt, qi_cnt in sorted(d["mismatch"], key=lambda t: sort_by_test_case(t[0][1], t[0][2])):
+            _m, guid, pop = key
+            rows.append([guid, population_label(pop), cms_cnt, qi_cnt, "mismatch"])
+        for key in sorted(d["cms_only"], key=lambda t: sort_by_test_case(t[1], t[2])):
+            _m, guid, pop = key
+            rows.append([guid, population_label(pop), "—", "—", "cms-only"])
+        for key in sorted(d["qicore_only"], key=lambda t: sort_by_test_case(t[1], t[2])):
+            _m, guid, pop = key
+            rows.append([guid, population_label(pop), "—", "—", "qicore-only"])
+        if rows:
+            out.append("| Test Case | Population | CMS Actual | QI-Core Actual | Type |\n")
+            out.append("|---|---|---:|---:|---|\n")
+            for guid, pop, cms_c, qi_c, kind in rows:
+                out.append(f"| {guid} | {pop} | {cms_c} | {qi_c} | {kind} |\n")
+            out.append("\n")
+    return out
+
+
+def write_engine_diff_csv(engine_diff: Dict[str, Dict], out_path: str) -> None:
+    """Write the engine diff to a CSV for machine consumption.
+
+    Emits one row per differing population. ``measure_name,guid,population`` are
+    the cross-repo key; ``cms_count``/``qicore_count`` are the two engines' actuals
+    (empty for rows present in only one); ``diff_type`` is mismatch|cms-only|qicore-only.
+    """
+    with open(out_path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["measure_name", "guid", "population", "cms_count", "qicore_count", "diff_type"])
+        for measure in sorted(engine_diff):
+            d = engine_diff[measure]
+            for key, cms_cnt, qi_cnt in d["mismatch"]:
+                _m, guid, pop = key
+                writer.writerow([measure, guid, pop, cms_cnt, qi_cnt, "mismatch"])
+            for key in d["cms_only"]:
+                _m, guid, pop = key
+                writer.writerow([measure, guid, pop, "", "", "cms-only"])
+            for key in d["qicore_only"]:
+                _m, guid, pop = key
+                writer.writerow([measure, guid, pop, "", "", "qicore-only"])
+
+
 def row_outcome(expected_result: str, actual_result: str) -> Tuple[str, str]:
     """Return (result, actual_display) for a single expected/actual comparison."""
     if actual_result is None or str(expected_result) != str(actual_result):
         return ("FAIL", actual_result if actual_result is not None else "MISSING")
     return ("PASS", actual_result)
+
+
+def qicore_row_outcome(expected_rows: Dict, qicore_rows: Dict, measure: str, patient_guid: str, group: str, population: str) -> str:
+    """Return 'PASS', 'FAIL', or 'N/A' for a single group+population in QICore.
+
+    PASS when QICore matches expected; FAIL when QICore produced a differing
+    value; N/A when expected is absent or QICore produced no value for that
+    (measure, guid, group:population) row.
+    """
+    key = (measure, patient_guid, f"{group}:{population}")
+    expected_result = expected_rows.get(key)
+    if expected_result is None:
+        return 'N/A'
+    actual = qicore_rows.get(key)
+    if actual is None:
+        return 'N/A'
+    result, _ = row_outcome(expected_result, actual)
+    return result
 
 
 def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[int, int]:
@@ -130,6 +278,23 @@ def scores(expected_rows: Dict[str, str], actual_rows: Dict[str, str]) -> Tuple[
         else:
             fail_count += 1
     return (pass_count, fail_count)
+
+
+def scores_by_measure(expected_rows: Dict[str, str], actual_rows: Dict[str, str]) -> Dict[str, Tuple[int, int]]:
+    """Return dict of measure_name -> (pass_count, fail_count)."""
+    by_measure: Dict[str, Tuple[int, int]] = {}
+    for key, expected_result in expected_rows.items():
+        measure = key[0]
+        if key[2].split(':')[1] not in ValidMeasurePopulationTypes:
+            continue
+        actual_result = actual_rows.get(key)
+        result, _ = row_outcome(expected_result, actual_result)
+        p, f = by_measure.get(measure, (0, 0))
+        if result == "PASS":
+            by_measure[measure] = (p + 1, f)
+        else:
+            by_measure[measure] = (p, f + 1)
+    return by_measure
 
 
 def exclude_pending_rows(expected_rows: Dict, actual_rows: Dict, pending: Set) -> Tuple[Dict[str, str], Dict[str, str]]:
@@ -261,7 +426,7 @@ def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
     return "<br>".join(labels) if labels else "—"
 
 
-def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None):
+def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
     issues = issues or []
     expected_keys = (list(expected_rows.keys()) if expected_rows is not None
@@ -278,15 +443,24 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
     pending_case_count = len({(k[0], k[1]) for k in expected_keys}
                              & pending) if expected_keys else 0
 
+    # QICore pass/fail counts (computed from expected vs QICore actuals).
+    qicore_discrepancies: Dict[str, MeasureDiscrepancy] = {}
+    qicore_pass_by_measure: Dict[str, Tuple[int, int]] = {}
+    qicore_total_pass = 0
+    qicore_total_fail = 0
+    if qicore_groups is not None and qicore_rows is not None:
+        qicore_discrepancies = capture_discrepancies_by_measure(expected_results, qicore_groups)
+        qicore_pass_by_measure = scores_by_measure(expected_rows, qicore_rows)
+        qicore_total_pass = sum(p for p, _ in qicore_pass_by_measure.values())
+        qicore_total_fail = sum(f for _, f in qicore_pass_by_measure.values())
+
     def pad(_pass, _fail):
         denom = _pass + _fail
         return f'{_pass} ({_pass / denom * 100:.2f}%)' if denom else f'{_pass} (0.00%)'
 
     with open(file, "w", newline="") as f:
         f.write('# Discrepancy Report\n')
-        f.writelines(create_markdown_table(
-            ['Details', 'Value'],
-            [
+        summary_rows = [
                 ['Generated', datetime.now()],
                 ['Total Measures', len(set([result_key.measure_name for result_key in expected_results.keys()]))],
                 ['Total Test Cases', len(set([(result_key.measure_name, result_key.patient_guid) for result_key in expected_results.keys()]))],
@@ -296,7 +470,16 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                 ['Fail Count (all)', pad(fail_count, pass_count)],
                 ['Pass Count (excl. resolution-pending)', pad(excl_pass, excl_fail)],
                 ['Fail Count (excl. resolution-pending)', pad(excl_fail, excl_pass)],
-            ]
+        ]
+        if qicore_groups is not None:
+            summary_rows.extend([
+                ['QICore Pass Count', pad(qicore_total_pass, qicore_total_fail)],
+                ['QICore Fail Count', pad(qicore_total_fail, qicore_total_pass)],
+                ['QICore Measures with Discrepancies', len(qicore_discrepancies)],
+            ])
+        f.writelines(create_markdown_table(
+            ['Details', 'Value'],
+            summary_rows
         ))
         if pending_issues:
             f.write('\n## Known Issues (resolution-pending)\n\n')
@@ -336,31 +519,99 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         f.write('\n')
         f.write('_Note: Measures can have multiple discrepancies, so the Measures with Discrepancies count may not match the summary counts._\n')
 
+        # Per-measure comparison table (CMS vs QICore)
+        if qicore_groups is not None:
+            all_measures = sort_measure_names(list(set([k.measure_name for k in expected_results.keys()])))
+            cms_pass_by_measure = scores_by_measure(expected_rows, actual_rows) if expected_rows and actual_rows else {}
+            comparison_rows = []
+            for measure in all_measures:
+                cms_p, cms_f = cms_pass_by_measure.get(measure, (0, 0))
+                qi_p, qi_f = qicore_pass_by_measure.get(measure, (0, 0))
+                cms_has_discrepancy = measure in discrepancies
+                qi_has_discrepancy = measure in qicore_discrepancies
+                if cms_has_discrepancy and qi_has_discrepancy:
+                    note = 'Both have discrepancies'
+                elif not cms_has_discrepancy and not qi_has_discrepancy:
+                    note = 'Match — both pass'
+                elif not cms_has_discrepancy and qi_has_discrepancy:
+                    note = 'CMS passes, QICore has discrepancies'
+                else:
+                    note = 'CMS has discrepancies, QICore passes'
+                comparison_rows.append([
+                    measure,
+                    f'{cms_p} / {cms_f}',
+                    f'{qi_p} / {qi_f}',
+                    note,
+                ])
+            if comparison_rows:
+                f.write('## CMS vs QICore Comparison\n\n')
+                f.writelines(create_markdown_table(
+                    ['Measure', 'CMS Pass / Fail', 'QICore Pass / Fail', 'Notes'],
+                    comparison_rows,
+                    '|---|:---:|:---:|---|\n'))
+
         non_discrepancy_measures = [measure_name for measure_name in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()]))) if measure_name not in discrepancies]
-        if non_discrepancy_measures:
-            f.write(f'## Measures with No Discrepancies ({len(non_discrepancy_measures)})\n')
-            for measure in non_discrepancy_measures:
-                f.write(f'- {measure} {cql_file_link(measure,'[cql]')} {test_results_file_link(measure,'[test results]')}\n')
+        if non_discrepancy_measures or (qicore_groups is not None and qicore_discrepancies is not None):
+            f.write('## Measures with No Discrepancies\n\n')
+            # CMS measures with no discrepancies
+            f.write(f'### CMS Measures ({len(non_discrepancy_measures)})\n')
+            if non_discrepancy_measures:
+                for measure in non_discrepancy_measures:
+                    qi_note = ''
+                    if qicore_groups is not None:
+                        if measure in qicore_discrepancies:
+                            qi_note = ' — QICore has discrepancies'
+                        else:
+                            qi_note = ' — matches QICore'
+                    f.write(f'- {measure} {cql_file_link(measure,"[cql]")} {test_results_file_link(measure,"[test results]")}{qi_note}\n')
+            else:
+                f.write('_None_\n')
+
+            # QICore measures with no discrepancies (sub-section)
+            if qicore_groups is not None:
+                qicore_non_discrepancy = [m for m in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()]))) if m not in qicore_discrepancies]
+                f.write(f'\n### QICore Measures ({len(qicore_non_discrepancy)})\n')
+                if qicore_non_discrepancy:
+                    for measure in qicore_non_discrepancy:
+                        cms_note = ''
+                        if measure not in discrepancies:
+                            cms_note = ' — also passes in CMS'
+                        else:
+                            cms_note = ' — CMS has discrepancies'
+                        f.write(f'- {measure} {cql_file_link(measure,"[cql]")} {test_results_file_link(measure,"[test results]")}{cms_note}\n')
+                else:
+                    f.write('_None_\n')
 
         if discrepancies:
             f.write(f'## Measures with Discrepancies ({len(discrepancies)})\n')
             f.writelines(create_markdown_table(
-                ['Measure', 'Total Test Cases', 'Missing Results', 'Missing Populations', 'Mismatched Test Cases'],
+                ['Measure', 'Total Test Cases', 'Missing Results', 'Missing Populations', 'Mismatched Test Cases', 'QICore Pass / Fail', 'QICore Status'],
                 [
                     [
                         f'[{measure}](#{measure.lower()})',
                         len(discrepancy.all_test_cases),
                         len(discrepancy.missing_results),
                         len(discrepancy.missing_populations),
-                        f'{len(discrepancy.mismatched_test_cases)/len(discrepancy.all_test_cases)*100:.2f}%   ({len(discrepancy.mismatched_test_cases)})'
+                        f'{len(discrepancy.mismatched_test_cases)/len(discrepancy.all_test_cases)*100:.2f}%   ({len(discrepancy.mismatched_test_cases)})',
+                        f'{qicore_pass_by_measure.get(measure, (0, 0))[0]} / {qicore_pass_by_measure.get(measure, (0, 0))[1]}',
+                        'passes' if measure not in qicore_discrepancies else f'has discrepancies ({len(qicore_discrepancies[measure].mismatched_test_cases)})',
                     ] for measure, discrepancy in discrepancies.items()
                 ],
-                '|---|:---:|:---:|:---:|:---:|\n'))
+                '|---|:---:|:---:|:---:|:---:|:---:|---|\n'))
             f.write('\n')
 
             for measure, discrepancy in discrepancies.items():
                 f.write(f'#### {measure}\n')
                 f.write(f'{cql_file_link(measure, '[cql]')} {test_results_file_link(measure, '[test results]')}\n\n')
+                if qicore_groups is not None:
+                    qi_p, qi_f = qicore_pass_by_measure.get(measure, (0, 0))
+                    if measure in qicore_discrepancies:
+                        qi_mismatch = len(qicore_discrepancies[measure].mismatched_test_cases)
+                        qi_missing = len(qicore_discrepancies[measure].missing_results)
+                        qi_status = f'has discrepancies ({qi_mismatch} mismatched, {qi_missing} missing)'
+                    else:
+                        qi_status = 'passes'
+                    f.write(f'QICore: {qi_p} / {qi_f} — {qi_status}\n\n')
 
                 if discrepancy.missing_results:
                     f.write(f'Missing Results ({len(discrepancy.missing_results)} of {len(discrepancy.all_test_cases)} test cases)\n')
@@ -383,17 +634,34 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
             
                 if discrepancy.mismatched_test_cases:
                     f.write(f'Mismatched Test Cases ({len(discrepancy.mismatched_test_cases)} of  of {len(discrepancy.all_test_cases)})\n')
-                    f.writelines(create_markdown_table(
-                        ['Test Case', 'Group', 'Population', 'Expected', 'Actual', 'Known Issue'],
-                        [[
-                            measure_report_file_link(measure, test_group_id.patient_guid),
-                            test_group_id.group,
-                            '<br>'.join([population for population in sort_populations(populations.keys())]),
-                            '<br>'.join([populations[population].expected for population in sort_populations(populations.keys())]),
-                            '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())]),
-                            known_issue_label(issues, measure, test_group_id.patient_guid)
-                         ] for test_group_id, populations in sort_mismatched_test_cases(discrepancy.mismatched_test_cases)],
-                        '|---|---|---|:---:|:---:|---|\n'))
+                    if qicore_groups is not None:
+                        f.writelines(create_markdown_table(
+                            ['Test Case', 'Group', 'Population', 'Expected', 'Actual', 'Known Issue', 'QICore'],
+                            [[
+                                measure_report_file_link(measure, test_group_id.patient_guid),
+                                test_group_id.group,
+                                '<br>'.join([population for population in sort_populations(populations.keys())]),
+                                '<br>'.join([populations[population].expected for population in sort_populations(populations.keys())]),
+                                '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())]),
+                                known_issue_label(issues, measure, test_group_id.patient_guid),
+                                '<br>'.join([qicore_row_outcome(expected_rows, qicore_rows, measure, test_group_id.patient_guid, test_group_id.group, population) for population in sort_populations(populations.keys())]),
+                             ] for test_group_id, populations in sort_mismatched_test_cases(discrepancy.mismatched_test_cases)],
+                            '|---|---|---|:---:|:---:|---|:---:|\n'))
+                    else:
+                        f.writelines(create_markdown_table(
+                            ['Test Case', 'Group', 'Population', 'Expected', 'Actual', 'Known Issue'],
+                            [[
+                                measure_report_file_link(measure, test_group_id.patient_guid),
+                                test_group_id.group,
+                                '<br>'.join([population for population in sort_populations(populations.keys())]),
+                                '<br>'.join([populations[population].expected for population in sort_populations(populations.keys())]),
+                                '<br>'.join([populations[population].actual for population in sort_populations(populations.keys())]),
+                                known_issue_label(issues, measure, test_group_id.patient_guid)
+                             ] for test_group_id, populations in sort_mismatched_test_cases(discrepancy.mismatched_test_cases)],
+                            '|---|---|---|:---:|:---:|---|\n'))
+
+        if engine_diff:
+            f.writelines(render_engine_diff_section(engine_diff))
 
 def archive_report(report_path: str) -> str:
     """Copy the generated discrepancy report to _archive/ with a timestamp.
@@ -411,11 +679,20 @@ def archive_report(report_path: str) -> str:
     return str(dest)
 
 
-def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None):
+def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None, qicore_actual_file: str = None, qicore_diff_csv: str = None):
     expected_results = capture_results(expected_file)
     actual_results = capture_results(actual_file)
 
     issues = known_issues_lib.load_catalog(known_issues_file).get("issues", [])
+
+    # Cross-engine diff (additive, informational): compare this project's actuals
+    # against the QI-Core engine's actuals (source of truth for QI-Core measures).
+    engine_diff = None
+    if qicore_actual_file and os.path.exists(qicore_actual_file):
+        qicore_results = capture_results(qicore_actual_file)
+        engine_diff = diff_actual_results(actual_results[0], qicore_results[0])
+        if qicore_diff_csv:
+            write_engine_diff_csv(engine_diff, qicore_diff_csv)
 
     pass_fail_count = generate_output(output_file, expected_results[0], actual_results[0])
     pass_pct = pass_fail_count[0] / (pass_fail_count[0] + pass_fail_count[1]) * 100
@@ -429,7 +706,7 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
         print(f"PASS (excl. resolution-pending): {p} ({p / denom * 100:.2f}%)" if denom else f"PASS (excl. resolution-pending): {p}")
         print(f"FAIL (excl. resolution-pending): {fl} ({(100 - p / denom * 100) if denom else 0:.2f})%")
     
-    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0])
+    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0], engine_diff, qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None)
 
     archived = archive_report(comparison_report)
     if archived:
@@ -441,12 +718,24 @@ if __name__ == '__main__':
     output_file = "./scripts/comparison/output_results.csv"
     comparison_report = "./scripts/comparison/discrepancy_report.md"
     known_issues_file = "./scripts/comparison/known_issues.json"
+    qicore_actual_file = "./scripts/comparison/qicore-2025-actual-results.csv"
+    qicore_diff_csv = "./scripts/comparison/qicore_engine_diff.csv"
 
     args = sys.argv[1:]
     if "--known-issues" in args:
         idx = args.index("--known-issues")
         if idx + 1 < len(args):
             known_issues_file = args[idx + 1]
+        args = args[:idx] + args[idx + 2:]
+    if "--qicore-actual-results" in args:
+        idx = args.index("--qicore-actual-results")
+        if idx + 1 < len(args):
+            qicore_actual_file = args[idx + 1]
+        args = args[:idx] + args[idx + 2:]
+    if "--qicore-diff-csv" in args:
+        idx = args.index("--qicore-diff-csv")
+        if idx + 1 < len(args):
+            qicore_diff_csv = args[idx + 1]
         args = args[:idx] + args[idx + 2:]
     if args:
         # positional: expected actual output report [known-issues]
@@ -460,4 +749,4 @@ if __name__ == '__main__':
         if len(args) > 4:
             known_issues_file = args[4]
 
-    main(expected_file, actual_file, output_file, comparison_report, known_issues_file)
+    main(expected_file, actual_file, output_file, comparison_report, known_issues_file, qicore_actual_file, qicore_diff_csv)

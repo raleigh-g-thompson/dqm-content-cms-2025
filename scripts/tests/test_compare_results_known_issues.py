@@ -5,10 +5,14 @@ import unittest
 
 from scripts.compare_results import (
     archive_report,
+    diff_actual_results,
     exclude_pending_rows,
     known_issue_label,
+    qicore_row_outcome,
+    render_engine_diff_section,
     row_outcome,
     scores,
+    write_engine_diff_csv,
 )
 
 PENDING = {("m1", "g-pending")}
@@ -114,6 +118,118 @@ class KnownIssueLabelTest(unittest.TestCase):
     def test_member_dash_when_only_resolved(self):
         issues = [ISSUES[1]]
         self.assertEqual(known_issue_label(issues, "m1", "g-pending"), "—")
+
+
+class EngineDiffTest(unittest.TestCase):
+
+    def setUp(self):
+        self.cms = {
+            ("m1", "g-a", "g1:Denominator"): "1",
+            ("m1", "g-b", "g1:Numerator"): "1",
+            ("m1", "g-c", "g1:Denominator"): "0",
+        }
+        self.qi = {
+            ("m1", "g-a", "g1:Denominator"): "1",   # match
+            ("m1", "g-b", "g1:Numerator"): "0",     # mismatch
+            ("m1", "g-d", "g1:Numerator"): "1",     # qicore-only
+        }
+
+    def test_classifies_match_mismatch_cms_only_qicore_only(self):
+        diff = diff_actual_results(self.cms, self.qi)
+        self.assertIn("m1", diff)
+        self.assertEqual(diff["m1"]["match"], 1)  # g-a
+        self.assertEqual(diff["m1"]["mismatch"], [(("m1", "g-b", "g1:Numerator"), "1", "0")])
+        self.assertEqual(diff["m1"]["cms_only"], [("m1", "g-c", "g1:Denominator")])
+        self.assertEqual(diff["m1"]["qicore_only"], [("m1", "g-d", "g1:Numerator")])
+
+    def test_qicore_is_reference(self):
+        # A row present only in QI-Core is qicore-only (missing CMS population),
+        # and a row present only in CMS is cms-only.
+        diff = diff_actual_results(self.cms, self.qi)
+        self.assertEqual(len(diff["m1"]["qicore_only"]), 1)
+        self.assertEqual(len(diff["m1"]["cms_only"]), 1)
+        self.assertEqual(len(diff["m1"]["mismatch"]), 1)
+
+    def test_empty_inputs(self):
+        self.assertEqual(diff_actual_results({}, {}), {})
+
+    def test_identical_rows_all_match(self):
+        rows = {("m1", "g-a", "g1:Denominator"): "1",
+                ("m1", "g-b", "g1:Numerator"): "0"}
+        diff = diff_actual_results(rows, dict(rows))
+        self.assertEqual(diff["m1"]["match"], 2)
+        self.assertEqual(diff["m1"]["mismatch"], [])
+        self.assertEqual(diff["m1"]["cms_only"], [])
+        self.assertEqual(diff["m1"]["qicore_only"], [])
+
+    def test_render_section_contains_measure_and_totals(self):
+        diff = diff_actual_results(self.cms, self.qi)
+        section = "".join(render_engine_diff_section(diff))
+        self.assertIn("## Engine Diff", section)
+        self.assertIn("m1", section)
+        self.assertIn("g-b", section)
+        self.assertRegex(section, r"\*\*1\*\*")  # total columns present
+
+    def test_render_empty_returns_nothing(self):
+        self.assertEqual(render_engine_diff_section({}), [])
+
+    def test_write_engine_diff_csv(self):
+        diff = diff_actual_results(self.cms, self.qi)
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        path = os.path.join(tmp, "diff.csv")
+        write_engine_diff_csv(diff, path)
+        with open(path, encoding="utf-8") as fh:
+            lines = fh.read().splitlines()
+        self.assertEqual(lines[0],
+                         "measure_name,guid,population,cms_count,qicore_count,diff_type")
+        self.assertEqual(len(lines), 4)  # header + 1 mismatch + 1 cms-only + 1 qicore-only
+        self.assertIn("m1,g-b,g1:Numerator,1,0,mismatch", lines)
+        self.assertIn("m1,g-c,g1:Denominator,,,cms-only", lines)
+        self.assertIn("m1,g-d,g1:Numerator,,,qicore-only", lines)
+
+
+class QICoreRowOutcomeTest(unittest.TestCase):
+
+    def setUp(self):
+        self.expected = {
+            ("m1", "g-a", "g1:Denominator"): "1",
+            ("m1", "g-b", "g1:Numerator"): "1",
+        }
+        self.qicore = {
+            ("m1", "g-a", "g1:Denominator"): "1",   # match -> PASS
+            ("m1", "g-b", "g1:Numerator"): "0",     # mismatch -> FAIL
+        }
+
+    def test_pass_when_qicore_matches_expected(self):
+        self.assertEqual(
+            qicore_row_outcome(self.expected, self.qicore, "m1", "g-a", "g1", "Denominator"),
+            "PASS",
+        )
+
+    def test_fail_when_qicore_mismatches_expected(self):
+        self.assertEqual(
+            qicore_row_outcome(self.expected, self.qicore, "m1", "g-b", "g1", "Numerator"),
+            "FAIL",
+        )
+
+    def test_na_when_qicore_has_no_result(self):
+        self.assertEqual(
+            qicore_row_outcome(self.expected, self.qicore, "m1", "g-unknown", "g1", "Denominator"),
+            "N/A",
+        )
+
+    def test_na_when_expected_key_absent(self):
+        self.assertEqual(
+            qicore_row_outcome(self.expected, self.qicore, "m1", "g-a", "g1", "BogusPopulation"),
+            "N/A",
+        )
+
+    def test_na_when_qicore_rows_empty(self):
+        self.assertEqual(
+            qicore_row_outcome(self.expected, {}, "m1", "g-a", "g1", "Denominator"),
+            "N/A",
+        )
 
 
 if __name__ == "__main__":

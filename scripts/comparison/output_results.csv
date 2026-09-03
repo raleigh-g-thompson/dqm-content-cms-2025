@@ -19128,8 +19128,8 @@ PASS,CMS56FHIRFuncStatHipReplacement,17a6abc8-6736-45ef-a53d-3be1d3609179,Group_
 PASS,CMS56FHIRFuncStatHipReplacement,17a6abc8-6736-45ef-a53d-3be1d3609179,Group_1:Denominator,1,1
 PASS,CMS56FHIRFuncStatHipReplacement,17a6abc8-6736-45ef-a53d-3be1d3609179,Group_1:Denominator Exclusion,1,1
 PASS,CMS56FHIRFuncStatHipReplacement,17a6abc8-6736-45ef-a53d-3be1d3609179,Group_1:Numerator,0,0
-PASS,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Initial Population,1,1
-PASS,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator,1,1
+FAIL,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Initial Population,1,0
+FAIL,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator,1,0
 FAIL,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Denominator Exclusion,1,0
 PASS,CMS56FHIRFuncStatHipReplacement,10e6851a-0db4-4706-8a6e-7fbbb27c588e,Group_1:Numerator,0,0
 PASS,CMS56FHIRFuncStatHipReplacement,e9681d3b-760d-4235-9bd8-7cd684c5f261,Group_1:Initial Population,1,1
