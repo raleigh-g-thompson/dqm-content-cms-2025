@@ -1697,6 +1697,8 @@ CMS771FHIRUrinarySymptomScoreBPH,cb9497a6-968f-4034-b85c-d254c07e34e5,Group_1:De
 CMS771FHIRUrinarySymptomScoreBPH,cb9497a6-968f-4034-b85c-d254c07e34e5,Group_1:Denominator Exclusion,0
 CMS771FHIRUrinarySymptomScoreBPH,cb9497a6-968f-4034-b85c-d254c07e34e5,Group_1:Numerator,0
 CMSFHIR529HybridHospitalWideReadmission,afd5733f-e9eb-4a17-9be7-783850a132fc,Group_1:Initial Population,1
+testE18DateTimeCompare,ca78c4ac-c681-44ac-b6fc-3a981edd3e63,Group_1:Initial Population,1
+testE11MedicationReference,62577993-8c88-440d-ba30-d4a0a72990f9,Group_1:Initial Population,1
 CMS50FHIRReceiptofSpecialistReport,3c747b52-446b-4107-aff5-a6121d5e9ffc,Group_1:Initial Population,0
 CMS50FHIRReceiptofSpecialistReport,3c747b52-446b-4107-aff5-a6121d5e9ffc,Group_1:Denominator,0
 CMS50FHIRReceiptofSpecialistReport,3c747b52-446b-4107-aff5-a6121d5e9ffc,Group_1:Numerator,0

@@ -1,15 +1,15 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-04 12:46:23.390068 |
+| Generated | 2026-09-04 12:28:44.473770 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Measures with Discrepancies | 34 |
+| Measures with Discrepancies | 36 |
 | Known Issues (resolution pending) | 11 issues / 4 test cases |
-| Pass Count (all) | 23067 (97.24%) |
-| Fail Count (all) | 655 (2.76%) |
-| Pass Count (excl. resolution-pending) | 23067 (97.32%) |
-| Fail Count (excl. resolution-pending) | 636 (2.68%) |
+| Pass Count (all) | 22960 (96.79%) |
+| Fail Count (all) | 762 (3.21%) |
+| Pass Count (excl. resolution-pending) | 22960 (96.87%) |
+| Fail Count (excl. resolution-pending) | 743 (3.13%) |
 | QICore Pass Count | 22678 (95.60%) |
 | QICore Fail Count | 1044 (4.40%) |
 | QICore Measures with Discrepancies | 35 |
@@ -35,7 +35,7 @@
 
 | Discrepancy Summary | Measure Count | Test Case Count |
 |---|:---:|:---:|
-| Missing Results | 6 | 14 |
+| Missing Results | 8 | 121 |
 | Missing Populations | 0 | 0 |
 | Mismatched Test Cases | 32 | 367 |
 
@@ -118,13 +118,13 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | CMS1218FHIRHHRF | 274 / 2 | 274 / 2 | Both have discrepancies |
 | CMS1244FHIRECATHOQR | 216 / 0 | 216 / 0 | Match — both pass |
 | CMS1264FHIRECATREHQR | 22 / 152 | 22 / 152 | Both have discrepancies |
-| NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 / 0 | 0 / 27 | CMS passes, QICore has discrepancies |
-| NHSNGlycemicControlHypoglycemiaInitialPopulation | 80 / 0 | 79 / 1 | CMS passes, QICore has discrepancies |
+| NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 0 / 27 | 0 / 27 | Both have discrepancies |
+| NHSNGlycemicControlHypoglycemiaInitialPopulation | 0 / 80 | 79 / 1 | Both have discrepancies |
 
 
 ## Measures with No Discrepancies
 
-### CMS Measures (40)
+### CMS Measures (38)
 - CMS50FHIRReceiptofSpecialistReport [ [cql] ](../../input/cql/CMS50FHIRReceiptofSpecialistReport.cql) [ [test results] ](../../input/tests/results/CMS50FHIRReceiptofSpecialistReport.txt) — matches QICore
 - CMS56FHIRFuncStatHipReplacement [ [cql] ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ [test results] ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) — matches QICore
 - CMS74FHIRDentalCariesPrevention [ [cql] ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ [test results] ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) — matches QICore
@@ -163,8 +163,6 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 - CMS1188FHIRHIVSTITesting [ [cql] ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ [test results] ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) — matches QICore
 - CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt) — matches QICore
 - CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) — matches QICore
-- NHSNAcuteCareHospitalMonthlyInitialPopulation1 [ [cql] ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ [test results] ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) — QICore has discrepancies
-- NHSNGlycemicControlHypoglycemiaInitialPopulation [ [cql] ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ [test results] ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) — QICore has discrepancies
 
 ### QICore Measures (39)
 - CMS22FHIRPCSBPScreeningFollowUp [ [cql] ](../../input/cql/CMS22FHIRPCSBPScreeningFollowUp.cql) [ [test results] ](../../input/tests/results/CMS22FHIRPCSBPScreeningFollowUp.txt) — CMS has discrepancies
@@ -206,7 +204,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 - CMS1188FHIRHIVSTITesting [ [cql] ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ [test results] ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) — also passes in CMS
 - CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt) — also passes in CMS
 - CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) — also passes in CMS
-## Measures with Discrepancies (34)
+## Measures with Discrepancies (36)
 | Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases | QICore Pass / Fail | QICore Status |
 |---|:---:|:---:|:---:|:---:|:---:|---|
 | [CMS2FHIRPCSDepScreenAndFollowUp](#cms2fhirpcsdepscreenandfollowup) | 36 | 0 | 0 | 22.22%   (8) | 173 / 7 | has discrepancies (7) |
@@ -243,6 +241,8 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS1154ScreeningPrediabetesFHIR](#cms1154screeningprediabetesfhir) | 10 | 0 | 0 | 10.00%   (1) | 39 / 1 | has discrepancies (1) |
 | [CMS1218FHIRHHRF](#cms1218fhirhhrf) | 69 | 0 | 0 | 1.45%   (1) | 274 / 2 | has discrepancies (1) |
 | [CMS1264FHIRECATREHQR](#cms1264fhirecatrehqr) | 58 | 0 | 0 | 98.28%   (57) | 22 / 152 | has discrepancies (57) |
+| [NHSNAcuteCareHospitalMonthlyInitialPopulation1](#nhsnacutecarehospitalmonthlyinitialpopulation1) | 27 | 27 | 0 | 0.00%   (0) | 0 / 27 | has discrepancies (27) |
+| [NHSNGlycemicControlHypoglycemiaInitialPopulation](#nhsnglycemiccontrolhypoglycemiainitialpopulation) | 80 | 80 | 0 | 0.00%   (0) | 79 / 1 | has discrepancies (1) |
 
 
 
@@ -987,6 +987,133 @@ Mismatched Test Cases (57 of  of 58)
 | [ ee13a2d8-61d9-4d2f-8f13-1423bd271950 ](../.././input/tests/measure/CMS1264FHIRECATREHQR/ee13a2d8-61d9-4d2f-8f13-1423bd271950/MeasureReport-709420f2-5a51-4704-9588-4483aa8c2ccc.json) | Group_1 | Initial Population<br>Denominator | 1<br>1 | 0<br>0 | — | FAIL<br>FAIL |
 
 
+#### NHSNAcuteCareHospitalMonthlyInitialPopulation1
+[ [cql] ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ [test results] ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt)
+
+QICore: 0 / 27 — has discrepancies (27 mismatched, 0 missing)
+
+Missing Results (27 of 27 test cases)
+| Test Case | Group | Known Issue |
+| --- | --- | --- |
+| [ 025529dc-5384-4544-acb2-c2b6f7c9a23c ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/025529dc-5384-4544-acb2-c2b6f7c9a23c/MeasureReport-cbc6c29b-2746-4325-846b-4916066f901d.json) | Group_1 | — |
+| [ 0353da56-ca21-45d3-8f96-8954167143ae ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/0353da56-ca21-45d3-8f96-8954167143ae/MeasureReport-752163c3-abdc-4bdf-9e38-1863335b89b5.json) | Group_1 | — |
+| [ 09431e3b-b1d9-491a-b6a3-76b3868e6213 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/09431e3b-b1d9-491a-b6a3-76b3868e6213/MeasureReport-46c6e04d-46fb-43bf-8e31-a9c615a68829.json) | Group_1 | — |
+| [ 16acd0ee-60e7-4573-b433-5a9c335c145b ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/16acd0ee-60e7-4573-b433-5a9c335c145b/MeasureReport-21be7b36-d958-42d8-a0cd-b6f11f52b9e0.json) | Group_1 | — |
+| [ 19feaae6-8985-4444-9182-d3c785698710 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/19feaae6-8985-4444-9182-d3c785698710/MeasureReport-a4e15a58-ea80-48f3-be78-a7f11046fda9.json) | Group_1 | — |
+| [ 1c06a652-f116-4307-80b7-342c16d20de1 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/1c06a652-f116-4307-80b7-342c16d20de1/MeasureReport-865f0c20-2d8b-4565-a1df-1d4fb22cded4.json) | Group_1 | — |
+| [ 24ab1538-bc59-454b-bd24-961288f4eea8 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/24ab1538-bc59-454b-bd24-961288f4eea8/MeasureReport-f9c6d620-b9f6-45bc-b850-44bc56d270e2.json) | Group_1 | — |
+| [ 2ce50e7f-4e04-4d5b-9d9a-2243958c2a92 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/2ce50e7f-4e04-4d5b-9d9a-2243958c2a92/MeasureReport-dcede416-5737-41d3-9e52-96ecb4e3358a.json) | Group_1 | — |
+| [ 2ea03a1a-cefe-4eac-9e34-7bf434b30d2b ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/2ea03a1a-cefe-4eac-9e34-7bf434b30d2b/MeasureReport-c39a9dd2-e4cb-4afe-b543-9fc0b7fc6762.json) | Group_1 | — |
+| [ 36e30d76-0d86-4b72-ba89-4ebaacf48b31 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/36e30d76-0d86-4b72-ba89-4ebaacf48b31/MeasureReport-ab39e948-0969-4f65-95e4-66dd419234f9.json) | Group_1 | — |
+| [ 3e86234e-4999-4e8e-a4a2-420d1343b079 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/3e86234e-4999-4e8e-a4a2-420d1343b079/MeasureReport-8d1536f5-dbeb-4a78-bf16-8c98be7d95d5.json) | Group_1 | — |
+| [ 4974042e-fff4-4a3d-905e-548c6593ce40 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/4974042e-fff4-4a3d-905e-548c6593ce40/MeasureReport-adbaed86-bc97-426c-91bb-0caa9ddee759.json) | Group_1 | — |
+| [ 4c8f4dd1-193e-4239-80ac-63e9ac2bd053 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/4c8f4dd1-193e-4239-80ac-63e9ac2bd053/MeasureReport-724ae436-9840-4319-81c5-d83bfbb7317a.json) | Group_1 | — |
+| [ 4d192f80-7649-4afd-a842-528ef60fc904 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/4d192f80-7649-4afd-a842-528ef60fc904/MeasureReport-8ab9facd-848c-4fd1-86c3-0db7187c0872.json) | Group_1 | — |
+| [ 55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5/MeasureReport-51440a32-e472-44ba-ad92-71c146103991.json) | Group_1 | — |
+| [ 5efcd4e7-f71b-48a6-badb-b1b88c02f161 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/5efcd4e7-f71b-48a6-badb-b1b88c02f161/MeasureReport-4f0e2e08-8866-48a3-bbb7-3592848a9c59.json) | Group_1 | — |
+| [ 6409f1eb-d338-4bf6-a3df-4da1eb997c48 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/6409f1eb-d338-4bf6-a3df-4da1eb997c48/MeasureReport-03b8ae84-238b-4bb5-a24b-f1fd7b9fadb2.json) | Group_1 | — |
+| [ 70306180-c713-4fa4-9c39-ae3b15e15d22 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/70306180-c713-4fa4-9c39-ae3b15e15d22/MeasureReport-344d7bf8-d330-4eea-9bfd-e6f9385e09c7.json) | Group_1 | — |
+| [ 7f26eb5a-f877-458b-b960-5de7ffa5b4d0 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/7f26eb5a-f877-458b-b960-5de7ffa5b4d0/MeasureReport-7fd32742-4b47-45e1-ae6e-03639705a987.json) | Group_1 | — |
+| [ 8a407b28-6668-43be-9148-31ed08b8c0c4 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/8a407b28-6668-43be-9148-31ed08b8c0c4/MeasureReport-75636bb8-4f4a-4636-87c9-5687e930b342.json) | Group_1 | — |
+| [ 8ffa77ff-8591-442d-84b1-6c6cb86fd09e ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/8ffa77ff-8591-442d-84b1-6c6cb86fd09e/MeasureReport-38e2d170-52cb-4db9-a4ff-794d8205d788.json) | Group_1 | — |
+| [ 98561005-400a-4b9d-8902-f04605b6b168 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/98561005-400a-4b9d-8902-f04605b6b168/MeasureReport-0773d2b8-f1b9-4153-941d-359810657da0.json) | Group_1 | — |
+| [ a1ec5d8e-4926-456a-8523-786a93f2348b ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/a1ec5d8e-4926-456a-8523-786a93f2348b/MeasureReport-554c0e95-b93e-42d0-ad24-593cf2d8b97a.json) | Group_1 | — |
+| [ bf9e53b4-e10c-4a11-a9be-8d5b944c1d51 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/bf9e53b4-e10c-4a11-a9be-8d5b944c1d51/MeasureReport-1684ea45-5f2b-4d52-ada8-8efdcc7288dc.json) | Group_1 | — |
+| [ c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4/MeasureReport-8892d6d4-2213-474d-964f-476b31cdfccf.json) | Group_1 | — |
+| [ d7aad5bd-638e-402a-92b3-2fb7f3f91151 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/d7aad5bd-638e-402a-92b3-2fb7f3f91151/MeasureReport-7814a289-b823-4ab0-9767-5ef6d17e2368.json) | Group_1 | — |
+| [ ec296057-82c9-41b2-9e32-8ec2ea4f3687 ](../.././input/tests/measure/NHSNAcuteCareHospitalMonthlyInitialPopulation1/ec296057-82c9-41b2-9e32-8ec2ea4f3687/MeasureReport-1de4ec32-e403-4140-95a7-16312f92d593.json) | Group_1 | — |
+
+
+#### NHSNGlycemicControlHypoglycemiaInitialPopulation
+[ [cql] ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ [test results] ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt)
+
+QICore: 79 / 1 — has discrepancies (1 mismatched, 0 missing)
+
+Missing Results (80 of 80 test cases)
+| Test Case | Group | Known Issue |
+| --- | --- | --- |
+| [ 081a12b5-6d27-4380-9085-d44680b7bb3b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/081a12b5-6d27-4380-9085-d44680b7bb3b/MeasureReport-a7c4d366-02b2-4358-88e4-81357728837b.json) | Group_1 | — |
+| [ 0abd9346-f086-4111-8614-d41be2e03979 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/0abd9346-f086-4111-8614-d41be2e03979/MeasureReport-8bff4d23-d65e-471b-b081-c3a921ddbc57.json) | Group_1 | — |
+| [ 0b97cf11-42c5-4f2d-b80d-be2f0e3d2501 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/0b97cf11-42c5-4f2d-b80d-be2f0e3d2501/MeasureReport-b83f4b61-c9f8-495e-854c-57fe05f2bcbe.json) | Group_1 | — |
+| [ 0dc78b19-e1f7-4a30-adb1-b2359b85a10a ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/0dc78b19-e1f7-4a30-adb1-b2359b85a10a/MeasureReport-85fcc828-6e8b-493b-bf52-db33dfe2ce53.json) | Group_1 | — |
+| [ 0e6e69d4-03d4-4f3d-80d2-802995c3a221 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/0e6e69d4-03d4-4f3d-80d2-802995c3a221/MeasureReport-5b1c450d-7e8a-4639-ab58-8db3a98d9c4f.json) | Group_1 | — |
+| [ 12283321-75ca-4c3a-9019-002284d81e89 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/12283321-75ca-4c3a-9019-002284d81e89/MeasureReport-956964a6-c91c-4eff-99cb-c731c5f85599.json) | Group_1 | — |
+| [ 14648731-7c20-4237-a0d1-df253fe93f40 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/14648731-7c20-4237-a0d1-df253fe93f40/MeasureReport-1f5a58cd-2804-477f-beeb-432e2a590c86.json) | Group_1 | — |
+| [ 16a98469-0589-4cc4-964d-d37f043cd11b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/16a98469-0589-4cc4-964d-d37f043cd11b/MeasureReport-a21f9e2a-6ded-41fb-89be-77e57e221749.json) | Group_1 | — |
+| [ 1e403fe4-88cd-4dbf-8942-e262ae91b2c4 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/1e403fe4-88cd-4dbf-8942-e262ae91b2c4/MeasureReport-e3d22477-3753-41b0-a58b-95d4be4b592d.json) | Group_1 | — |
+| [ 205dcfc1-5483-48eb-a54a-8648d130d73a ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/205dcfc1-5483-48eb-a54a-8648d130d73a/MeasureReport-6ac55fc8-0cf3-4b36-87c9-050f3eb6c4bc.json) | Group_1 | — |
+| [ 213c6814-bde6-4401-b700-a35e429ac104 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/213c6814-bde6-4401-b700-a35e429ac104/MeasureReport-3049e542-7edf-49b1-bd79-f39aff2ebe16.json) | Group_1 | — |
+| [ 2283b56f-0a6f-4576-800d-d480be2e5db3 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2283b56f-0a6f-4576-800d-d480be2e5db3/MeasureReport-f006f2c3-844c-42ae-801d-caa7a29a7683.json) | Group_1 | — |
+| [ 2dabc75c-cce7-4337-a92f-bf0d60546b5a ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2dabc75c-cce7-4337-a92f-bf0d60546b5a/MeasureReport-681b48f7-0458-4b25-b8fb-91367c30828a.json) | Group_1 | — |
+| [ 2db388f4-f539-47a4-9736-69b0c6649e01 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2db388f4-f539-47a4-9736-69b0c6649e01/MeasureReport-13e17cda-25e3-408d-b005-858924be73d2.json) | Group_1 | — |
+| [ 2e75db8c-7ba0-465a-8594-9b296e999276 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2e75db8c-7ba0-465a-8594-9b296e999276/MeasureReport-227784e2-cced-41d8-871e-cf71f4d9641e.json) | Group_1 | — |
+| [ 2f23d669-d298-4aa1-9e00-36e334cb6f09 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2f23d669-d298-4aa1-9e00-36e334cb6f09/MeasureReport-895c6e54-9495-48f8-8639-87c8dd53089a.json) | Group_1 | — |
+| [ 2f5f0d25-506b-482a-9465-91137ed0e845 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/2f5f0d25-506b-482a-9465-91137ed0e845/MeasureReport-11984950-a130-4238-b00e-a3463f584514.json) | Group_1 | — |
+| [ 37487559-c99d-4919-a6a8-661ed96a9692 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/37487559-c99d-4919-a6a8-661ed96a9692/MeasureReport-f42e0a99-cf74-4442-906a-9f4d9ee9e551.json) | Group_1 | — |
+| [ 3f89276c-e75b-4619-9f93-f0f9c58ea699 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/3f89276c-e75b-4619-9f93-f0f9c58ea699/MeasureReport-7716d1ed-3240-49a3-833b-daffbc9c84c1.json) | Group_1 | — |
+| [ 3fdb535d-0a7f-4ec9-80a6-845e002a76cb ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/3fdb535d-0a7f-4ec9-80a6-845e002a76cb/MeasureReport-30870773-58d4-4b0d-9199-1f6a0b01e4e2.json) | Group_1 | — |
+| [ 40b66b90-4811-4f6f-8eec-c46d1a5e6eeb ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/40b66b90-4811-4f6f-8eec-c46d1a5e6eeb/MeasureReport-6e04a494-68fd-4847-943a-3eea403c5674.json) | Group_1 | — |
+| [ 49766095-dc01-4019-9bbe-79c5eade2b74 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/49766095-dc01-4019-9bbe-79c5eade2b74/MeasureReport-172939e0-571f-4abd-80af-3d9a0b85a850.json) | Group_1 | — |
+| [ 4d3218d8-7fc5-4d7f-a1f8-93a3324a18fd ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/4d3218d8-7fc5-4d7f-a1f8-93a3324a18fd/MeasureReport-0e24ad5a-0476-43cd-b180-cb266c9ee4cb.json) | Group_1 | — |
+| [ 4dfc0e9d-b9e5-423c-9354-e9fcb83eda20 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/4dfc0e9d-b9e5-423c-9354-e9fcb83eda20/MeasureReport-80a2819b-d7b9-4190-af69-a2b5cb73a466.json) | Group_1 | — |
+| [ 56c7677a-d509-474e-911a-7e8ebd446cdd ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/56c7677a-d509-474e-911a-7e8ebd446cdd/MeasureReport-0be66a3b-cb5a-49a4-b189-69883a61549c.json) | Group_1 | — |
+| [ 57365859-6f37-4647-b0e1-14eee92ebb71 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/57365859-6f37-4647-b0e1-14eee92ebb71/MeasureReport-5e4e5e2b-0574-4abd-bf82-3dd447873546.json) | Group_1 | — |
+| [ 5796742c-16e9-4c84-9a5a-e695d96a9b2a ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/5796742c-16e9-4c84-9a5a-e695d96a9b2a/MeasureReport-e2bc501d-0af6-4a1d-93a5-932996f82740.json) | Group_1 | — |
+| [ 5a07a01a-bf1b-409f-be3b-fd1a87bc0f5b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/5a07a01a-bf1b-409f-be3b-fd1a87bc0f5b/MeasureReport-f53ee421-3689-4ad6-95f1-b30d54735b51.json) | Group_1 | — |
+| [ 5a2ea578-db19-487b-9ee2-27abaaa76383 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/5a2ea578-db19-487b-9ee2-27abaaa76383/MeasureReport-caa1ce7b-2c56-4784-8818-ef678f2af762.json) | Group_1 | — |
+| [ 5eca21fd-71d4-4543-aed0-95f7240628ac ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/5eca21fd-71d4-4543-aed0-95f7240628ac/MeasureReport-cd225552-efaf-46a8-9b39-1872820fdbcf.json) | Group_1 | — |
+| [ 62cfb49d-d68f-4366-ada1-977e827ca7e2 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/62cfb49d-d68f-4366-ada1-977e827ca7e2/MeasureReport-05607ea6-98eb-4189-80de-9ea62b1e47dd.json) | Group_1 | — |
+| [ 62f50a3d-3fd0-4e3c-a163-3bc6f35ce8da ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/62f50a3d-3fd0-4e3c-a163-3bc6f35ce8da/MeasureReport-15b70768-a4f9-409a-b2b4-2f4ff3773753.json) | Group_1 | — |
+| [ 63011803-dd5d-4a7b-a823-34d311f2ab67 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/63011803-dd5d-4a7b-a823-34d311f2ab67/MeasureReport-52c35ba0-3c62-4320-96b5-46a9316fd681.json) | Group_1 | — |
+| [ 64b3d3fd-3ff2-499e-98b4-1bcc38edb02e ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/64b3d3fd-3ff2-499e-98b4-1bcc38edb02e/MeasureReport-177bdca6-e177-4ec9-9119-0eac33f6aee1.json) | Group_1 | — |
+| [ 694f7e5e-053a-4730-b94c-73e5aacb86c2 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/694f7e5e-053a-4730-b94c-73e5aacb86c2/MeasureReport-b6c2e965-1d2f-463d-806b-e33c6c567dc0.json) | Group_1 | — |
+| [ 6b9b0bec-07dc-42e2-8392-5cc7220b790e ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/6b9b0bec-07dc-42e2-8392-5cc7220b790e/MeasureReport-4bb43df3-e86b-4385-86d6-030902efbba2.json) | Group_1 | — |
+| [ 6d2ba015-ead4-4a64-b3c2-91798444d44b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/6d2ba015-ead4-4a64-b3c2-91798444d44b/MeasureReport-76dd70c3-48f3-46eb-9d4b-511a626dd1dc.json) | Group_1 | — |
+| [ 6e88eab1-b0a7-42b6-a257-253da0447fc5 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/6e88eab1-b0a7-42b6-a257-253da0447fc5/MeasureReport-31738e92-56d1-4fd6-b102-14ce65d6aa7c.json) | Group_1 | — |
+| [ 732a880c-7f86-4b14-a086-0e5541e3b487 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/732a880c-7f86-4b14-a086-0e5541e3b487/MeasureReport-ad48497f-7098-4c09-a004-749b5b8820d1.json) | Group_1 | — |
+| [ 78865fb4-49a4-42a3-b493-052f152b7482 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/78865fb4-49a4-42a3-b493-052f152b7482/MeasureReport-61e46313-4946-42c5-a028-920b0bdd30a8.json) | Group_1 | — |
+| [ 7bcb6920-f361-4121-82a5-31fed13e65d6 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/7bcb6920-f361-4121-82a5-31fed13e65d6/MeasureReport-2ec7a2b4-519b-4d84-b963-e8879aa1ca44.json) | Group_1 | — |
+| [ 7c853331-48a7-492f-9060-795009f8cc7b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/7c853331-48a7-492f-9060-795009f8cc7b/MeasureReport-aff592b5-2416-43cc-a30d-4882ac508009.json) | Group_1 | — |
+| [ 7ce282c2-9138-457b-9ef5-3de129f81dac ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/7ce282c2-9138-457b-9ef5-3de129f81dac/MeasureReport-eb1e6034-df37-4f15-8b29-59c0b18cb7ca.json) | Group_1 | — |
+| [ 7f501eae-84a0-49a4-a598-aae63772a030 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/7f501eae-84a0-49a4-a598-aae63772a030/MeasureReport-04b9bf8d-e3a6-4ded-9d8c-0d93f8e8320a.json) | Group_1 | — |
+| [ 7fef44cf-ef02-4bca-8e88-ebf5b72a212f ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/7fef44cf-ef02-4bca-8e88-ebf5b72a212f/MeasureReport-d39bf63c-b6aa-4b98-ab9a-9d3a801ed61d.json) | Group_1 | — |
+| [ 84f623e8-b488-4ca8-acb5-ed8fae38d43d ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/84f623e8-b488-4ca8-acb5-ed8fae38d43d/MeasureReport-32fb3319-0274-45ae-b283-12b2fb032be7.json) | Group_1 | — |
+| [ 865c6188-e4ad-4ca2-90e2-64bc6c93bcf1 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/865c6188-e4ad-4ca2-90e2-64bc6c93bcf1/MeasureReport-54d74faa-90b6-4128-b12b-46a2b9f880a4.json) | Group_1 | — |
+| [ 8bd7f76b-8d5a-42b8-8900-ec2e1ab5c0d1 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/8bd7f76b-8d5a-42b8-8900-ec2e1ab5c0d1/MeasureReport-3ce3f551-0da2-4cc1-9a86-d1008fcd9aba.json) | Group_1 | — |
+| [ 8d3864cd-d022-4067-941c-c42087e3bc86 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/8d3864cd-d022-4067-941c-c42087e3bc86/MeasureReport-9cc9c7a2-8fac-4085-b92d-018e87c3be00.json) | Group_1 | — |
+| [ 8d7583e9-d1b8-4269-b2fe-a64138e8f301 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/8d7583e9-d1b8-4269-b2fe-a64138e8f301/MeasureReport-bdeffd84-81b7-464e-8bfb-49333e5b872c.json) | Group_1 | — |
+| [ 914a8308-9d17-41a5-a38a-fae14a9669ea ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/914a8308-9d17-41a5-a38a-fae14a9669ea/MeasureReport-f33c21f2-685f-473c-945a-fd288fce83aa.json) | Group_1 | — |
+| [ 9507a390-e7a0-4e14-8869-69fe0e7fbe77 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/9507a390-e7a0-4e14-8869-69fe0e7fbe77/MeasureReport-2a54320c-20d3-4567-875d-93be48a11c73.json) | Group_1 | — |
+| [ 950d0fc0-914c-40e9-ae8f-5d06c0a8edf5 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/950d0fc0-914c-40e9-ae8f-5d06c0a8edf5/MeasureReport-b7183067-ad91-40ce-b69d-0b60ddfe11ec.json) | Group_1 | — |
+| [ 986750bc-7ca8-43ae-886b-9ed6daaf9bb2 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/986750bc-7ca8-43ae-886b-9ed6daaf9bb2/MeasureReport-e2fda61c-94d0-4e83-9eb3-99b8d1b911d2.json) | Group_1 | — |
+| [ 9d6e376f-0bd5-4a36-8991-435c0e7c1bcc ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/9d6e376f-0bd5-4a36-8991-435c0e7c1bcc/MeasureReport-8904607e-c6d1-4575-9467-4a3e72e99106.json) | Group_1 | — |
+| [ 9dedcbcd-e0e4-4841-b6a1-971321758ab2 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/9dedcbcd-e0e4-4841-b6a1-971321758ab2/MeasureReport-ccf23a8f-4c86-4628-b119-265098929b56.json) | Group_1 | — |
+| [ a190f096-6d74-476a-853d-0d5c5d5df1a6 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/a190f096-6d74-476a-853d-0d5c5d5df1a6/MeasureReport-90a041e8-3084-411b-b4c9-b1a6903eec1d.json) | Group_1 | — |
+| [ a3d7add3-8a14-4c22-a510-ddf143c477c1 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/a3d7add3-8a14-4c22-a510-ddf143c477c1/MeasureReport-a3e25f0c-4df7-48fc-9f1e-771c1b922abb.json) | Group_1 | — |
+| [ af316d7c-666a-45d1-905c-20ed90640ac3 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/af316d7c-666a-45d1-905c-20ed90640ac3/MeasureReport-ea50a8c6-239c-4787-956c-5fd8c8248840.json) | Group_1 | — |
+| [ b247e1af-4d1a-42c1-be34-7c74987da0bd ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/b247e1af-4d1a-42c1-be34-7c74987da0bd/MeasureReport-d16d9140-a94f-4f84-8659-aba18d3ea3ea.json) | Group_1 | — |
+| [ b3041236-6bfd-46ce-9da9-aea81c0abf5b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/b3041236-6bfd-46ce-9da9-aea81c0abf5b/MeasureReport-35197b1c-17eb-40bd-bb50-f6a970f10f4d.json) | Group_1 | — |
+| [ bee09e12-d66f-48c2-9dc5-6271644e2dc2 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/bee09e12-d66f-48c2-9dc5-6271644e2dc2/MeasureReport-09fa4806-b796-49a6-8c91-c92148db9cd5.json) | Group_1 | — |
+| [ bfef7cf8-a7f7-42aa-bad4-3c6291bf1a3e ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/bfef7cf8-a7f7-42aa-bad4-3c6291bf1a3e/MeasureReport-459e7b36-280a-40e3-b894-c10972ea1173.json) | Group_1 | — |
+| [ c004ecf8-559a-4b01-8117-1f0c4e5bed5b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/c004ecf8-559a-4b01-8117-1f0c4e5bed5b/MeasureReport-57eb58cf-8c4a-4140-8b24-36fb50062f10.json) | Group_1 | — |
+| [ c4d785a5-a3fa-463b-b9ca-91d60eeb3dab ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/c4d785a5-a3fa-463b-b9ca-91d60eeb3dab/MeasureReport-faac6a55-338b-46a3-862f-9958bb58a6f1.json) | Group_1 | — |
+| [ c61005f2-b932-45eb-a8b8-03f834b7adac ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/c61005f2-b932-45eb-a8b8-03f834b7adac/MeasureReport-99858be8-74fb-46ac-84fd-ca8dcb45b821.json) | Group_1 | — |
+| [ c8786795-72b9-4231-be0e-d4c60a9916a1 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/c8786795-72b9-4231-be0e-d4c60a9916a1/MeasureReport-2ad29a90-2712-4d1c-89d2-3139f65b2ad5.json) | Group_1 | — |
+| [ ca07ad9c-9810-43f3-a3cd-90c9c028187b ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/ca07ad9c-9810-43f3-a3cd-90c9c028187b/MeasureReport-13071b3f-3791-4554-8b67-65bad75f9f6a.json) | Group_1 | — |
+| [ dbb0a2c9-509e-49e7-8f3d-822ea7f5aa65 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/dbb0a2c9-509e-49e7-8f3d-822ea7f5aa65/MeasureReport-5ddf7a5b-bb58-4449-9c43-3f7dd319a84d.json) | Group_1 | — |
+| [ de2f4806-ec26-462d-9940-0ae983bf3e3f ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/de2f4806-ec26-462d-9940-0ae983bf3e3f/MeasureReport-639bbb9a-6437-4afa-9603-98e395151998.json) | Group_1 | — |
+| [ de3b49e7-ffd3-4f5a-aa3a-249aefd1f0d0 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/de3b49e7-ffd3-4f5a-aa3a-249aefd1f0d0/MeasureReport-3c95c919-ea24-4e79-a66e-73b2d249b671.json) | Group_1 | — |
+| [ deeb9e7e-4c29-45e6-a27e-1fc4f987f59f ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/deeb9e7e-4c29-45e6-a27e-1fc4f987f59f/MeasureReport-b1c94333-dde5-43a9-90ce-1bd75bf1b358.json) | Group_1 | — |
+| [ e066b98f-0c36-4f71-9b18-ad76854e27c6 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/e066b98f-0c36-4f71-9b18-ad76854e27c6/MeasureReport-4f3bbe8d-68ce-4434-be84-2c02a8012b57.json) | Group_1 | — |
+| [ e7ada800-676f-48e9-9a4b-f505901d3c95 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/e7ada800-676f-48e9-9a4b-f505901d3c95/MeasureReport-f75be299-d1d1-44f5-a440-253f2d4b5e5a.json) | Group_1 | — |
+| [ eeee1e34-dc1e-4997-815d-43dab9a2734e ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/eeee1e34-dc1e-4997-815d-43dab9a2734e/MeasureReport-778b5f17-37e9-4792-8498-cd1c85c13519.json) | Group_1 | — |
+| [ f04cffb2-a121-4198-a501-68aea7edde8f ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/f04cffb2-a121-4198-a501-68aea7edde8f/MeasureReport-0b5a32a0-ac83-48f2-870e-89a81e5bc2af.json) | Group_1 | — |
+| [ f3a5ce49-9f1f-455b-8f44-2389c61d5850 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/f3a5ce49-9f1f-455b-8f44-2389c61d5850/MeasureReport-dce2ddab-a28a-490c-a8a9-4e1b3c05c587.json) | Group_1 | — |
+| [ f6646c57-1402-4a37-ac29-9f5f315a65be ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/f6646c57-1402-4a37-ac29-9f5f315a65be/MeasureReport-9695f768-61a9-4fbe-b8f9-1b767a16d28c.json) | Group_1 | — |
+| [ fbc4c7bb-5c04-4c9f-8164-552c02ccdfa8 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/fbc4c7bb-5c04-4c9f-8164-552c02ccdfa8/MeasureReport-9b19ad79-8d16-4d44-bb74-9d8bd6117d13.json) | Group_1 | — |
+| [ fcda2c9b-c817-4181-a477-19cc9c6317e3 ](../.././input/tests/measure/NHSNGlycemicControlHypoglycemiaInitialPopulation/fcda2c9b-c817-4181-a477-19cc9c6317e3/MeasureReport-7eadaa55-15da-4d43-9e23-26846de5790b.json) | Group_1 | — |
+
+
 ## Engine Diff: CMS vs QI-Core (qicore-2025)
 
 _Where the CMS engine's actual results differ from the QI-Core engine's (source of truth) on the same test case and population. QI-Core-only rows are populations the QI-Core engine produced that are absent from CMS._
@@ -1023,10 +1150,10 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | CMS986FHIRMalnutritionScore | 6 | 0 | 0 |
 | CMS996FHIRAptTxforSTEMI | 5 | 0 | 0 |
 | CMS1028FHIRPCSevereOBComps | 2 | 0 | 0 |
-| NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 | 0 | 0 |
-| NHSNGlycemicControlHypoglycemiaInitialPopulation | 1 | 0 | 0 |
+| NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 0 | 0 | 27 |
+| NHSNGlycemicControlHypoglycemiaInitialPopulation | 0 | 0 | 80 |
 
-| **Total** | **914** | **7** | **9** |
+| **Total** | **886** | **7** | **116** |
 
 ### CMS2FHIRPCSDepScreenAndFollowUp
 
@@ -2084,37 +2211,116 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
-| 025529dc-5384-4544-acb2-c2b6f7c9a23c | Initial Population | 1 | 0 | mismatch |
-| 0353da56-ca21-45d3-8f96-8954167143ae | Initial Population | 1 | 0 | mismatch |
-| 09431e3b-b1d9-491a-b6a3-76b3868e6213 | Initial Population | 1 | 0 | mismatch |
-| 16acd0ee-60e7-4573-b433-5a9c335c145b | Initial Population | 1 | 0 | mismatch |
-| 19feaae6-8985-4444-9182-d3c785698710 | Initial Population | 1 | 0 | mismatch |
-| 1c06a652-f116-4307-80b7-342c16d20de1 | Initial Population | 1 | 0 | mismatch |
-| 24ab1538-bc59-454b-bd24-961288f4eea8 | Initial Population | 1 | 0 | mismatch |
-| 2ce50e7f-4e04-4d5b-9d9a-2243958c2a92 | Initial Population | 1 | 0 | mismatch |
-| 2ea03a1a-cefe-4eac-9e34-7bf434b30d2b | Initial Population | 1 | 0 | mismatch |
-| 36e30d76-0d86-4b72-ba89-4ebaacf48b31 | Initial Population | 1 | 0 | mismatch |
-| 3e86234e-4999-4e8e-a4a2-420d1343b079 | Initial Population | 1 | 0 | mismatch |
-| 4974042e-fff4-4a3d-905e-548c6593ce40 | Initial Population | 1 | 0 | mismatch |
-| 4c8f4dd1-193e-4239-80ac-63e9ac2bd053 | Initial Population | 1 | 0 | mismatch |
-| 4d192f80-7649-4afd-a842-528ef60fc904 | Initial Population | 1 | 0 | mismatch |
-| 55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5 | Initial Population | 1 | 0 | mismatch |
-| 5efcd4e7-f71b-48a6-badb-b1b88c02f161 | Initial Population | 1 | 0 | mismatch |
-| 6409f1eb-d338-4bf6-a3df-4da1eb997c48 | Initial Population | 1 | 0 | mismatch |
-| 70306180-c713-4fa4-9c39-ae3b15e15d22 | Initial Population | 1 | 0 | mismatch |
-| 7f26eb5a-f877-458b-b960-5de7ffa5b4d0 | Initial Population | 1 | 0 | mismatch |
-| 8a407b28-6668-43be-9148-31ed08b8c0c4 | Initial Population | 1 | 0 | mismatch |
-| 8ffa77ff-8591-442d-84b1-6c6cb86fd09e | Initial Population | 1 | 0 | mismatch |
-| 98561005-400a-4b9d-8902-f04605b6b168 | Initial Population | 1 | 0 | mismatch |
-| a1ec5d8e-4926-456a-8523-786a93f2348b | Initial Population | 1 | 0 | mismatch |
-| bf9e53b4-e10c-4a11-a9be-8d5b944c1d51 | Initial Population | 1 | 0 | mismatch |
-| c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4 | Initial Population | 1 | 0 | mismatch |
-| d7aad5bd-638e-402a-92b3-2fb7f3f91151 | Initial Population | 1 | 0 | mismatch |
-| ec296057-82c9-41b2-9e32-8ec2ea4f3687 | Initial Population | 1 | 0 | mismatch |
+| 025529dc-5384-4544-acb2-c2b6f7c9a23c | Initial Population | — | — | qicore-only |
+| 0353da56-ca21-45d3-8f96-8954167143ae | Initial Population | — | — | qicore-only |
+| 09431e3b-b1d9-491a-b6a3-76b3868e6213 | Initial Population | — | — | qicore-only |
+| 16acd0ee-60e7-4573-b433-5a9c335c145b | Initial Population | — | — | qicore-only |
+| 19feaae6-8985-4444-9182-d3c785698710 | Initial Population | — | — | qicore-only |
+| 1c06a652-f116-4307-80b7-342c16d20de1 | Initial Population | — | — | qicore-only |
+| 24ab1538-bc59-454b-bd24-961288f4eea8 | Initial Population | — | — | qicore-only |
+| 2ce50e7f-4e04-4d5b-9d9a-2243958c2a92 | Initial Population | — | — | qicore-only |
+| 2ea03a1a-cefe-4eac-9e34-7bf434b30d2b | Initial Population | — | — | qicore-only |
+| 36e30d76-0d86-4b72-ba89-4ebaacf48b31 | Initial Population | — | — | qicore-only |
+| 3e86234e-4999-4e8e-a4a2-420d1343b079 | Initial Population | — | — | qicore-only |
+| 4974042e-fff4-4a3d-905e-548c6593ce40 | Initial Population | — | — | qicore-only |
+| 4c8f4dd1-193e-4239-80ac-63e9ac2bd053 | Initial Population | — | — | qicore-only |
+| 4d192f80-7649-4afd-a842-528ef60fc904 | Initial Population | — | — | qicore-only |
+| 55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5 | Initial Population | — | — | qicore-only |
+| 5efcd4e7-f71b-48a6-badb-b1b88c02f161 | Initial Population | — | — | qicore-only |
+| 6409f1eb-d338-4bf6-a3df-4da1eb997c48 | Initial Population | — | — | qicore-only |
+| 70306180-c713-4fa4-9c39-ae3b15e15d22 | Initial Population | — | — | qicore-only |
+| 7f26eb5a-f877-458b-b960-5de7ffa5b4d0 | Initial Population | — | — | qicore-only |
+| 8a407b28-6668-43be-9148-31ed08b8c0c4 | Initial Population | — | — | qicore-only |
+| 8ffa77ff-8591-442d-84b1-6c6cb86fd09e | Initial Population | — | — | qicore-only |
+| 98561005-400a-4b9d-8902-f04605b6b168 | Initial Population | — | — | qicore-only |
+| a1ec5d8e-4926-456a-8523-786a93f2348b | Initial Population | — | — | qicore-only |
+| bf9e53b4-e10c-4a11-a9be-8d5b944c1d51 | Initial Population | — | — | qicore-only |
+| c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4 | Initial Population | — | — | qicore-only |
+| d7aad5bd-638e-402a-92b3-2fb7f3f91151 | Initial Population | — | — | qicore-only |
+| ec296057-82c9-41b2-9e32-8ec2ea4f3687 | Initial Population | — | — | qicore-only |
 
 ### NHSNGlycemicControlHypoglycemiaInitialPopulation
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
-| 40b66b90-4811-4f6f-8eec-c46d1a5e6eeb | Initial Population | 1 | 0 | mismatch |
+| 081a12b5-6d27-4380-9085-d44680b7bb3b | Initial Population | — | — | qicore-only |
+| 0abd9346-f086-4111-8614-d41be2e03979 | Initial Population | — | — | qicore-only |
+| 0b97cf11-42c5-4f2d-b80d-be2f0e3d2501 | Initial Population | — | — | qicore-only |
+| 0dc78b19-e1f7-4a30-adb1-b2359b85a10a | Initial Population | — | — | qicore-only |
+| 0e6e69d4-03d4-4f3d-80d2-802995c3a221 | Initial Population | — | — | qicore-only |
+| 12283321-75ca-4c3a-9019-002284d81e89 | Initial Population | — | — | qicore-only |
+| 14648731-7c20-4237-a0d1-df253fe93f40 | Initial Population | — | — | qicore-only |
+| 16a98469-0589-4cc4-964d-d37f043cd11b | Initial Population | — | — | qicore-only |
+| 1e403fe4-88cd-4dbf-8942-e262ae91b2c4 | Initial Population | — | — | qicore-only |
+| 205dcfc1-5483-48eb-a54a-8648d130d73a | Initial Population | — | — | qicore-only |
+| 213c6814-bde6-4401-b700-a35e429ac104 | Initial Population | — | — | qicore-only |
+| 2283b56f-0a6f-4576-800d-d480be2e5db3 | Initial Population | — | — | qicore-only |
+| 2dabc75c-cce7-4337-a92f-bf0d60546b5a | Initial Population | — | — | qicore-only |
+| 2db388f4-f539-47a4-9736-69b0c6649e01 | Initial Population | — | — | qicore-only |
+| 2e75db8c-7ba0-465a-8594-9b296e999276 | Initial Population | — | — | qicore-only |
+| 2f23d669-d298-4aa1-9e00-36e334cb6f09 | Initial Population | — | — | qicore-only |
+| 2f5f0d25-506b-482a-9465-91137ed0e845 | Initial Population | — | — | qicore-only |
+| 37487559-c99d-4919-a6a8-661ed96a9692 | Initial Population | — | — | qicore-only |
+| 3f89276c-e75b-4619-9f93-f0f9c58ea699 | Initial Population | — | — | qicore-only |
+| 3fdb535d-0a7f-4ec9-80a6-845e002a76cb | Initial Population | — | — | qicore-only |
+| 40b66b90-4811-4f6f-8eec-c46d1a5e6eeb | Initial Population | — | — | qicore-only |
+| 49766095-dc01-4019-9bbe-79c5eade2b74 | Initial Population | — | — | qicore-only |
+| 4d3218d8-7fc5-4d7f-a1f8-93a3324a18fd | Initial Population | — | — | qicore-only |
+| 4dfc0e9d-b9e5-423c-9354-e9fcb83eda20 | Initial Population | — | — | qicore-only |
+| 56c7677a-d509-474e-911a-7e8ebd446cdd | Initial Population | — | — | qicore-only |
+| 57365859-6f37-4647-b0e1-14eee92ebb71 | Initial Population | — | — | qicore-only |
+| 5796742c-16e9-4c84-9a5a-e695d96a9b2a | Initial Population | — | — | qicore-only |
+| 5a07a01a-bf1b-409f-be3b-fd1a87bc0f5b | Initial Population | — | — | qicore-only |
+| 5a2ea578-db19-487b-9ee2-27abaaa76383 | Initial Population | — | — | qicore-only |
+| 5eca21fd-71d4-4543-aed0-95f7240628ac | Initial Population | — | — | qicore-only |
+| 62cfb49d-d68f-4366-ada1-977e827ca7e2 | Initial Population | — | — | qicore-only |
+| 62f50a3d-3fd0-4e3c-a163-3bc6f35ce8da | Initial Population | — | — | qicore-only |
+| 63011803-dd5d-4a7b-a823-34d311f2ab67 | Initial Population | — | — | qicore-only |
+| 64b3d3fd-3ff2-499e-98b4-1bcc38edb02e | Initial Population | — | — | qicore-only |
+| 694f7e5e-053a-4730-b94c-73e5aacb86c2 | Initial Population | — | — | qicore-only |
+| 6b9b0bec-07dc-42e2-8392-5cc7220b790e | Initial Population | — | — | qicore-only |
+| 6d2ba015-ead4-4a64-b3c2-91798444d44b | Initial Population | — | — | qicore-only |
+| 6e88eab1-b0a7-42b6-a257-253da0447fc5 | Initial Population | — | — | qicore-only |
+| 732a880c-7f86-4b14-a086-0e5541e3b487 | Initial Population | — | — | qicore-only |
+| 78865fb4-49a4-42a3-b493-052f152b7482 | Initial Population | — | — | qicore-only |
+| 7bcb6920-f361-4121-82a5-31fed13e65d6 | Initial Population | — | — | qicore-only |
+| 7c853331-48a7-492f-9060-795009f8cc7b | Initial Population | — | — | qicore-only |
+| 7ce282c2-9138-457b-9ef5-3de129f81dac | Initial Population | — | — | qicore-only |
+| 7f501eae-84a0-49a4-a598-aae63772a030 | Initial Population | — | — | qicore-only |
+| 7fef44cf-ef02-4bca-8e88-ebf5b72a212f | Initial Population | — | — | qicore-only |
+| 84f623e8-b488-4ca8-acb5-ed8fae38d43d | Initial Population | — | — | qicore-only |
+| 865c6188-e4ad-4ca2-90e2-64bc6c93bcf1 | Initial Population | — | — | qicore-only |
+| 8bd7f76b-8d5a-42b8-8900-ec2e1ab5c0d1 | Initial Population | — | — | qicore-only |
+| 8d3864cd-d022-4067-941c-c42087e3bc86 | Initial Population | — | — | qicore-only |
+| 8d7583e9-d1b8-4269-b2fe-a64138e8f301 | Initial Population | — | — | qicore-only |
+| 914a8308-9d17-41a5-a38a-fae14a9669ea | Initial Population | — | — | qicore-only |
+| 9507a390-e7a0-4e14-8869-69fe0e7fbe77 | Initial Population | — | — | qicore-only |
+| 950d0fc0-914c-40e9-ae8f-5d06c0a8edf5 | Initial Population | — | — | qicore-only |
+| 986750bc-7ca8-43ae-886b-9ed6daaf9bb2 | Initial Population | — | — | qicore-only |
+| 9d6e376f-0bd5-4a36-8991-435c0e7c1bcc | Initial Population | — | — | qicore-only |
+| 9dedcbcd-e0e4-4841-b6a1-971321758ab2 | Initial Population | — | — | qicore-only |
+| a190f096-6d74-476a-853d-0d5c5d5df1a6 | Initial Population | — | — | qicore-only |
+| a3d7add3-8a14-4c22-a510-ddf143c477c1 | Initial Population | — | — | qicore-only |
+| af316d7c-666a-45d1-905c-20ed90640ac3 | Initial Population | — | — | qicore-only |
+| b247e1af-4d1a-42c1-be34-7c74987da0bd | Initial Population | — | — | qicore-only |
+| b3041236-6bfd-46ce-9da9-aea81c0abf5b | Initial Population | — | — | qicore-only |
+| bee09e12-d66f-48c2-9dc5-6271644e2dc2 | Initial Population | — | — | qicore-only |
+| bfef7cf8-a7f7-42aa-bad4-3c6291bf1a3e | Initial Population | — | — | qicore-only |
+| c004ecf8-559a-4b01-8117-1f0c4e5bed5b | Initial Population | — | — | qicore-only |
+| c4d785a5-a3fa-463b-b9ca-91d60eeb3dab | Initial Population | — | — | qicore-only |
+| c61005f2-b932-45eb-a8b8-03f834b7adac | Initial Population | — | — | qicore-only |
+| c8786795-72b9-4231-be0e-d4c60a9916a1 | Initial Population | — | — | qicore-only |
+| ca07ad9c-9810-43f3-a3cd-90c9c028187b | Initial Population | — | — | qicore-only |
+| dbb0a2c9-509e-49e7-8f3d-822ea7f5aa65 | Initial Population | — | — | qicore-only |
+| de2f4806-ec26-462d-9940-0ae983bf3e3f | Initial Population | — | — | qicore-only |
+| de3b49e7-ffd3-4f5a-aa3a-249aefd1f0d0 | Initial Population | — | — | qicore-only |
+| deeb9e7e-4c29-45e6-a27e-1fc4f987f59f | Initial Population | — | — | qicore-only |
+| e066b98f-0c36-4f71-9b18-ad76854e27c6 | Initial Population | — | — | qicore-only |
+| e7ada800-676f-48e9-9a4b-f505901d3c95 | Initial Population | — | — | qicore-only |
+| eeee1e34-dc1e-4997-815d-43dab9a2734e | Initial Population | — | — | qicore-only |
+| f04cffb2-a121-4198-a501-68aea7edde8f | Initial Population | — | — | qicore-only |
+| f3a5ce49-9f1f-455b-8f44-2389c61d5850 | Initial Population | — | — | qicore-only |
+| f6646c57-1402-4a37-ac29-9f5f315a65be | Initial Population | — | — | qicore-only |
+| fbc4c7bb-5c04-4c9f-8164-552c02ccdfa8 | Initial Population | — | — | qicore-only |
+| fcda2c9b-c817-4181-a477-19cc9c6317e3 | Initial Population | — | — | qicore-only |
 

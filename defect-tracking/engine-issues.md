@@ -31,7 +31,7 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | ~~E-15~~ | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — | — |
 | E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | **Confirmed** | **None — engine runtime** (see E-16; deferred) | CMS1154 |
-| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration | **Confirmed** | **None — under investigation** | CMS56, CMS131 |
+| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration; CMS130 corroborated (11:40 run) then **resolved** by the 2026-09-03 re-run (see detail) | **Confirmed** | **None — under investigation** | CMS56, CMS131 (CMS130 corroboration resolved) |
 | E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | **Confirmed** | `FHIRHelpers.ToDateTime(...)` (CMS156 applied 2026-08-31; 45 → 0 MR pending harness re-run) | CMS156 |
 
 ---
@@ -587,6 +587,37 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   cause via `[ConditionProblemsHealthConcerns: ...]` unions that are not Choice-typed). These account
   for the bulk of the 29.87% fail rate and the recurring `"Denominator Exclusion | 1 | 0"` 214×
   signature measure-wide; they should be tracked as new engine issues (E-16+).
+  - **CMS130 (2026-09-04 triage — corroborated then RESOLVED)**: the 2026-09-03 11:40 report showed 17
+    DenExcl mismatches matching this catalogue (all pass on QICore except `f9ef1fd1`). Per-case bucket
+    breakdown (mirrors CMS131): ~7 **Hospice** — Condition `170935008` (`fede210f`, `02488708`; base
+    `[FHIR.Condition: "Hospice Diagnosis"]` branch, the class-B "could still fire" case), Procedure
+    `385763009` (`46635c8a`), ServiceRequest `385763009` (`b70f2fc0`), Encounter
+    discharge-disposition `428361000124107` (`6dbaf3b3`, "Discharge to Home") / `428371000124100`
+    (`d0c9e870`, "Discharge"), Encounter.type `305336008` (`6f6cdf8c`, first day of MP); ~4
+    **PalliativeCare** — Condition `305686008` (`a989a58f`, `5fd0d61d`), Procedure `103735009`
+    (`4e1abf20`), Encounter.type `305284002` (`7ee1a25c`); ~2 **AIFrailLTCF / frailty** —
+    DeviceRequest `183240000` "Self-propelled wheelchair" frailty-device order (`dcaccac3`,
+    `df62e712`, both also carrying a `101421000119107` dementia condition); ~3 E-17
+    (see E-17; `71007-9`/`45755-6`/`71802-3`); 1 content/anomaly (`f9ef1fd1`, see below).
+    **Resolution**: after the 2026-09-03 re-run (commit `5dc822c70`, global Measurement Period added
+    to `input/tests/config.json`; results regenerated 09-03T20:56Z) **all 17 DenExcl cases now
+    evaluate `Denominator Exclusions = true` (expected 1)**, and CMS130 reports `256 / 0` (no CMS
+    discrepancies; `discrepancy_report.md` 16:56). The 13 class-B + 3 E-17 rows are therefore
+    **resolved for CMS130 on the current engine/config** — not an immutable blocker. The exact
+    mechanism (global MP config vs terminology re-expansion vs re-run artifacts) is not yet isolated;
+    confirm before treating it as a general class-B workaround, since CMS56/CMS131/CMS128/CMS156 still
+    exhibit this catalogue.
+  - **CMS130 `f9ef1fd1` (2026-09-04) — the single remaining CMS130 row, QICore-side**: all 17 CMS130
+    DenExcl cases now pass on CMS (CMS `256 / 0`); the sole residual row is `f9ef1fd1`, and it is a
+    **QICore-side** discrepancy (QC actual 0 vs expected 1 — CMS actual 1 = expected). Its sole
+    AIFrailLTCF trigger is a rivastigmine `MedicationRequest` (RxNorm `312836`, status `active`,
+    intent `order`, authored 2026-12-30) feeding `[FHIR.MedicationRequest: "Dementia Medications"]
+    .isMedicationActive()` with `medicationRequestPeriod()` overlapping the 1-year-before/during
+    window. `371125006` is hypertension (not Advanced Illness); the `183240000` wheelchair
+    DeviceRequest is present. Because CMS evaluates it correctly while QICore does not, this is a
+    QICore-side defect or expected-vs-QICore expectation drift. Verify whether `312836` ∈ the "Dementia
+    Medications" valueset (`2.16.840.1.113883.3.464.1003.196.12.1510`) and re-check the QICore
+    expectation before filing against either engine.
 - **Expected-value drift candidates (subset of class B, fixture-level)**: CMS153 5e5374d9 (expected
   DenExcl=1 with no qualifying Hospice/Pregnancy-Test resource in fixture); CMS69 6092a810 and CMS117
   239d5e6f were re-checked and resolved to PalliativeCare (`305284002`) / Hospice (`305336008`)
@@ -730,9 +761,25 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
 - **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /
   `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation
   probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.
+- **CMS130 corroboration + resolution (2026-09-04)**: the 2026-09-03 11:40 report showed 17 CMS130
+  DenExcl mismatches, 3 of which flowed through `isAssessmentPerformed()` over
+  `ObservationScreeningAssessment` — `71007-9` FACIT-Pal (`007ec5f1` → PalliativeCare), `45755-6`
+  "Hospice care [Minimum Data Set]" (`0f930f59` → Hospice), and `71802-3` "Housing status"
+  (`59128a5c` → AIFrailLTCF / LTCF nursing home) — each fixture correct (`status final`,
+  `category survey`, right code/effective period/`valueCodeableConcept`) yet DenExcl evaluated 0.
+  These corroborated E-17 in that run. However, after the 2026-09-03 re-run (commit `5dc822c70`
+  "add global measurement period parameter" to `input/tests/config.json`; results regenerated
+  09-03T20:56Z) **all 17 CMS130 DenExcl cases now evaluate `Denominator Exclusions = true`
+  (expected 1)**, and the 16:56 report shows **CMS130 `256 / 0` — no CMS discrepancies**. So the
+  CMS130 observation-assessment cases are a historical corroboration only; CMS130 no longer exhibits
+  the E-17 gap on the current engine/config and is **NOT an active E-17 blocker**. The mechanism that
+  cleared them (global MP config vs terminology re-expansion vs re-run) is not yet isolated; worth
+  confirming before treating it as a general E-17 workaround. The residual CMS130 row `f9ef1fd1` is a
+  QICore-side discrepancy (QC actual 0 vs expected 1; CMS actual 1) — separate from E-17.
 - **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007
-  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The
-  E-13 objective for both measures (MR → 0) is met.
+  report; CMS130 corroborated 2026-09-03 11:40 run). For CMS56 blocks the numerator (10 cases); for
+  CMS131 blocks 6 DenExcl cases (of 24); CMS130's 3 DenExcl cases were resolved by the 2026-09-03
+  re-run and no longer block. The E-13 objective for both measures (MR → 0) is met.
 
 ### E-18: Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`
 
