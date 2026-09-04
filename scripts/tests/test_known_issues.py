@@ -116,5 +116,23 @@ class IssuesForCaseTest(unittest.TestCase):
         self.assertEqual(issues_for_case(SAMPLE, "CMS999", "guid-x"), [])
 
 
+class CatalogHygieneTest(unittest.TestCase):
+    """The catalog has historically accumulated a few `resolved` values written
+    as JSON strings ("true"/"false") instead of booleans.  Because Python's
+    `not "false"` is False (non-empty string is truthy), the entries end up
+    in `resolved_issues` even when the author clearly meant pending.  Lock the
+    catalog to boolean values so `pending_issues` reflects intent."""
+
+    def test_repo_catalog_uses_boolean_resolved(self):
+        catalog = load_catalog()
+        offenders = [i["id"] for i in catalog["issues"]
+                     if not isinstance(i.get("resolved"), bool)]
+        self.assertFalse(
+            offenders,
+            f"{offenders}: 'resolved' must be a JSON boolean, not a string "
+            "(truthy strings defeat pending_issues).",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -438,7 +438,7 @@ PASS,CMS165FHIRControllingHighBP,6795a52e-1f83-480b-a2a7-b0d0922c0e5b,Group_1:Nu
 PASS,CMS165FHIRControllingHighBP,6f37e357-7575-4b40-a63e-4b882532250f,Group_1:Initial Population,1,1
 PASS,CMS165FHIRControllingHighBP,6f37e357-7575-4b40-a63e-4b882532250f,Group_1:Denominator,1,1
 PASS,CMS165FHIRControllingHighBP,6f37e357-7575-4b40-a63e-4b882532250f,Group_1:Denominator Exclusion,0,0
-FAIL,CMS165FHIRControllingHighBP,6f37e357-7575-4b40-a63e-4b882532250f,Group_1:Numerator,1,0
+PASS,CMS165FHIRControllingHighBP,6f37e357-7575-4b40-a63e-4b882532250f,Group_1:Numerator,1,1
 PASS,CMS165FHIRControllingHighBP,642ef7f9-f9c2-45dc-ab7d-41a000b56d9c,Group_1:Initial Population,0,0
 PASS,CMS165FHIRControllingHighBP,642ef7f9-f9c2-45dc-ab7d-41a000b56d9c,Group_1:Denominator,0,0
 PASS,CMS165FHIRControllingHighBP,642ef7f9-f9c2-45dc-ab7d-41a000b56d9c,Group_1:Denominator Exclusion,0,0
@@ -498,7 +498,7 @@ PASS,CMS165FHIRControllingHighBP,cdfb5385-a466-4d41-9dce-cc50f88d0666,Group_1:Nu
 PASS,CMS165FHIRControllingHighBP,f2d1fd7e-35ae-45cd-86e6-8b874c3e3fb9,Group_1:Initial Population,1,1
 PASS,CMS165FHIRControllingHighBP,f2d1fd7e-35ae-45cd-86e6-8b874c3e3fb9,Group_1:Denominator,1,1
 PASS,CMS165FHIRControllingHighBP,f2d1fd7e-35ae-45cd-86e6-8b874c3e3fb9,Group_1:Denominator Exclusion,0,0
-FAIL,CMS165FHIRControllingHighBP,f2d1fd7e-35ae-45cd-86e6-8b874c3e3fb9,Group_1:Numerator,1,0
+PASS,CMS165FHIRControllingHighBP,f2d1fd7e-35ae-45cd-86e6-8b874c3e3fb9,Group_1:Numerator,1,1
 PASS,CMS165FHIRControllingHighBP,30086fb9-0aea-4e5e-86cc-46f4d1aa8dd4,Group_1:Initial Population,1,1
 PASS,CMS165FHIRControllingHighBP,30086fb9-0aea-4e5e-86cc-46f4d1aa8dd4,Group_1:Denominator,1,1
 PASS,CMS165FHIRControllingHighBP,30086fb9-0aea-4e5e-86cc-46f4d1aa8dd4,Group_1:Denominator Exclusion,1,1
@@ -10203,26 +10203,26 @@ PASS,CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_
 PASS,CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Denominator Exclusion,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Numerator,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,40aa228f-ff55-4653-8bbe-125dc0fb5983,Group_4:Denominator Exception,0,0
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Initial Population,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exclusion,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Numerator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exception,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Initial Population,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exclusion,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Numerator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exception,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Initial Population,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exclusion,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Numerator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exception,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Initial Population,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exclusion,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Numerator,0,MISSING
-FAIL,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exception,0,MISSING
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Initial Population,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exclusion,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Numerator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exception,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Initial Population,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exclusion,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Numerator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exception,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Initial Population,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exclusion,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Numerator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exception,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Initial Population,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exclusion,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Numerator,0,0
+PASS,CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exception,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,a7f7eb97-a44f-4394-bff6-0485ae59bc9e,Group_1:Initial Population,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,a7f7eb97-a44f-4394-bff6-0485ae59bc9e,Group_1:Denominator,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,a7f7eb97-a44f-4394-bff6-0485ae59bc9e,Group_1:Denominator Exclusion,0,0
@@ -10953,11 +10953,11 @@ PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_2:Denominator Exclusion,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_2:Numerator,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_2:Denominator Exception,0,0
-FAIL,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Initial Population,1,0
-FAIL,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Denominator,1,0
+PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Initial Population,1,1
+PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Denominator,1,1
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Denominator Exclusion,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Numerator,0,0
-FAIL,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Denominator Exception,1,0
+PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_3:Denominator Exception,1,1
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_4:Initial Population,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_4:Denominator,0,0
 PASS,CMS347FHIRStatinPreventionTxCVD,1d3021bb-b593-4efc-af5b-320243bbe9b7,Group_4:Denominator Exclusion,0,0
@@ -14606,7 +14606,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,a0aacdbc-4954-48af-aa88-361ea7e32736,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,a0aacdbc-4954-48af-aa88-361ea7e32736,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Denominator,1,1
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Denominator Exclusion,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Denominator Exclusion,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Numerator,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e25fc2f1-0083-4375-8fc3-9164a5aee53d,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,57858042-c2aa-49f4-b401-1f1fd9ab289a,Group_1:Initial Population,1,1
@@ -14657,17 +14657,17 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,6f03c77f-035f-4e3a-a8d9-57892dec4030,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d4d064be-d55a-47b5-9bfd-993afebd95a5,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c84bf29f-80ac-4bf0-beeb-404ba96a3fa8,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,050201c2-c2c4-46e6-8288-a34f99caebdc,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,405d4940-7ab2-4d26-b55f-3c27e07eba33,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,405d4940-7ab2-4d26-b55f-3c27e07eba33,Group_1:Denominator,1,1
@@ -14687,7 +14687,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,353cb8b7-96ac-4b51-9a0d-60cd64e6d854,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,7902e3dc-f3da-4cc2-9f2e-4a6c8cd33b88,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e130410-9710-45f3-ac56-e69dee0755d9,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e130410-9710-45f3-ac56-e69dee0755d9,Group_1:Denominator,1,1
@@ -14722,7 +14722,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,30561eea-67f0-487c-aff4-a2dea36cb0f9,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,27849d59-3cef-40bf-8338-a6ec7c0bcf81,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,6092a810-f9e0-4975-9582-37bbb06e8e56,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,6092a810-f9e0-4975-9582-37bbb06e8e56,Group_1:Denominator,1,1
@@ -14752,7 +14752,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,5d48c3b8-93e9-4e29-8c20-a002761d9e24,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,9d92be1d-6fc8-40f2-99a0-4be9ce1f244b,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,80a53697-3fdb-4721-87aa-64462a6708dd,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,80a53697-3fdb-4721-87aa-64462a6708dd,Group_1:Denominator,1,1
@@ -14767,7 +14767,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,6f0c3642-5efc-4923-ac24-9f5e9d1831d6,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1e23fb8f-e27b-4553-a62a-f66edeb4528a,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,88a2b45a-7866-445a-8242-91ec0ebb7646,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,88a2b45a-7866-445a-8242-91ec0ebb7646,Group_1:Denominator,1,1
@@ -14777,7 +14777,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,88a2b45a-7866-445a-8242-91ec0ebb7646,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,463dd868-997d-472f-962c-96383fd2a5c4,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,45b1ce40-0f49-4559-8c3b-5c2a8070b0a7,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,45b1ce40-0f49-4559-8c3b-5c2a8070b0a7,Group_1:Denominator,1,1
@@ -14787,12 +14787,12 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,45b1ce40-0f49-4559-8c3b-5c2a8070b0a7,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8e38b797-4dec-437d-8bf0-6f0fc78f8ea7,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1102009b-6f05-4bab-9fd1-191e81cf50e8,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,dda79f3f-4c4f-454a-bae2-9751a0114e91,Group_1:Initial Population,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,dda79f3f-4c4f-454a-bae2-9751a0114e91,Group_1:Denominator,0,0
@@ -14802,12 +14802,12 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,dda79f3f-4c4f-454a-bae2-9751a0114e91,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,42e6b4d6-defc-4ec5-894f-e3333e3039a3,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,f5ae6269-d09b-47f8-a519-f1a8a81549fc,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,0278fdf0-f067-46e8-aeb1-fb96dff3c947,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,0278fdf0-f067-46e8-aeb1-fb96dff3c947,Group_1:Denominator,1,1
@@ -14817,7 +14817,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,0278fdf0-f067-46e8-aeb1-fb96dff3c947,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,461fdfab-fcc1-4630-9dae-2ba3a6ab0c25,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d318f512-656e-43bf-a409-16b6e24462a9,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,d318f512-656e-43bf-a409-16b6e24462a9,Group_1:Denominator,1,1
@@ -14837,7 +14837,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,03f01144-2230-42ab-b81f-594e1c2baa62,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,8835a50b-0a0f-4e2f-94fa-7c180cd7f905,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,5ef4acf3-4b42-41fd-8793-7d1a9342865a,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,5ef4acf3-4b42-41fd-8793-7d1a9342865a,Group_1:Denominator,1,1
@@ -14847,7 +14847,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,5ef4acf3-4b42-41fd-8793-7d1a9342865a,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,e0821eec-ff83-49e9-950d-9219dd3612b9,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,3ecce155-635d-47ec-b35d-d53126423a81,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,3ecce155-635d-47ec-b35d-d53126423a81,Group_1:Denominator,1,1
@@ -14872,7 +14872,7 @@ PASS,CMS69FHIRPCSBMIScreenAndFollowUp,cd81ff3a-3d2b-472e-bf0f-f951aee7d2c4,Group
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Denominator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Denominator Exclusion,0,0
-FAIL,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Numerator,1,0
+PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Numerator,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,c3caf126-12a2-473f-8f51-1c7828d63d16,Group_1:Denominator Exception,0,0
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1f16120b-56c9-4d72-8dd4-01d8a0175d77,Group_1:Initial Population,1,1
 PASS,CMS69FHIRPCSBMIScreenAndFollowUp,1f16120b-56c9-4d72-8dd4-01d8a0175d77,Group_1:Denominator,1,1
@@ -23347,179 +23347,179 @@ PASS,CMS122FHIRDiabetesAssessGT9Pct,88b67805-bfef-411c-a191-12382d2c3104,Group_1
 PASS,CMS122FHIRDiabetesAssessGT9Pct,88b67805-bfef-411c-a191-12382d2c3104,Group_1:Denominator,1,1
 PASS,CMS122FHIRDiabetesAssessGT9Pct,88b67805-bfef-411c-a191-12382d2c3104,Group_1:Denominator Exclusion,1,1
 PASS,CMS122FHIRDiabetesAssessGT9Pct,88b67805-bfef-411c-a191-12382d2c3104,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,c3284314-fe9b-408a-9b26-a21830f84432,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,c3284314-fe9b-408a-9b26-a21830f84432,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,c3284314-fe9b-408a-9b26-a21830f84432,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,c3284314-fe9b-408a-9b26-a21830f84432,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,c3284314-fe9b-408a-9b26-a21830f84432,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,74855a5c-bb3b-438a-9eb9-7fdc1994d06d,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,74855a5c-bb3b-438a-9eb9-7fdc1994d06d,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,a11dce52-c6b3-46e5-bc01-8994b0c8f471,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,74855a5c-bb3b-438a-9eb9-7fdc1994d06d,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,74855a5c-bb3b-438a-9eb9-7fdc1994d06d,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,74855a5c-bb3b-438a-9eb9-7fdc1994d06d,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,cc00e728-de5f-4df8-abcb-1e610496be66,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,cc00e728-de5f-4df8-abcb-1e610496be66,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,cc00e728-de5f-4df8-abcb-1e610496be66,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,cc00e728-de5f-4df8-abcb-1e610496be66,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,cc00e728-de5f-4df8-abcb-1e610496be66,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,9ec1a135-fb47-4c1c-8f6b-98afab15274e,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,9ec1a135-fb47-4c1c-8f6b-98afab15274e,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,9b5e4d84-366b-4082-8409-b7e18e0a3c45,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,9ec1a135-fb47-4c1c-8f6b-98afab15274e,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,9ec1a135-fb47-4c1c-8f6b-98afab15274e,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,9ec1a135-fb47-4c1c-8f6b-98afab15274e,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,dfd5dc6b-3299-4e4f-ae02-45f251e1f75b,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,dfd5dc6b-3299-4e4f-ae02-45f251e1f75b,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,dfd5dc6b-3299-4e4f-ae02-45f251e1f75b,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,dfd5dc6b-3299-4e4f-ae02-45f251e1f75b,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,dfd5dc6b-3299-4e4f-ae02-45f251e1f75b,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Initial Population,2,0
-FAIL,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Denominator,2,0
-FAIL,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Numerator,2,0
-FAIL,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,50270eff-f1ed-4cb3-b22b-467d89937c3a,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,50270eff-f1ed-4cb3-b22b-467d89937c3a,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,5ae9589c-1301-45a0-af30-ac7b679b649f,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,2c2a7958-4d1a-4142-9360-8045067a1c5b,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,dad5b672-1e5b-437c-91fe-1f69b5d58c70,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,d1b64acd-58bc-4831-b150-a80b4240d6b1,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,16cffb87-15ea-48b7-bd68-f211f48d6f19,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,9098f676-4f4e-402c-80e3-331aabb6d414,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Initial Population,2,2
+PASS,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Denominator,2,2
+PASS,CMS1264FHIRECATREHQR,bfc497aa-308c-4113-9a36-21c6e17c3802,Group_1:Numerator,2,2
+PASS,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,50270eff-f1ed-4cb3-b22b-467d89937c3a,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,50270eff-f1ed-4cb3-b22b-467d89937c3a,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,50270eff-f1ed-4cb3-b22b-467d89937c3a,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Initial Population,2,0
-FAIL,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Denominator,2,0
-FAIL,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,ee13a2d8-61d9-4d2f-8f13-1423bd271950,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,ee13a2d8-61d9-4d2f-8f13-1423bd271950,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Initial Population,2,2
+PASS,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Denominator,2,2
+PASS,CMS1264FHIRECATREHQR,3302c6ff-8767-4be7-9c81-f1d98351b247,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,7bcd79b7-7898-437d-b563-cfb9068df210,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,040dc7b1-27f9-43a3-82c9-b1a514db3071,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,ee13a2d8-61d9-4d2f-8f13-1423bd271950,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,ee13a2d8-61d9-4d2f-8f13-1423bd271950,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,ee13a2d8-61d9-4d2f-8f13-1423bd271950,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Initial Population,2,0
-FAIL,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Denominator,2,0
-FAIL,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Numerator,2,0
-FAIL,CMS1264FHIRECATREHQR,d8832769-c838-4f1b-9c1e-fa4ed3a3efb9,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,d8832769-c838-4f1b-9c1e-fa4ed3a3efb9,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,cee26b56-54cf-444e-8944-6edfbd6d2b93,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,35fd427f-1233-4f3c-b8b3-9e400755da8f,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,8e43bc64-4242-494d-b47f-fdbbd3372bbe,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,1f8035de-4255-434e-a32f-b97039ec57ff,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,b312fbc9-083f-4832-8d7c-d3e64df4145b,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Initial Population,2,2
+PASS,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Denominator,2,2
+PASS,CMS1264FHIRECATREHQR,dac89c3d-536e-4dca-9871-570a0bcd8d16,Group_1:Numerator,2,2
+PASS,CMS1264FHIRECATREHQR,d8832769-c838-4f1b-9c1e-fa4ed3a3efb9,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,d8832769-c838-4f1b-9c1e-fa4ed3a3efb9,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,d8832769-c838-4f1b-9c1e-fa4ed3a3efb9,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,540b665b-e89c-466a-9ef8-758b3883a37c,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,540b665b-e89c-466a-9ef8-758b3883a37c,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,540b665b-e89c-466a-9ef8-758b3883a37c,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,540b665b-e89c-466a-9ef8-758b3883a37c,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,540b665b-e89c-466a-9ef8-758b3883a37c,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Initial Population,0,1
-FAIL,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Denominator,0,1
-FAIL,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Numerator,0,1
-FAIL,CMS1264FHIRECATREHQR,eabe386d-5bca-4fdd-acb0-8228b4df83c0,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,eabe386d-5bca-4fdd-acb0-8228b4df83c0,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Initial Population,0,0
+PASS,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Denominator,0,0
+PASS,CMS1264FHIRECATREHQR,9bac5045-01af-4350-b54f-63ab17f3ba9f,Group_1:Numerator,0,0
+PASS,CMS1264FHIRECATREHQR,eabe386d-5bca-4fdd-acb0-8228b4df83c0,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,eabe386d-5bca-4fdd-acb0-8228b4df83c0,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,eabe386d-5bca-4fdd-acb0-8228b4df83c0,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,5fb0b78c-ffd3-47c3-91a3-252bc4a70177,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,5fb0b78c-ffd3-47c3-91a3-252bc4a70177,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,ed5fa616-8b70-4016-b40d-6f87983e2776,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,666528ac-0d94-4b09-8e6c-c5930b7dd17c,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,7fbb7e37-228b-4b3b-8974-871a3e798720,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,5fb0b78c-ffd3-47c3-91a3-252bc4a70177,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,5fb0b78c-ffd3-47c3-91a3-252bc4a70177,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,5fb0b78c-ffd3-47c3-91a3-252bc4a70177,Group_1:Numerator,0,0
 PASS,CMS1264FHIRECATREHQR,ae6b86ec-3d29-4e35-88dc-57f997814f47,Group_1:Initial Population,0,0
 PASS,CMS1264FHIRECATREHQR,ae6b86ec-3d29-4e35-88dc-57f997814f47,Group_1:Denominator,0,0
 PASS,CMS1264FHIRECATREHQR,ae6b86ec-3d29-4e35-88dc-57f997814f47,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,42be9d46-4c2f-4493-8299-d33dcbb7170e,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,42be9d46-4c2f-4493-8299-d33dcbb7170e,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,11703274-1218-440d-bb98-08502a794179,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,9f77830b-ff7c-4060-bf38-295b215ab56d,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,42be9d46-4c2f-4493-8299-d33dcbb7170e,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,42be9d46-4c2f-4493-8299-d33dcbb7170e,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,42be9d46-4c2f-4493-8299-d33dcbb7170e,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,7dd19e80-23c6-4e31-86a9-bb833cfc676b,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,7dd19e80-23c6-4e31-86a9-bb833cfc676b,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,7dd19e80-23c6-4e31-86a9-bb833cfc676b,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,7dd19e80-23c6-4e31-86a9-bb833cfc676b,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,7dd19e80-23c6-4e31-86a9-bb833cfc676b,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,7fd4f9cd-8fbb-4935-9bfd-959c538166b2,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,7fd4f9cd-8fbb-4935-9bfd-959c538166b2,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,7fd4f9cd-8fbb-4935-9bfd-959c538166b2,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,7fd4f9cd-8fbb-4935-9bfd-959c538166b2,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,7fd4f9cd-8fbb-4935-9bfd-959c538166b2,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,6252a858-2362-4c63-8d7d-6db0b7ac9299,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,6252a858-2362-4c63-8d7d-6db0b7ac9299,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,4c95d881-2e7e-4e81-bb4c-b1ae680ff286,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,6252a858-2362-4c63-8d7d-6db0b7ac9299,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,6252a858-2362-4c63-8d7d-6db0b7ac9299,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,6252a858-2362-4c63-8d7d-6db0b7ac9299,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Initial Population,2,0
-FAIL,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Denominator,2,0
-FAIL,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,21b841f6-b863-4c1d-8798-41c527b04a92,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,21b841f6-b863-4c1d-8798-41c527b04a92,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Initial Population,2,2
+PASS,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Denominator,2,2
+PASS,CMS1264FHIRECATREHQR,d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,cc01e29c-7ebb-4876-b63a-29de550c62f9,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,21b841f6-b863-4c1d-8798-41c527b04a92,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,21b841f6-b863-4c1d-8798-41c527b04a92,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,21b841f6-b863-4c1d-8798-41c527b04a92,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Initial Population,2,0
-FAIL,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Denominator,2,0
-FAIL,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Numerator,2,0
-FAIL,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,404c928b-a752-4792-91c4-8a1fd0656759,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,404c928b-a752-4792-91c4-8a1fd0656759,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,e982ec87-76b0-4fe2-b437-ac0503cf2159,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,66803f75-5dc5-43fb-9844-f18d765a64ec,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,221f787f-b5b1-4e16-ab64-6ab9d3e8744f,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,d5fe6f9c-6036-4004-9993-290f3a2be34a,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,91d5385d-09ac-4206-b009-0c7feffc22ff,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Initial Population,2,2
+PASS,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Denominator,2,2
+PASS,CMS1264FHIRECATREHQR,048b1f27-6343-4bcd-950d-e228de06aa9c,Group_1:Numerator,2,2
+PASS,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,2fc54731-4fd9-4884-aba5-9a8385111375,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,a42d4cc2-24ca-4637-889f-276bcdd1e7cf,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,404c928b-a752-4792-91c4-8a1fd0656759,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,404c928b-a752-4792-91c4-8a1fd0656759,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,404c928b-a752-4792-91c4-8a1fd0656759,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Denominator,1,0
-FAIL,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Numerator,1,0
-FAIL,CMS1264FHIRECATREHQR,63cea3d6-d2e0-4736-a035-87633ca960bd,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,63cea3d6-d2e0-4736-a035-87633ca960bd,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Denominator,1,1
+PASS,CMS1264FHIRECATREHQR,78cbc6ac-f30d-404b-b539-6b903c7cfeba,Group_1:Numerator,1,1
+PASS,CMS1264FHIRECATREHQR,63cea3d6-d2e0-4736-a035-87633ca960bd,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,63cea3d6-d2e0-4736-a035-87633ca960bd,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,63cea3d6-d2e0-4736-a035-87633ca960bd,Group_1:Numerator,0,0
-FAIL,CMS1264FHIRECATREHQR,7bee402e-2687-4813-9b39-37d723663d18,Group_1:Initial Population,1,0
-FAIL,CMS1264FHIRECATREHQR,7bee402e-2687-4813-9b39-37d723663d18,Group_1:Denominator,1,0
+PASS,CMS1264FHIRECATREHQR,7bee402e-2687-4813-9b39-37d723663d18,Group_1:Initial Population,1,1
+PASS,CMS1264FHIRECATREHQR,7bee402e-2687-4813-9b39-37d723663d18,Group_1:Denominator,1,1
 PASS,CMS1264FHIRECATREHQR,7bee402e-2687-4813-9b39-37d723663d18,Group_1:Numerator,0,0
 PASS,CMS135FHIRACEIorARBorARNIforHF,ed36c619-3ef8-44ca-86fa-1993920d76ef,Group_1:Initial Population,1,1
 PASS,CMS135FHIRACEIorARBorARNIforHF,ed36c619-3ef8-44ca-86fa-1993920d76ef,Group_1:Denominator,1,1
@@ -23670,7 +23670,7 @@ PASS,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1
 PASS,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1:Denominator,1,1
 PASS,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1:Denominator Exclusion,0,0
 PASS,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1:Numerator,0,0
-FAIL,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1:Denominator Exception,1,0
+PASS,CMS135FHIRACEIorARBorARNIforHF,6a86918d-3f69-43c8-8863-1d0bf835a2c7,Group_1:Denominator Exception,1,1
 PASS,CMS135FHIRACEIorARBorARNIforHF,595a3383-df44-495d-80c2-2cf3fe6e6c4a,Group_1:Initial Population,1,1
 PASS,CMS135FHIRACEIorARBorARNIforHF,595a3383-df44-495d-80c2-2cf3fe6e6c4a,Group_1:Denominator,0,0
 PASS,CMS135FHIRACEIorARBorARNIforHF,595a3383-df44-495d-80c2-2cf3fe6e6c4a,Group_1:Denominator Exclusion,0,0
