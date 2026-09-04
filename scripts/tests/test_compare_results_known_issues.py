@@ -12,6 +12,8 @@ from scripts.compare_results import (
     render_engine_diff_section,
     row_outcome,
     scores,
+    scores_by_measure,
+    test_case_outcomes,
     write_engine_diff_csv,
 )
 
@@ -61,6 +63,46 @@ class ScoresTest(unittest.TestCase):
     def test_counts_pass_and_fail(self):
         p, f = scores(EXPECTED, ACTUAL)
         self.assertEqual((p, f), (1, 1))
+
+    def test_counts_case_once_when_multiple_populations_mismatch(self):
+        expected = {
+            ("m1", "g-a", "g1:Denominator"): "1",
+            ("m1", "g-a", "g1:Numerator"): "1",
+            ("m1", "g-b", "g1:Denominator"): "1",
+        }
+        actual = {
+            ("m1", "g-a", "g1:Denominator"): "0",
+            ("m1", "g-a", "g1:Numerator"): "0",
+            ("m1", "g-b", "g1:Denominator"): "1",
+        }
+        p, f = scores(expected, actual)
+        self.assertEqual((p, f), (1, 1))
+
+    def test_scores_by_measure_counts_distinct_test_cases(self):
+        expected = {
+            ("m1", "g-a", "g1:Denominator"): "1",
+            ("m1", "g-a", "g1:Numerator"): "1",
+            ("m1", "g-b", "g1:Denominator"): "1",
+            ("m2", "g-c", "g1:Denominator"): "1",
+        }
+        actual = {
+            ("m1", "g-a", "g1:Denominator"): "0",
+            ("m1", "g-a", "g1:Numerator"): "0",
+            ("m1", "g-b", "g1:Denominator"): "1",
+            ("m2", "g-c", "g1:Denominator"): "0",
+        }
+        self.assertEqual(scores_by_measure(expected, actual), {"m1": (1, 1), "m2": (0, 1)})
+
+    def test_test_case_outcomes_marks_case_fail_until_a_pass_cell(self):
+        expected = {
+            ("m1", "g-a", "g1:Denominator"): "1",
+            ("m1", "g-a", "g1:Numerator"): "1",
+        }
+        actual = {
+            ("m1", "g-a", "g1:Denominator"): "0",
+            ("m1", "g-a", "g1:Numerator"): "1",
+        }
+        self.assertEqual(test_case_outcomes(expected, actual), {("m1", "g-a"): "FAIL"})
 
 
 class ExcludePendingRowsTest(unittest.TestCase):
