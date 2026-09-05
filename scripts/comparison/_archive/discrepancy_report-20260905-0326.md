@@ -1,15 +1,15 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-05 03:28:26.530448 |
+| Generated | 2026-09-05 03:26:03.194810 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 32 |
-| Known Issues (resolution pending) | 26 issues / 410 test cases |
+| Known Issues (resolution pending) | 25 issues / 403 test cases |
 | Passing Test Cases (all) | 3738 (94.30%) |
 | Failing Test Cases (all) | 226 (5.70%) |
-| Passing Test Cases (excl. resolution-pending) | 3554 (100.00%) |
-| Failing Test Cases (excl. resolution-pending) | 0 (0.00%) |
+| Passing Test Cases (excl. resolution-pending) | 3554 (99.80%) |
+| Failing Test Cases (excl. resolution-pending) | 7 (0.20%) |
 | QICore Passing Test Cases | 3539 (89.28%) |
 | QICore Failing Test Cases | 425 (10.72%) |
 | QICore Measures with Discrepancies | 35 |
@@ -22,13 +22,13 @@
 |---|------|---------|-------|-----|------|
 | E-01 | `Min()` over DateTime throws | engine | **Confirmed** | CMS1173, CMS871, CMS645, CMS646, CMS156 | 0 |
 | E-02 | Raw `FHIR.dateTime` / choice-typed `X.effective` in temporal operators fails | engine | **Confirmed** | CMS1173, CMS156 | 0 |
-| E-11 | `Unable to extract codes from fhirType Reference` | engine | **Confirmed** | CMS135, CMS165 | 5 |
+| E-11 | `Unable to extract codes from fhirType Reference` | engine | **Confirmed** | CMS135, CMS165 | 4 |
 | E-12 | Union branch evaluates empty despite correct data | engine | **Confirmed** | CMS104 | 0 |
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | engine | **Confirmed / Applied** | CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69, CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156, CMS22, CMS71 | 0 |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | engine | **Suspected** | CMS0334, CMS1028 | 0 |
 | E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | engine | **Confirmed** | CMS1154, CMS347FHIRStatinPreventionTxCVD, CMS1154ScreeningPrediabetesFHIR | 2 |
 | E-17 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps) | engine | **Confirmed** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 48 |
-| E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | engine | **Confirmed** | CMS156 | 1 |
+| E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | engine | **Confirmed** | CMS156 | 0 |
 | M-05 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | migration | Not fixed | CMS144 | 0 |
 | C-02 | CMS157 — Cancer diagnosis coded in ICD-10-CM vs SNOMED-only valueset | content | Not fixed | CMS157 | 0 |
 | E-19 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (Numerator double-count) | engine | **Confirmed** | CMS347FHIRStatinPreventionTxCVD | 23 |
@@ -44,8 +44,7 @@
 | C-12 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS1218FHIRHHRF | 1 |
 | C-13 | CMSFHIR844 Hybrid Hospital-Wide Mortality fixture MR Initial Population authoring mismatch (shared %) - both engines 0/1 vs exp 1/2 | content | **Confirmed** | CMSFHIR844HybridHospitalWideMortality | 2 |
 | E-21 | `us-quality-core-*` profile retrieves return empty for screening-assessment plus service/medication/procedure profile families (E-17 extended): CMS22 blood-pressure-screen + CMS135 ACEI/ARB HF + CMS144 HFrEF beta-blocker + CMS771 urinary-symptom + CMS177 MDD-screening + CMS645 CAD-bone-density + CMS71 anticoagulation-FLutter | engine | **Confirmed** | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter, CMS2FHIRPCSDepScreenAndFollowUp, CMS996FHIRAptTxforSTEMI, CMS646FHIRIntravesicalBCGTherapy, CMS145FHIRCADBBlockerTPMIorLVSD, CMS104FHIRSTKDCAntithrombotic | 69 |
-| C-14 | CMS72 / CMS104 / CMS646 / CMS71 residual fixture MR authoring gaps where both engines agree (Denominator-Exception / Denominator / Numerator / IP cells hand-authored in fixture MR but uncomputable from present resources) | content | **Confirmed** | CMS72FHIRSTKAntithromboticDay2, CMS104FHIRSTKDCAntithrombotic, CMS646FHIRIntravesicalBCGTherapy, CMS71FHIRSTKAnticoagAFFlutter, CMS145FHIRCADBBlockerTPMIorLVSD, CMS156FHIRHighRiskMedsElderly, CMS1028FHIRPCSevereOBComps, CMS996FHIRAptTxforSTEMI | 28 |
-| E-22 | `recorded(...)` operator ambiguous call in `USQualityCoreCommon` library throws (CMS68 test-case `f2e2e1c0` produces Missing Results across all 4 populations - engine error) | engine | **Confirmed** | CMS68FHIRDocumentationCurrentMeds | 1 |
+| C-14 | CMS72 / CMS104 / CMS646 / CMS71 residual fixture MR authoring gaps where both engines agree (Denominator-Exception / Denominator / Numerator / IP cells hand-authored in fixture MR but uncomputable from present resources) | content | **Confirmed** | CMS72FHIRSTKAntithromboticDay2, CMS104FHIRSTKDCAntithrombotic, CMS646FHIRIntravesicalBCGTherapy, CMS71FHIRSTKAnticoagAFFlutter | 22 |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
@@ -309,7 +308,7 @@ QICore: 19 / 0 — passes
 Missing Results (1 of 19 test cases)
 | Test Case | Group | Known Issue |
 | --- | --- | --- |
-| [ f2e2e1c0-9e35-4592-9579-72a236cb2f56 ](../.././input/tests/measure/CMS68FHIRDocumentationCurrentMeds/f2e2e1c0-9e35-4592-9579-72a236cb2f56/MeasureReport-7384d607-6a08-487a-9129-d90036bae37e.json) | Group_1 | E-22 — resolution pending |
+| [ f2e2e1c0-9e35-4592-9579-72a236cb2f56 ](../.././input/tests/measure/CMS68FHIRDocumentationCurrentMeds/f2e2e1c0-9e35-4592-9579-72a236cb2f56/MeasureReport-7384d607-6a08-487a-9129-d90036bae37e.json) | Group_1 | — |
 
 
 #### CMS71FHIRSTKAnticoagAFFlutter
@@ -371,7 +370,7 @@ Mismatched Test Cases (15 of 82 test cases)
 | [ 593382e8-4ad5-4300-b0ad-26c8954281c6 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/593382e8-4ad5-4300-b0ad-26c8954281c6/MeasureReport-bb6002b4-0bd0-43fa-a7a0-748bd0444688.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | FAIL<br>PASS |
 | [ 5adc911a-c2a1-475c-a347-9da4ee98c6df ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/5adc911a-c2a1-475c-a347-9da4ee98c6df/MeasureReport-fbd77dd4-8f40-4bf2-bee9-e1e5ce62d7aa.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | FAIL<br>PASS |
 | [ 7b1ac1a8-b7be-41ec-a77f-db545af22263 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/7b1ac1a8-b7be-41ec-a77f-db545af22263/MeasureReport-373169e3-3ba1-4ace-bf0c-5c212910cccf.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | FAIL<br>PASS |
-| [ a2b8327c-eaf4-4552-863e-851426e729d4 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/a2b8327c-eaf4-4552-863e-851426e729d4/MeasureReport-0ced6c1b-75a5-4ee3-a7a0-017818c03e9a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 1<br>1<br>1 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
+| [ a2b8327c-eaf4-4552-863e-851426e729d4 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/a2b8327c-eaf4-4552-863e-851426e729d4/MeasureReport-0ced6c1b-75a5-4ee3-a7a0-017818c03e9a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 1<br>1<br>1 | — | FAIL<br>FAIL<br>FAIL |
 | [ ac56c496-c5d6-4c23-be20-130ee8327fd2 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/ac56c496-c5d6-4c23-be20-130ee8327fd2/MeasureReport-34148ef9-fbdd-48ca-ab5d-6a11fd288074.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | FAIL<br>PASS |
 | [ c15bee15-84c1-494a-ac82-2159b06da175 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/c15bee15-84c1-494a-ac82-2159b06da175/MeasureReport-bbe28035-6557-410d-964f-21cf38904d0f.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 3<br>3<br>2 | 1<br>1<br>0 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
 | [ e081bee5-67f8-464f-9356-9b287e32a35a ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/e081bee5-67f8-464f-9356-9b287e32a35a/MeasureReport-560b8ee7-5246-423f-8065-7f02c28eb91f.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | FAIL<br>PASS |
@@ -474,7 +473,7 @@ QICore: 51 / 2 — has discrepancies (2 mismatched, 0 missing)
 Mismatched Test Cases (6 of 53 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 1f70822b-c513-4c3a-8162-49f0bb9c914b ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/1f70822b-c513-4c3a-8162-49f0bb9c914b/MeasureReport-9b3577fa-355c-409d-8d3f-21e9720fb889.json) | Group_2 | Denominator Exception | 0 | 1 | C-14 — resolution pending | FAIL |
+| [ 1f70822b-c513-4c3a-8162-49f0bb9c914b ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/1f70822b-c513-4c3a-8162-49f0bb9c914b/MeasureReport-9b3577fa-355c-409d-8d3f-21e9720fb889.json) | Group_2 | Denominator Exception | 0 | 1 | — | FAIL |
 | [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) | Group_2 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
 | [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
 | [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
@@ -490,8 +489,8 @@ QICore: 56 / 3 — has discrepancies (3 mismatched, 0 missing)
 Mismatched Test Cases (1 of 59 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 4aa75d19-ac8b-49b0-a686-429fbc033d77 ](../.././input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/MeasureReport-139cc56e-5ffb-46ca-89ce-accd0bb642ab.json) | Group_1 | Numerator | 1 | 0 | C-14 — resolution pending | FAIL |
-| [ 4aa75d19-ac8b-49b0-a686-429fbc033d77 ](../.././input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/MeasureReport-139cc56e-5ffb-46ca-89ce-accd0bb642ab.json) | Group_3 | Numerator | 1 | 0 | C-14 — resolution pending | FAIL |
+| [ 4aa75d19-ac8b-49b0-a686-429fbc033d77 ](../.././input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/MeasureReport-139cc56e-5ffb-46ca-89ce-accd0bb642ab.json) | Group_1 | Numerator | 1 | 0 | — | FAIL |
+| [ 4aa75d19-ac8b-49b0-a686-429fbc033d77 ](../.././input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/MeasureReport-139cc56e-5ffb-46ca-89ce-accd0bb642ab.json) | Group_3 | Numerator | 1 | 0 | — | FAIL |
 
 
 #### CMS157FHIRPainIntensityQuantified
@@ -837,11 +836,11 @@ Mismatched Test Cases (7 of 114 test cases)
 |---|---|---|:---:|:---:|---|:---:|
 | [ 60823d79-b37f-4358-819f-f39b4e885c6d ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/60823d79-b37f-4358-819f-f39b4e885c6d/MeasureReport-96a1323f-d99d-4b31-aace-c90b90f8af7a.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
 | [ 7edab122-3af3-4172-9231-7c1470ecc1e0 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/7edab122-3af3-4172-9231-7c1470ecc1e0/MeasureReport-9d0666d5-6e19-4f7f-b284-1af640b254f3.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
-| [ 88d99809-90d6-4cbc-a4bb-d5d73375fc81 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/88d99809-90d6-4cbc-a4bb-d5d73375fc81/MeasureReport-8f114534-ca1f-4d09-bdf1-c683d7a680a7.json) | Group_1 | Denominator Exclusion | 1 | 0 | C-14 — resolution pending | FAIL |
+| [ 88d99809-90d6-4cbc-a4bb-d5d73375fc81 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/88d99809-90d6-4cbc-a4bb-d5d73375fc81/MeasureReport-8f114534-ca1f-4d09-bdf1-c683d7a680a7.json) | Group_1 | Denominator Exclusion | 1 | 0 | — | FAIL |
 | [ 8bb7c40b-7447-42ca-b662-161a7026ed8f ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/8bb7c40b-7447-42ca-b662-161a7026ed8f/MeasureReport-bb15a071-2c69-428e-ac66-6405f7d75d07.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
 | [ ccc7deaf-98b7-4dad-b190-8fee10f2cf77 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/ccc7deaf-98b7-4dad-b190-8fee10f2cf77/MeasureReport-9d6a333f-3243-42df-9063-031aa80e74ff.json) | Group_1 | Denominator Exception | 1 | 0 | E-21 — resolution pending | PASS |
 | [ f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847/MeasureReport-f2a63299-25e1-4d91-8e5c-1bdf3b60e9cb.json) | Group_1 | Denominator Exclusion | 0 | 1 | E-21 — resolution pending | PASS |
-| [ f71b56bb-42fc-4db0-aa60-6b7b91333295 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f71b56bb-42fc-4db0-aa60-6b7b91333295/MeasureReport-261ec6b2-42f5-46c2-906d-12fe22084f4c.json) | Group_1 | Denominator Exclusion | 1 | 0 | C-14 — resolution pending | FAIL |
+| [ f71b56bb-42fc-4db0-aa60-6b7b91333295 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f71b56bb-42fc-4db0-aa60-6b7b91333295/MeasureReport-261ec6b2-42f5-46c2-906d-12fe22084f4c.json) | Group_1 | Denominator Exclusion | 1 | 0 | — | FAIL |
 
 
 #### CMS1017FHIRHHFI
@@ -864,8 +863,8 @@ QICore: 139 / 2 — has discrepancies (2 mismatched, 0 missing)
 Mismatched Test Cases (1 of 141 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_1 | Numerator | 2 | 1 | C-14 — resolution pending | FAIL |
-| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_2 | Numerator | 2 | 1 | C-14 — resolution pending | FAIL |
+| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_1 | Numerator | 2 | 1 | — | FAIL |
+| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_2 | Numerator | 2 | 1 | — | FAIL |
 
 
 #### CMS1154ScreeningPrediabetesFHIR
