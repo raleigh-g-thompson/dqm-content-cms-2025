@@ -2685,6 +2685,39 @@
     }
    ],
    "body_md": "### C-12: CMS1218FHIRHHRF fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 1 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS1218FHIRHHRF`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (1 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-13",
+   "title": "CMSFHIR844 Hybrid Hospital-Wide Mortality fixture MR Initial Population authoring mismatch (shared %) - both engines 0/1 vs exp 1/2",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Same as C-03..C-12 family: restore qualifying Encounter / covering data, or drop orphan Initial Population rows from fixture MR.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS844 fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMSFHIR844HybridHospitalWideMortality"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMSFHIR844HybridHospitalWideMortality",
+     "guid": "6f22a06f-7186-4db1-9310-4f907dc49ff3"
+    },
+    {
+     "measure": "CMSFHIR844HybridHospitalWideMortality",
+     "guid": "af1b9448-3e7a-4b7f-8934-15bb63258b75"
+    }
+   ],
+   "body_md": "### C-13: CMSFHIR844 Hybrid HWM fixture MR Initial-Population authoring mismatch (shared across both engines)\n\n- **Symptom**: 2 cases / 2 cells. Both engines return IP=0 (case 6f22a06f) or IP=1 (case af1b9448), while the fixture MR declares exp=1 or exp=2.\n- **Evidence** (`engine_shared_issues.py --measure CMSFHIR844HybridHospitalWideMortality`): **shared: 100.0% of not-passing**. Same root cause as C-03 through C-12 - hand-authored expected rows don't reproduce from the fixture Resources.\n- **Status**: **Confirmed**. Not remediated.\n"
   }
  ],
  "enriched": true

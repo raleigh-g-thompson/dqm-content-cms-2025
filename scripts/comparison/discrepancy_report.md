@@ -1,15 +1,15 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-05 03:20:17.399517 |
+| Generated | 2026-09-05 03:20:58.140596 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 32 |
-| Known Issues (resolution pending) | 22 issues / 309 test cases |
+| Known Issues (resolution pending) | 23 issues / 311 test cases |
 | Passing Test Cases (all) | 3738 (94.30%) |
 | Failing Test Cases (all) | 226 (5.70%) |
-| Passing Test Cases (excl. resolution-pending) | 3554 (97.24%) |
-| Failing Test Cases (excl. resolution-pending) | 101 (2.76%) |
+| Passing Test Cases (excl. resolution-pending) | 3554 (97.29%) |
+| Failing Test Cases (excl. resolution-pending) | 99 (2.71%) |
 | QICore Passing Test Cases | 3539 (89.28%) |
 | QICore Failing Test Cases | 425 (10.72%) |
 | QICore Measures with Discrepancies | 35 |
@@ -42,6 +42,7 @@
 | C-10 | CMS159 Depression Remission fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS159FHIRDepRemissionat12Months | 2 |
 | C-11 | CMS0334 Cesarean Birth fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS0334FHIRPCCesareanBirth | 1 |
 | C-12 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS1218FHIRHHRF | 1 |
+| C-13 | CMSFHIR844 Hybrid Hospital-Wide Mortality fixture MR Initial Population authoring mismatch (shared %) - both engines 0/1 vs exp 1/2 | content | **Confirmed** | CMSFHIR844HybridHospitalWideMortality | 2 |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
@@ -789,8 +790,8 @@ QICore: 8 / 2 — has discrepancies (2 mismatched, 0 missing)
 Mismatched Test Cases (2 of 10 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) | Group_1 | Initial Population | 1 | 0 | — | FAIL |
-| [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) | Group_1 | Initial Population | 2 | 1 | — | FAIL |
+| [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) | Group_1 | Initial Population | 1 | 0 | C-13 — resolution pending | FAIL |
+| [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) | Group_1 | Initial Population | 2 | 1 | C-13 — resolution pending | FAIL |
 
 
 #### CMS871FHIRHHHyper
