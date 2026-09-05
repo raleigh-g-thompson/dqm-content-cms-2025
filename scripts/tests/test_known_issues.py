@@ -6,6 +6,7 @@ import unittest
 from scripts.comparison.known_issues import (
     DEFAULT_CATALOG_PATH,
     affected_measure_guid_pairs,
+    is_resolved,
     issues_for_case,
     load_catalog,
     pending_case_set,
@@ -132,6 +133,47 @@ class CatalogHygieneTest(unittest.TestCase):
             f"{offenders}: 'resolved' must be a JSON boolean, not a string "
             "(truthy strings defeat pending_issues).",
         )
+
+
+class IsResolvedTest(unittest.TestCase):
+    """The catalog hygiene test guards against future regressions, but the
+    helper itself should also be robust to stale string values that survived
+    a brief unset window or copy-paste from older tooling."""
+
+    def test_boolean_true(self):
+        self.assertTrue(is_resolved({"resolved": True}))
+
+    def test_boolean_false(self):
+        self.assertFalse(is_resolved({"resolved": False}))
+
+    def test_string_true(self):
+        self.assertTrue(is_resolved({"resolved": "true"}))
+
+    def test_string_false(self):
+        self.assertFalse(is_resolved({"resolved": "false"}))
+
+    def test_string_mixed_case(self):
+        self.assertTrue(is_resolved({"resolved": "True"}))
+        self.assertFalse(is_resolved({"resolved": "FALSE"}))
+
+    def test_missing_defaults_to_pending(self):
+        self.assertFalse(is_resolved({}))
+
+    def test_int_zero(self):
+        self.assertFalse(is_resolved({"resolved": 0}))
+
+    def test_int_one(self):
+        self.assertTrue(is_resolved({"resolved": 1}))
+
+    def test_string_pending_filter(self):
+        catalog = {"issues": [
+            {"id": "E-string", "resolved": "false"},
+            {"id": "F-string", "resolved": "true"},
+        ]}
+        pending_ids = {i["id"] for i in pending_issues(catalog)}
+        resolved_ids = {i["id"] for i in resolved_issues(catalog)}
+        self.assertEqual(pending_ids, {"E-string"})
+        self.assertEqual(resolved_ids, {"F-string"})
 
 
 if __name__ == "__main__":

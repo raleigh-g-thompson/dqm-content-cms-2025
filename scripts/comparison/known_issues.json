@@ -371,7 +371,7 @@
   },
   {
    "id": "E-17",
-   "title": "`ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration",
+   "title": "`us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps)",
    "category": "engine",
    "status": "**Confirmed**",
    "resolved": false,
@@ -381,12 +381,207 @@
     "engine_entry": "E-17"
    },
    "affected_measures": [
-    "CMS56",
-    "CMS131"
+    "CMS56FHIRFunctionalStatus",
+    "CMS131FHIRDiabetesEyeExam",
+    "CMS108FHIRVTEProphylaxis",
+    "CMS190FHIRVTEProphylaxisICU"
    ],
-   "affected_test_cases": [],
-   "body_md": "### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)\n\n- **Symptom**: the HOOS/HOOSJr/PROMIS10/VR12 Numerator assessment defines evaluate to `[]` even when\n  the fixture carries all required `ObservationScreeningAssessment` resources with the correct\n  profile (`us-quality-core-observation-screening-assessment`), codes, effective dates, and non-null\n  values. Exposed by the CMS56 E-13 fix (1228 report): 10 `Numerator 1→0` mismatches, all flowing\n  through the five `Date {HOOS,HOOSJr,PROMIS10,VR12 Oblique,VR12 Orthogonal} Total Assessment\n  Completed` defines.\n- **Evidence**: `TestCaseResult-c19b82ba-...json` shows `Date HOOS Total Assessment Completed` = `[]`\n  for every one of the 58 CMS56 cases, including c19b82ba whose fixture has all 5 HOOS subscale\n  observations (72093-8, 72094-6, 72095-3, 72096-1, 72097-9) on both 2024-11-01 (initial, same day as\n  the THA) and 2025-08-28 (follow-up) with `status final`, category `survey`, and `valueInteger: 60`.\n  The CQL chains `[ObservationScreeningAssessment: <code>].isAssessmentPerformed()` — this is a\n  `us-quality-core-observation-screening-assessment` profile-retrieve / `isAssessmentPerformed()` gap,\n  not a fixture problem (fixtures match the measure intent, expected Numerator = 1).\n- **Confirmed affected**: CMS56 (10 of 18 mismatches); **CMS131 (6 of 24 mismatches — corroboration\n  via the 0007 report, 2026-08-31)**. The CMS131 DenExcl cases extend the same proof for the\n  observation-assessment analogue of the class-B joins: `45755-6` \"Hospice care [Minimum Data Set]\"\n  (f77b9abc → Hospice), `71007-9` FACIT-Pal ×2 (a6cd48c6, e9b9b388 → PalliativeCare), `98181-1`\n  \"Medical equipment used\" (61dfb0bd → Frailty Equipment), `71802-3` \"Housing status\" (f0b61b7a →\n  LTCF nursing home), and `R26.89` \"Frailty Symptom\" (f45a1cb0 → `SimpleObservation.isSymptom()`\n  analogue) all evaluate `[]`/absent so their excludes don't fire. This is the same profile-retrieve\n  family as the `[USCore.BMIProfile]` → `[]` / `[USCore.ObservationPregnancyStatusProfile]` gaps\n  catalogued under\n  class B (see E-13 block and \"Class B catalog\"); `ObservationScreeningAssessment` is the\n  observation-assessment analogue. Other measures using `isAssessmentPerformed()` over a screening-\n  assessment profile are candidates to sweep after the CMS56 numerator path is characterized.\n- **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /\n  `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation\n  probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.\n- **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007\n  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The\n  E-13 objective for both measures (MR → 0) is met.\n\n",
-   "summary_row": "| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration | **Confirmed** | **None — under investigation** | CMS56, CMS131 |"
+   "affected_test_cases": [
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "068814f1-4270-4e10-b470-9a5433bceb3e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "182103c1-0a38-4d85-819c-148e4e105716"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "33d162ce-3bc7-4b0a-8c04-fec0a42a6263"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "3c854f27-5103-4367-bdef-97c3cde1edb8"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "3db5c5a1-2eec-4e01-8e59-ac389a0a2179"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "41f2785f-4c4f-4497-a46b-e17fd8b5ee3f"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "525e73f2-77be-49b1-920f-6fc31ef38d22"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "541ccffb-c1be-4c94-ab24-168d52e3a36b"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "5741c41a-04ec-4967-83b2-b0d746bd0ed5"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "575f2da0-c890-47a3-b17f-f9e134a1096e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "5f739500-ee12-4662-8980-ef95d8fa74c8"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "8bb999a1-696a-497b-a5f4-aa55e146a16e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "8e2cfc29-0925-45b9-857f-b9ee9b9fa248"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "91ff5f1a-cfdb-472d-b8c3-144f499d1ccc"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "b0932ba4-4dfc-43ad-aa67-fbaee9638d3b"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "b7783b8c-ba46-4509-a75e-203659abab3d"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "ccd7f9d7-35e8-4623-9f2e-f229cf7d829c"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "d205878e-b861-43a8-92e8-47f680987e4d"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "dba7c9af-eb6f-4836-ba24-650a5acc87e7"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "dc0dcb01-87f0-4e65-9c36-8cf6174abef1"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "dd5a1e46-1b99-45a3-b4d3-1fde205d8a11"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "ff814452-be6d-4e4b-905b-c1ae2a551645"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "208cb0f9-a6e9-4207-b6a4-3325fb463099"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "2bcbe960-db7d-4088-a574-d771baf0f9c7"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "39215b49-af59-45a7-a773-65e8353dfafd"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "4c32b73b-abba-431b-a352-f0f454e7c9dd"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "4fc421c7-e490-4d4e-a326-53d08635efb9"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "632831b0-1ebf-47b5-b439-3a124cd77c37"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "7e7f4563-a628-40ab-990b-ca0837313759"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "95a54d01-197e-48ef-bb48-d3d398aecbe8"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "98d6da30-f55a-411d-94b4-359b204bcb5a"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "9ddea16c-55d3-4dda-a1d8-a256fbff0b64"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "a30e5588-0e2a-487c-b4d3-15d9e0006741"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "a82cd0c1-900e-4ab3-a498-840ac1608486"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "a9c75661-be1c-41b2-aa15-222cc7d2ca81"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "c0481b47-738b-4a09-8901-915ece2beb7e"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "dbfc823e-0e2f-409d-a409-2d9399db1118"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "e8931859-4ad8-49c8-9cdd-8697293456a2"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f00f3778-6ad1-466d-a3bd-bcbc63d62b55"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f035a977-30d0-487c-b542-a596e718420c"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f82746cf-f6cd-4fcc-bc9e-7e569ae26211"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f859dd94-f201-4517-a368-32b98dd486c9"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f981eba4-4aac-45ce-8c52-f0bc02c9a0dc"
+    }
+   ],
+   "body_md": "### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)\n\n- **Symptom**: the HOOS/HOOSJr/PROMIS10/VR12 Numerator assessment defines evaluate to `[]` even when\n  the fixture carries all required `ObservationScreeningAssessment` resources with the correct\n  profile (`us-quality-core-observation-screening-assessment`), codes, effective dates, and non-null\n  values. Exposed by the CMS56 E-13 fix (1228 report): 10 `Numerator 1→0` mismatches, all flowing\n  through the five `Date {HOOS,HOOSJr,PROMIS10,VR12 Oblique,VR12 Orthogonal} Total Assessment\n  Completed` defines.\n- **Evidence**: `TestCaseResult-c19b82ba-...json` shows `Date HOOS Total Assessment Completed` = `[]`\n  for every one of the 58 CMS56 cases, including c19b82ba whose fixture has all 5 HOOS subscale\n  observations (72093-8, 72094-6, 72095-3, 72096-1, 72097-9) on both 2024-11-01 (initial, same day as\n  the THA) and 2025-08-28 (follow-up) with `status final`, category `survey`, and `valueInteger: 60`.\n  The CQL chains `[ObservationScreeningAssessment: <code>].isAssessmentPerformed()` — this is a\n  `us-quality-core-observation-screening-assessment` profile-retrieve / `isAssessmentPerformed()` gap,\n  not a fixture problem (fixtures match the measure intent, expected Numerator = 1).\n- **Confirmed affected**: CMS56 (10 of 18 mismatches); **CMS131 (6 of 24 mismatches — corroboration\n  via the 0007 report, 2026-08-31)**. The CMS131 DenExcl cases extend the same proof for the\n  observation-assessment analogue of the class-B joins: `45755-6` \"Hospice care [Minimum Data Set]\"\n  (f77b9abc → Hospice), `71007-9` FACIT-Pal ×2 (a6cd48c6, e9b9b388 → PalliativeCare), `98181-1`\n  \"Medical equipment used\" (61dfb0bd → Frailty Equipment), `71802-3` \"Housing status\" (f0b61b7a →\n  LTCF nursing home), and `R26.89` \"Frailty Symptom\" (f45a1cb0 → `SimpleObservation.isSymptom()`\n  analogue) all evaluate `[]`/absent so their excludes don't fire. This is the same profile-retrieve\n  family as the `[USCore.BMIProfile]` → `[]` / `[USCore.ObservationPregnancyStatusProfile]` gaps\n  catalogued under\n  class B (see E-13 block and \"Class B catalog\"); `ObservationScreeningAssessment` is the\n  observation-assessment analogue. Other measures using `isAssessmentPerformed()` over a screening-\n  assessment profile are candidates to sweep after the CMS56 numerator path is characterized.\n- **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /\n  `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation\n  probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.\n- **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007\n  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The\n  E-13 objective for both measures (MR → 0) is met.\n- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-04)**: 48 failing cases / 49 cells (CMS108: 24/24; CMS190: 24/25). Pattern:\n  * **Numerator 1->0** (44 cases: 22 CMS108 + 22 CMS190): VTE prophylaxis Numerator retrieves `[MedicationAdministration: ...]` / `[Procedure: ...]` / `[MedicationRequest: ...]` / `[ServiceRequest: ...]` against `us-quality-core-medicationadministration` / `...-procedure` / `...-medicationrequest` / `...-servicerequest` profiles. CMS engine fails to enumerate any of these on USQC-profiled resources with valid status + code (e.g. `33d162ce`: positive MedAdmin `...medicationadministration`, `status=completed`, QI-Core=1, CMS=0); same profile-retrieve gap as CMS56/CMS131, just on a wider `us-quality-core-*` profile set.\n  * **Denominator Exclusion 0->1 or 1->0** (CMS108: 2 cases; CMS190: 1 case): DenEx logical-union retrieves (`[Procedure: ...]`, `[MedicationRequest: ...]` -> `TaskRejected` join) misfire on USQC profiles - either adding or removing the exception arm.\n  * **Initial Population / Denominator 0->1** (CMS190 `39215b49` only): a fixture carrying `Condition-85297158` (code O99.340 VTE-in-pregnancy, clinicalStatus null) profiled `us-quality-core-condition-encounter-diagnosis` is added by the CMS engine to IP/Denominator while the FI QI-Core baseline does not. Same family: `us-quality-core-condition-*` profile retrieve returns wrong result.\n  All 48 cases verify **CMS-engine=0, QI-Core=1** (or equivalent for IP/Den, DenEx); the **profile-retrieve** is the engine issue, not a per-resource data issue. Same root cause as CMS56/CMS131 - tracked on E-17, applied to **all** `us-quality-core-*` profile retrieves.\n",
+   "summary_row": "| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration | **Confirmed** | **None — under investigation** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU |"
   },
   {
    "id": "E-18",
@@ -1315,6 +1510,750 @@
     }
    ],
    "body_md": "### F-12: whitespace-corrupted resource `subject.reference` (CMS347 `1d3021bb`)\n\n- **Symptom**: CMS347 `1d3021bb` mismatches 3 cells in Group_3 (Initial Population / Denominator /\n  Denominator Exception all expected 1, actual 0). Two resources in the case carry the same\n  reference\n  `Patient/1d3021bb-b593-4efc-af5b-3  20243bbe9b7` (two stray spaces split the patient GUID\n  `320243bbe9b7`):\n    1. Encounter `9d311cdd` (CPT 99385 / preventive visit) — engine can neither resolve it to the\n       patient nor count it as Qualifying Encounter During Day of Measurement Period.\n    2. Observation `ea2c69a6` (LOINC 71007-9 FACIT-Pal screening, `status amended`,\n       `valueString pass`, effective 2026-12-31 in MP) — PalliativeCare library's\n       \"Has Palliative Care in the Measurement Period\" predicate\n       (`input/cql/PalliativeCare.cql` line 27–31) requires the screening observation to link to\n       the patient; with the broken reference the engine drops the observation and the DenEx arm\n       never fires.\n  CPT 99385 IS in qualifying VS `2.16.840.1.113883.3.464.1003.101.12.1023` (Preventive Care\n  Services Initial Office Visit, 18 and Up, via ...101.11.1115 with system\n  `http://www.ama-assn.org/go/cpt`) and works in 21 other passing fixtures.\n- **Evidence**: both engines agree on the underlying 0/0/0 across the partial re-run after\n  repairing only the Encounter (G3 IP/Den 1/1 vs expected, DenEx 1/0) — same family, same\n  mechanism, only the broader reference list was incomplete in the first pass.\n- **Fix (applied 2026-09-04)**: replace the broken reference with `Patient/1d3021bb-b593-4efc-af5b-320243bbe9b7`\n  in every resource in the case carrying the substring via\n  `scripts/fix_cms347_fixture_data.py`'s generalized substring replace (idempotent,\n  formatting-preserving). CQL and MeasureReport (expected) values unchanged.\n- **Category**: resource / fixture data (whitespace-preserved drafting artifact).\n- **Status**: fix applied for both resources (Encounter + Observation); engine\n  re-verification pending (expected: `1d3021bb` G3 IP/Den/DenEx=1 → resolves all 3 cells).\n"
+  },
+  {
+   "id": "C-03",
+   "title": "CMS986 malnutrition Measure-Observation component rows authored in fixture MeasureReports do not match what the measure resource / CQL emits (CQL has function defines for `Measure Observation 1/2/3/4` score components but the measure resource population criteria only wire the count `Measure Observation`, not the score values; both engines return obs count = 0 so the authored score rows from MR are unreproducible)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None — content authoring mismatch**. Either re-author the fixture MeasureReport `Measure Population Observation` rows to match the count semantics (`count = number of qualifying observations per Group, not a percentage score`), or wire the measure resource so the score-function defines drive a separate population (re-design needed). Documented as `shared` (both engines agreed at 0) per `engine_shared_issues.py --measure CMS986FHIRMalnutritionScore`.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (measure resource vs fixture MR scoring mismatch)"
+    ],
+    "issues": []
+   },
+   "affected_measures": [
+    "CMS986FHIRMalnutritionScore"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "0389dadc-9e16-4ccc-abe8-5d2b4a899319"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "06aa2ec3-1620-4f65-90b0-8c5c11c91535"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "08bd110c-dfda-403c-91cd-34dfc9f16dc8"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "0c3b72aa-9a9b-468d-b2fb-95153a9136bc"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "0c3df882-87de-42cf-a909-01d7a01eb5ad"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "165d4163-b24b-416b-8b12-5a3dfca5cd4c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "19d1fe56-f3d5-45cf-a3ad-71fe4f70574d"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "1ae7790b-bb1d-41d1-9454-deac8ef63ea2"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "1cd7ac5b-a9f0-4fe1-8ebc-7fda2a3df2d5"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "1d160b56-edd7-482f-a2e3-8acc26727f91"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "1d73e231-88ed-4333-a085-86a7f1527178"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "1f8f7d6b-3f4c-4479-b59a-84c89567be81"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "22763f21-3a40-4c07-b4a3-3e74b95cfe54"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "240aca16-2f20-4213-b02a-232cec686fe4"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "250b2590-8b2a-4fc0-a725-227d9bb7556b"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "2571a635-c375-4aa6-9eef-653062467e10"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "2671a090-11ca-4f99-a1c9-49f44c4ec3a6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "269cb313-87d2-4531-a2ae-120c413918ed"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "2be50408-23f8-454d-97e4-0fbdda2e9057"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "2d70f119-a79e-4602-8840-36d26d91cdf6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "31ed0db8-1972-40ed-be78-0653f2cd9a95"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "327a31a9-17cf-41ac-a6c9-10c7ccb10d77"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "33c0f746-578a-4747-8f99-35c44119cebf"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "342ce37f-9c12-4963-9570-878d101ff24f"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "36a9b107-b6ad-48ce-8b4b-e616b2474ff8"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "37b7fdb2-4aa2-4cbb-ab87-5db3cf7bcf33"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "3a1145a6-7884-4c11-be4d-dd7641fd7beb"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "3c815aab-4636-4cde-9677-7067261287b5"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "3c8279f4-42ee-45a4-aaac-61cf53a121a2"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "3d1544d6-2a0d-4e00-949f-c30783cd23fe"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "46dc35fd-f1e0-46a0-8e67-8bbf5bd1cbca"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "47643903-6f24-428e-a354-f4a59d006ddf"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "47963aa4-4cbe-4129-b115-888542ba8b1d"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "49601611-a625-48dd-a54a-e28dd3d600e7"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "4d1811f1-f822-4e7c-9ab1-4752e5fafe79"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "4df1538c-c20f-444c-a679-15de516ee684"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "4e1967c5-7fe0-4920-97aa-28d02e117c31"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "4f90847d-e626-4ebb-8382-ae1c05079579"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "568283da-a161-4cb8-85d0-e2ef32e60a11"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "5a29e7c9-9e30-4083-9bd2-6a05031d4387"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "61c2c588-8a0f-44db-bfdb-e4ccc17641ed"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "61ff8a5e-1936-4411-913f-f45f595d1ce8"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "62f63de5-1a53-44d4-a980-4406db339714"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "6432b1e4-0953-459f-932e-9f6a92a9fb0c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "64a7c79b-1858-4cc5-a662-b6773e796a29"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "67a96ee1-da0c-4ec6-859d-da4c287c4443"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "67d405db-521a-41bc-8928-ca1a4b79d40c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "6ddcc1ce-fd55-4bcf-b154-2555cbaa71ae"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "70591696-5925-43a0-ba94-6f9af6613d9d"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "72cacd71-fdea-4b34-91b0-04928e79222c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "756e6c64-6ee6-4e02-816c-a0612ef36bed"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "75d19c2d-5ae9-476e-93f5-e84e668512a8"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "78a3078e-68a7-4715-9490-60eaf10111a4"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "7a61226f-6ed7-4fa9-9055-5e9b0234db9b"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "7fc738cc-7bdf-4f45-8239-959c0492102b"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "8090a147-702c-452a-b59d-524c2bcbaaad"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "81470689-a3f6-4580-88e0-5cddc5813c79"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "8269bfc3-071c-40e9-b523-07f615752097"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "88000c93-b6da-4afc-be0d-43a5653485c1"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "8802defe-e5c2-4fa7-81e6-107c145256c1"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "8c09f733-5ece-4f90-8ed6-7574dd841d68"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "8dcae048-a632-4b49-b0d1-0d9355e57078"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "91c95de4-b745-4258-948d-5ce03a901e5e"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "94c2361a-0926-449e-8d97-317d3db41f80"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "95c5116d-15f0-4367-b467-dca152f6b43c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "96c85f39-db15-4895-a38b-9c18ea2e6cdf"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "98a1289e-18e0-4606-be91-5434433cd259"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "997a0126-0a02-4157-a081-53ee4013a412"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "9fe3ca47-1605-4187-93a0-be6618160cc7"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a3389623-74d2-4a33-a946-08787313abf2"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a4d4b3e9-171d-456f-9282-3db4bb9852f6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a4f53b12-e0e3-4faf-8e66-6ce8193a6477"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a589fdb4-a3c9-4374-a231-5118b8ff434c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a646d170-0582-4930-bb7b-2b6d942ead1e"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "a9aa059a-44ff-4092-a717-62ffba4ba9f3"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "ab327433-5304-4665-b195-dcf90754a581"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "abe408d9-f5a5-4bdc-952b-7162a2aa7d31"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "ac18bf5e-8bd1-4a85-a48e-e1b27fb88950"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "ac2adb48-5f93-46dc-ba35-11abf0b20c49"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "ae722bd4-32c2-4e5f-a1a8-743bdd9800f6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b06b5114-a397-433a-9b32-b9b91f54d08c"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b13bed65-b8cd-4905-b3c7-81a9c11dffc2"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b1b79c28-6fb7-4900-8332-1378089486dd"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b3ee3e77-b813-42ac-949a-5d85e3df5002"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b438eddf-9781-4236-840f-25f45be7030d"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b5c1bc9e-c944-4ea8-b570-640609906df3"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "b625bf76-24fe-4114-a609-434271f750ec"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "bded9082-97bf-42d0-8c35-cbf18df5938f"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "bfb5338b-1ade-4488-9fdb-0cb974388e18"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "c1a50cef-42e4-4473-8aa4-704e9743b1ca"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "c44bb375-9561-47d1-a48d-179750f8a676"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "c5dd5da0-c5e3-4504-9dda-05c729757735"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "c6dfe659-1bc4-46fd-8893-ebac7a586cc6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "cf475a5c-e979-46c8-a596-8671d8a7acc5"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "d5946dae-72bb-4b13-984d-ce4da0add583"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "d638571a-bc86-48a8-9792-0885a26e68fc"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "d7b8ad65-50f2-442f-8afc-1de38844a5ad"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "da25ee5a-4502-4bf6-95fe-087bd0a2c1fd"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "dade6a4b-6099-476b-b163-ae119af82b9b"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "dc0b5670-62cb-4ab3-9f8e-ac2dad078c20"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "dc38b27c-8138-4d45-8540-f7fe92317375"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e0747546-a821-4475-9ba3-e963ac80e963"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e0f9a2cf-7ab8-4e40-b36a-b10ce147f8a8"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e2664b2b-8c66-4621-a0c1-a95862fba95a"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e5582d8a-91d9-4234-910d-db7a6fa68785"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e7536d99-81b0-4980-b27a-037c49753a9e"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "e87069c9-7889-4954-858f-33d6ad24cd7a"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "eb03b6f2-c098-4428-b31e-96fc9d968947"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "ebc944c4-c40a-4d80-8bb6-0cc698f07681"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "eeebf78e-439d-445b-a4e1-74d3b6eaeb08"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f06bb07a-3410-410d-a859-8bd57a79cf51"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f1d12297-45c4-4984-8e28-02bf21d84efd"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f2125d25-eea4-4130-8118-6d32b7bf4690"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f3b2a15e-a120-4190-9a08-e23b61fae693"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f48547b0-823f-4d85-93d5-0b19bc8aa7ba"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f524a276-6788-435a-99f7-cd0ef48553e6"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f6a15d18-bde3-49cd-88b6-45430eb0bd42"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f7730b43-fab5-4fee-a1ba-34dd41279a20"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "f7e36aca-e995-4d53-b52f-598243f38cb9"
+    },
+    {
+     "measure": "CMS986FHIRMalnutritionScore",
+     "guid": "fa4b9fb0-93e7-4f81-9a51-1cbc0814703c"
+    }
+   ],
+   "body_md": "### C-03: CMS986 malnutrition score-component authoring mismatch (shared across both engines)\n\n- **Symptom**: 120 test cases / 822 cells fail. Expected values for `Group_N:Measure Population Observation`\n  carry the **percentage score** components from `define function \"Measure Observation Total Malnutrition Care Score as Percentage\"(...)`\n  (`input/cql/CMS986FHIRMalnutritionScore.cql` line 300): values like 1, 2, 3, 4, 50, 75, 100.\n  Actual results (CMS engine) and QI-Core baseline both carry `Group_N:Measure Observation` (the **count** of qualifying observations) = 0 in every Group_x for every case.\n- **Mechanism**: the measure resource (`input/resources/measure/CMS986FHIRMalnutritionScore.json`) uses\n  `display: \"Measure Observation\"` (singular) per Group, while the fixture-authored MeasureReports\n  (`input/tests/measure/CMS986FHIRMalnutritionScore/<case>/MeasureReport-*.json`) use `display: \"Measure Population Observation\"`\n  with a SCORE value, never implemented via the current measure resource wiring. The CQL has both semantics\n  defined (`Measure Observation 1/2/3/4` as functions, but no `define` returns them per patient); the\n  `Measure Observation Total Malnutrition Components Score` and `... as Percentage` functions compute scores\n  but are **never invoked** from a population criterion. Both engines therefore cannot emit score rows, only count rows.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS986FHIRMalnutritionScore`):\n  * `shared`: 494 cells (both engines return 0 vs expected score 1/2/3/4/50/75/100) - measure-resource / fixture-MR authoring mismatch.\n  * `cms-only`: 6 cells (`a4f53b12`, Measures Population Exclusion 0 vs QI-Core 1, all 6 groups) - HHS ServiceRequest `us-quality-core-servicerequest` profile retrieve gap (already covered by E-17).\n  * `qicore-only`: 0 cells.\n  * `conflicting` / `incomplete`: 0.\n  * Overall shared% of not-passing: **98.8%**.\n- **Workaround**: none shipped. Candidates: (1) re-author fixtures' MeasureReports to remove orphan `Measure Population Observation` rows (silence in expected_results.csv); (2) wire `Measure Observation 1/2/3/4` score-component functions as separate `define`s in the CQL and add measurement-observation population criteria in the measure resource returning percentage values; (3) change group mapping such that the existing `Measure Observation` count population is renamed to align with the expected MR rows. Deferred pending content decision.\n- **Status**: **Confirmed** (2026-09-04, `shared%` analysis). Not remediated.\n"
+  },
+  {
+   "id": "C-04",
+   "title": "CMS1017 fall-prevention HHFI Denominator/Numerator/Measure-Observation rows authored in fixture MeasureReports do not match what the fixture's resources + CQL emits (fixtures carry no BMI Observations / no AdverseEvent entries, yet expected Denom Observation = 2/4/6 etc.)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either re-author fixture MeasureReports to drop orphan `Group_1:Denominator Observation` / `Measure Observation` / `Numerator Observation` rows, or add BMI Observations and AdverseEvent fall entries that drive those counts. Same root cause as C-03: the expected_results is hand-authored against measure intent, but fixtures don't carry the data the CQL wants.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS1017 fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03"
+    ]
+   },
+   "affected_measures": [
+    "CMS1017FHIRHHFI"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "02d5c5f5-9487-42af-bb5e-dfc3aaeb70eb"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "0653f9dc-8461-484e-a901-f17709f04776"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "0884b17b-baa4-47c0-a2b6-5849230dcf43"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "0dfafc1a-cf94-4ca1-becf-c1b843896810"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "113d43da-4cad-4907-804e-63afb7652b27"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "1ac96e3e-856c-417a-9c68-0df860ce73c8"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "1b700def-98b0-418c-b0a7-80ecb275597f"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "1e2ddc95-76d4-4be7-8273-2b35371a727b"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "25c753a7-b6b4-4335-bd7c-05b68b0324a4"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "28684639-1aa3-429c-9cac-4e8217995b13"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "3279a237-292f-47b1-9039-ba46b57e765a"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "365ed821-88d1-4459-9d32-dd4fa6426335"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "38d7ec48-dc28-4875-8f24-451ecd3dab5a"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "3c34a5af-1ef1-4b86-a41f-ac1d44e96ca0"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "3ee27450-2fd5-4930-bfbb-e718074e4087"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "404570c9-b21f-4fa2-be5d-6d02c910fea6"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "4402a9b9-3d48-4472-a000-579b7baa88fa"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "55931284-058b-4776-882c-720caddd3366"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "55b18e1a-c949-4d85-b1c5-caa91fc6ac4b"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "56d5fe48-53b2-4599-870c-58bfc4ba0145"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "58079a8d-2808-4029-b1fb-67ab4a841aa9"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "5926d62e-8eb9-4742-9bdf-efdcbd08ab7b"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "5d7d44f5-aa75-4889-89d6-e7586ac5de4a"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "5ff2713d-ca89-42ae-91bb-cba3e1d9a487"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "632475eb-a20a-43d6-baa7-f377ef8c5324"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "6442de45-b65d-4bda-8143-0e9c28d19485"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "65163106-0b19-4548-a994-f44b35e162e0"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "66ee842d-d852-42dd-928e-7f9bff5c52cd"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "6916a60d-ffa4-4d2c-8d96-73a31aa18854"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "735a7993-89b8-4b21-87c2-d5f57df0f5a8"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "7c4f1e55-2462-45e5-9062-5cf8d04b40e2"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "8045dee0-645e-497b-a5e8-ad659cdcf8c6"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "8552c09f-c2db-4069-9d15-41efafe4711a"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "8b607dee-4e17-492d-9949-0c69c10587e3"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "8b63d691-46a8-4ce6-8dee-60aea7f34f82"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "966cc666-8f6e-4d6e-93a9-0c4b6345e966"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "972573e8-bd51-4b77-a954-39babec1a055"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "9897529f-07ba-42c6-a7b2-5d856a925a6a"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "a0c41f8f-c8d9-4ae5-a07d-e87b16ae1367"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "a2b51ea0-5a72-4bda-abe5-dd393bfa0545"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "c9413f99-840f-449d-b4ab-427fb7de6aa0"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "ca728a1a-9a25-46b6-80bc-bfffae233f6c"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "d305cce9-ad3c-4259-9f9d-6026974fa847"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "d62aa527-2547-48a1-aece-d649b05c7d6e"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "e287cd76-85bd-4f51-9c41-f19551e83c14"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "e3212bfa-f3a9-4323-8993-9ef74c2f8d89"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "e6383b7c-aa91-42f7-8dc8-693a8c7dcaf3"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "e6d91b78-a66f-4fcc-a9a7-edb3d862803e"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "ea6b3f44-c6cd-4417-ae60-e97564bf24f9"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "f18417e1-5990-40b7-b927-5b50015380a2"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "f4708272-e5d3-4b6a-9431-a3cd2eb6809f"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "f771a339-74f0-4651-90f3-1c820edea547"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "f90151aa-9bd6-4c0c-bed8-5d43fe7fb8bb"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "fbbd3f4a-3e8e-40b9-ac83-0e80b2c129ec"
+    },
+    {
+     "measure": "CMS1017FHIRHHFI",
+     "guid": "fd4ea84b-cd39-4d03-9641-9ca8d10bbe67"
+    }
+   ],
+   "body_md": "### C-04: CMS1017 fall-prevention HHFI Observation-side authoring mismatch (shared across both engines)\n\n- **Symptom**: 55 failing test cases / 91 mismatched cells. Expected row counts for `Group_1:Denominator Observation` (2/4/6), `Group_1:Numerator Observation` (1/2/etc.), and `Group_1:Measure Observation` (1) are authored in the fixture MeasureReports; both engines return 0 because the fixture Resources don't carry the qualifying data (BMI Observations, AdverseEvent fall entries) the CQL needs to retrieve.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS1017FHIRHHFI`):\n  * `shared`: 87 cells (both engines return 0 vs expected 2/4/6; identical authoring gap)\n  * `cms-only`: 0\n  * `qicore-only`: 0\n  * `conflicting`: 0\n  * `incomplete`: 4 (the `Measure Observation` rows where the engine's TestCaseResult did not produce them due to a missing score-component wiring similar to CMS986)\n  * `pass`: 325\n  * Overall **shared% of not-passing: 100.0%**.\n- **Mechanism**:\n  * Case `02d5c5f5`: Denominator Observation exp=2 / act=0, Numerator Observation exp=1 / act=0. The fixture has `Encounter-03632d2d` and `Encounter-391fa73d`, 2 Claims, a `MedicationRequest`, but **no BMI Observations** and no `AdverseEvent: \"Inpatient Falls\"` resources. The CQL (`input/cql/CMS1017FHIRHHFI.cql` lines 122-129) uses `[\"USCore.BMIProfile\"]` to feed `Risk Variable Body Mass Index (BMI)` -> Denominator Observation; with no Observations in the fixture, the engine correctly returns 0; the MR's expected 2 is an authoring artifact.\n  * Case `0884b17b`: same pattern - Denominator Observation exp=4 (act=0), Measure Observation exp=1 (act=None = missing row), Numerator Observation exp=1 (act=0). 2 AdverseEvent resources present but no BMI Observations.\n- **Workaround**: none shipped. Candidates: (1) drop orphan Observation-count rows from MeasureReport authoring (silence expected results); (2) drop orphan rows from `expected_results.csv` directly via the same generation step; (3) restore the missing Observations to fixtures to match the authored expectations. **The cleanest path requires a content decision**.\n- **Status**: **Confirmed** (2026-09-04, shared% analysis). Not remediated.\n"
   }
  ],
  "enriched": true

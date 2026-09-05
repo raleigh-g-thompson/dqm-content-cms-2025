@@ -25,14 +25,36 @@ def load_catalog(path=None) -> dict:
         return json.load(fh)
 
 
+def is_resolved(issue: dict) -> bool:
+    """Robust resolution check that accepts both booleans and JSON strings.
+
+    Catalog drift: a few historical entries were authored with ``resolved``
+    stored as the JSON string ``"false"`` instead of the JSON ``false`` boolean.
+    Because Python's ``not "false"`` is ``False`` (any non-empty string is
+    truthy), the entry would be reported as resolved even though the author
+    clearly meant pending.  Treat ``"true"`` -> True, ``"false"`` -> False,
+    and any other truthy non-empty string -> True (conservative: trust an
+    absent value over a non-empty string).  Booleans and ints pass through
+    unchanged.
+    """
+    val = issue.get("resolved", False)
+    if isinstance(val, bool):
+        return val
+    if isinstance(val, int):
+        return bool(val)
+    if isinstance(val, str):
+        return val.strip().lower() == "true"
+    return bool(val)
+
+
 def pending_issues(catalog: dict) -> List[dict]:
-    """Issues whose cases still affect the score (``resolved`` false)."""
-    return [i for i in catalog.get("issues", []) if not i.get("resolved", False)]
+    """Issues whose cases still affect the score (resolved False)."""
+    return [i for i in catalog.get("issues", []) if not is_resolved(i)]
 
 
 def resolved_issues(catalog: dict) -> List[dict]:
     """Issues that no longer affect the score (kept for history)."""
-    return [i for i in catalog.get("issues", []) if i.get("resolved", False)]
+    return [i for i in catalog.get("issues", []) if is_resolved(i)]
 
 
 def affected_measure_guid_pairs(issue: dict) -> List[TestCaseKey]:
