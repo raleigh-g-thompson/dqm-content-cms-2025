@@ -2254,6 +2254,106 @@
     }
    ],
    "body_md": "### C-04: CMS1017 fall-prevention HHFI Observation-side authoring mismatch (shared across both engines)\n\n- **Symptom**: 55 failing test cases / 91 mismatched cells. Expected row counts for `Group_1:Denominator Observation` (2/4/6), `Group_1:Numerator Observation` (1/2/etc.), and `Group_1:Measure Observation` (1) are authored in the fixture MeasureReports; both engines return 0 because the fixture Resources don't carry the qualifying data (BMI Observations, AdverseEvent fall entries) the CQL needs to retrieve.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS1017FHIRHHFI`):\n  * `shared`: 87 cells (both engines return 0 vs expected 2/4/6; identical authoring gap)\n  * `cms-only`: 0\n  * `qicore-only`: 0\n  * `conflicting`: 0\n  * `incomplete`: 4 (the `Measure Observation` rows where the engine's TestCaseResult did not produce them due to a missing score-component wiring similar to CMS986)\n  * `pass`: 325\n  * Overall **shared% of not-passing: 100.0%**.\n- **Mechanism**:\n  * Case `02d5c5f5`: Denominator Observation exp=2 / act=0, Numerator Observation exp=1 / act=0. The fixture has `Encounter-03632d2d` and `Encounter-391fa73d`, 2 Claims, a `MedicationRequest`, but **no BMI Observations** and no `AdverseEvent: \"Inpatient Falls\"` resources. The CQL (`input/cql/CMS1017FHIRHHFI.cql` lines 122-129) uses `[\"USCore.BMIProfile\"]` to feed `Risk Variable Body Mass Index (BMI)` -> Denominator Observation; with no Observations in the fixture, the engine correctly returns 0; the MR's expected 2 is an authoring artifact.\n  * Case `0884b17b`: same pattern - Denominator Observation exp=4 (act=0), Measure Observation exp=1 (act=None = missing row), Numerator Observation exp=1 (act=0). 2 AdverseEvent resources present but no BMI Observations.\n- **Workaround**: none shipped. Candidates: (1) drop orphan Observation-count rows from MeasureReport authoring (silence expected results); (2) drop orphan rows from `expected_results.csv` directly via the same generation step; (3) restore the missing Observations to fixtures to match the authored expectations. **The cleanest path requires a content decision**.\n- **Status**: **Confirmed** (2026-09-04, shared% analysis). Not remediated.\n"
+  },
+  {
+   "id": "C-05",
+   "title": "CMS157 Pain Intensity Quantified fixture MR hand-authors Initial Population / Denominator rows, but fixtures' Encounter type doesn't match the valueset codes that the measure resource / CQL retrieves (`[Encounter: 'Office Visit']` / `[Encounter: 'Audio Visual Telehealth Encounter']`); both engines consistently 0",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either drop orphan `Group_1:Initial Population` / `Group_1:Denominator` rows from fixture MeasureReports, or supply qualifying Office Visit / Telehealth Encounter types in the fixtures.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS157 fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04"
+    ]
+   },
+   "affected_measures": [
+    "CMS157FHIRPainIntensityQuantified"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "055640ae-dc71-4e1d-918b-e367013de209"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "233d84af-d725-4682-8253-d6c4e02da0d5"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "51d8547c-f07f-4441-b616-f458f38e4506"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "5cca62ff-f856-4b8f-9902-6a018a4599cb"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "66c60f6c-2a7b-4868-b9bd-5ede60b61463"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "719a6ae4-ac86-406f-a762-380383e4a74d"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "757c5855-602e-4c25-8783-c22afccc1618"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "7cedf97f-741c-4c37-9ae9-40e0b8c64576"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "837cc0e4-cc26-48cd-9d34-232d7fbcd056"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "8e23417a-471a-45bb-b936-57466dc6592c"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "90d3454a-ca4b-4035-a524-255a2f03bef7"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "9972f780-aa2f-40e0-ba7d-133d7fe38bc9"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "aa355e31-8d29-4b06-8d13-7d00a2c817da"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "c97c9ecf-6c31-4868-bbd3-7a5509bb3882"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "d4b441fb-5b3a-40f7-ada1-ecf06376f4fb"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "e085c0d1-a736-4596-a5cd-7de785d0d144"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "ede0d103-285f-42f0-807e-ff272f1ae70e"
+    },
+    {
+     "measure": "CMS157FHIRPainIntensityQuantified",
+     "guid": "fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4"
+    }
+   ],
+   "body_md": "### C-05: CMS157 Pain Intensity Quantified fixture MR/Denominator authoring mismatch (shared across both engines)\n\n- **Symptom**: 19 failing test cases / 46 mismatched cells (Group_1: Initial Population, Denominator, plus 8 Numerator). Both engines return IP=0; expected=1; Denominator mirrored; Numerator mirrored on 8/19 cases.\n- **Mechanism**: the CQL's \"Initial Population 1\" (`input/cql/CMS157FHIRPainIntensityQuantified.cql` lines 42-43) uses\n  `[Encounter: \"Office Visit\"] union [Encounter: \"Audio Visual Telehealth Encounter\"]` plus `[Procedure: \"Chemotherapy Administration\"]` and `[Condition: \"Cancer\"]`. The fixture Encounters carry `type` (or no `type`) that doesn't match \"Office Visit\" / \"Audio Visual Telehealth Encounter\", so Initial Population = 0; expected IP=1 was hand-authored in the MR.\n- **Case samples**:\n  * `055640ae-dc71-...`: 1 SNOMED Condition 80914001 (cancer), 1 Encounter (no type code), 2 Procedure/CPT 51720. Expected IP=1, act=0.\n  * `233d84af-...`: 1 Condition, 1 Encounter, 4 Procedures, 1 Observation; expected IP=1, act=0.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS157FHIRPainIntensityQuantified`): **shared: 46 / cms-only: 0 / qicore-only: 0 / conflicting: 0 / pass: 332 / shared% of not-passing: 100.0%**.\n- **Workaround**: none shipped. Candidates: (1) drop orphan IP/Denominator rows from fixture MRs; (2) restore qualifying Office Visit / Telehealth Encounter types in fixtures.\n- **C-02 status preserved**: the CMS157 cancer-diagnosis ICD-10-vs-SNOMED valueset content issue (C-02) remains parallel; this C-05 entry tracks the IP/Denominator authoring side that hasn't been documented yet.\n"
   }
  ],
  "enriched": true
