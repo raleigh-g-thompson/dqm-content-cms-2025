@@ -3219,6 +3219,46 @@
    ],
    "body_md": "### E-22: `operator 'recorded(...)' ambiguous call` throws in `USQualityCoreCommon` (new engine)\n\n- **Symptom**: CMS68 test case `f2e2e1c0` returns Missing Results across all Group_1 cells (IP / Den / DenEx / Num - 4 cells).\n- **Engine error** (from `input/tests/results/CMS68FHIRDocumentationCurrentMeds/TestCaseResult-f2e2e1c0-*.json`):\n  `\"Ambiguous call to operator 'recorded(org.hl7.elm.r1.NamedTypeSpecifier@1b69547d)' in library 'USQualityCoreCommon'.\"`\n  The error is uncaught, the library evaluates no populations; engine_shared_issues reports `incomplete: 4`.\n- **Differentiator from E-17/E-21** (which are profile-retrieve gaps producing 0 for expected): here engine throws and produces no rows. Same root cause bucket: engine bug requiring engine-side fix.\n- **Workaround**: none shipped. Engine fix needed to resolve the ambiguity (likely multiple `recorded(...)` overloads in `USQualityCoreCommon.cql` poorly typed).\n- **Status**: **Confirmed** (1 case / 4 cells).\n",
    "summary_row": "| E-22 | `recorded(...)` operator ambiguous call in `USQualityCoreCommon` library throws | engine | **Confirmed** | **None** | CMS68 | 1 |"
+  },
+  {
+   "id": "B-01",
+   "title": "QICore baseline (`qicore-2025-actual-results.csv`) is stale: 800 cells marked `qicore-only` reflect baseline/engine-version drift, not real defects (CMS engine matches expected on those cells but committed QI-Core baseline does not)",
+   "category": "baseline",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None**. Either (1) regenerate `qicore-2025-actual-results.csv` against a fresh QI-Core engine run with `scripts/extract_population_qicore.py` (requires a separate QI-Core harness invocation outside this repo), and authorize overwrite via `--force`; or (2) accept the divergence and treat the qicore-only cells as expected/engine-vs-baseline drift until a baseline refresh is available.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (QICore baseline csv staleness)"
+    ],
+    "issues": []
+   },
+   "affected_measures": [
+    "CMS1028FHIRPCSevereOBComps",
+    "CMS104FHIRSTKDCAntithrombotic",
+    "CMS108FHIRVTEProphylaxis",
+    "CMS122FHIRDiabetesAssessGT9Pct",
+    "CMS125FHIRBreastCancerScreen",
+    "CMS1264FHIRECATREHQR",
+    "CMS128FHIRAntidepressantMgmt",
+    "CMS130FHIRColorectalCancerScrn",
+    "CMS131FHIRDiabetesEyeExam",
+    "CMS136FHIRChildADHDMedFollowUp",
+    "CMS145FHIRCADBBlockerTPMIorLVSD",
+    "CMS153FHIRChlamydiaScreening",
+    "CMS156FHIRHighRiskMedsElderly",
+    "CMS165FHIRControllingHighBP",
+    "CMS190FHIRVTEProphylaxisICU",
+    "CMS2FHIRPCSDepScreenAndFollowUp",
+    "CMS347FHIRStatinPreventionTxCVD",
+    "CMS72FHIRSTKAntithromboticDay2",
+    "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+    "NHSNGlycemicControlHypoglycemiaInitialPopulation"
+   ],
+   "affected_test_cases": [],
+   "body_md": "### B-01: QICore baseline `qicore-2025-actual-results.csv` is stale (800 qicore-only cells reflect engine-version drift, not real defects)\n\n- **Symptom**: 800 cells across the suite are classified as `qicore-only` in\n  `engine_shared_issues.py` (CMS engine matches expected; QI-Core baseline disagrees).\n  The CMS engine returns the value the fixture MeasureReport expects; the locked\n  `qicore-2025-actual-results.csv` returns something different (zero, one, or a\n  small whole number that doesn't match either engine or expected). This is the\n  inverse of the E-class engine bugs documented elsewhere.\n\n- **Mechanism**: the committed baseline was produced by an older QI-Core engine\n  invocation. The CR runtime version (translator 5.2.0, clinicalReasoning 4.11.0)\n  has since been refreshed; several measures (most pronounced: CMS72 / CMS104 /\n  CMS1264 / CMS128) re-evaluate to different values on the now-current engine.\n  Some of those differences are due to translator-version bugs that have since\n  been fixed in the upstream engine; others are new behaviors that the QI-Core\n  baseline file predates.\n\n- **Per-measure breakdown** of the 800 qicore-only cells:\n  * CMS72FHIRSTKAntithromboticDay2: 236\n  * CMS104FHIRSTKDCAntithrombotic: 156\n  * CMS1264FHIRECATREHQR: 152\n  * CMS128FHIRAntidepressantMgmt: 134\n  * CMS347FHIRStatinPreventionTxCVD: 33\n  * NHSNAcuteCareHospitalMonthlyInitialPopulation1: 27\n  * CMS122FHIRDiabetesAssessGT9Pct: 12\n  * CMS165FHIRControllingHighBP: 9\n  * CMS125FHIRBreastCancerScreen: 8\n  * CMS2FHIRPCSDepScreenAndFollowUp: 7\n  * plus several smaller slivers across other measures\n\n- **Tools (this commit)**:\n  * `scripts/extract_population_qicore.py`: parses a directory of TestCaseResult\n    JSONs and emits a CSV with the same schema as the locked baseline. Refuses\n    to overwrite the locked baseline unless `--force` is supplied.\n  * `scripts/audit_qicore_baseline.py`: compares a fresh extract against the\n    committed baseline; produces a Markdown summary of added / removed /\n    changed rows. Never overwrites either file.\n  * Tests: `scripts/tests/test_extract_population_qicore.py` and\n    `scripts/tests/test_audit_qicore_baseline.py` cover both scripts.\n\n- **Resolution path** (off-repo) requires the QI-Core engine harness to be\n  re-invoked externally and the resulting TestCaseResult JSONs to land at\n  `input/tests/results/qicore/<measure>/` (or to be fed to the extractor\n  directly):\n    1. Pick a sibling QI-Core harness invocation (e.g.\n       `dqm-content-qicore-2025`'s evaluate pipeline).\n    2. Pipe the resulting TestCaseResult JSONs through\n       `scripts/extract_population_qicore.py --output <tmp>.csv`.\n    3. Run `scripts/audit_qicore_baseline.py --baseline scripts/comparison/\n       qicore-2025-actual-results.csv --fresh <tmp>.csv --report audit.md` to\n       preview the diff.\n    4. Once the diff is reviewed, re-run the extractor with `--force --output\n       scripts/comparison/qicore-2025-actual-results.csv`. The catalog will\n       then auto-resolve affected tests cases / cells and re-classify them;\n       those tests will move out of `pending` if the genuine test outcome is\n       `pass`, or into a fresh E-class entry if a real engine defect surfaces.\n\n- **Status**: **Confirmed** (2026-09-05). 800 qicore-only cells classified;\n  no automated regression in `excluding resolution-pending` rate because\n  these cells aren't enumerated by case GUID (they're measure-level \"QI-Core\n  doesn't agree\" without a corresponding (measure, guid) anchor for the\n  pending set). Resolution requires engine-side + commit of fresh baseline.\n",
+   "summary_row": "| B-01 | QICore baseline \\`qicore-2025-actual-results.csv\\` is stale (800 qicore-only cells across 20 measures reflect engine-version drift) | baseline | **Confirmed** | **None — requires engine-side QI-Core re-run** | CMS1028FHIRPCSevereOBComps, CMS104FHIRSTKDCAntithrombotic, CMS108FHIRVTEProphylaxis, CMS122FHIRDiabetesAssessGT9Pct, CMS125FHIRBreastCancerScreen, CMS1264FHIRECATREHQR, ... (20 total) | 800 |"
   }
  ],
  "enriched": true
