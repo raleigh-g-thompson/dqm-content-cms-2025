@@ -1,4 +1,4 @@
-# Cross-Engine Shared-Issue Detection: CMS165FHIRControllingHighBP
+# Cross-Engine Shared-Issue Detection: CMS156FHIRHighRiskMedsElderly
 
 Compares US Quality Core (CMS) engine actuals vs QI-Core actuals (older engine).
 
@@ -6,16 +6,16 @@ Compares US Quality Core (CMS) engine actuals vs QI-Core actuals (older engine).
 
 | Bucket | Count |
 |---|---:|
-| shared | 0 |
+| shared | 2 |
 | shared-direction | 0 |
 | cms-only | 0 |
-| qicore-only | 9 |
+| qicore-only | 4 |
 | conflicting | 0 |
-| incomplete | 4 |
-| pass | 259 |
-| **total cells** | 272 |
+| incomplete | 0 |
+| pass | 702 |
+| **total cells** | 708 |
 
-**Shared (exact-magnitude, both-engines-wrong) share of all not-passing cells: 0.0%** (0 / 9).
+**Shared (exact-magnitude, both-engines-wrong) share of all not-passing cells: 33.3%** (2 / 6).
 
 Interpretation: exact-magnitude agreement between two different engine versions
 on the same logical population cell is the strongest available signal of an
@@ -26,17 +26,10 @@ engine-level bug shared by both engines. Cells where only one engine deviates
 
 | Test Case | Population | Expected | CMS Actual | QI-Core Actual | Population | Type |
 |---|---|---:|---:|---:|---|---|
-| [1905549a-1783-4195-95b9-b0879cb81d96](../../input/tests/measure/CMS165FHIRControllingHighBP/1905549a-1783-4195-95b9-b0879cb81d96/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [2c55811b-1571-43e5-919c-f90bf763b3d4](../../input/tests/measure/CMS165FHIRControllingHighBP/2c55811b-1571-43e5-919c-f90bf763b3d4/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [474b2964-23a1-4c77-ad16-8a21543b2ed3](../../input/tests/measure/CMS165FHIRControllingHighBP/474b2964-23a1-4c77-ad16-8a21543b2ed3/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [5421e420-8d42-4628-ba47-9abaf9ebfaa8](../../input/tests/measure/CMS165FHIRControllingHighBP/5421e420-8d42-4628-ba47-9abaf9ebfaa8/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [59d7f239-7614-4e6e-a973-fe107aee5749](../../input/tests/measure/CMS165FHIRControllingHighBP/59d7f239-7614-4e6e-a973-fe107aee5749/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [686e2c47-b08f-465c-ab31-1712dd72028b](../../input/tests/measure/CMS165FHIRControllingHighBP/686e2c47-b08f-465c-ab31-1712dd72028b/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [7c59efb5-56ab-4a25-af83-bd81daeee026](../../input/tests/measure/CMS165FHIRControllingHighBP/7c59efb5-56ab-4a25-af83-bd81daeee026/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [9f063f76-a97a-4bba-9f6a-35e7a429a72c](../../input/tests/measure/CMS165FHIRControllingHighBP/9f063f76-a97a-4bba-9f6a-35e7a429a72c/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [a7ec972f-f0c1-428d-aba5-ba76cba5cd73](../../input/tests/measure/CMS165FHIRControllingHighBP/a7ec972f-f0c1-428d-aba5-ba76cba5cd73/) | Group_1:Denominator Exclusion | 1 | 1 | 0 | den | qicore-only |
-| [45e01fed-56bb-483d-a860-af3d566bda11](../../input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/) | Group_1:Denominator | 1 | None | None | den | incomplete |
-| [45e01fed-56bb-483d-a860-af3d566bda11](../../input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/) | Group_1:Denominator Exclusion | 1 | None | None | den | incomplete |
-| [45e01fed-56bb-483d-a860-af3d566bda11](../../input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/) | Group_1:Initial Population | 1 | None | None | ini | incomplete |
-| [45e01fed-56bb-483d-a860-af3d566bda11](../../input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/) | Group_1:Numerator | 0 | None | None | num | incomplete |
+| [4aa75d19-ac8b-49b0-a686-429fbc033d77](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/) | Group_1:Numerator | 1 | 0 | 0 | num | shared |
+| [4aa75d19-ac8b-49b0-a686-429fbc033d77](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/4aa75d19-ac8b-49b0-a686-429fbc033d77/) | Group_3:Numerator | 1 | 0 | 0 | num | shared |
+| [07f11229-6e8f-42bf-9905-3d319460fb33](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/07f11229-6e8f-42bf-9905-3d319460fb33/) | Group_1:Numerator | 1 | 1 | 0 | num | qicore-only |
+| [07f11229-6e8f-42bf-9905-3d319460fb33](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/07f11229-6e8f-42bf-9905-3d319460fb33/) | Group_3:Numerator | 1 | 1 | 0 | num | qicore-only |
+| [c409fbc9-a31f-4d53-9aa7-9e443e87812a](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/c409fbc9-a31f-4d53-9aa7-9e443e87812a/) | Group_1:Numerator | 1 | 1 | 0 | num | qicore-only |
+| [c409fbc9-a31f-4d53-9aa7-9e443e87812a](../../input/tests/measure/CMS156FHIRHighRiskMedsElderly/c409fbc9-a31f-4d53-9aa7-9e443e87812a/) | Group_3:Numerator | 1 | 1 | 0 | num | qicore-only |
 

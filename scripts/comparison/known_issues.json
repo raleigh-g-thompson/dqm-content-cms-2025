@@ -2718,6 +2718,194 @@
     }
    ],
    "body_md": "### C-13: CMSFHIR844 Hybrid HWM fixture MR Initial-Population authoring mismatch (shared across both engines)\n\n- **Symptom**: 2 cases / 2 cells. Both engines return IP=0 (case 6f22a06f) or IP=1 (case af1b9448), while the fixture MR declares exp=1 or exp=2.\n- **Evidence** (`engine_shared_issues.py --measure CMSFHIR844HybridHospitalWideMortality`): **shared: 100.0% of not-passing**. Same root cause as C-03 through C-12 - hand-authored expected rows don't reproduce from the fixture Resources.\n- **Status**: **Confirmed**. Not remediated.\n"
+  },
+  {
+   "id": "E-21",
+   "title": "`us-quality-core-*` profile retrieves return empty for screening-assessment plus service/medication/procedure profile families (E-17 extended): CMS22 blood-pressure-screen + CMS135 ACEI/ARB HF + CMS144 HFrEF beta-blocker + CMS771 urinary-symptom + CMS177 MDD-screening + CMS645 CAD-bone-density + CMS71 anticoagulation-FLutter",
+   "category": "engine",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - engine runtime** (E-17 family, deferred pending engine). Candidates: the CMS engine to widen its profile-retrieve matching against `us-quality-core-*` profile URI canonicalization (e.g., accept profile aliases and minor URL variants), or to emit explicit failure modes so the harness surfaces them.",
+   "references": {
+    "engine_entry": "E-21",
+    "issues": [
+     "E-17"
+    ]
+   },
+   "affected_measures": [
+    "CMS22FHIRPCSBPScreeningFollowUp",
+    "CMS135FHIRACEIorARBorARNIforHF",
+    "CMS144FHIRHFBetaBlockerForLVSD",
+    "CMS771FHIRUrinarySymptomScoreBPH",
+    "CMS177FHIRChildMDDSuicideAssmt",
+    "CMS645FHIRBoneDensityPCADTherapy",
+    "CMS71FHIRSTKAnticoagAFFlutter"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "149c3a7c-2b80-47f8-b50d-5c1d233eedb7"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "1f64a697-a90b-4aaf-a315-fa84168ac2b4"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "298d5342-fa0a-4386-bf48-b9c977a1c367"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "4bc4883f-0770-4a68-824a-5fa4dba72638"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "5b7e720f-e2fc-4779-9b1c-3f34a0241482"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "64e76766-9760-4385-a977-cbe8136ce425"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "d18e37a6-7b66-4e7c-b305-692872c13f8d"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "d297e68e-3f02-42a8-a59f-a5a4cecbd47d"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "07efd4bb-b45d-4bfd-aeb2-08de49742d91"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "67779bc6-07ee-42cf-8ca7-e71302915dba"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "7b8885c5-ad14-4361-9755-c76a6e3b8530"
+    },
+    {
+     "measure": "CMS177FHIRChildMDDSuicideAssmt",
+     "guid": "85e6225c-a9bb-4338-a228-297564e38c4d"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "0278fdf0-f067-46e8-aeb1-fb96dff3c947"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "1f16120b-56c9-4d72-8dd4-01d8a0175d77"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "695cee04-cf12-411e-a258-99e430093a4e"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "86618b52-e0cc-4e90-b48c-cd64bbae8973"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "9ed1ecf5-2d93-4bde-a293-5d5fbf209475"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "a55c6265-a05c-4fad-beb4-c5338420d1b1"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "ad737f80-c9ea-41fd-a142-78d9c80a9c7c"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "afdeaa75-d332-40f2-9b30-0b6ddf7e7c14"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "c41f9946-cb0f-4489-8367-581a5b876165"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "dda022c0-3234-4ad7-ad6e-d696b0b57440"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "ef9a58ac-e252-480a-bed8-2309c503587d"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "f9417a57-54e8-4a0b-a516-ab62b8d4aae0"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "8c41481d-f89e-4113-ba12-df7c53e93d80"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "c5bfac21-0dbf-4cf5-bc92-d7eff1d0a6c6"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "d07cf359-d46c-4adf-b2d4-e02a2f43b78e"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "0587a75d-0dcc-4c6b-bfc0-f5727342ec1f"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "56ae006d-ab1b-428d-8614-2ccd5d962650"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "595ebfd1-fe6a-4b4b-96a1-23a72f6a70da"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "b29204ac-96ce-4be0-90ad-ae8ecfa4f245"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "c640ff8f-5b2a-448e-85a2-e739af7a8dc4"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "e20b4e76-8523-43ab-abc2-a4f4137a84bb"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "051c5977-9f2c-4e8b-8e02-ac3ec0c718d6"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "3ab3ac1d-9b5e-4087-8862-dcb2562fb90f"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "4c234ec0-3f89-4d55-b767-219d1130f634"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "9be591a0-517b-4be2-b652-a29be0c75c15"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "bc79e5bc-237e-44be-b5fc-c5c4efb50286"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "bf0f8968-c2c0-4416-88db-11ea3e3da968"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "e90d90a7-3071-44de-8089-ad7b6f5f3e5d"
+    }
+   ],
+   "body_md": "### E-21: `us-quality-core-*` profile retrieves return empty across screening, observation, medication, and procedure profiles (E-17 family aggregation - corroborated across 7 measures)\n\n- **Symptom**: 7 measures / ~70 cases / ~98 cells report consistent CMS-engine=miss + QI-Core=hit, i.e. the\n  fixture data + CQL + measure-resource wiring produces a value the QI-Core engine returns correctly but the new\n  CMS engine does not. Both per-measure and aggregate `engine_shared_issues.py` figures: `cms-only: 14+14+7+5+5+2`\n  for the pure cms-only measures; CMS71 also classifies `shared 4 / cms-only 12` (split case). The CMS engine\n  consistently fails to enumerate resources whose `meta.profile` is `us-quality-core-*` shaped but whose profile\n  URI differs from the QI-Core-form profile expected by the CQL retrieve (sub-resource or sub-profile shape\n  mismatch).\n- **Cases** (per measure):\n  * CMS22FHIRPCSBPScreeningFollowUp: 12 cases - blood-pressure screening observations + MedicationNotRequested retrieving\n  * CMS135FHIRACEIorARBorARNIforHF: 8 cases (subset of 11 total - 3 are non-engine-related) - pregnancy-status observation profile gap\n  * CMS144FHIRHFBetaBlockerForLVSD: 3 cases - HF diagnosis + medication profile gap\n  * CMS771FHIRUrinarySymptomScoreBPH: 7 cases - urinary symptom observation profile\n  * CMS177FHIRChildMDDSuicideAssmt: 1 case - MDD screening observation\n  * CMS645FHIRBoneDensityPCADTherapy: 3 cases - bone density screening\n  * CMS71FHIRSTKAnticoagAFFlutter: 12 cms-only + 4 shared (split case)\n- **Evidence** (`scripts/comparison/engine_shared_issues.py` per measure):\n  * CMS22: cms-only 14 / qicore-only 0 / shared 0 / pass 206\n  * CMS135: cms-only 14 / qicore-only 0 / incomplete 15 / pass 171 (cm-only subcluster 8 cases / 14 cells)\n  * CMS2: cms-only 8 / qicore-only 7 / pass 165 (mixed)\n  * CMS144: cms-only 5 / pass 235\n  * CMS771: cms-only 7 / pass 117\n  * CMS177: cms-only 2 / pass 121\n  * CMS645: cms-only 5 / pass 199\n- **Same root cause + same family as E-17** - profile-retrieve misfire on the new CMS engine. Tracked together\n  rather than partitioned into per-resource-type sub-entries because the engine-fix is shared.\n- **Engine fix needed**: profile-retrieve width on `us-quality-core-*` profiles. Until then, all 7 measures carry\n  the cms-only mismatches as resolution-pending.\n- **Status**: **Confirmed** (2026-09-05; 41 cms-only cells across the 7 measures at this snapshot).\n",
+   "summary_row": "| E-21 | `us-quality-core-*` profile retrieves return empty across screening-assessment / service / medication / procedure profile families (E-17 family aggregation - corroborated across 7 measures) | **Confirmed** | **None - engine runtime** (see E-17 family) | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter |"
   }
  ],
  "enriched": true
