@@ -3222,12 +3222,12 @@
   },
   {
    "id": "B-01",
-   "title": "QICore baseline (`qicore-2025-actual-results.csv`) is stale: 800 cells marked `qicore-only` reflect baseline/engine-version drift, not real defects (CMS engine matches expected on those cells but committed QI-Core baseline does not)",
+   "title": "QI-Core baseline `qicore-2025-actual-results.csv` (post 2026-09-05 fresh re-run) tracks 1456 qicore-only cells across 26 measures where the fresh QI-Core engine output disagrees with the fixture MeasureReports' expectations (CMS engine matches; baseline is fresh, not stale, but cells remain)",
    "category": "baseline",
-   "status": "**Confirmed**",
+   "status": "**Confirmed (refreshed 2026-09-05)**",
    "resolved": false,
    "root_cause_status": "open",
-   "workaround": "**None**. Either (1) regenerate `qicore-2025-actual-results.csv` against a fresh QI-Core engine run with `scripts/extract_population_qicore.py` (requires a separate QI-Core harness invocation outside this repo), and authorize overwrite via `--force`; or (2) accept the divergence and treat the qicore-only cells as expected/engine-vs-baseline drift until a baseline refresh is available.",
+   "workaround": "**None**. The baseline is current. Per-measure engine-version regressions are tracked separately under E-23+, E-24+, ...; if the QI-Core engine fixes upstream, re-run `scripts/extract_population_qicore.py --input <qi-core-results-dir> --force` and then re-run `scripts/compare_results.py` to re-classify.",
    "references": {
     "defect_tracking": [
      "defect-tracking catalog (QICore baseline csv staleness)"
@@ -3235,30 +3235,3007 @@
     "issues": []
    },
    "affected_measures": [
+    "CMS0334FHIRPCCesareanBirth",
     "CMS1028FHIRPCSevereOBComps",
     "CMS104FHIRSTKDCAntithrombotic",
     "CMS108FHIRVTEProphylaxis",
-    "CMS122FHIRDiabetesAssessGT9Pct",
-    "CMS125FHIRBreastCancerScreen",
+    "CMS1173FHIRDiagnosticDelayVTE",
+    "CMS1188FHIRHIVSTITesting",
     "CMS1264FHIRECATREHQR",
-    "CMS128FHIRAntidepressantMgmt",
-    "CMS130FHIRColorectalCancerScrn",
-    "CMS131FHIRDiabetesEyeExam",
-    "CMS136FHIRChildADHDMedFollowUp",
+    "CMS129FHIRProstCaBoneScanUse",
+    "CMS135FHIRACEIorARBorARNIforHF",
+    "CMS144FHIRHFBetaBlockerForLVSD",
     "CMS145FHIRCADBBlockerTPMIorLVSD",
-    "CMS153FHIRChlamydiaScreening",
-    "CMS156FHIRHighRiskMedsElderly",
-    "CMS165FHIRControllingHighBP",
+    "CMS149FHIRDementiaCognitiveAssess",
     "CMS190FHIRVTEProphylaxisICU",
-    "CMS2FHIRPCSDepScreenAndFollowUp",
+    "CMS22FHIRPCSBPScreeningFollowUp",
     "CMS347FHIRStatinPreventionTxCVD",
+    "CMS506FHIRSafeUseofOpioids",
+    "CMS645FHIRBoneDensityPCADTherapy",
+    "CMS646FHIRIntravesicalBCGTherapy",
+    "CMS71FHIRSTKAnticoagAFFlutter",
     "CMS72FHIRSTKAntithromboticDay2",
+    "CMS771FHIRUrinarySymptomScoreBPH",
+    "CMS819FHIRHHORAE",
+    "CMS871FHIRHHHyper",
+    "CMS996FHIRAptTxforSTEMI",
     "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
     "NHSNGlycemicControlHypoglycemiaInitialPopulation"
    ],
-   "affected_test_cases": [],
-   "body_md": "### B-01: QICore baseline `qicore-2025-actual-results.csv` is stale (800 qicore-only cells reflect engine-version drift, not real defects)\n\n- **Symptom**: 800 cells across the suite are classified as `qicore-only` in\n  `engine_shared_issues.py` (CMS engine matches expected; QI-Core baseline disagrees).\n  The CMS engine returns the value the fixture MeasureReport expects; the locked\n  `qicore-2025-actual-results.csv` returns something different (zero, one, or a\n  small whole number that doesn't match either engine or expected). This is the\n  inverse of the E-class engine bugs documented elsewhere.\n\n- **Mechanism**: the committed baseline was produced by an older QI-Core engine\n  invocation. The CR runtime version (translator 5.2.0, clinicalReasoning 4.11.0)\n  has since been refreshed; several measures (most pronounced: CMS72 / CMS104 /\n  CMS1264 / CMS128) re-evaluate to different values on the now-current engine.\n  Some of those differences are due to translator-version bugs that have since\n  been fixed in the upstream engine; others are new behaviors that the QI-Core\n  baseline file predates.\n\n- **Per-measure breakdown** of the 800 qicore-only cells:\n  * CMS72FHIRSTKAntithromboticDay2: 236\n  * CMS104FHIRSTKDCAntithrombotic: 156\n  * CMS1264FHIRECATREHQR: 152\n  * CMS128FHIRAntidepressantMgmt: 134\n  * CMS347FHIRStatinPreventionTxCVD: 33\n  * NHSNAcuteCareHospitalMonthlyInitialPopulation1: 27\n  * CMS122FHIRDiabetesAssessGT9Pct: 12\n  * CMS165FHIRControllingHighBP: 9\n  * CMS125FHIRBreastCancerScreen: 8\n  * CMS2FHIRPCSDepScreenAndFollowUp: 7\n  * plus several smaller slivers across other measures\n\n- **Tools (this commit)**:\n  * `scripts/extract_population_qicore.py`: parses a directory of TestCaseResult\n    JSONs and emits a CSV with the same schema as the locked baseline. Refuses\n    to overwrite the locked baseline unless `--force` is supplied.\n  * `scripts/audit_qicore_baseline.py`: compares a fresh extract against the\n    committed baseline; produces a Markdown summary of added / removed /\n    changed rows. Never overwrites either file.\n  * Tests: `scripts/tests/test_extract_population_qicore.py` and\n    `scripts/tests/test_audit_qicore_baseline.py` cover both scripts.\n\n- **Resolution path** (off-repo) requires the QI-Core engine harness to be\n  re-invoked externally and the resulting TestCaseResult JSONs to land at\n  `input/tests/results/qicore/<measure>/` (or to be fed to the extractor\n  directly):\n    1. Pick a sibling QI-Core harness invocation (e.g.\n       `dqm-content-qicore-2025`'s evaluate pipeline).\n    2. Pipe the resulting TestCaseResult JSONs through\n       `scripts/extract_population_qicore.py --output <tmp>.csv`.\n    3. Run `scripts/audit_qicore_baseline.py --baseline scripts/comparison/\n       qicore-2025-actual-results.csv --fresh <tmp>.csv --report audit.md` to\n       preview the diff.\n    4. Once the diff is reviewed, re-run the extractor with `--force --output\n       scripts/comparison/qicore-2025-actual-results.csv`. The catalog will\n       then auto-resolve affected tests cases / cells and re-classify them;\n       those tests will move out of `pending` if the genuine test outcome is\n       `pass`, or into a fresh E-class entry if a real engine defect surfaces.\n\n- **Status**: **Confirmed** (2026-09-05). 800 qicore-only cells classified;\n  no automated regression in `excluding resolution-pending` rate because\n  these cells aren't enumerated by case GUID (they're measure-level \"QI-Core\n  doesn't agree\" without a corresponding (measure, guid) anchor for the\n  pending set). Resolution requires engine-side + commit of fresh baseline.\n",
-   "summary_row": "| B-01 | QICore baseline \\`qicore-2025-actual-results.csv\\` is stale (800 qicore-only cells across 20 measures reflect engine-version drift) | baseline | **Confirmed** | **None — requires engine-side QI-Core re-run** | CMS1028FHIRPCSevereOBComps, CMS104FHIRSTKDCAntithrombotic, CMS108FHIRVTEProphylaxis, CMS122FHIRDiabetesAssessGT9Pct, CMS125FHIRBreastCancerScreen, CMS1264FHIRECATREHQR, ... (20 total) | 800 |"
+   "affected_test_cases": [
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "002fcec4-89ed-42be-a7b7-41fa0acddf8c"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "003b2da3-b46a-4b24-91be-65ef27eef3bc"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0045ec92-0b70-4961-8a7c-41b5c43d53a1"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "00cd231f-4460-4d84-8e04-d8b0a04d8afd"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "01959faf-5ea5-41cb-b960-b74da18cca85"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "019de843-7347-4a25-ad9e-2a4ca3a84054"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "022c05d8-8337-4f1a-9d69-abb6500b1be5"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "025529dc-5384-4544-acb2-c2b6f7c9a23c"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "02cdc116-49ce-4277-ad9e-de6bc2a3274d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "031e746c-9c2c-4eea-acca-a26c8862c9d5"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "0353da56-ca21-45d3-8f96-8954167143ae"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "036c2c6b-c5b7-4e1f-8a85-ac0787e3a15d"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "0405033f-c6a4-4619-93da-14c9c5613d7b"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "040dc7b1-27f9-43a3-82c9-b1a514db3071"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0438e6ec-b6c0-422d-b8c9-074e5f8d9af5"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "048b1f27-6343-4bcd-950d-e228de06aa9c"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "04c67cc9-bf23-4f31-988c-8bac7e96f938"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "051c5977-9f2c-4e8b-8e02-ac3ec0c718d6"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "051c9480-438e-48d5-b91f-5f8f980b1f8b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "056a27fa-04fc-45d6-bf3f-07482f8db4a8"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "05afd17d-f9a0-4588-bb3a-ffefd2f6c271"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "05ec524f-1d2d-4f9e-8eaa-cc2662030fc6"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "06f036ce-62f0-4807-88d2-f3f8e70d2f31"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "072be19e-9540-452c-9d7f-03c104cffa97"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "072fc02e-93db-449c-a293-2e8525a49694"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "078ef6a8-509f-4f36-98f3-977174636356"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "07efd4bb-b45d-4bfd-aeb2-08de49742d91"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "0852e05c-94f3-4467-ad2c-255ffc5050e9"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "08a2c605-1316-4d3c-b26e-2b40a28a2e44"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "08f8343e-9a9e-4ff5-b21c-1fb44e29aa9a"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "09431e3b-b1d9-491a-b6a3-76b3868e6213"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "09a132b9-b03c-4a8d-a09f-f18c544bb660"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "09a4fe70-dc7a-48ed-9b97-47f0a119eabd"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0aaae01e-d3b0-4b76-abf8-a044fd4f5d80"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0ba942ff-50d6-4123-ab21-adcf5fdff0df"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "0bc6d4d8-81a0-42a2-9efb-9efbfc3ebe2a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "0c0256d2-a6d4-4ed3-bd95-ac7d88108b6c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "0c8a299c-b082-4383-b0b4-aebbb0fa9fb4"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "0d2e80d0-d70a-4eba-9bfe-23d1dfeb546e"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "0d48b3b3-c5f0-4955-810d-eb4f1b8714ca"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0e334f85-c298-401d-95ab-bad7ae13ced8"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "0edb029c-ae5a-492a-ad4c-79ea0f8059d4"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "0eecd949-77bf-4ded-bb95-40e11c2116c7"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0f204e98-0782-43a3-ae53-b516cc8d5797"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0f853b02-7949-4d97-ab69-1e48045afe95"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "1051c571-b7e4-48d1-8e77-02b1da164b73"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "10a6f006-eabc-4a40-80bd-2a135e45e597"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "113a6e72-7049-4a7f-90cf-5ec3435b0dee"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "11703274-1218-440d-bb98-08502a794179"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "11fc1901-7cc7-46c6-bbd0-58b614082170"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "1216ea1e-aee7-4c75-8e5d-7f712f6ba3f7"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "12fda733-0b5d-4f3d-93b2-59c35ba85898"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "132a7880-8f4a-4b0c-a7d6-3f5a8d6df0b3"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "13ce1b7d-3af6-4ef3-a4ae-6cd7c3075be8"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "13d790be-84c6-438c-b571-842698654db7"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "144370a9-c9cf-43db-ba18-f92f4f8cec29"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "146a6714-8663-4f45-826a-01110ff34490"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "149c3a7c-2b80-47f8-b50d-5c1d233eedb7"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "155afb0b-baef-4e1a-8255-dd3bc96c9c0d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "15d7fcaa-773f-4888-8b13-bc077cbfdf4a"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "15e67912-9913-4b22-9f1b-3e86879e1d6d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "16082e3d-b9c6-4823-87cf-d079e65f073f"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "162a5913-9989-42f2-8d6a-ae460e245e4c"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "16acd0ee-60e7-4573-b433-5a9c335c145b"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "16cffb87-15ea-48b7-bd68-f211f48d6f19"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "184b56d3-9ebd-4802-8e3b-cdaa95a5f50a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "187cc99d-9cb5-442f-8201-3695e5358101"
+    },
+    {
+     "measure": "CMS819FHIRHHORAE",
+     "guid": "1994e69a-472b-4e32-80c1-5c692f36acce"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "19feaae6-8985-4444-9182-d3c785698710"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "1b450176-8caa-4133-bc9a-c066969f72ce"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "1bbf669f-a5f6-4dde-a8b2-1be100394e18"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "1c06a652-f116-4307-80b7-342c16d20de1"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "1d166b9e-0d11-4247-a9a8-f610f36a74f2"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "1d3021bb-b593-4efc-af5b-320243bbe9b7"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "1dc53422-497d-492a-8aa4-8a165264a14d"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "1ec7f3ad-fe6d-486b-829b-101ebb721824"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "1ef5e77a-dea5-4f1f-873b-44ea79810330"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "1f58a561-bf40-43dd-89a3-8d590013ee1c"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "1f70822b-c513-4c3a-8162-49f0bb9c914b"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "1f8035de-4255-434e-a32f-b97039ec57ff"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "20922873-db29-4914-a413-eed415e4504b"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "2105cba2-6e61-487d-a737-3efe876028e8"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "21b841f6-b863-4c1d-8798-41c527b04a92"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "221f787f-b5b1-4e16-ab64-6ab9d3e8744f"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "228562c7-76c5-42e1-b4b6-0b952faa75c4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "231a16e4-7d60-4e2c-943b-2f4c98994808"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "2326f161-b68e-4034-91cb-4eae3c2ba587"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "2333a56a-8346-4afc-93a2-0626a9a1ac2d"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "23f874f8-e7e6-4bee-aa0c-140afae4ac16"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "2402a44f-a5bb-4010-9045-123f5cfb976a"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "24068f4d-3179-4f2f-872e-02e3b362cac0"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "24a5102c-7e6e-4ec6-8433-737b0fe8c854"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "24ab1538-bc59-454b-bd24-961288f4eea8"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "24acf4a1-d67f-4584-9b6b-6c8025ffcc0a"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "25265601-4e27-4fe0-8d35-68ebac8f9894"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "2585c4a2-7b38-48e4-9317-19ddbbcfa107"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "25bd7c4f-0cd4-4634-a84e-53377e5701f1"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "26101306-010f-48c5-aa83-8a94f280f755"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "264ec8d1-8e92-4b73-a6cb-e8856b22890d"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "27111f10-365a-4ec3-a918-f856c687211e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "2727681a-5857-4de1-a892-0cd4e531541c"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "27fca7ba-ef00-44ec-8d97-919908f42495"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "298d5342-fa0a-4386-bf48-b9c977a1c367"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "298f3f92-5047-46fc-ad92-9f27887ffc55"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "29effff8-4b34-43a2-8619-c69f02688f41"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "2a1812bc-465a-438c-934c-e85a3591512a"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "2a1d8b51-131f-4552-90f7-59ca5a7979ce"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "2ac59cce-81b8-4060-9452-9a35fe580c6a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "2ae1ab8a-7ef3-407f-a218-d6b304c8c298"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "2b0d7791-29b6-4f10-b72a-b6a50667770d"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "2c2a7958-4d1a-4142-9360-8045067a1c5b"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "2c5a09d4-18c9-4128-86fb-bd49871f9231"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "2ce50e7f-4e04-4d5b-9d9a-2243958c2a92"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "2d132665-a998-4d23-b316-3112cc046a67"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "2d54a94c-edf1-4f92-baf8-3813a8ef452d"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "2dbbdad5-c2dd-42a4-9f6d-f8815bc89a0a"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "2e0b5b75-22d9-4607-b8fe-f31c86620554"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "2e1ee160-9c41-4c6f-b368-56c074cfb592"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "2ea03a1a-cefe-4eac-9e34-7bf434b30d2b"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "2ecbb381-211e-421a-8053-21c820f33043"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "2f695158-3d0a-42ac-b747-dc355ed01e94"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "2f7681fa-66b0-4395-aa35-7622e37709ae"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "2fbd48f4-a5c7-4dd9-8318-745f49cc469c"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "2fc54731-4fd9-4884-aba5-9a8385111375"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "2ffdd04b-5cee-4904-9ce8-2f68dada9941"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "302f7629-15c3-4e52-86df-5677eab6770c"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "3137d292-5094-49ef-82da-d9809b599030"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "314e78ef-a347-41bb-bce3-4b4ed18999ad"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "319cbdd5-a6ea-437b-8162-a7af346daa63"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "324eb2e7-2beb-4c84-88ff-bdf9fa5d8171"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "3264d587-3c02-45ff-b989-044fcc30abae"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "326c4d57-1c4e-498e-8975-ceb9913c28f8"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "3302c6ff-8767-4be7-9c81-f1d98351b247"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "3432dedb-7130-4614-9283-6c1569fab90f"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "348471db-5aaa-4bf3-a280-75222f20d599"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "34d3361c-95b3-43bf-a2a8-380914e06acb"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "35999af4-f52b-4e73-8f05-4bfca8dee7ec"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "35d9e119-50ef-4df1-b303-f348596657ad"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "35fd427f-1233-4f3c-b8b3-9e400755da8f"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "362e32e9-4f68-4917-811d-7a39eedb4b66"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "36408f0f-58eb-47fe-8e64-1b98e47e5c36"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "36e30d76-0d86-4b72-ba89-4ebaacf48b31"
+    },
+    {
+     "measure": "CMS1173FHIRDiagnosticDelayVTE",
+     "guid": "3739ae38-6a2c-4197-bda6-e493c9df60e3"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "37e926e5-d9d4-4066-b991-e9b3d58fd8ca"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "388557b1-cf25-4750-88b2-751e475b433f"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "38aac591-8983-4d7c-b29e-c8d145e7ffaa"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "38ed8b42-1631-4673-aa53-6d2a4db163f3"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "39d8c5d6-d3ed-4cfe-b62c-c8e57a45508f"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "3a4004a0-b352-488d-8c18-8fd023308646"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "3ab3ac1d-9b5e-4087-8862-dcb2562fb90f"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "3ab85f43-dd45-4827-8f13-ad9d1208d2e0"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "3b1c14dc-b18c-40d9-b848-c750ea4ffe5e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "3b5da2bf-0fb9-4efc-bc54-4bd329ed31af"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "3bbbeb07-97d4-4f25-936f-a0c1e81303e0"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "3c4aa676-8ef0-415c-a71e-09289d57cbfa"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "3d4b6868-31ce-42f8-87c1-ab06d851d53f"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "3da60e55-4952-4341-b2eb-a79707f4ec3e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "3e09af44-0445-4077-b73c-6896fdbe49c5"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "3e86234e-4999-4e8e-a4a2-420d1343b079"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "3f089430-0edb-485d-9844-b2c58fb715e2"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "3fbd6ec2-8d40-45e7-90d7-747d7c491c1a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "402afca0-63e5-4ede-9110-fef8edbba947"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "404c928b-a752-4792-91c4-8a1fd0656759"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "40500bf1-592a-4afd-8b0d-cc1fe3947190"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "40aa228f-ff55-4653-8bbe-125dc0fb5983"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "40b4796d-dba8-4232-8cb4-8daf5d13a554"
+    },
+    {
+     "measure": "NHSNGlycemicControlHypoglycemiaInitialPopulation",
+     "guid": "40b66b90-4811-4f6f-8eec-c46d1a5e6eeb"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "4120512a-d0f4-4ffa-acd9-0191db3b7f46"
+    },
+    {
+     "measure": "CMS71FHIRSTKAnticoagAFFlutter",
+     "guid": "4151585a-f621-4de5-91df-4e4227e2165e"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "426369f7-d9ec-4923-8628-465229c5f958"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "42be9d46-4c2f-4493-8299-d33dcbb7170e"
+    },
+    {
+     "measure": "CMS22FHIRPCSBPScreeningFollowUp",
+     "guid": "435d23cc-57ef-4f7f-aec3-c7ef524d5cd1"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "442a40d5-a18e-434b-ad30-7760e73adac2"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "449eb3e6-3c46-439c-95cd-125aadd27e82"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "48952352-d74c-491c-9420-6e999e60f52a"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "4911c0c6-22e1-45ad-b39d-7e4d88c200d8"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "4974042e-fff4-4a3d-905e-548c6593ce40"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "49c6ee4d-15cd-422c-a511-b7ba3d55b1f6"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "4a3086cd-63f3-41c3-8ce9-f75b4b18b85c"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "4a7a2cf4-6073-47a0-9012-ea9b32e6e9db"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "4b6a9c86-3aad-4828-be61-bab6cd0c3140"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "4bc4883f-0770-4a68-824a-5fa4dba72638"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "4c234ec0-3f89-4d55-b767-219d1130f634"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "4c552455-4056-4466-af06-298b4399c6f7"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "4c8a6a20-c5cc-496b-950f-68d6997bf4d1"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "4c8f4dd1-193e-4239-80ac-63e9ac2bd053"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "4c95d881-2e7e-4e81-bb4c-b1ae680ff286"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "4cc0d4b2-9c45-4f7d-9dd9-b8588b27e2f1"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "4d13ba5c-740b-4263-ae55-3a40a3f73846"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "4d192f80-7649-4afd-a842-528ef60fc904"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "4d76c150-b6a5-4a1a-8801-81c24ce398b7"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "4d94ffcd-39a0-4e40-83c1-6093ff82d641"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "4e2ad83d-ea31-45e7-92cb-07fe319aaf38"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "4e7be08e-1f6f-4d44-bdd2-807439ce367a"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "4e9a1928-a33f-4be3-aa05-c69e9fc4bff7"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "4e9c7cf3-c1ae-4110-9ead-86fadfbbf3e4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "4ea5e47c-48de-4f1f-a7bb-499753983f9b"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "4f8b0ca2-baf1-4ce6-8b9a-c3220097cf7c"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "50270eff-f1ed-4cb3-b22b-467d89937c3a"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "50c7b2fc-879b-4088-88bf-36a9f8c0baf0"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "52790be5-0f6e-4ebd-85f5-57f35db8b56b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "528c61cc-7733-4dfe-aa51-61652a12b2a9"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "52a258e1-0a79-4bb7-8f50-1aa519aa4e00"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "52b48d35-f47c-4013-9cdc-700baad0fc0f"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "5339dd62-76a1-43b3-9965-d8b61478236a"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "5355d1bc-f8b4-4063-945a-0717e9530281"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "537d14db-6ced-4cd2-9553-e88bd6551771"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "540b665b-e89c-466a-9ef8-758b3883a37c"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "543248c8-b6af-407d-b435-7e867c4770b4"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "54381296-da32-4474-85b7-209d99c52e7e"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "54b4b9a9-00fd-453f-b8c1-61c324fa68da"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "559a2377-0faa-44f8-bf81-bbf3df4d3edf"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "55f7d07e-a8ec-4abf-9bb3-b9b3f81d38d5"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "5736982d-6c82-4815-b0d2-3416ebe105f4"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "57da77da-de92-4ef5-9311-1d86e67c9de4"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "58169ea2-037f-4302-9c37-4239fe24f73d"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "5914457a-816c-43fe-86da-07fcc42ebe61"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "591c23ea-1ddd-4800-9203-4b6946979818"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "593382e8-4ad5-4300-b0ad-26c8954281c6"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "59715b85-2d66-4627-ad73-d91e5862cb5b"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "59743016-0222-4c22-bda3-48fa09e5ceb9"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "597f0a09-29f9-4141-804a-56a1fca5352e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "59d6bb14-b82e-4295-baf1-d96be73e1e38"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "5a329008-fcc1-4168-ab9c-89cb5dd6ff32"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "5a85d133-acfb-40fa-a3ab-0c557d21e67c"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "5adba588-db7d-4921-be95-4fb872be59de"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "5adc911a-c2a1-475c-a347-9da4ee98c6df"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "5adf0120-b2f5-415f-b1ff-1684d9f4af7a"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "5ae9589c-1301-45a0-af30-ac7b679b649f"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "5aee33a0-e42c-4a79-97b7-40e7ac8b270e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "5b37b5a5-0e28-4b28-9889-8878d41ff9cf"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "5b7e720f-e2fc-4779-9b1c-3f34a0241482"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "5bbad8cc-56b9-4802-a5da-7de376a461f0"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "5cebab0f-d32e-4adc-bef3-90812d6c5819"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "5d926cc3-70dc-4c82-9513-d39f01765baf"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "5dfa0337-c807-4847-8960-94fe1718ae1d"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "5e4e034a-475f-476a-a8f7-cb0d361508ab"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "5e76e39a-8a30-4035-8d44-3362f4826aa7"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "5e965079-8e53-4011-b4e8-cb3829257450"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "5efcd4e7-f71b-48a6-badb-b1b88c02f161"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "5fb0b78c-ffd3-47c3-91a3-252bc4a70177"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "5fd0d626-e9c5-4e6c-a10d-1a1183fa7702"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "610c90c9-f387-40f8-9bd7-710d20dfd6f0"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "61306767-0e74-44b8-ac06-1339c3783355"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "623a7f40-c265-4e42-a5c5-6f54e20b19df"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "6252a858-2362-4c63-8d7d-6db0b7ac9299"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "63cea3d6-d2e0-4736-a035-87633ca960bd"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "6409f1eb-d338-4bf6-a3df-4da1eb997c48"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "641aaa7a-d227-475a-a648-9c048522b62f"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "64a75df8-8bed-49ea-9c90-ee3569d233df"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "6552cc29-c4e2-441f-9ae5-41d3a2f5aea4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "65c0a8c4-c562-4f73-a534-d7f7a976e42f"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "65ef54b4-48ea-4fc0-a9a7-79b3be807393"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "666528ac-0d94-4b09-8e6c-c5930b7dd17c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "6678ed6f-3c94-4630-a7c5-d35a003b4535"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "66803f75-5dc5-43fb-9844-f18d765a64ec"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "66ef197c-3807-41cf-acd0-f188836e2762"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "675ba5dd-80e3-4a2b-bd96-0b0ae9df1533"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "67779bc6-07ee-42cf-8ca7-e71302915dba"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "67df96df-45ff-4387-bc4d-04055a95483f"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "67e19058-917d-43f8-98d3-d16730fc7d32"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "68c4dacc-cb3c-423b-9fde-899dfd05b5f6"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "6919fd23-aa69-4a1a-a07e-4752cdc53f46"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "694248de-4f73-4557-816b-f6a932f15793"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "69f6fe89-2983-4d35-a12a-b1ae92cc9c2f"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "6a86918d-3f69-43c8-8863-1d0bf835a2c7"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "6abe0474-e60b-438d-b661-4be178e6b4bd"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "6bbc3f38-7f5f-4da9-9beb-eb32874fd1ed"
+    },
+    {
+     "measure": "CMS1188FHIRHIVSTITesting",
+     "guid": "6c08efb1-922f-4e66-98bc-0de25182e723"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "6cf089cd-0c1a-4e4f-b8d9-11c0db757c4b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "6cf51e7c-99f4-4c6d-9b1c-6e371c96b742"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "6e82e823-f955-43fa-8b8a-b9cd4ae27778"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "70306180-c713-4fa4-9c39-ae3b15e15d22"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "704612ca-2d86-4f6b-88d6-d8f3e9cb031f"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "70a5b41a-14ac-4e08-b661-d5523ad80fbf"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "70e86911-43d6-41de-bfb9-933d8f539b98"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "70fd1056-5313-417f-bbbe-9f2bacf942bb"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "7111ea79-9b4a-4452-86cf-22b8852bc5eb"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "71846c52-343b-4e31-95e1-b1f44cca0128"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "71dd3794-ce93-473b-8d90-9d68c0dac6d8"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "72845b60-dc5c-4a93-8b86-2caca155cd9c"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "728a543b-9149-4b2a-9e65-3fb41ce3f35b"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "729c5ee9-d55f-47f2-aee1-d8d9fb25fe38"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "72a0fde9-7145-4b6c-ac08-75d41d04f910"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7317795b-638b-4d0c-9e9e-b55ade45958c"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "73673965-9b35-446e-bad7-1701991e6906"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "74855a5c-bb3b-438a-9eb9-7fdc1994d06d"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "7488d3a7-f4e1-445f-8375-d3fff29f080d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "759a89b4-51ed-4622-adae-6b0930701ebb"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "75fc7993-6b07-49f8-a8aa-747dfcbb3d8f"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "763c581d-7398-47e7-ba78-eaa5853df551"
+    },
+    {
+     "measure": "CMS1188FHIRHIVSTITesting",
+     "guid": "77973e2d-625a-4c4f-aa69-2c716af0ad3c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "77a6cd7b-4322-4c29-b248-64d8af106ce7"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "77b28b84-d0aa-4aa8-9a07-2922938394de"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "77bba430-02fc-4ac7-ab49-f57fd73daa9b"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "77c1bf41-fce8-4044-9eeb-c205b8fdc0a9"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "78cbc6ac-f30d-404b-b539-6b903c7cfeba"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "790f8993-7a03-4ed7-94d7-c0e95587afa0"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "798bb898-32dc-4f83-b700-792efe0a65db"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "79a2dd53-a342-41d9-a5c9-1b565bd06fe7"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "79e4e453-f52d-41a1-a86b-4229a89733c4"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "79f6bb60-1bdb-4dff-857d-65311e9ccea5"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "7a273d18-942a-40d1-9bf6-a12275337aae"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7abd0282-c461-4c61-9669-f261a689f485"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "7b1ac1a8-b7be-41ec-a77f-db545af22263"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "7b8885c5-ad14-4361-9755-c76a6e3b8530"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "7bc28f33-e1e6-4122-8a38-e9c36685a6ba"
+    },
+    {
+     "measure": "NHSNGlycemicControlHypoglycemiaInitialPopulation",
+     "guid": "7bcb6920-f361-4121-82a5-31fed13e65d6"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "7bcd79b7-7898-437d-b563-cfb9068df210"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "7bee402e-2687-4813-9b39-37d723663d18"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "7c3ee345-c9da-4ce2-97e8-727de2e5023a"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "7d6436cb-995e-4672-b5bb-04cb996b2949"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7d9affce-5c31-4fcb-b9e5-c0304c3f9406"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "7dada0a7-61dd-4375-9863-38d08bd6d676"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "7dd19e80-23c6-4e31-86a9-bb833cfc676b"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "7e22eabf-ac1f-4209-a8f6-dcc8b548b71c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "7e3bf20a-7a5b-4d50-aa34-267ab19da7b2"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "7f26eb5a-f877-458b-b960-5de7ffa5b4d0"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "7f62a1c0-a39c-41b7-98b6-5877db9755b0"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "7fb4cb03-569b-4c0a-8898-abe49d609c0e"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "7fbb7e37-228b-4b3b-8974-871a3e798720"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "7fc4e721-68e5-4ed8-ab41-b5fb0d1ff43a"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "7fd4f9cd-8fbb-4935-9bfd-959c538166b2"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "8068a81d-feca-4719-aa75-cb45df5428e7"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "81dc5bb4-3273-492a-beff-2f7b0394f3c8"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "821087e5-a030-49ac-95b5-5b9ab38e88da"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "82399522-ba6c-4997-afc9-23f55bb7da89"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "82fd75d8-4816-4d24-b18c-0e454c430eb5"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "830e69d7-3820-46d6-9222-9d79323d0194"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "836cdd6c-bc29-4752-9beb-c336d26f0ed2"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "83e7cc74-5ae5-4fb9-922f-15faa555890a"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "844d9440-ab79-4206-9893-bcf9a786970e"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "844dab9e-f34d-41dc-bd89-1440551471a6"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "8493a3fb-9501-4aa2-83a3-39fbafa6644c"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "84b7f540-8e30-41e8-9691-f9ccd6924e0d"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "84ed0de7-7cfb-4ac3-96a3-3c854eff391a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "8559361b-b9c4-4819-88ea-985c27c2ad51"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "86bacb29-41c3-4ea8-8e4b-3e13c075e557"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "878aa680-2642-45b8-b103-5ef96188b5ea"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "87b32275-37d7-4adf-afa4-8a4518964de0"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "87b7df35-0de4-4c6a-a030-8afac02454f2"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "8873f644-9b17-4ee1-9152-8c77c7374bd1"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "88c4fed3-bef0-450a-b9ff-d736d4568838"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "89275dc4-f4c1-41b5-a215-9c7228933cc0"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "8a407b28-6668-43be-9148-31ed08b8c0c4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "8b0f2e04-8c60-4f6e-adc5-8967a540a18f"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "8bb45bbf-4685-45ed-ab5d-004f87214748"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "8c357499-cb9a-41c9-9060-1bbbefb0fd7e"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "8c41481d-f89e-4113-ba12-df7c53e93d80"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "8c717fb3-e820-44c6-b4ef-e9a7f46cd85b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "8d89307b-7ec1-4262-93cc-e1b4ef76e326"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "8de031c4-05db-42db-b0e5-902696c6e495"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "8e28076e-2fc9-4170-95e9-a4de9e04fd5e"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "8e43bc64-4242-494d-b47f-fdbbd3372bbe"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "8fabf398-d258-4613-b8d8-12bcbc273dc8"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "8fc3dac2-816b-4ef2-b14c-85264bb3f2c4"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "8ffa77ff-8591-442d-84b1-6c6cb86fd09e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "900f47c2-3615-4ffe-a9e0-3e7e70469ffb"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "9038ae82-f60c-467a-94b4-76e644e707e3"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "9098f676-4f4e-402c-80e3-331aabb6d414"
+    },
+    {
+     "measure": "CMS0334FHIRPCCesareanBirth",
+     "guid": "912e076d-3b5d-46cc-b2cb-c78172b295a3"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "91d5385d-09ac-4206-b009-0c7feffc22ff"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "92e567b3-9d68-4c50-9be6-36e0ca7b96f5"
+    },
+    {
+     "measure": "CMS819FHIRHHORAE",
+     "guid": "93064568-a739-403d-853f-a3150bd8f752"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "93459ee6-e397-477e-b7da-250fb75f5974"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "9377a6c4-cb7a-4e87-a8b2-c598a5b0e2df"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "93798745-af1c-4eb6-8dc4-446a531c05a4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "93aea3e2-4736-4be0-830f-54c1ef6df6d5"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "959743cc-af58-48ff-afa3-68428e69f0f5"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "95fad34f-db86-4e4a-a8a2-42a3b7ac15dc"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "96266910-a2b3-4294-9dc5-8a812622b70b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "964f8143-6ff7-4b80-ad76-4dc59de2af37"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "96c7b8e3-2c28-4b46-a579-f56d644cf762"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "9709553b-acb2-4267-a57f-ae9d51e82659"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "97b72f42-08ae-4f6e-a7c9-1aa42f33ca90"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "980e3550-6c75-4c4d-a64d-0657107e7cec"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9843e92a-751f-4b3c-86b8-50397a64c8fd"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "98561005-400a-4b9d-8902-f04605b6b168"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9915271c-d175-41e1-8550-2f698a2b9dc7"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "991879e8-a1e3-4014-a71b-7c6bdfbc9748"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "9933efe1-3258-4c1b-8162-258f85831467"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "999617b0-b41a-4a82-910d-f707ce1d7779"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "99ab4b63-b8b7-432c-91a6-fb38ba7203dd"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "99f28510-d75f-48d3-9f36-69739bc27419"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "99fbf673-e18e-43db-bccf-6edc67fcb13f"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "9a06f385-0bed-4f35-9af4-1ff7971c07f5"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9a297d79-90eb-46f1-9068-1a7c7b6c7147"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9a42c820-29ec-464e-b2f5-eb8114985a0c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9a8c51a0-bf53-42b6-927d-c1f90b81a31a"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "9b5e4d84-366b-4082-8409-b7e18e0a3c45"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "9b637e49-9b8a-48c1-8304-ec5984bc47fa"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "9bac5045-01af-4350-b54f-63ab17f3ba9f"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "9be591a0-517b-4be2-b652-a29be0c75c15"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9bfee327-99be-48de-ba09-5b64e4435f8d"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "9bff7002-9697-407d-a42b-9debdafc9695"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "9c2afd42-581e-418b-9eaa-3ddf4918c9ac"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "9cc50dc3-f081-4ab6-bf6d-cbfabb5a2e89"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "9d197057-c39b-4799-ab3a-b81df7a6199b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "9d5d4ffe-710e-4b5d-b84a-ba4ed2de06dd"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "9eb59f31-41dc-401b-9057-b8c8361f116c"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "9ec1a135-fb47-4c1c-8f6b-98afab15274e"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "9f18a5c2-e59f-4582-91b5-401a86234284"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "9f4bc5cc-b5a4-4d67-a11f-9f171b62fd9f"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "9f77830b-ff7c-4060-bf38-295b215ab56d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "a0202aaf-756f-4d08-8329-8fd585ddda63"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "a03e2988-3bed-4fc5-b1e7-70eac99f0612"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "a0ced1fb-191d-404b-80f4-761e51cf9de2"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "a0de0e88-9054-45d4-a417-3b9ea5ebe78a"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "a11dce52-c6b3-46e5-bc01-8994b0c8f471"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "a1a37483-1a67-4dd9-a8ca-b4d49a28a19d"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "a1b4a442-e924-4565-a942-42ad54d2b14f"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "a1ec5d8e-4926-456a-8523-786a93f2348b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "a20036b7-297c-4adb-a7f4-4762c75f44f5"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "a245856e-f7bf-46a8-8742-f84d87c6d5ef"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "a2563ca7-fda7-4cfd-a5cf-a688225749e2"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "a2cb4956-d7e5-45a9-8007-80dcb893203c"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "a3169726-4d3d-4a3f-8175-67fd795191a5"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "a3dd602c-cd84-4e7a-aa37-eae4b15fdf4e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "a3e0cca4-bdb1-4972-b6ca-84841cb66859"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "a40966e2-5640-409f-9596-65c03db31424"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "a42d4cc2-24ca-4637-889f-276bcdd1e7cf"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "a45954f4-f511-4409-8d7a-6ad606d1e5e2"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "a486908c-84c0-42af-96d2-efe65453833f"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "a5307581-654f-415f-912f-cec5e9dc00dc"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "a579d7e2-37c4-47ea-937d-524bba26ba2f"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "a5ee17bd-75d5-4cdc-b2eb-bf22014b7ba6"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "a5feebb4-d3c0-4435-aed5-9579b75a8a52"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "a6c8dee0-0110-4814-ae0d-37a2a03b2f72"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "a779556b-5041-4d85-9c5f-9af223961ff2"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "a7b90108-4f50-4164-87b9-73817e9fdac2"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "a7f7eb97-a44f-4394-bff6-0485ae59bc9e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "a8083d97-85af-4e1e-8770-30c49a287194"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "a86dcf01-3c5f-43ca-a426-c118d5974332"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "a938e0ff-51b3-4001-b33e-5fd2c00a9147"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "a994dd9f-d7b0-441d-8358-1287d75836de"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "a995bd9f-dec6-44fd-9b1f-458509443b91"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "a9c3e62b-fd84-4701-8024-7e3e60af9ed1"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "aadbfade-4898-4931-9e11-e5d7ba64ab27"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "aafbe467-9603-443a-8397-d5c337ebbdc6"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ab024aef-425c-43ba-a856-882a3e3c91f1"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ab28178c-eadb-41a3-861e-ee22c8f12d16"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "ab43793d-af43-4960-8b9f-012f23a08822"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "ab7f5ace-9ac6-4077-bee9-444abeac4f51"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ac23e6a6-3f36-49db-9eba-2da744a41c57"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "ac56c496-c5d6-4c23-be20-130ee8327fd2"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ad35c913-a8ba-4d29-b6e9-8652aa5ca20c"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "ad471f87-60ee-48b9-95b8-80f35eb230dd"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "ad8c4056-7c25-4dba-a861-ec201afd16fb"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "ae8b8236-bf9b-47f9-9c71-4655bca14aba"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "afad0252-21ef-48ee-9a5a-33dab92d8709"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "afd6fd51-72ff-41fa-9cec-7591ab6f5a51"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "b05ea6cd-9b35-4798-b15d-edc8593c2d33"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "b19af44d-fb1c-4e78-a0dd-170c6b61718f"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "b2abcd36-fabd-4d6e-93c4-2dd430f4969e"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "b2fd08f5-6a75-4221-8b2d-eb28f45ed981"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "b3043789-f91a-42f6-848d-6bfd7df331fe"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "b312fbc9-083f-4832-8d7c-d3e64df4145b"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "b35ba523-abea-4848-8dac-256c1727447c"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "b3d69ee8-375d-4039-9b92-c829cf29e154"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "b4219e21-be97-4f81-8a31-fee0035179c8"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "b4cd9b20-6d41-4034-907c-b24e362a0699"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "b536acae-02c7-4c6e-914b-4ea199d98f79"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "b569157b-b263-4b72-ab40-132bea1d8f71"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "b65680a0-9768-4ce4-b08d-972fcd84e28e"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "b6995e3c-319c-45f1-8aca-4db81b6730f6"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "b6db1aac-34f4-4883-a728-ba988a26c3de"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "b7060d53-0742-484c-a9b9-3ff63fbb8d5c"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "b708e603-c09f-4798-9631-4603653c1380"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "b74609f2-2fe7-4969-8b2b-215e7c21dfce"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "b786e9d7-b4ae-4cd1-b7eb-a6d4f789424e"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "b7a34d3f-446e-4a40-adff-595b8614977c"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "b7d36e19-a42e-4b09-a83f-4525cd7de100"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "b86e54d1-f8ca-44b6-99a5-d455c5649104"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "b9d52b97-7602-457d-a96d-a1950a01b42a"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "ba2a14bb-ba5f-4fd9-b676-ed0808280f23"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "ba8bb5f1-966b-4ac1-a311-b2550c0e4858"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "bc710459-b3f7-4a3b-a640-3bf541fea336"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "bc79e5bc-237e-44be-b5fc-c5c4efb50286"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "bda91aac-a815-4a22-b505-36cef1080d49"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "be29ff82-9191-4b5f-91ca-cc5590fea905"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "bf0200ab-3e37-4e90-8517-ffb351f2e563"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "bf0f8968-c2c0-4416-88db-11ea3e3da968"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "bf38398e-4c04-4808-af1c-ea0c86b44d45"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "bf9e53b4-e10c-4a11-a9be-8d5b944c1d51"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "bfacfb96-e784-4346-bf29-a20359dc0ba5"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "bfb8c317-cc95-41cc-9d3d-e1e66dd5b168"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "bfc497aa-308c-4113-9a36-21c6e17c3802"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "bfed65eb-7ece-4d24-8470-4e9803b6b7f7"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "c00d7354-2160-48f4-a251-1fcf892d1b42"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c014ff5d-792f-45c9-9659-4999537005b0"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "c0736fec-a1e6-4d86-b39e-2d2bbca87a09"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "c123c20a-c9c3-4acd-bead-8cc61e2ba29f"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "c143148d-84ca-433a-a312-37c3f92b61cc"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "c15bee15-84c1-494a-ac82-2159b06da175"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "c1b0ea0e-73e8-4b74-bbae-4cf2504fa9e4"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c1ee2b07-f5a7-451c-8bc5-cb97b1cbcca2"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "c3180c8f-a14b-4c8f-8a3f-6f092f3df8c3"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "c3284314-fe9b-408a-9b26-a21830f84432"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c48c3487-44cf-4a09-bc17-e60e66d19002"
+    },
+    {
+     "measure": "NHSNGlycemicControlHypoglycemiaInitialPopulation",
+     "guid": "c4d785a5-a3fa-463b-b9ca-91d60eeb3dab"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c5085136-65ef-498f-8aa9-449bf48f6a63"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "c55f6f6d-e355-4280-9e5d-d21fc00b5c3e"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "c58e088d-0b16-4e3d-aaad-3577cdec75d3"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "c5bfac21-0dbf-4cf5-bc92-d7eff1d0a6c6"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "c686053c-d4b7-45b7-9ebb-19080a24f031"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c7382fb6-053b-4424-b5c2-87d79179b016"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "c77c84ce-f0a9-4949-a8d7-4413565db083"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c787d9c8-9645-4da6-a607-85dbefdf129e"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "c84cc10b-29f5-41cb-84a7-fbb23f52e0d5"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "c9a8b77a-d6fb-4c6d-a5cb-6c71bcf6baeb"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "cb7c95fc-6d6b-4e07-81e8-a79385142b94"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "cb9497a6-968f-4034-b85c-d254c07e34e5"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "cbb6a940-7c9b-4d80-b9be-39a029f6f0b0"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "cbc1d484-f7a2-43f3-b091-e362d9bb770e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "cbd1de91-441a-4588-b000-2e589d099ab6"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "cc00e728-de5f-4df8-abcb-1e610496be66"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "cc01e29c-7ebb-4876-b63a-29de550c62f9"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "cc23329d-6635-4347-8669-a98c921f4381"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "cc9d23e6-2322-4b1c-8a8b-29f6f92c89f1"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "cdb80ca8-b110-436d-83e8-b339ebc09a44"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "cdcbc425-203d-4ebb-81f3-8d5f50253eed"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "ce22375e-abe0-4fd5-a4ad-07d8a6056045"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "cee26b56-54cf-444e-8944-6edfbd6d2b93"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "cf0c5672-d86d-47fa-b13b-9bdb299c1d47"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "cf1d9246-dbe4-4c59-a955-e2301e37732b"
+    },
+    {
+     "measure": "CMS1173FHIRDiagnosticDelayVTE",
+     "guid": "cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "cfe6d907-c9fa-4d4c-9889-803315e8f707"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "d06256e5-091f-445e-898f-b8c31d8d3772"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "d07cf359-d46c-4adf-b2d4-e02a2f43b78e"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "d0a59b97-c3ab-4028-9109-a31359a93c47"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "d18e37a6-7b66-4e7c-b305-692872c13f8d"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "d1b64acd-58bc-4831-b150-a80b4240d6b1"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "d1b682be-c26e-44cc-8ac4-18c81760a4a3"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "d21be273-87ad-4ab5-a936-9de820872e73"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "d280cb74-871e-4191-b06a-4b700959a974"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "d3a48d69-2269-472a-9c27-da2c658e8c68"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "d3a7a6b7-bbbc-4c08-bd8c-ce1e1cbdc8a8"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "d496f08e-c55b-44b1-97a7-f86cf9ead1e2"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "d5d8e66a-01da-462b-95b6-e47b16285b1f"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "d5fe6f9c-6036-4004-9993-290f3a2be34a"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "d665c40d-2323-471f-9642-983472d2be7b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "d6c602b4-8853-486f-8189-386d08799146"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "d7067d60-b722-4bba-b78e-682d86c0b48e"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "d70dcaf9-4e69-4395-9612-ee1e156f6184"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "d7aad5bd-638e-402a-92b3-2fb7f3f91151"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "d82d5f38-a1b7-4f28-a3db-25f42f7e64b2"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "d8832769-c838-4f1b-9c1e-fa4ed3a3efb9"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "d8b7ff4e-67bb-480d-b2c1-77db6ab0ef1e"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "d8ea50e2-e1a9-41ae-ac73-480bb198d963"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "d9d151d1-9bd3-40ce-a2c1-cb8a985328fc"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "d9f94b3d-5bba-4965-8364-1d7c87957c3e"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "da34c14f-672e-4f66-827b-3eb08d97559e"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "da480fb9-7501-46f5-9575-f15a638bc751"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "da5f94c9-9d0c-42ea-ab7f-dd3a92a04ceb"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "dac89c3d-536e-4dca-9871-570a0bcd8d16"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "dad1f2c7-c45e-4287-9abf-e7e6ff90f2ff"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "dad5b672-1e5b-437c-91fe-1f69b5d58c70"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "db5afa02-02e2-4c0d-88c8-d3c0682333a1"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "dbb4d4b0-06a5-4354-9dbc-072c01709a3a"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "dbca4643-bd37-4e01-8024-fb7c70692fe9"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "dc187313-245c-4ed6-b6bb-fcb94c117fec"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "dcdb253e-ebd6-4c16-b632-9a56bcec4541"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "dd40e582-8c3f-44a2-b781-84acead6120f"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "dd4e465a-3796-4d5d-af53-3e2ab1e4041b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "dd6c17ad-396b-4ff5-9538-e06da5f0a39c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "de4005d0-549c-40bb-93b9-26650c194d04"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "de470536-41fa-4b2f-8355-2790e90ece22"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "df05b853-3e6d-4a12-b1db-fd9d0ec790a2"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "dfd5dc6b-3299-4e4f-ae02-45f251e1f75b"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "e00c927a-f454-4611-97b2-e3e2bdfed182"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "e0286677-4610-4138-b9fe-3ed648ed45f8"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e0813324-b2e0-4138-99f4-696f03c3db30"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "e081bee5-67f8-464f-9356-9b287e32a35a"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "e0997418-e22b-4aa9-805b-dde2c398787b"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "e0bae301-79a4-48b0-a174-5eb1bd6cf19e"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "e1182b17-1292-4473-bd9e-c70e3846ca0b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "e13ab79b-1b28-4a37-96cc-e63baa5f88cd"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e1c47dc2-2705-4c32-8000-415987028df9"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "e1e5ecba-2f9f-41c6-9bd2-2a1bc26a0273"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e20a62fd-329e-44d7-8767-1951f9392396"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "e24d8c71-61dc-4e0d-bfc1-a5ebc186706d"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "e290d85d-647e-4776-975a-0cbd7eaffbf4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e2edb18a-fb70-43cc-b680-6f933af7d182"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e55d9fc4-44e6-4f00-bf53-b82a5b646222"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "e64fd85a-d643-423d-9e3f-d4838e181aa9"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e656adac-2016-40a4-833f-0c5a02952ba3"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "e6f270ed-ddb3-43cf-a2f7-ef26df352d4d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "e7908699-646c-410f-9c1f-76539b412955"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "e89c4eae-404c-44b9-8be5-c8a8b481813a"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "e9074892-9513-48d7-999e-afeace427512"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "e90d90a7-3071-44de-8089-ad7b6f5f3e5d"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "e982ec87-76b0-4fe2-b437-ac0503cf2159"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "ea41e48d-7b6d-4c9e-a8a1-f9c4bcf30785"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "ea49dc35-7378-4436-aa37-53ec9f13b05d"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ea737165-ca06-4304-9964-c157d504c3ee"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "eabe386d-5bca-4fdd-acb0-8228b4df83c0"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "eafd6c1f-c099-48b8-8101-b24b4a49cd0b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "eb5173bb-769a-4c95-b0e9-362a271f72ea"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "eb735e04-483b-4fa9-ac2d-e73918acd50e"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "eb754c68-82c7-48cd-a2f0-26ee1cd92544"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "ec0aa07d-f1b1-4c5d-a9f3-e5bbdd77cdfa"
+    },
+    {
+     "measure": "NHSNAcuteCareHospitalMonthlyInitialPopulation1",
+     "guid": "ec296057-82c9-41b2-9e32-8ec2ea4f3687"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "ed027d3a-1e21-4c66-8357-cfe1d05ae918"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "ed36c619-3ef8-44ca-86fa-1993920d76ef"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "ed37e316-c721-4a98-91d7-862f5ece7187"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "ed5ae1dd-5a2e-4b69-9044-1f4cbed2fcfc"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "ed5fa616-8b70-4016-b40d-6f87983e2776"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ed638412-155e-4349-8461-4550fd4fae3b"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "edd8668f-d541-4869-9bb6-02e9e2c2509d"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "ee053d16-adcb-4760-9305-6a553d789d9a"
+    },
+    {
+     "measure": "CMS1264FHIRECATREHQR",
+     "guid": "ee13a2d8-61d9-4d2f-8f13-1423bd271950"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "eea87300-5d3f-4c9f-8835-9245b4e19059"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "eeaa3999-225d-45e8-befa-56076faffc78"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "eeea0041-7128-42e5-bb00-3b842ea97c83"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "ef0bebdc-61bf-4233-abd3-1f3c99a2cd8d"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "ef395d2c-85a3-41a2-b6cb-37c4ff5217dc"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "ef3f90d1-4954-40bd-b230-e44ffa98ed29"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "ef443a3d-6cde-467d-b374-d90a2f244e83"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "ef8cad07-6254-4461-ba1a-86aaf95eeb6e"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "efad4991-4382-4ceb-8bc4-32e8ac088e47"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "f00cb244-a7cc-408f-ab47-7c3ac82469b1"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "f01072cb-c5a0-4c51-a24a-3fa503fe41fb"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f028ed8f-f83b-4c77-bb08-2c4df7694a12"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "f0d37c4e-7377-4876-8533-f955963f96f9"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f101bf69-38b2-4c86-9978-727c665dfb31"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f120b2b6-40ba-4ae3-b087-c64e8e3bdf11"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "f1ccd667-ada1-4ca8-b4dc-fe4a9674d81a"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "f25baf5f-2980-416c-a8ef-3b9e42d751c3"
+    },
+    {
+     "measure": "NHSNGlycemicControlHypoglycemiaInitialPopulation",
+     "guid": "f3a5ce49-9f1f-455b-8f44-2389c61d5850"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f3b17514-f40d-43f9-baa9-a0418142ca98"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "f3f9227e-50eb-4752-af8a-464072cc60c2"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "f4df05b5-547b-45d2-bc18-8fcbd5afbaf7"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "f4f5d8a4-99b7-4ace-af89-75e6af754713"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f51f9a0a-9895-4c16-9fc5-fcbe5e9cc79d"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "f561d914-95ab-4519-9b02-b9570ea69d48"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "f5c049d5-d1b8-413b-bdad-ff54a5d20df3"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "f5c2b6b4-4458-4be5-8c3b-20d2fb0ad36c"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "f5f317c7-69f1-4a89-850a-8a58789c80f2"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "f67164ab-356d-4fb6-afcb-169aaa7fe3f4"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "f6cdc95d-7796-4dad-a5da-d2e1fddc8687"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "f705cc70-0d7d-4dc1-88f7-9b37ab5290d2"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "f7d55d17-b25e-4923-a880-dd79ef092ba6"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f8563fcf-4e09-4309-841b-bcce373bc4b2"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "f8f09c1f-37fc-4088-a39d-710971b626b7"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f925afe3-4a77-404d-ba92-e78740f37d15"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "f929563b-a5a0-4d55-9613-d75d383d3c6a"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "f944825a-367c-46c5-b753-d59f088038d2"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "f9a24bdb-a835-4851-8e50-eb11a5c9fb50"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "fa446b35-031d-4eb5-b7f1-5782580e5209"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "fac8c35b-89c4-4ff0-bf5b-32147a59e18f"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "faf3e31d-533a-484f-9b9d-4ded0c32c84f"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "fb38d345-4723-46b4-a269-8b4fd8982bc7"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "fba66844-a0b7-4a8b-a33b-d75df55e9fea"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "fc82f4cb-7c62-41bd-9779-dd0f2e6e437f"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "fcd4fe20-9013-4d1c-965b-1445f0088624"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "fd115ded-69a6-4766-bdd9-d6364347401e"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "fd5fb311-a466-4c59-966d-48fa7aa88931"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "fdadfa9f-9e7b-4d80-a00e-56e8759b47c1"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "fdbc9919-4ab0-446a-8c0b-29ac687d8d3b"
+    },
+    {
+     "measure": "CMS104FHIRSTKDCAntithrombotic",
+     "guid": "fdd3fe25-b12c-4417-a999-91e4583f6cd4"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "fe38b06e-b202-4620-a5ac-e2d0d99591d7"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "fed17706-6d92-4092-a9b1-9b7e47847f2a"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "fed7bfb0-5746-4029-a64c-f40cc30ce946"
+    },
+    {
+     "measure": "CMS72FHIRSTKAntithromboticDay2",
+     "guid": "ff9ea2c7-7a68-486d-809e-f0e2cd94d6eb"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "ffab1562-be09-428c-9e96-e30868867493"
+    }
+   ],
+   "body_md": "### B-01: QICore baseline `qicore-2025-actual-results.csv` is stale (post-2026-09-05 fresh re-run: 1456 qicore-only cells reflect new engine-version drift, not full defect)\n\n- **Symptom**: After re-running the QI-Core engine harness on 2026-09-05 against\n  the current CR runtime (translator 5.2.0, clinicalReasoning 4.11.0), 1456\n  cells across 26 measures are classified as `qicore-only` in\n  `engine_shared_issues.py` (CMS engine matches expected; QI-Core disagrees).\n  This is the inverse of the E-class engine bugs documented elsewhere.\n\n- **Re-run diff**: The previous baseline (committed 2026-09-03) was generated by\n  a partial QI-Core run (16,344 rows / 800 qicore-only cells / 13 measures).\n  The 2026-09-05 fresh run produces 24,713 rows covering more cases per measure\n  (e.g. NHSN glycemic 80 vs 20 cases, CMS1264 58 vs 43). Of the previously\n  qicore-only cells, **22110** moved from\n  per-case coverage to `pass`. The fresh run also newly covers 877 cells where\n  the old baseline was complete and QI-Core matched expected — those are now\n  classified qicore-only (the dominant new pattern in CMS347/CMS145/CMS144).\n\n- **Per-measure breakdown** of the post-run 1456 qicore-only cells:\n  (full per-measure list of unique affected test-case GUIDs in `body_md` or `affected_test_cases` of this issue)\n  * CMS0334FHIRPCCesareanBirth: 1 cells / 1 unique GUIDs\n  * CMS1028FHIRPCSevereOBComps: 12 cells / 4 unique GUIDs\n  * CMS104FHIRSTKDCAntithrombotic: 156 cells / 65 unique GUIDs\n  * CMS108FHIRVTEProphylaxis: 17 cells / 17 unique GUIDs\n  * CMS1173FHIRDiagnosticDelayVTE: 4 cells / 2 unique GUIDs\n  * CMS1188FHIRHIVSTITesting: 2 cells / 2 unique GUIDs\n  * CMS1264FHIRECATREHQR: 152 cells / 57 unique GUIDs\n  * CMS129FHIRProstCaBoneScanUse: 67 cells / 47 unique GUIDs\n  * CMS135FHIRACEIorARBorARNIforHF: 72 cells / 27 unique GUIDs\n  * CMS144FHIRHFBetaBlockerForLVSD: 109 cells / 44 unique GUIDs\n  * CMS145FHIRCADBBlockerTPMIorLVSD: 157 cells / 49 unique GUIDs\n  * CMS149FHIRDementiaCognitiveAssess: 21 cells / 9 unique GUIDs\n  * CMS190FHIRVTEProphylaxisICU: 18 cells / 18 unique GUIDs\n  * CMS22FHIRPCSBPScreeningFollowUp: 1 cells / 1 unique GUIDs\n  * CMS347FHIRStatinPreventionTxCVD: 241 cells / 111 unique GUIDs\n  * CMS506FHIRSafeUseofOpioids: 5 cells / 5 unique GUIDs\n  * CMS645FHIRBoneDensityPCADTherapy: 77 cells / 36 unique GUIDs\n  * CMS646FHIRIntravesicalBCGTherapy: 8 cells / 8 unique GUIDs\n  * CMS71FHIRSTKAnticoagAFFlutter: 1 cells / 1 unique GUIDs\n  * CMS72FHIRSTKAntithromboticDay2: 245 cells / 104 unique GUIDs\n  * CMS771FHIRUrinarySymptomScoreBPH: 47 cells / 22 unique GUIDs\n  * CMS819FHIRHHORAE: 2 cells / 2 unique GUIDs\n  * CMS871FHIRHHHyper: 2 cells / 1 unique GUIDs\n  * CMS996FHIRAptTxforSTEMI: 8 cells / 6 unique GUIDs\n  * NHSNAcuteCareHospitalMonthlyInitialPopulation1: 27 cells / 27 unique GUIDs\n  * NHSNGlycemicControlHypoglycemiaInitialPopulation: 4 cells / 4 unique GUIDs\n\n- **Tools (now exercised):**\n  * `scripts/extract_population_qicore.py` (commit `19dc596bc`) — was used to\n    re-emit the locked QICore baseline from\n    `/Users/raleigh.thompson/projects/smile/dqm/_repo/dqm-content-qicore-2025/\n    input/tests/results`. The script refused overwrite without `--force`;\n    the actual overwrite happened here.\n  * `scripts/audit_qicore_baseline.py` — confirmed against the HEAD snapshot\n    that 23,641 rows matched and 1,065 differed (see\n    `scripts/comparison/_archive/qicore_baseline_diff-20260905.md`).\n  * `scripts/comparison/all_measures_summary.py` — produced the per-measure\n    bucket table (`scripts/comparison/all_measures_bucket_summary.md`).\n\n- **Resolution path**: this issue is now properly *tracked but unresolved*.\n  The baseline is no longer \"stale\" — it's the current QI-Core engine output.\n  Each qicore-only cell now represents a real (CMS matches expected, QI-Core\n  does not) divergence. Until the QI-Core engine catches up OR the CMS-measure\n  CQL is updated to produce QI-Core-conformant values, these cells will stay\n  in this bucket. The recommended next step is to file per-measure E-XX\n  entries (E-23, E-24, ...) capturing each distinct engine-version regression.\n\n- **Status**: **Confirmed** (refreshed 2026-09-05). 1456 qicore-only cells\n  across 26 measures tracked. Pre-resolution catalog entry (B-01 v1, 2026-09-05\n  03:54) reported 800 cells; the re-run exposed 877 new cells and resolved\n  191, netting to 1456.\n",
+   "summary_row": "| B-01 | Fresh QI-Core baseline (2026-09-05) still leaves 1456 qicore-only cells across 26 measures (CMS engine correct, QI-Core engine mismatch; not stale-baseline) | baseline | **Confirmed** | **None — see E-23+ per-measure entries** | CMS0334FHIRPCCesareanBirth, CMS1028FHIRPCSevereOBComps, CMS104FHIRSTKDCAntithrombotic, CMS108FHIRVTEProphylaxis, CMS1173FHIRDiagnosticDelayVTE ... | 1456 cells / 670 unique GUIDs |"
+  },
+  {
+   "id": "E-23",
+   "title": "QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run — QI-Core 4.11.0 / translator 5.2.0 returns 0 for InitialPopulation / Denominator / Numerator populations where CMS engine + fixture MeasureReports agree on 1 (consistent with a profile-retrieve failure on QI-Core's stricter US Quality Core / QI-Core 6.0.0 profile handling)",
+   "category": "engine",
+   "status": "**Confirmed (refreshed 2026-09-05)**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None**. The CMS engine matches expected on these cells, so the CMS-side output is the source of truth. The fresh QI-Core engine output is canonical for QI-Core measures; this entry documents the divergence so the QI-Core harness operator can investigate. If the upstream QI-Core engine is fixed, re-run `scripts/extract_population_qicore.py --force` and re-classify.",
+   "references": {
+    "defect_tracking": [
+     "engine_shared_issues qicore-only bucket post 2026-09-05 re-run"
+    ],
+    "issues": []
+   },
+   "affected_measures": [
+    "CMS347FHIRStatinPreventionTxCVD",
+    "CMS145FHIRCADBBlockerTPMIorLVSD",
+    "CMS144FHIRHFBetaBlockerForLVSD",
+    "CMS645FHIRBoneDensityPCADTherapy",
+    "CMS135FHIRACEIorARBorARNIforHF",
+    "CMS129FHIRProstCaBoneScanUse",
+    "CMS771FHIRUrinarySymptomScoreBPH",
+    "CMS149FHIRDementiaCognitiveAssess",
+    "CMS190FHIRVTEProphylaxisICU",
+    "CMS108FHIRVTEProphylaxis",
+    "CMS1028FHIRPCSevereOBComps",
+    "CMS996FHIRAptTxforSTEMI",
+    "CMS506FHIRSafeUseofOpioids"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "002fcec4-89ed-42be-a7b7-41fa0acddf8c"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0045ec92-0b70-4961-8a7c-41b5c43d53a1"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "00cd231f-4460-4d84-8e04-d8b0a04d8afd"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "019de843-7347-4a25-ad9e-2a4ca3a84054"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "022c05d8-8337-4f1a-9d69-abb6500b1be5"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "02cdc116-49ce-4277-ad9e-de6bc2a3274d"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "031e746c-9c2c-4eea-acca-a26c8862c9d5"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "0405033f-c6a4-4619-93da-14c9c5613d7b"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "0438e6ec-b6c0-422d-b8c9-074e5f8d9af5"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "04c67cc9-bf23-4f31-988c-8bac7e96f938"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "051c5977-9f2c-4e8b-8e02-ac3ec0c718d6"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "051c9480-438e-48d5-b91f-5f8f980b1f8b"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "056a27fa-04fc-45d6-bf3f-07482f8db4a8"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "05afd17d-f9a0-4588-bb3a-ffefd2f6c271"
+    },
+    {
+     "measure": "CMS347FHIRStatinPreventionTxCVD",
+     "guid": "06f036ce-62f0-4807-88d2-f3f8e70d2f31"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "072be19e-9540-452c-9d7f-03c104cffa97"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "07efd4bb-b45d-4bfd-aeb2-08de49742d91"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "0c0256d2-a6d4-4ed3-bd95-ac7d88108b6c"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "0d2e80d0-d70a-4eba-9bfe-23d1dfeb546e"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "0d48b3b3-c5f0-4955-810d-eb4f1b8714ca"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "10a6f006-eabc-4a40-80bd-2a135e45e597"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "12fda733-0b5d-4f3d-93b2-59c35ba85898"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "13ce1b7d-3af6-4ef3-a4ae-6cd7c3075be8"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "149c3a7c-2b80-47f8-b50d-5c1d233eedb7"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "187cc99d-9cb5-442f-8201-3695e5358101"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "1b450176-8caa-4133-bc9a-c066969f72ce"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "1bbf669f-a5f6-4dde-a8b2-1be100394e18"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "1d166b9e-0d11-4247-a9a8-f610f36a74f2"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "1dc53422-497d-492a-8aa4-8a165264a14d"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "1f58a561-bf40-43dd-89a3-8d590013ee1c"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "2105cba2-6e61-487d-a737-3efe876028e8"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "228562c7-76c5-42e1-b4b6-0b952faa75c4"
+    },
+    {
+     "measure": "CMS144FHIRHFBetaBlockerForLVSD",
+     "guid": "2333a56a-8346-4afc-93a2-0626a9a1ac2d"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "24068f4d-3179-4f2f-872e-02e3b362cac0"
+    },
+    {
+     "measure": "CMS129FHIRProstCaBoneScanUse",
+     "guid": "24a5102c-7e6e-4ec6-8433-737b0fe8c854"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "25265601-4e27-4fe0-8d35-68ebac8f9894"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "2585c4a2-7b38-48e4-9317-19ddbbcfa107"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "27111f10-365a-4ec3-a918-f856c687211e"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "27fca7ba-ef00-44ec-8d97-919908f42495"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "298d5342-fa0a-4386-bf48-b9c977a1c367"
+    },
+    {
+     "measure": "CMS190FHIRVTEProphylaxisICU",
+     "guid": "298f3f92-5047-46fc-ad92-9f27887ffc55"
+    },
+    {
+     "measure": "CMS645FHIRBoneDensityPCADTherapy",
+     "guid": "2a1d8b51-131f-4552-90f7-59ca5a7979ce"
+    },
+    {
+     "measure": "CMS135FHIRACEIorARBorARNIforHF",
+     "guid": "2b0d7791-29b6-4f10-b72a-b6a50667770d"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "3ab3ac1d-9b5e-4087-8862-dcb2562fb90f"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "3d4b6868-31ce-42f8-87c1-ab06d851d53f"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "4911c0c6-22e1-45ad-b39d-7e4d88c200d8"
+    },
+    {
+     "measure": "CMS771FHIRUrinarySymptomScoreBPH",
+     "guid": "4c234ec0-3f89-4d55-b767-219d1130f634"
+    },
+    {
+     "measure": "CMS1028FHIRPCSevereOBComps",
+     "guid": "4e9a1928-a33f-4be3-aa05-c69e9fc4bff7"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "52790be5-0f6e-4ebd-85f5-57f35db8b56b"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "543248c8-b6af-407d-b435-7e867c4770b4"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "57da77da-de92-4ef5-9311-1d86e67c9de4"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "5e76e39a-8a30-4035-8d44-3362f4826aa7"
+    },
+    {
+     "measure": "CMS108FHIRVTEProphylaxis",
+     "guid": "610c90c9-f387-40f8-9bd7-710d20dfd6f0"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "67e19058-917d-43f8-98d3-d16730fc7d32"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "81dc5bb4-3273-492a-beff-2f7b0394f3c8"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "83e7cc74-5ae5-4fb9-922f-15faa555890a"
+    },
+    {
+     "measure": "CMS149FHIRDementiaCognitiveAssess",
+     "guid": "980e3550-6c75-4c4d-a64d-0657107e7cec"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "a0de0e88-9054-45d4-a417-3b9ea5ebe78a"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "b4219e21-be97-4f81-8a31-fee0035179c8"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "cdb80ca8-b110-436d-83e8-b339ebc09a44"
+    },
+    {
+     "measure": "CMS506FHIRSafeUseofOpioids",
+     "guid": "e24d8c71-61dc-4e0d-bfc1-a5ebc186706d"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "ef443a3d-6cde-467d-b374-d90a2f244e83"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "f4df05b5-547b-45d2-bc18-8fcbd5afbaf7"
+    }
+   ],
+   "body_md": "### E-23: QI-Core 4.11.0 engine-side regressions surfaced by 2026-09-05 fresh re-run\n\n- **Symptom**: After regenerating the `qicore-2025-actual-results.csv` baseline\n  from the freshly-run QI-Core engine output (3,964 TestCaseResult JSONs across\n  74 measures), 812 previously-passing (or previously-absent) cells now\n  classify as `qicore-only`: CMS engine matches expected; QI-Core engine returns\n  a smaller number (typically 0 where expected is 1).\n\n- **Mechanism**: The fresh QI-Core engine (translator 5.2.0 / clinicalReasoning\n  4.11.0) fails to retrieve the corresponding resources that the CMS engine\n  successfully retrieves from the same fixture bundle. This is consistent with\n  a profile-retrieve strictness regression in QI-Core's stricter US Quality Core\n  / QI-Core 6.0.0 profile handling — QI-Core validates `meta.profile` against\n  the QI-Core 6.0.0 profile URL, while the fixtures' resources carry the older\n  `us-core-*` profiles. The CMS engine, which handles both, succeeds.\n\n- **Per-measure impact** (cells where fresh qicore broke previously-passing cells):\n  * CMS347FHIRStatinPreventionTxCVD: 208 cells\n  * CMS145FHIRCADBBlockerTPMIorLVSD: 157 cells\n  * CMS144FHIRHFBetaBlockerForLVSD: 109 cells\n  * CMS645FHIRBoneDensityPCADTherapy: 77 cells\n  * CMS135FHIRACEIorARBorARNIforHF: 72 cells\n  * CMS129FHIRProstCaBoneScanUse: 67 cells\n  * CMS771FHIRUrinarySymptomScoreBPH: 47 cells\n  * CMS149FHIRDementiaCognitiveAssess: 21 cells\n  * CMS190FHIRVTEProphylaxisICU: 16 cells\n  * CMS108FHIRVTEProphylaxis: 15 cells\n  * CMS1028FHIRPCSevereOBComps: 10 cells\n  * CMS996FHIRAptTxforSTEMI: 8 cells\n  * CMS506FHIRSafeUseofOpioids: 5 cells\n\n  Note: measures with `qicore-only` cells that *predate* the 2026-09-05 re-run\n  (e.g. CMS72 245 cells, CMS104 156, CMS1264 152, CMS128 0 cells — all resolved)\n  are tracked separately under B-01; this entry covers only the **net-new**\n  regressions attributable to the engine re-run.\n\n- **Distinct from E-17** (CMS108 / CMS190 cms-only profile retrieve gap): E-17\n  documents the CMS engine failing to retrieve QI-Core's stricter profiles on a\n  handful of resource types. E-23 documents the inverse: QI-Core engine failing\n  on US Quality Core's profile validation. The two are mirror-image facets of\n  the same engine-version-reconciliation work.\n\n- **Affected test cases** (representative GUIDs across the 13 affected measures):\n  - `002fcec4-89ed-42be-a7b7-41fa0acddf8c`\n  - `0045ec92-0b70-4961-8a7c-41b5c43d53a1`\n  - `00cd231f-4460-4d84-8e04-d8b0a04d8afd`\n  - `019de843-7347-4a25-ad9e-2a4ca3a84054`\n  - `022c05d8-8337-4f1a-9d69-abb6500b1be5`\n  - `02cdc116-49ce-4277-ad9e-de6bc2a3274d`\n  - `031e746c-9c2c-4eea-acca-a26c8862c9d5`\n  - `0405033f-c6a4-4619-93da-14c9c5613d7b`\n  - `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5`\n  - `04c67cc9-bf23-4f31-988c-8bac7e96f938`\n  - `051c5977-9f2c-4e8b-8e02-ac3ec0c718d6`\n  - `051c9480-438e-48d5-b91f-5f8f980b1f8b`\n  - `056a27fa-04fc-45d6-bf3f-07482f8db4a8`\n  - `05afd17d-f9a0-4588-bb3a-ffefd2f6c271`\n  - `06f036ce-62f0-4807-88d2-f3f8e70d2f31`\n  - `072be19e-9540-452c-9d7f-03c104cffa97`\n  - `07efd4bb-b45d-4bfd-aeb2-08de49742d91`\n  - `0c0256d2-a6d4-4ed3-bd95-ac7d88108b6c`\n  - `0d2e80d0-d70a-4eba-9bfe-23d1dfeb546e`\n  - `0d48b3b3-c5f0-4955-810d-eb4f1b8714ca`\n  - `0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4`\n  - `10a6f006-eabc-4a40-80bd-2a135e45e597`\n  - `12fda733-0b5d-4f3d-93b2-59c35ba85898`\n  - `13ce1b7d-3af6-4ef3-a4ae-6cd7c3075be8`\n  - `149c3a7c-2b80-47f8-b50d-5c1d233eedb7`\n  - `187cc99d-9cb5-442f-8201-3695e5358101`\n  - `1b450176-8caa-4133-bc9a-c066969f72ce`\n  - `1bbf669f-a5f6-4dde-a8b2-1be100394e18`\n  - `1d166b9e-0d11-4247-a9a8-f610f36a74f2`\n  - `1dc53422-497d-492a-8aa4-8a165264a14d`\n  - `1f58a561-bf40-43dd-89a3-8d590013ee1c`\n  - `2105cba2-6e61-487d-a737-3efe876028e8`\n  - `228562c7-76c5-42e1-b4b6-0b952faa75c4`\n  - `2333a56a-8346-4afc-93a2-0626a9a1ac2d`\n  - `24068f4d-3179-4f2f-872e-02e3b362cac0`\n  - `24a5102c-7e6e-4ec6-8433-737b0fe8c854`\n  - `25265601-4e27-4fe0-8d35-68ebac8f9894`\n  - `2585c4a2-7b38-48e4-9317-19ddbbcfa107`\n  - `27111f10-365a-4ec3-a918-f856c687211e`\n  - `27fca7ba-ef00-44ec-8d97-919908f42495`\n  - `298d5342-fa0a-4386-bf48-b9c977a1c367`\n  - `298f3f92-5047-46fc-ad92-9f27887ffc55`\n  - `2a1d8b51-131f-4552-90f7-59ca5a7979ce`\n  - `2b0d7791-29b6-4f10-b72a-b6a50667770d`\n  - `3ab3ac1d-9b5e-4087-8862-dcb2562fb90f`\n  - `3d4b6868-31ce-42f8-87c1-ab06d851d53f`\n  - `4911c0c6-22e1-45ad-b39d-7e4d88c200d8`\n  - `4c234ec0-3f89-4d55-b767-219d1130f634`\n  - `4e9a1928-a33f-4be3-aa05-c69e9fc4bff7`\n  - `52790be5-0f6e-4ebd-85f5-57f35db8b56b`\n  - `543248c8-b6af-407d-b435-7e867c4770b4`\n  - `57da77da-de92-4ef5-9311-1d86e67c9de4`\n  - `5e76e39a-8a30-4035-8d44-3362f4826aa7`\n  - `610c90c9-f387-40f8-9bd7-710d20dfd6f0`\n  - `67e19058-917d-43f8-98d3-d16730fc7d32`\n  - `81dc5bb4-3273-492a-beff-2f7b0394f3c8`\n  - `83e7cc74-5ae5-4fb9-922f-15faa555890a`\n  - `980e3550-6c75-4c4d-a64d-0657107e7cec`\n  - `a0de0e88-9054-45d4-a417-3b9ea5ebe78a`\n  - `b4219e21-be97-4f81-8a31-fee0035179c8`\n  - `cdb80ca8-b110-436d-83e8-b339ebc09a44`\n  - `e24d8c71-61dc-4e0d-bfc1-a5ebc186706d`\n  - `ef443a3d-6cde-467d-b374-d90a2f244e83`\n  - `f4df05b5-547b-45d2-bc18-8fcbd5afbaf7`\n\n- **Status**: **Confirmed** (2026-09-05). Recommend this entry be merged into a\n  broader E-17 / E-23 reconciliation note if/when the upstream QI-Core engine\n  fixes the profile-validation strictness.\n\n- **Resolution path**: requires changes on the **QI-Core engine side** or\n  fixture profile URLs being upgraded from `us-core-*` to `us-quality-core-*`\n  / `qi-core-*` — out of scope for this catalog.\n",
+   "summary_row": "| E-23 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run (QI-Core 4.11 returns 0 where CMS engine returns 1, profile-retrieve strictness) | engine | **Confirmed (refreshed)** | **None — upstream QI-Core fix** | CMS347FHIRStatinPreventionTxCVD, CMS145FHIRCADBBlockerTPMIorLVSD, CMS144FHIRHFBetaBlockerForLVSD, CMS645FHIRBoneDensityPCADTherapy, CMS135FHIRACEIorARBorARNIforHF, CMS129FHIRProstCaBoneScanUse, CMS771FHIRUrinarySymptomScoreBPH, CMS149FHIRDementiaCognitiveAssess, CMS190FHIRVTEProphylaxisICU, CMS108FHIRVTEProphylaxis, CMS1028FHIRPCSevereOBComps, CMS996FHIRAptTxforSTEMI, CMS506FHIRSafeUseofOpioids | 812 cells / 64 unique GUIDs |"
   }
  ],
  "enriched": true

@@ -104,7 +104,11 @@ def collect_results_for_measure(
     ``measure_name`` may differ from the directory name if the TestCaseResult
     carries a different ``libraryName`` upstream.
     """
-    from extract_population_actual import capture_results, MeasureSection
+    from extract_population_actual import (
+        capture_results,
+        convert_results_to_rows,
+        MeasureSection,
+    )
     if not measure_dir.is_dir():
         return []
     measure_criteria = criteria.get(measure_name, {})
@@ -116,18 +120,32 @@ def collect_results_for_measure(
         if p.is_file()
     )
     populated = capture_results(sections, {measure_name: measure_criteria})
+    # convert_results_to_rows applies validate_measure_population_counts which
+    # normalizes population values to integer counts (e.g. `[]` -> 0,
+    # `[Resource(...)]` -> 1). It returns rows shaped as
+    # [measure, patient_guid, "Group_N:Population", count].
+    converted = convert_results_to_rows(populated)
     rows: list[tuple[str, str, int | str]] = []
-    for (m, guid, group), populations in sorted(populated.items()):
-        for pop, value in sorted(populations.items()):
-            rows.append((guid, pop, value))
+    for row in converted:
+        # row = [measure, patient_guid, "Group_N:Population", count]
+        # We re-derive (guid, "Group_N:Population", count) so the CSV key
+        # matches the locked baseline (which used the Group_N prefix).
+        rows.append((row[1], row[2], row[3]))
     return rows
 
 
-def write_csv(rows: list[tuple[str, str, int | str]], measure_name: str, out_fh):
-    writer = csv.writer(out_fh)
+def write_csv(rows: list[tuple[str, str, int | str]], measure_name: str,
+              out_fh, separator="\n") -> int:
+    """Write a measure's rows to `out_fh` with a fixed line separator.
+
+    Always uses LF (`\n`) to keep the CSV byte-equal across platforms; this
+    avoids the CRLF trap that breaks `csv.DictReader` on macOS.
+    """
+    writer = csv.writer(out_fh, lineterminator=separator)
     writer.writerow(HEADER)
     for guid, pop, value in rows:
         writer.writerow((measure_name, guid, pop, value))
+    return len(rows) + 1
 
 
 def main() -> int:
@@ -207,8 +225,8 @@ def main() -> int:
         return 0
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
+    with args.output.open("w", encoding="utf-8") as fh:
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(HEADER)
         for row in output_rows:
             writer.writerow(row)

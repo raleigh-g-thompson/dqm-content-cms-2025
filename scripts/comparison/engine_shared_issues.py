@@ -2,7 +2,7 @@
 """Cross-engine shared-issue detection.
 
 Compares the US Quality Core (CMS) engine actuals against the QI-Core actuals
-(authoritative, last run of the QI-Core measures on an older engine) to
+(authoritative, last run of the QI-Core measures) to
 identify test-case population cells where BOTH engines deviate from expected
 -- candidate shared / engine-level issues.
 
@@ -187,7 +187,7 @@ def main():
     lines = []
     lines.append(f"# Cross-Engine Shared-Issue Detection: {args.measure}")
     lines.append("")
-    lines.append("Compares US Quality Core (CMS) engine actuals vs QI-Core actuals (older engine).")
+    lines.append("Compares US Quality Core (CMS) engine actuals vs QI-Core actuals.")
     lines.append("")
     lines.append("## Summary")
     lines.append("")

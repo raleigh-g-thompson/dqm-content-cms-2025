@@ -108,9 +108,17 @@ class ExtractPopulationQICoreTest(unittest.TestCase):
             self.assertEqual(len(rows) - 1, 8)
 
             seen = {(r[0], r[1], r[2]): r[3] for r in rows[1:]}
-            self.assertEqual(seen[("CMSExample", ANY_GUID_A, "Initial Population")], "1")
-            self.assertEqual(seen[("CMSExample", ANY_GUID_B, "Denominator Exception")], "1")
-            self.assertEqual(seen[("CMSExample", ANY_GUID_A, "Numerator")], "1")
+            self.assertEqual(seen[("CMSExample", ANY_GUID_A, "Group_1:Initial Population")], "1")
+            # Test B has Initial/Denom/Numer=0 and Denominator Exception=true (1).
+            # After validate_measure_population_counts, when Denominator=0
+            # and Numerator=0, the Denominator Exception is also zeroed. So we
+            # assert "0" here, matching what the canonical extractor does.
+            self.assertEqual(seen[("CMSExample", ANY_GUID_B, "Group_1:Denominator Exception")], "0")
+            self.assertEqual(seen[("CMSExample", ANY_GUID_A, "Group_1:Numerator")], "1")
+            # Sanity: every cell is "0" or "1".
+            counts = [r[3] for r in rows[1:]]
+            for c in counts:
+                self.assertIn(c, {"0", "1"})
 
     def test_refuses_to_overwrite_locked_baseline_without_force(self):
         with tempfile.TemporaryDirectory() as tmp:
