@@ -2740,7 +2740,11 @@
     "CMS771FHIRUrinarySymptomScoreBPH",
     "CMS177FHIRChildMDDSuicideAssmt",
     "CMS645FHIRBoneDensityPCADTherapy",
-    "CMS71FHIRSTKAnticoagAFFlutter"
+    "CMS71FHIRSTKAnticoagAFFlutter",
+    "CMS2FHIRPCSDepScreenAndFollowUp",
+    "CMS996FHIRAptTxforSTEMI",
+    "CMS646FHIRIntravesicalBCGTherapy",
+    "CMS145FHIRCADBBlockerTPMIorLVSD"
    ],
    "affected_test_cases": [
     {
@@ -2902,10 +2906,90 @@
     {
      "measure": "CMS771FHIRUrinarySymptomScoreBPH",
      "guid": "e90d90a7-3071-44de-8089-ad7b6f5f3e5d"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "41df0dbe-ae84-4496-b355-320ff8707a85"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "6aaff09e-4a7b-4efa-93f8-13033e95c230"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "6078e73e-3265-4022-ae63-216c096b6246"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "d0ba1182-26fa-4cfa-9f91-960503b7fe53"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "86ca7528-efcb-44ed-9203-6f21f37f4332"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "12786a64-c20e-4542-a4c0-bf3129d6a9e0"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "f29e2786-fade-4dca-b14d-7037a34ef498"
+    },
+    {
+     "measure": "CMS2FHIRPCSDepScreenAndFollowUp",
+     "guid": "0e463fc3-d1bf-4e19-882b-fad6342aa668"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "7edab122-3af3-4172-9231-7c1470ecc1e0"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "ccc7deaf-98b7-4dad-b190-8fee10f2cf77"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "60823d79-b37f-4358-819f-f39b4e885c6d"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847"
+    },
+    {
+     "measure": "CMS996FHIRAptTxforSTEMI",
+     "guid": "8bb7c40b-7447-42ca-b662-161a7026ed8f"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "e648fa70-0532-49b0-92f6-dfb5a6d28d94"
+    },
+    {
+     "measure": "CMS646FHIRIntravesicalBCGTherapy",
+     "guid": "342d2bec-0acc-43e5-aaf7-3c9a65b09f91"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "61306767-0e74-44b8-ac06-1339c3783355"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "5fd0d626-e9c5-4e6c-a10d-1a1183fa7702"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "fd5fb311-a466-4c59-966d-48fa7aa88931"
+    },
+    {
+     "measure": "CMS145FHIRCADBBlockerTPMIorLVSD",
+     "guid": "b65680a0-9768-4ce4-b08d-972fcd84e28e"
     }
    ],
-   "body_md": "### E-21: `us-quality-core-*` profile retrieves return empty across screening, observation, medication, and procedure profiles (E-17 family aggregation - corroborated across 7 measures)\n\n- **Symptom**: 7 measures / ~70 cases / ~98 cells report consistent CMS-engine=miss + QI-Core=hit, i.e. the\n  fixture data + CQL + measure-resource wiring produces a value the QI-Core engine returns correctly but the new\n  CMS engine does not. Both per-measure and aggregate `engine_shared_issues.py` figures: `cms-only: 14+14+7+5+5+2`\n  for the pure cms-only measures; CMS71 also classifies `shared 4 / cms-only 12` (split case). The CMS engine\n  consistently fails to enumerate resources whose `meta.profile` is `us-quality-core-*` shaped but whose profile\n  URI differs from the QI-Core-form profile expected by the CQL retrieve (sub-resource or sub-profile shape\n  mismatch).\n- **Cases** (per measure):\n  * CMS22FHIRPCSBPScreeningFollowUp: 12 cases - blood-pressure screening observations + MedicationNotRequested retrieving\n  * CMS135FHIRACEIorARBorARNIforHF: 8 cases (subset of 11 total - 3 are non-engine-related) - pregnancy-status observation profile gap\n  * CMS144FHIRHFBetaBlockerForLVSD: 3 cases - HF diagnosis + medication profile gap\n  * CMS771FHIRUrinarySymptomScoreBPH: 7 cases - urinary symptom observation profile\n  * CMS177FHIRChildMDDSuicideAssmt: 1 case - MDD screening observation\n  * CMS645FHIRBoneDensityPCADTherapy: 3 cases - bone density screening\n  * CMS71FHIRSTKAnticoagAFFlutter: 12 cms-only + 4 shared (split case)\n- **Evidence** (`scripts/comparison/engine_shared_issues.py` per measure):\n  * CMS22: cms-only 14 / qicore-only 0 / shared 0 / pass 206\n  * CMS135: cms-only 14 / qicore-only 0 / incomplete 15 / pass 171 (cm-only subcluster 8 cases / 14 cells)\n  * CMS2: cms-only 8 / qicore-only 7 / pass 165 (mixed)\n  * CMS144: cms-only 5 / pass 235\n  * CMS771: cms-only 7 / pass 117\n  * CMS177: cms-only 2 / pass 121\n  * CMS645: cms-only 5 / pass 199\n- **Same root cause + same family as E-17** - profile-retrieve misfire on the new CMS engine. Tracked together\n  rather than partitioned into per-resource-type sub-entries because the engine-fix is shared.\n- **Engine fix needed**: profile-retrieve width on `us-quality-core-*` profiles. Until then, all 7 measures carry\n  the cms-only mismatches as resolution-pending.\n- **Status**: **Confirmed** (2026-09-05; 41 cms-only cells across the 7 measures at this snapshot).\n",
-   "summary_row": "| E-21 | `us-quality-core-*` profile retrieves return empty across screening-assessment / service / medication / procedure profile families (E-17 family aggregation - corroborated across 7 measures) | **Confirmed** | **None - engine runtime** (see E-17 family) | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter |"
+   "body_md": "### E-21: `us-quality-core-*` profile retrieves return empty across screening, observation, medication, and procedure profiles (E-17 family aggregation - corroborated across 7 measures)\n\n- **Symptom**: 7 measures / ~70 cases / ~98 cells report consistent CMS-engine=miss + QI-Core=hit, i.e. the\n  fixture data + CQL + measure-resource wiring produces a value the QI-Core engine returns correctly but the new\n  CMS engine does not. Both per-measure and aggregate `engine_shared_issues.py` figures: `cms-only: 14+14+7+5+5+2`\n  for the pure cms-only measures; CMS71 also classifies `shared 4 / cms-only 12` (split case). The CMS engine\n  consistently fails to enumerate resources whose `meta.profile` is `us-quality-core-*` shaped but whose profile\n  URI differs from the QI-Core-form profile expected by the CQL retrieve (sub-resource or sub-profile shape\n  mismatch).\n- **Cases** (per measure):\n  * CMS22FHIRPCSBPScreeningFollowUp: 12 cases - blood-pressure screening observations + MedicationNotRequested retrieving\n  * CMS135FHIRACEIorARBorARNIforHF: 8 cases (subset of 11 total - 3 are non-engine-related) - pregnancy-status observation profile gap\n  * CMS144FHIRHFBetaBlockerForLVSD: 3 cases - HF diagnosis + medication profile gap\n  * CMS771FHIRUrinarySymptomScoreBPH: 7 cases - urinary symptom observation profile\n  * CMS177FHIRChildMDDSuicideAssmt: 1 case - MDD screening observation\n  * CMS645FHIRBoneDensityPCADTherapy: 3 cases - bone density screening\n  * CMS71FHIRSTKAnticoagAFFlutter: 12 cms-only + 4 shared (split case)\n- **Evidence** (`scripts/comparison/engine_shared_issues.py` per measure):\n  * CMS22: cms-only 14 / qicore-only 0 / shared 0 / pass 206\n  * CMS135: cms-only 14 / qicore-only 0 / incomplete 15 / pass 171 (cm-only subcluster 8 cases / 14 cells)\n  * CMS2: cms-only 8 / qicore-only 7 / pass 165 (mixed)\n  * CMS144: cms-only 5 / pass 235\n  * CMS771: cms-only 7 / pass 117\n  * CMS177: cms-only 2 / pass 121\n  * CMS645: cms-only 5 / pass 199\n- **Same root cause + same family as E-17** - profile-retrieve misfire on the new CMS engine. Tracked together\n  rather than partitioned into per-resource-type sub-entries because the engine-fix is shared.\n- **Engine fix needed**: profile-retrieve width on `us-quality-core-*` profiles. Until then, all 7 measures carry\n  the cms-only mismatches as resolution-pending.\n- **Status**: **Confirmed** (2026-09-05; 41 cms-only cells across the 7 measures at this snapshot).\n- **Corroboration - 2026-09-05 (cms-only sub-cluster)**: 4 additional measures added to E-21 scope:\n  * CMS2FHIRPCSDepScreenAndFollowUp: 8 cases - depression screening observation profile gap; CMS2 has \\`cms-only: 8 / qicore-only: 7\\` (mixed - the cms-only subcluster is the engine fault).\n  * CMS996FHIRAptTxforSTEMI: 5 cases - STEMI procedure + observation retrieval gap.\n  * CMS646FHIRIntravesicalBCGTherapy: 2 cases (subset of 6 expected - 1 cms-only cell matches) - BCG procedure + cystoscopy retrieve profile gap.\n  * CMS145FHIRCADBBlockerTPMIorLVSD: 5 cases (subset of 6 expected) - CAD beta-blocker + cardiac observation.\n",
+   "summary_row": "| E-21 | `us-quality-core-*` profile retrieves return empty across screening-assessment / service / medication / procedure profile families (E-17 family aggregation - corroborated across 11 measures) | **Confirmed** | **None - engine runtime** (see E-17 family) | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter |"
   }
  ],
  "enriched": true
