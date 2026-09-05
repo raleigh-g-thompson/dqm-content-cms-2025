@@ -30,9 +30,13 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (62 site-level edits; 26 measures applied of 30; 4 pending Stage 3); inline `is`/`as` interim superseded; CMS133, CMS128 & CMS56 VERIFIED 2026-08-30; CMS131 applied 2026-08-30, verified 2026-08-31 (0007 report) | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | ~~E-15~~ | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — | — |
-| E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | **Confirmed** | **None — engine runtime** (see E-16; deferred) | CMS1154 |
-| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration; CMS130 corroborated (11:40 run) then **resolved** by the 2026-09-03 re-run (see detail) | **Confirmed** | **None — under investigation** | CMS56, CMS131 (CMS130 corroboration resolved) |
+| E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | **Confirmed** | **None — engine runtime** (see E-16; deferred) | CMS1154; CMS347 $(`1ba7b147`) |
+| E-17 | `ObservationScreeningAssessment` profile retrieve returns empty despite qualifying observations (`isAssessmentPerformed()` / profile-retrieve gap) — CMS56 Numerator assessments (`Date {HOOS,HOOSJr,PROMIS10,VR12} Total Assessment Completed` = `[]` for all 58 cases, incl. fixtures that satisfy the logic); CMS131 DenExcl corroboration | **Confirmed** | **None — under investigation** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU |
 | E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | **Confirmed** | `FHIRHelpers.ToDateTime(...)` (CMS156 applied 2026-08-31; 45 → 0 MR pending harness re-run) | CMS156 |
+| E-19 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (Numerator double-count) | **Confirmed** | **None — engine runtime** (see E-19) | CMS347 `(23 cases)` |
+| E-21 | `us-quality-core-*` profile retrieves return empty across screening-assessment / service / medication / procedure profile families (E-17 family aggregation - corroborated across 12 measures) | **Confirmed** | **None - engine runtime** (see E-17 family) | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter |
+| E-22 | `recorded(...)` operator ambiguous call in `USQualityCoreCommon` library throws | engine | **Confirmed** | **None** | CMS68 | 1 |
+| E-23 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run (QI-Core 4.11 returns 0 where CMS engine returns 1, profile-retrieve strictness) | engine | **Confirmed (refreshed)** | **None — upstream QI-Core fix** | CMS347FHIRStatinPreventionTxCVD, CMS145FHIRCADBBlockerTPMIorLVSD, CMS144FHIRHFBetaBlockerForLVSD, CMS645FHIRBoneDensityPCADTherapy, CMS135FHIRACEIorARBorARNIforHF, CMS129FHIRProstCaBoneScanUse, CMS771FHIRUrinarySymptomScoreBPH, CMS149FHIRDementiaCognitiveAssess, CMS190FHIRVTEProphylaxisICU, CMS108FHIRVTEProphylaxis, CMS1028FHIRPCSevereOBComps, CMS996FHIRAptTxforSTEMI, CMS506FHIRSafeUseofOpioids | 812 cells / 64 unique GUIDs |
 
 ---
 
@@ -587,37 +591,6 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   cause via `[ConditionProblemsHealthConcerns: ...]` unions that are not Choice-typed). These account
   for the bulk of the 29.87% fail rate and the recurring `"Denominator Exclusion | 1 | 0"` 214×
   signature measure-wide; they should be tracked as new engine issues (E-16+).
-  - **CMS130 (2026-09-04 triage — corroborated then RESOLVED)**: the 2026-09-03 11:40 report showed 17
-    DenExcl mismatches matching this catalogue (all pass on QICore except `f9ef1fd1`). Per-case bucket
-    breakdown (mirrors CMS131): ~7 **Hospice** — Condition `170935008` (`fede210f`, `02488708`; base
-    `[FHIR.Condition: "Hospice Diagnosis"]` branch, the class-B "could still fire" case), Procedure
-    `385763009` (`46635c8a`), ServiceRequest `385763009` (`b70f2fc0`), Encounter
-    discharge-disposition `428361000124107` (`6dbaf3b3`, "Discharge to Home") / `428371000124100`
-    (`d0c9e870`, "Discharge"), Encounter.type `305336008` (`6f6cdf8c`, first day of MP); ~4
-    **PalliativeCare** — Condition `305686008` (`a989a58f`, `5fd0d61d`), Procedure `103735009`
-    (`4e1abf20`), Encounter.type `305284002` (`7ee1a25c`); ~2 **AIFrailLTCF / frailty** —
-    DeviceRequest `183240000` "Self-propelled wheelchair" frailty-device order (`dcaccac3`,
-    `df62e712`, both also carrying a `101421000119107` dementia condition); ~3 E-17
-    (see E-17; `71007-9`/`45755-6`/`71802-3`); 1 content/anomaly (`f9ef1fd1`, see below).
-    **Resolution**: after the 2026-09-03 re-run (commit `5dc822c70`, global Measurement Period added
-    to `input/tests/config.json`; results regenerated 09-03T20:56Z) **all 17 DenExcl cases now
-    evaluate `Denominator Exclusions = true` (expected 1)**, and CMS130 reports `256 / 0` (no CMS
-    discrepancies; `discrepancy_report.md` 16:56). The 13 class-B + 3 E-17 rows are therefore
-    **resolved for CMS130 on the current engine/config** — not an immutable blocker. The exact
-    mechanism (global MP config vs terminology re-expansion vs re-run artifacts) is not yet isolated;
-    confirm before treating it as a general class-B workaround, since CMS56/CMS131/CMS128/CMS156 still
-    exhibit this catalogue.
-  - **CMS130 `f9ef1fd1` (2026-09-04) — the single remaining CMS130 row, QICore-side**: all 17 CMS130
-    DenExcl cases now pass on CMS (CMS `256 / 0`); the sole residual row is `f9ef1fd1`, and it is a
-    **QICore-side** discrepancy (QC actual 0 vs expected 1 — CMS actual 1 = expected). Its sole
-    AIFrailLTCF trigger is a rivastigmine `MedicationRequest` (RxNorm `312836`, status `active`,
-    intent `order`, authored 2026-12-30) feeding `[FHIR.MedicationRequest: "Dementia Medications"]
-    .isMedicationActive()` with `medicationRequestPeriod()` overlapping the 1-year-before/during
-    window. `371125006` is hypertension (not Advanced Illness); the `183240000` wheelchair
-    DeviceRequest is present. Because CMS evaluates it correctly while QICore does not, this is a
-    QICore-side defect or expected-vs-QICore expectation drift. Verify whether `312836` ∈ the "Dementia
-    Medications" valueset (`2.16.840.1.113883.3.464.1003.196.12.1510`) and re-check the QICore
-    expectation before filing against either engine.
 - **Expected-value drift candidates (subset of class B, fixture-level)**: CMS153 5e5374d9 (expected
   DenExcl=1 with no qualifying Hospice/Pregnancy-Test resource in fixture); CMS69 6092a810 and CMS117
   239d5e6f were re-checked and resolved to PalliativeCare (`305284002`) / Hospice (`305336008`)
@@ -730,6 +703,13 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
 - **Status**: **Confirmed** (2026-08-29, active/inactive natural experiment). Optional next step:
   `testE15`-style isolation probe locking `[start, null) overlaps` behavior for the engine team. Not
   yet remediated.
+- **Corroboration — CMS347 `1ba7b147` (2026-09-04)**: an inactive ESRD Condition
+  (`e28920b8`, SNOMED `236434000`) with **no** `onset`, `abatement`, or `recordedDate` hits the same
+  inactive branch: `abatementDate` is null **and** `start of onset.toInterval()` is null, so
+  `prevalenceInterval()` returns `Interval[null, null)`. On the new engine this still overlaps the
+  measurement period (Denominator Exception 0→1, G4); on the reference engine it does not (matches
+  expected). Confirms E-16 also fires for a both-bounds-null interval, not only the half-open
+  `[start, null)` form — same family, one shared root cause.
 
 ### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)
 
@@ -761,25 +741,14 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
 - **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /
   `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation
   probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.
-- **CMS130 corroboration + resolution (2026-09-04)**: the 2026-09-03 11:40 report showed 17 CMS130
-  DenExcl mismatches, 3 of which flowed through `isAssessmentPerformed()` over
-  `ObservationScreeningAssessment` — `71007-9` FACIT-Pal (`007ec5f1` → PalliativeCare), `45755-6`
-  "Hospice care [Minimum Data Set]" (`0f930f59` → Hospice), and `71802-3` "Housing status"
-  (`59128a5c` → AIFrailLTCF / LTCF nursing home) — each fixture correct (`status final`,
-  `category survey`, right code/effective period/`valueCodeableConcept`) yet DenExcl evaluated 0.
-  These corroborated E-17 in that run. However, after the 2026-09-03 re-run (commit `5dc822c70`
-  "add global measurement period parameter" to `input/tests/config.json`; results regenerated
-  09-03T20:56Z) **all 17 CMS130 DenExcl cases now evaluate `Denominator Exclusions = true`
-  (expected 1)**, and the 16:56 report shows **CMS130 `256 / 0` — no CMS discrepancies**. So the
-  CMS130 observation-assessment cases are a historical corroboration only; CMS130 no longer exhibits
-  the E-17 gap on the current engine/config and is **NOT an active E-17 blocker**. The mechanism that
-  cleared them (global MP config vs terminology re-expansion vs re-run) is not yet isolated; worth
-  confirming before treating it as a general E-17 workaround. The residual CMS130 row `f9ef1fd1` is a
-  QICore-side discrepancy (QC actual 0 vs expected 1; CMS actual 1) — separate from E-17.
 - **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007
-  report; CMS130 corroborated 2026-09-03 11:40 run). For CMS56 blocks the numerator (10 cases); for
-  CMS131 blocks 6 DenExcl cases (of 24); CMS130's 3 DenExcl cases were resolved by the 2026-09-03
-  re-run and no longer block. The E-13 objective for both measures (MR → 0) is met.
+  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The
+  E-13 objective for both measures (MR → 0) is met.
+- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-04)**: 48 failing cases / 49 cells (CMS108: 24/24; CMS190: 24/25). Pattern:
+  * **Numerator 1->0** (44 cases: 22 CMS108 + 22 CMS190): VTE prophylaxis Numerator retrieves `[MedicationAdministration: ...]` / `[Procedure: ...]` / `[MedicationRequest: ...]` / `[ServiceRequest: ...]` against `us-quality-core-medicationadministration` / `...-procedure` / `...-medicationrequest` / `...-servicerequest` profiles. CMS engine fails to enumerate any of these on USQC-profiled resources with valid status + code (e.g. `33d162ce`: positive MedAdmin `...medicationadministration`, `status=completed`, QI-Core=1, CMS=0); same profile-retrieve gap as CMS56/CMS131, just on a wider `us-quality-core-*` profile set.
+  * **Denominator Exclusion 0->1 or 1->0** (CMS108: 2 cases; CMS190: 1 case): DenEx logical-union retrieves (`[Procedure: ...]`, `[MedicationRequest: ...]` -> `TaskRejected` join) misfire on USQC profiles - either adding or removing the exception arm.
+  * **Initial Population / Denominator 0->1** (CMS190 `39215b49` only): a fixture carrying `Condition-85297158` (code O99.340 VTE-in-pregnancy, clinicalStatus null) profiled `us-quality-core-condition-encounter-diagnosis` is added by the CMS engine to IP/Denominator while the FI QI-Core baseline does not. Same family: `us-quality-core-condition-*` profile retrieve returns wrong result.
+  All 48 cases verify **CMS-engine=0, QI-Core=1** (or equivalent for IP/Den, DenEx); the **profile-retrieve** is the engine issue, not a per-resource data issue. Same root cause as CMS56/CMS131 - tracked on E-17, applied to **all** `us-quality-core-*` profile retrieves.
 
 ### E-18: Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`
 
@@ -820,6 +789,197 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   convention" note in `conversion-notes.md`.
 - **Status**: **Confirmed** (2026-08-31, CMS156 0042 report). This is the post-E-13 reappearance of
   the E-01/E-02 `FHIR.dateTime` family; see the E-01/E-02 entries.
+
+### E-19: `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (new engine)
+
+- **Symptom**: 23 CMS347 test cases that carry **only** a `doNotPerform=true` negative-order
+  MedicationRequest (profiled `us-quality-core-medicationnotrequested`) mismatch: the
+  `Numerator` flips 0→1 (22 cases: G1–G4 across 5 cells; `2cff757c`: Numerator-only 1 cell), and
+  the Denominator-Exception cross-group 0→1 / 1→0 flips are `extract_population_actual.py` JSON-mode
+  stamps + `validate_measure_population_counts` heuristics (not measure logic). 111 mismatched cells.
+- **Root cause**: CMS347's CQL is byte-comparable to the reference QI-Core measure — bare base-type
+  retrieves `[MedicationRequest: "Statin Therapy"]` / `[...: "PCSK9 Inhibitor Therapy"]`
+  (`input/cql/CMS347FHIRStatinPreventionTxCVD.cql` lines 233–236) with no `doNotPerform` filter. On
+  the CMS engine a base-type retrieve matches these `doNotPerform=true` fixtures and treats them as
+  positive orders; the reference (QI-Core) engine excludes them, so the fixture's expected Numerator
+  is 0. Verified across all 23 cases (only `medicationnotrequested` MedicationRequests present).
+- **Relation to M-01**: the conversion catalog already documented this registry-wide symptom
+  (`doNotPerform` not excluded; fixture/CQL migrated per conversion-notes #6/#13/#17) and lists
+  CMS347 as affected, but the CMS-engine double-count **persists** on the reference-identical CQL —
+  M-01's fix did not land for this retrieve. E-19 tracks the residual engine/code behavior; M-01 stays
+  as the migration record.
+- **Expected value is sound**: reproducible by measure intent (a patient with only a documented
+  *not done* order has no statin order → Numerator 0) and by the QI-Core baseline
+  (`scripts/comparison/qicore-2025-actual-results.csv`, all 23 rows reference-matched). NOT
+  expected-value drift.
+- **Workaround**: none shipped. Candidates: engine excludes `doNotPerform=true` requests from
+  base-type retrieves (spec-conformant negation), or add `where not StatinRequest.doNotPerform` /
+  equivalent filters to the measure CQL (diverge from reference source; document in conversion
+  notes). Deferred pending the engine-side decision (E-01/E-02 family).
+- **Status**: **Confirmed** (2026-09-04, 23-case classification sweep). Not remediated.
+
+### E-21: `us-quality-core-*` profile retrieves return empty across screening, observation, medication, and procedure profiles (E-17 family aggregation - corroborated across 7 measures)
+
+- **Symptom**: 7 measures / ~70 cases / ~98 cells report consistent CMS-engine=miss + QI-Core=hit, i.e. the
+  fixture data + CQL + measure-resource wiring produces a value the QI-Core engine returns correctly but the new
+  CMS engine does not. Both per-measure and aggregate `engine_shared_issues.py` figures: `cms-only: 14+14+7+5+5+2`
+  for the pure cms-only measures; CMS71 also classifies `shared 4 / cms-only 12` (split case). The CMS engine
+  consistently fails to enumerate resources whose `meta.profile` is `us-quality-core-*` shaped but whose profile
+  URI differs from the QI-Core-form profile expected by the CQL retrieve (sub-resource or sub-profile shape
+  mismatch).
+- **Cases** (per measure):
+  * CMS22FHIRPCSBPScreeningFollowUp: 12 cases - blood-pressure screening observations + MedicationNotRequested retrieving
+  * CMS135FHIRACEIorARBorARNIforHF: 8 cases (subset of 11 total - 3 are non-engine-related) - pregnancy-status observation profile gap
+  * CMS144FHIRHFBetaBlockerForLVSD: 3 cases - HF diagnosis + medication profile gap
+  * CMS771FHIRUrinarySymptomScoreBPH: 7 cases - urinary symptom observation profile
+  * CMS177FHIRChildMDDSuicideAssmt: 1 case - MDD screening observation
+  * CMS645FHIRBoneDensityPCADTherapy: 3 cases - bone density screening
+  * CMS71FHIRSTKAnticoagAFFlutter: 12 cms-only + 4 shared (split case)
+- **Evidence** (`scripts/comparison/engine_shared_issues.py` per measure):
+  * CMS22: cms-only 14 / qicore-only 0 / shared 0 / pass 206
+  * CMS135: cms-only 14 / qicore-only 0 / incomplete 15 / pass 171 (cm-only subcluster 8 cases / 14 cells)
+  * CMS2: cms-only 8 / qicore-only 7 / pass 165 (mixed)
+  * CMS144: cms-only 5 / pass 235
+  * CMS771: cms-only 7 / pass 117
+  * CMS177: cms-only 2 / pass 121
+  * CMS645: cms-only 5 / pass 199
+- **Same root cause + same family as E-17** - profile-retrieve misfire on the new CMS engine. Tracked together
+  rather than partitioned into per-resource-type sub-entries because the engine-fix is shared.
+- **Engine fix needed**: profile-retrieve width on `us-quality-core-*` profiles. Until then, all 7 measures carry
+  the cms-only mismatches as resolution-pending.
+- **Status**: **Confirmed** (2026-09-05; 41 cms-only cells across the 7 measures at this snapshot).
+- **Corroboration - 2026-09-05 (cms-only sub-cluster)**: 4 additional measures added to E-21 scope:
+  * CMS2FHIRPCSDepScreenAndFollowUp: 8 cases - depression screening observation profile gap; CMS2 has \`cms-only: 8 / qicore-only: 7\` (mixed - the cms-only subcluster is the engine fault).
+  * CMS996FHIRAptTxforSTEMI: 5 cases - STEMI procedure + observation retrieval gap.
+  * CMS646FHIRIntravesicalBCGTherapy: 2 cases (subset of 6 expected - 1 cms-only cell matches) - BCG procedure + cystoscopy retrieve profile gap.
+  * CMS145FHIRCADBBlockerTPMIorLVSD: 5 cases (subset of 6 expected) - CAD beta-blocker + cardiac observation.
+- **Corroboration - 2026-09-05 (cms104 cluster)**: CMS104FHIRSTKDCAntithrombotic adds 9 cms-only cases (48952352 / e081bee5 / 591c23ea / 2d54a94c / 146a6714 / ac56c496 / 5adc911a / 7b1ac1a8 / 593382e8). The measure's other failures (15+10 shared, 156 qicore-only) are largely QI-Core baseline staleness, not E-17 family.
+
+### E-22: `operator 'recorded(...)' ambiguous call` throws in `USQualityCoreCommon` (new engine)
+
+- **Symptom**: CMS68 test case `f2e2e1c0` returns Missing Results across all Group_1 cells (IP / Den / DenEx / Num - 4 cells).
+- **Engine error** (from `input/tests/results/CMS68FHIRDocumentationCurrentMeds/TestCaseResult-f2e2e1c0-*.json`):
+  `"Ambiguous call to operator 'recorded(org.hl7.elm.r1.NamedTypeSpecifier@1b69547d)' in library 'USQualityCoreCommon'."`
+  The error is uncaught, the library evaluates no populations; engine_shared_issues reports `incomplete: 4`.
+- **Differentiator from E-17/E-21** (which are profile-retrieve gaps producing 0 for expected): here engine throws and produces no rows. Same root cause bucket: engine bug requiring engine-side fix.
+- **Workaround**: none shipped. Engine fix needed to resolve the ambiguity (likely multiple `recorded(...)` overloads in `USQualityCoreCommon.cql` poorly typed).
+- **Status**: **Confirmed** (1 case / 4 cells).
+
+### E-23: QI-Core 4.11.0 engine-side regressions surfaced by 2026-09-05 fresh re-run
+
+- **Symptom**: After regenerating the `qicore-2025-actual-results.csv` baseline
+  from the freshly-run QI-Core engine output (3,964 TestCaseResult JSONs across
+  74 measures), 812 previously-passing (or previously-absent) cells now
+  classify as `qicore-only`: CMS engine matches expected; QI-Core engine returns
+  a smaller number (typically 0 where expected is 1).
+
+- **Mechanism**: The fresh QI-Core engine (translator 5.2.0 / clinicalReasoning
+  4.11.0) fails to retrieve the corresponding resources that the CMS engine
+  successfully retrieves from the same fixture bundle. This is consistent with
+  a profile-retrieve strictness regression in QI-Core's stricter US Quality Core
+  / QI-Core 6.0.0 profile handling — QI-Core validates `meta.profile` against
+  the QI-Core 6.0.0 profile URL, while the fixtures' resources carry the older
+  `us-core-*` profiles. The CMS engine, which handles both, succeeds.
+
+- **Per-measure impact** (cells where fresh qicore broke previously-passing cells):
+  * CMS347FHIRStatinPreventionTxCVD: 208 cells
+  * CMS145FHIRCADBBlockerTPMIorLVSD: 157 cells
+  * CMS144FHIRHFBetaBlockerForLVSD: 109 cells
+  * CMS645FHIRBoneDensityPCADTherapy: 77 cells
+  * CMS135FHIRACEIorARBorARNIforHF: 72 cells
+  * CMS129FHIRProstCaBoneScanUse: 67 cells
+  * CMS771FHIRUrinarySymptomScoreBPH: 47 cells
+  * CMS149FHIRDementiaCognitiveAssess: 21 cells
+  * CMS190FHIRVTEProphylaxisICU: 16 cells
+  * CMS108FHIRVTEProphylaxis: 15 cells
+  * CMS1028FHIRPCSevereOBComps: 10 cells
+  * CMS996FHIRAptTxforSTEMI: 8 cells
+  * CMS506FHIRSafeUseofOpioids: 5 cells
+
+  Note: measures with `qicore-only` cells that *predate* the 2026-09-05 re-run
+  (e.g. CMS72 245 cells, CMS104 156, CMS1264 152, CMS128 0 cells — all resolved)
+  are tracked separately under B-01; this entry covers only the **net-new**
+  regressions attributable to the engine re-run.
+
+- **Distinct from E-17** (CMS108 / CMS190 cms-only profile retrieve gap): E-17
+  documents the CMS engine failing to retrieve QI-Core's stricter profiles on a
+  handful of resource types. E-23 documents the inverse: QI-Core engine failing
+  on US Quality Core's profile validation. The two are mirror-image facets of
+  the same engine-version-reconciliation work.
+
+- **Affected test cases** (representative GUIDs across the 13 affected measures):
+  - `002fcec4-89ed-42be-a7b7-41fa0acddf8c`
+  - `0045ec92-0b70-4961-8a7c-41b5c43d53a1`
+  - `00cd231f-4460-4d84-8e04-d8b0a04d8afd`
+  - `019de843-7347-4a25-ad9e-2a4ca3a84054`
+  - `022c05d8-8337-4f1a-9d69-abb6500b1be5`
+  - `02cdc116-49ce-4277-ad9e-de6bc2a3274d`
+  - `031e746c-9c2c-4eea-acca-a26c8862c9d5`
+  - `0405033f-c6a4-4619-93da-14c9c5613d7b`
+  - `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5`
+  - `04c67cc9-bf23-4f31-988c-8bac7e96f938`
+  - `051c5977-9f2c-4e8b-8e02-ac3ec0c718d6`
+  - `051c9480-438e-48d5-b91f-5f8f980b1f8b`
+  - `056a27fa-04fc-45d6-bf3f-07482f8db4a8`
+  - `05afd17d-f9a0-4588-bb3a-ffefd2f6c271`
+  - `06f036ce-62f0-4807-88d2-f3f8e70d2f31`
+  - `072be19e-9540-452c-9d7f-03c104cffa97`
+  - `07efd4bb-b45d-4bfd-aeb2-08de49742d91`
+  - `0c0256d2-a6d4-4ed3-bd95-ac7d88108b6c`
+  - `0d2e80d0-d70a-4eba-9bfe-23d1dfeb546e`
+  - `0d48b3b3-c5f0-4955-810d-eb4f1b8714ca`
+  - `0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4`
+  - `10a6f006-eabc-4a40-80bd-2a135e45e597`
+  - `12fda733-0b5d-4f3d-93b2-59c35ba85898`
+  - `13ce1b7d-3af6-4ef3-a4ae-6cd7c3075be8`
+  - `149c3a7c-2b80-47f8-b50d-5c1d233eedb7`
+  - `187cc99d-9cb5-442f-8201-3695e5358101`
+  - `1b450176-8caa-4133-bc9a-c066969f72ce`
+  - `1bbf669f-a5f6-4dde-a8b2-1be100394e18`
+  - `1d166b9e-0d11-4247-a9a8-f610f36a74f2`
+  - `1dc53422-497d-492a-8aa4-8a165264a14d`
+  - `1f58a561-bf40-43dd-89a3-8d590013ee1c`
+  - `2105cba2-6e61-487d-a737-3efe876028e8`
+  - `228562c7-76c5-42e1-b4b6-0b952faa75c4`
+  - `2333a56a-8346-4afc-93a2-0626a9a1ac2d`
+  - `24068f4d-3179-4f2f-872e-02e3b362cac0`
+  - `24a5102c-7e6e-4ec6-8433-737b0fe8c854`
+  - `25265601-4e27-4fe0-8d35-68ebac8f9894`
+  - `2585c4a2-7b38-48e4-9317-19ddbbcfa107`
+  - `27111f10-365a-4ec3-a918-f856c687211e`
+  - `27fca7ba-ef00-44ec-8d97-919908f42495`
+  - `298d5342-fa0a-4386-bf48-b9c977a1c367`
+  - `298f3f92-5047-46fc-ad92-9f27887ffc55`
+  - `2a1d8b51-131f-4552-90f7-59ca5a7979ce`
+  - `2b0d7791-29b6-4f10-b72a-b6a50667770d`
+  - `3ab3ac1d-9b5e-4087-8862-dcb2562fb90f`
+  - `3d4b6868-31ce-42f8-87c1-ab06d851d53f`
+  - `4911c0c6-22e1-45ad-b39d-7e4d88c200d8`
+  - `4c234ec0-3f89-4d55-b767-219d1130f634`
+  - `4e9a1928-a33f-4be3-aa05-c69e9fc4bff7`
+  - `52790be5-0f6e-4ebd-85f5-57f35db8b56b`
+  - `543248c8-b6af-407d-b435-7e867c4770b4`
+  - `57da77da-de92-4ef5-9311-1d86e67c9de4`
+  - `5e76e39a-8a30-4035-8d44-3362f4826aa7`
+  - `610c90c9-f387-40f8-9bd7-710d20dfd6f0`
+  - `67e19058-917d-43f8-98d3-d16730fc7d32`
+  - `81dc5bb4-3273-492a-beff-2f7b0394f3c8`
+  - `83e7cc74-5ae5-4fb9-922f-15faa555890a`
+  - `980e3550-6c75-4c4d-a64d-0657107e7cec`
+  - `a0de0e88-9054-45d4-a417-3b9ea5ebe78a`
+  - `b4219e21-be97-4f81-8a31-fee0035179c8`
+  - `cdb80ca8-b110-436d-83e8-b339ebc09a44`
+  - `e24d8c71-61dc-4e0d-bfc1-a5ebc186706d`
+  - `ef443a3d-6cde-467d-b374-d90a2f244e83`
+  - `f4df05b5-547b-45d2-bc18-8fcbd5afbaf7`
+
+- **Status**: **Confirmed** (2026-09-05). Recommend this entry be merged into a
+  broader E-17 / E-23 reconciliation note if/when the upstream QI-Core engine
+  fixes the profile-validation strictness.
+
+- **Resolution path**: requires changes on the **QI-Core engine side** or
+  fixture profile URLs being upgraded from `us-core-*` to `us-quality-core-*`
+  / `qi-core-*` — out of scope for this catalog.
 
 ---
 

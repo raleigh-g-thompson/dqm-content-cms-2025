@@ -1,7 +1,7 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-05 16:50:02.928696 |
+| Generated | 2026-09-05 16:49:39.772770 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 32 |
@@ -891,6 +891,10 @@ Mismatched Test Cases (1 of 69 test cases)
 | [ ea9c34ee-b50e-4d13-bd9c-ab2033d15717 ](../.././input/tests/measure/CMS1218FHIRHHRF/ea9c34ee-b50e-4d13-bd9c-ab2033d15717/MeasureReport-97044259-fd76-403c-a40f-1177631abe4f.json) | Group_1 | Initial Population<br>Denominator | 0<br>0 | 1<br>1 | C-12 — resolution pending | FAIL<br>FAIL |
 
 
+
+---
+
+_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._
 ## Engine Diff: CMS vs QI-Core (qicore-2025)
 
 _Where the CMS engine's actual results differ from the QI-Core engine's (source of truth) on the same test case and population. QI-Core-only rows are populations the QI-Core engine produced that are absent from CMS._
@@ -2786,7 +2790,3 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | c4d785a5-a3fa-463b-b9ca-91d60eeb3dab | Initial Population | 1 | 0 | mismatch |
 | f3a5ce49-9f1f-455b-8f44-2389c61d5850 | Initial Population | 1 | 0 | mismatch |
 
-
----
-
-_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._

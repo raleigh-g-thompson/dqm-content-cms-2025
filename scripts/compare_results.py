@@ -14,6 +14,7 @@ _SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _SCRIPTS_DIR)
 sys.path.insert(0, os.path.join(_SCRIPTS_DIR, "comparison"))
 import known_issues as known_issues_lib
+import render_catalog_issue_details as render_catalog_lib
 
 measure_id_pattern = r"(?:CMS|CMSFHIR)(?P<measure_id>\d+)"
 
@@ -110,7 +111,7 @@ def diff_actual_results(cms_rows: Dict, qicore_rows: Dict) -> Dict[str, Dict]:
     cms_keys = set(cms_rows)
     qi_keys = set(qicore_rows)
 
-    for key in qi_keys:
+    for key in sorted(qi_keys):
         measure, _guid, _pop = key
         bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
         if key not in cms_keys:
@@ -121,7 +122,7 @@ def diff_actual_results(cms_rows: Dict, qicore_rows: Dict) -> Dict[str, Dict]:
         else:
             bucket["mismatch"].append((key, cms_rows[key], qicore_rows[key]))
 
-    for key in cms_keys - qi_keys:
+    for key in sorted(cms_keys - qi_keys):
         measure, _guid, _pop = key
         bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
         bucket["cms_only"].append(key)
@@ -194,7 +195,7 @@ def write_engine_diff_csv(engine_diff: Dict[str, Dict], out_path: str) -> None:
     (empty for rows present in only one); ``diff_type`` is mismatch|cms-only|qicore-only.
     """
     with open(out_path, "w", newline="") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(["measure_name", "guid", "population", "cms_count", "qicore_count", "diff_type"])
         for measure in sorted(engine_diff):
             d = engine_diff[measure]
@@ -684,6 +685,9 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         if engine_diff:
             f.writelines(render_engine_diff_section(engine_diff))
 
+        f.write('\n---\n')
+        f.write('\n_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._\n')
+
 def archive_report(report_path: str) -> str:
     """Copy the generated discrepancy report to _archive/ with a timestamp.
 
@@ -732,6 +736,14 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
     archived = archive_report(comparison_report)
     if archived:
         print(f"Archived report -> {archived}")
+
+    details_out = os.path.join(os.path.dirname(comparison_report), "catalog_issue_details.md")
+    render_catalog_lib.write_catalog_details(
+        known_issues_path=known_issues_file,
+        discrepancy_report_path=comparison_report,
+        output_path=details_out,
+    )
+    print(f"Wrote catalog issue details -> {details_out}")
 
 if __name__ == '__main__':
     expected_file = "./scripts/comparison/expected_results.csv"
