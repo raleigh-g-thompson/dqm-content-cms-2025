@@ -2354,6 +2354,337 @@
     }
    ],
    "body_md": "### C-05: CMS157 Pain Intensity Quantified fixture MR/Denominator authoring mismatch (shared across both engines)\n\n- **Symptom**: 19 failing test cases / 46 mismatched cells (Group_1: Initial Population, Denominator, plus 8 Numerator). Both engines return IP=0; expected=1; Denominator mirrored; Numerator mirrored on 8/19 cases.\n- **Mechanism**: the CQL's \"Initial Population 1\" (`input/cql/CMS157FHIRPainIntensityQuantified.cql` lines 42-43) uses\n  `[Encounter: \"Office Visit\"] union [Encounter: \"Audio Visual Telehealth Encounter\"]` plus `[Procedure: \"Chemotherapy Administration\"]` and `[Condition: \"Cancer\"]`. The fixture Encounters carry `type` (or no `type`) that doesn't match \"Office Visit\" / \"Audio Visual Telehealth Encounter\", so Initial Population = 0; expected IP=1 was hand-authored in the MR.\n- **Case samples**:\n  * `055640ae-dc71-...`: 1 SNOMED Condition 80914001 (cancer), 1 Encounter (no type code), 2 Procedure/CPT 51720. Expected IP=1, act=0.\n  * `233d84af-...`: 1 Condition, 1 Encounter, 4 Procedures, 1 Observation; expected IP=1, act=0.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS157FHIRPainIntensityQuantified`): **shared: 46 / cms-only: 0 / qicore-only: 0 / conflicting: 0 / pass: 332 / shared% of not-passing: 100.0%**.\n- **Workaround**: none shipped. Candidates: (1) drop orphan IP/Denominator rows from fixture MRs; (2) restore qualifying Office Visit / Telehealth Encounter types in fixtures.\n- **C-02 status preserved**: the CMS157 cancer-diagnosis ICD-10-vs-SNOMED valueset content issue (C-02) remains parallel; this C-05 entry tracks the IP/Denominator authoring side that hasn't been documented yet.\n"
+  },
+  {
+   "id": "C-06",
+   "title": "CMS816 HH Hypoglycemia fixture MR/Denominator authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS816FHIRHHHypo fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS816FHIRHHHypo"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "05c8cd12-addd-4b94-8f92-da093c556a84"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "1d2bb25a-21a7-4529-9486-a320d4864719"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "2adf5469-46a1-4020-be3b-01f91f8acc9d"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "304052f7-e416-4da4-87ae-488e6589cab3"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "339a989b-722c-4452-9d25-454e2d53eea8"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "37fd9c7e-bf9e-4769-b448-094ed97bd3e8"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "5bfa3b7e-2b6f-4eb5-b09b-7c6f1145780b"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "6bc18290-1925-4239-81d7-0118bd062225"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "8301c6c8-e50c-4457-add0-1ebd909c8ca7"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "974284eb-fc89-452a-9b38-a884c0e0477e"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "aa5f21cc-2d56-4749-a190-2828d579f790"
+    },
+    {
+     "measure": "CMS816FHIRHHHypo",
+     "guid": "ecde4132-9028-420a-aa7c-d1d14e5c1ab0"
+    }
+   ],
+   "body_md": "### C-06: CMS816FHIRHHHypo fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 12 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS816FHIRHHHypo`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (12 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-07",
+   "title": "CMS871 HH Hyperglycemia fixture MR/Denominator authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS871FHIRHHHyper fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS871FHIRHHHyper"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "113a6e72-7049-4a7f-90cf-5ec3435b0dee"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "35719b1a-85bd-4072-b8d5-7218309358c6"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "48c2ed10-7c2d-4130-a215-a6f72b169111"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "4c12355d-2548-471a-a98f-b9a58c2cbfe0"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "7507debb-a991-4de0-bd71-634a684ddcd7"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "7637e69b-5481-4edf-b186-334d4367f740"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "76dc2b63-710c-4ac5-afef-f76c2ef07dcd"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "98533ccd-24ee-41b3-aab2-ef6cbf89e00d"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "a52510f5-d529-419e-97ae-3979ae9b4d9a"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "b7534abb-5837-4f38-83b1-b14e52684f84"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "b8dd3c0c-bc5c-4858-9f96-9faabbbaad45"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "c85ad9d3-e24d-47a2-a4ab-8a9b6d3bb9af"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "cb54c026-6ec9-4db5-b8ac-7cb713138ca8"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "cff9d7db-ba56-4527-8cd4-3a6412945f16"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "f4e6ce4f-8209-4f79-a9ab-2678d3e0ded8"
+    },
+    {
+     "measure": "CMS871FHIRHHHyper",
+     "guid": "fd579f44-757b-4c98-9b09-27b17b935650"
+    }
+   ],
+   "body_md": "### C-07: CMS871FHIRHHHyper fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 16 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS871FHIRHHHyper`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (16 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-08",
+   "title": "CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS142FHIRCommWithDrManagingDiab"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS142FHIRCommWithDrManagingDiab",
+     "guid": "05f1e2a6-b317-42bb-827f-993ca3995f5b"
+    },
+    {
+     "measure": "CMS142FHIRCommWithDrManagingDiab",
+     "guid": "41ae0086-ac99-4a31-9546-21b054bbf7d8"
+    },
+    {
+     "measure": "CMS142FHIRCommWithDrManagingDiab",
+     "guid": "6aef5a18-59bd-4a47-80bc-2bd44636e41f"
+    },
+    {
+     "measure": "CMS142FHIRCommWithDrManagingDiab",
+     "guid": "b85440e4-b902-49cd-b3d6-363ba7a99bce"
+    },
+    {
+     "measure": "CMS142FHIRCommWithDrManagingDiab",
+     "guid": "d9840e8c-3359-42c2-b354-4b236c3c1b15"
+    }
+   ],
+   "body_md": "### C-08: CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 5 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS142FHIRCommWithDrManagingDiab`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (5 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-09",
+   "title": "CMS819 HH Opioid-Related Adverse Events fixture MR authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS819FHIRHHORAE fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS819FHIRHHORAE"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS819FHIRHHORAE",
+     "guid": "31b40acc-ca5f-4d1d-bd83-4b1a14eb822e"
+    },
+    {
+     "measure": "CMS819FHIRHHORAE",
+     "guid": "73b0c1fe-874b-4982-8cb2-3c30520441de"
+    }
+   ],
+   "body_md": "### C-09: CMS819FHIRHHORAE fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 2 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS819FHIRHHORAE`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (2 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-10",
+   "title": "CMS159 Depression Remission fixture MR authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS159FHIRDepRemissionat12Months fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS159FHIRDepRemissionat12Months"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS159FHIRDepRemissionat12Months",
+     "guid": "491f554e-e897-40c5-ad2b-0983923df4e8"
+    },
+    {
+     "measure": "CMS159FHIRDepRemissionat12Months",
+     "guid": "96b6579c-1cee-423f-9433-a72db6fb8a0a"
+    }
+   ],
+   "body_md": "### C-10: CMS159FHIRDepRemissionat12Months fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 2 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS159FHIRDepRemissionat12Months`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (2 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-11",
+   "title": "CMS0334 Cesarean Birth fixture MR authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS0334FHIRPCCesareanBirth fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS0334FHIRPCCesareanBirth"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS0334FHIRPCCesareanBirth",
+     "guid": "c58acff5-248b-49c9-b18d-69e4a84a08d9"
+    }
+   ],
+   "body_md": "### C-11: CMS0334FHIRPCCesareanBirth fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 1 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS0334FHIRPCCesareanBirth`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (1 cases). Not remediated.\n"
+  },
+  {
+   "id": "C-12",
+   "title": "CMS1218 HH Respiratory Failure fixture MR authoring mismatch (shared %)",
+   "category": "content",
+   "status": "**Confirmed**",
+   "resolved": false,
+   "root_cause_status": "open",
+   "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+   "references": {
+    "defect_tracking": [
+     "defect-tracking catalog (CMS1218FHIRHHRF fixture MR authoring mismatch)"
+    ],
+    "issues": [
+     "C-03",
+     "C-04",
+     "C-05"
+    ]
+   },
+   "affected_measures": [
+    "CMS1218FHIRHHRF"
+   ],
+   "affected_test_cases": [
+    {
+     "measure": "CMS1218FHIRHHRF",
+     "guid": "ea9c34ee-b50e-4d13-bd9c-ab2033d15717"
+    }
+   ],
+   "body_md": "### C-12: CMS1218FHIRHHRF fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 1 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS1218FHIRHHRF`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (1 cases). Not remediated.\n"
   }
  ],
  "enriched": true
