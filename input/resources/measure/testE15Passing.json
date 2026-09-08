@@ -4,6 +4,12 @@
   "meta": {
     "profile": [ "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/test-case-cqfm" ]
   },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
+  } ],
   "url": "https://madie.cms.gov/Measure/testE15Passing",
   "identifier": [ {
     "system": "https://madie.cms.gov/Measure",
