@@ -44,6 +44,7 @@ ENGINE_META = {
     "E-16": {"resolved": False, "root_cause_status": "open"},
     "E-17": {"resolved": False, "root_cause_status": "open"},
     "E-18": {"resolved": False, "root_cause_status": "open"},
+    "E-22": {"resolved": False, "root_cause_status": "open"},
 }
 
 # Documented failing (measure, guid) pairs per engine issue. Only fully-documented

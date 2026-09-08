@@ -1,13 +1,13 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-08 10:21:41.295912 |
+| Generated | 2026-09-08 03:40:20.076517 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 30 |
 | Known Issues (resolution pending) | 26 issues / 1004 test cases |
-| Passing Test Cases (all) | 3769 (95.08%) |
-| Failing Test Cases (all) | 195 (4.92%) |
+| Passing Test Cases (all) | 3762 (94.90%) |
+| Failing Test Cases (all) | 202 (5.10%) |
 | Passing Test Cases (excl. resolution-pending) | 2960 (100.00%) |
 | Failing Test Cases (excl. resolution-pending) | 0 (0.00%) |
 | QICore Passing Test Cases | 3228 (81.43%) |
@@ -23,11 +23,11 @@
 | E-01 | `Min()` over DateTime throws | engine | **Confirmed** | CMS1173, CMS871, CMS645, CMS646, CMS156 | 0 |
 | E-02 | Raw `FHIR.dateTime` / choice-typed `X.effective` in temporal operators fails | engine | **Confirmed** | CMS1173, CMS156 | 0 |
 | E-11 | `Unable to extract codes from fhirType Reference` | engine | **Confirmed** | CMS135, CMS165 | 5 |
-| E-12 | Union branch evaluates empty despite correct data | engine | **Confirmed** | CMS104, CMS108FHIRVTEProphylaxis | 8 |
+| E-12 | Union branch evaluates empty despite correct data | engine | **Confirmed** | CMS104 | 0 |
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | engine | **Confirmed / Applied** | CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69, CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156, CMS22, CMS71 | 0 |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | engine | **Suspected** | CMS0334, CMS1028 | 0 |
 | E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | engine | **Confirmed** | CMS1154, CMS347FHIRStatinPreventionTxCVD, CMS1154ScreeningPrediabetesFHIR | 2 |
-| E-17 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps) | engine | **Confirmed** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 40 |
+| E-17 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps) | engine | **Confirmed** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 48 |
 | E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | engine | **Confirmed** | CMS156 | 1 |
 | M-05 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | migration | Not fixed | CMS144 | 0 |
 | E-19 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (Numerator double-count) | engine | **Confirmed** | CMS347FHIRStatinPreventionTxCVD | 23 |
@@ -52,7 +52,7 @@
 |---|:---:|:---:|
 | Missing Results | 5 | 10 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 27 | 185 |
+| Mismatched Test Cases | 27 | 192 |
 
 
 
@@ -73,7 +73,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | CMS75FHIRChildrenDentalDecay | 20 / 0 | 20 / 0 | Match — both pass |
 | CMS90FHIRFSAforHeartFailure | 37 / 0 | 37 / 0 | Match — both pass |
 | CMS104FHIRSTKDCAntithrombotic | 67 / 15 | 13 / 69 | Both have discrepancies |
-| CMS108FHIRVTEProphylaxis | 124 / 16 | 114 / 26 | Both have discrepancies |
+| CMS108FHIRVTEProphylaxis | 117 / 23 | 114 / 26 | Both have discrepancies |
 | CMS117FHIRChildImmunStatus | 45 / 0 | 45 / 0 | Match — both pass |
 | CMS122FHIRDiabetesAssessGT9Pct | 55 / 0 | 55 / 0 | Match — both pass |
 | CMS124FHIRCervicalCancerScreen | 34 / 0 | 34 / 0 | Match — both pass |
@@ -235,7 +235,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS71FHIRSTKAnticoagAFFlutter](#cms71fhirstkanticoagafflutter) | 83 | 0 | 0 | 9.64%   (8) | 80 / 3 | has discrepancies (3) |
 | [CMS72FHIRSTKAntithromboticDay2](#cms72fhirstkantithromboticday2) | 158 | 0 | 0 | 8.23%   (13) | 51 / 107 | has discrepancies (107) |
 | [CMS104FHIRSTKDCAntithrombotic](#cms104fhirstkdcantithrombotic) | 82 | 0 | 0 | 18.29%   (15) | 13 / 69 | has discrepancies (69) |
-| [CMS108FHIRVTEProphylaxis](#cms108fhirvteprophylaxis) | 140 | 0 | 0 | 11.43%   (16) | 114 / 26 | has discrepancies (26) |
+| [CMS108FHIRVTEProphylaxis](#cms108fhirvteprophylaxis) | 140 | 0 | 0 | 16.43%   (23) | 114 / 26 | has discrepancies (26) |
 | [CMS135FHIRACEIorARBorARNIforHF](#cms135fhiraceiorarborarniforhf) | 40 | 3 | 0 | 20.00%   (8) | 10 / 30 | has discrepancies (27) |
 | [CMS142FHIRCommWithDrManagingDiab](#cms142fhircommwithdrmanagingdiab) | 32 | 0 | 0 | 15.62%   (5) | 27 / 5 | has discrepancies (5) |
 | [CMS144FHIRHFBetaBlockerForLVSD](#cms144fhirhfbetablockerforlvsd) | 48 | 0 | 0 | 6.25%   (3) | 4 / 44 | has discrepancies (44) |
@@ -384,25 +384,32 @@ Mismatched Test Cases (15 of 82 test cases)
 
 QICore: 114 / 26 — has discrepancies (26 mismatched, 0 missing)
 
-Mismatched Test Cases (16 of 140 test cases)
+Mismatched Test Cases (23 of 140 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 182103c1-0a38-4d85-819c-148e4e105716 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/182103c1-0a38-4d85-819c-148e4e105716/MeasureReport-ccb6ece2-ea74-4377-b826-2118740d1eee.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812/MeasureReport-735dcbb8-d535-493a-a79c-ff4a9f72ee50.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ 068814f1-4270-4e10-b470-9a5433bceb3e ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/068814f1-4270-4e10-b470-9a5433bceb3e/MeasureReport-22ae9d87-29d1-42c3-9908-93eff318d7b1.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
+| [ 182103c1-0a38-4d85-819c-148e4e105716 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/182103c1-0a38-4d85-819c-148e4e105716/MeasureReport-ccb6ece2-ea74-4377-b826-2118740d1eee.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
+| [ 2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812/MeasureReport-735dcbb8-d535-493a-a79c-ff4a9f72ee50.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
 | [ 33d162ce-3bc7-4b0a-8c04-fec0a42a6263 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/33d162ce-3bc7-4b0a-8c04-fec0a42a6263/MeasureReport-da823951-b92e-4ee9-904f-839f7e8db8df.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 3c854f27-5103-4367-bdef-97c3cde1edb8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/3c854f27-5103-4367-bdef-97c3cde1edb8/MeasureReport-1c32114e-5b9f-4f01-b021-0b3dd5bd8adf.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ 3c854f27-5103-4367-bdef-97c3cde1edb8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/3c854f27-5103-4367-bdef-97c3cde1edb8/MeasureReport-1c32114e-5b9f-4f01-b021-0b3dd5bd8adf.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
 | [ 3db5c5a1-2eec-4e01-8e59-ac389a0a2179 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/3db5c5a1-2eec-4e01-8e59-ac389a0a2179/MeasureReport-384a4771-57ba-472a-9ffd-17eeba8f39d7.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ 41f2785f-4c4f-4497-a46b-e17fd8b5ee3f ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/41f2785f-4c4f-4497-a46b-e17fd8b5ee3f/MeasureReport-ff4c0b9f-8014-4119-ab3f-78a8e7e8f935.json) | Group_1 | Denominator Exclusion | 0 | 1 | E-17 — resolution pending | PASS |
-| [ 525e73f2-77be-49b1-920f-6fc31ef38d22 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/525e73f2-77be-49b1-920f-6fc31ef38d22/MeasureReport-9cb7f213-6011-4f8b-be16-010172559897.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ 525e73f2-77be-49b1-920f-6fc31ef38d22 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/525e73f2-77be-49b1-920f-6fc31ef38d22/MeasureReport-9cb7f213-6011-4f8b-be16-010172559897.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
+| [ 541ccffb-c1be-4c94-ab24-168d52e3a36b ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/541ccffb-c1be-4c94-ab24-168d52e3a36b/MeasureReport-4b90a8ef-2db7-4e28-aba4-d5404f17eb18.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ 5741c41a-04ec-4967-83b2-b0d746bd0ed5 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/5741c41a-04ec-4967-83b2-b0d746bd0ed5/MeasureReport-10dddf5e-f066-457d-b056-01329b17c73e.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 5f739500-ee12-4662-8980-ef95d8fa74c8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/5f739500-ee12-4662-8980-ef95d8fa74c8/MeasureReport-5dd7eca4-05b6-49c4-87b7-a7313b46d684.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ 575f2da0-c890-47a3-b17f-f9e134a1096e ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/575f2da0-c890-47a3-b17f-f9e134a1096e/MeasureReport-1f13d7d0-55ce-47e5-8a23-cb74963fc616.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
+| [ 5f739500-ee12-4662-8980-ef95d8fa74c8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/5f739500-ee12-4662-8980-ef95d8fa74c8/MeasureReport-5dd7eca4-05b6-49c4-87b7-a7313b46d684.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
 | [ 8bb999a1-696a-497b-a5f4-aa55e146a16e ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/8bb999a1-696a-497b-a5f4-aa55e146a16e/MeasureReport-f1938984-85bf-4eff-b9b8-e89a556b2f35.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 91ff5f1a-cfdb-472d-b8c3-144f499d1ccc ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/91ff5f1a-cfdb-472d-b8c3-144f499d1ccc/MeasureReport-cee9ae71-29f6-41ee-a479-0fc2d8b338c5.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ d205878e-b861-43a8-92e8-47f680987e4d ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/d205878e-b861-43a8-92e8-47f680987e4d/MeasureReport-e96f2279-a61f-40e2-9e19-9137ee4b12e6.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ 8e2cfc29-0925-45b9-857f-b9ee9b9fa248 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/8e2cfc29-0925-45b9-857f-b9ee9b9fa248/MeasureReport-b86669af-57ea-48d3-af7b-87c11d0e94b9.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
+| [ 91ff5f1a-cfdb-472d-b8c3-144f499d1ccc ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/91ff5f1a-cfdb-472d-b8c3-144f499d1ccc/MeasureReport-cee9ae71-29f6-41ee-a479-0fc2d8b338c5.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
+| [ b7783b8c-ba46-4509-a75e-203659abab3d ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/b7783b8c-ba46-4509-a75e-203659abab3d/MeasureReport-097d962a-0304-47fe-9c77-8fd8bd4b48ac.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
+| [ ccd7f9d7-35e8-4623-9f2e-f229cf7d829c ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/ccd7f9d7-35e8-4623-9f2e-f229cf7d829c/MeasureReport-c8c8144b-3bac-4663-aac9-9a786e5c1810.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
+| [ d205878e-b861-43a8-92e8-47f680987e4d ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/d205878e-b861-43a8-92e8-47f680987e4d/MeasureReport-e96f2279-a61f-40e2-9e19-9137ee4b12e6.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
 | [ d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1/MeasureReport-43331d8f-cf2d-4a0c-a3a2-e4b8e060a7eb.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
+| [ dba7c9af-eb6f-4836-ba24-650a5acc87e7 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/dba7c9af-eb6f-4836-ba24-650a5acc87e7/MeasureReport-7c3e8a2e-61ff-4a73-b3e6-d6b168cb4cc6.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ dc0dcb01-87f0-4e65-9c36-8cf6174abef1 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/dc0dcb01-87f0-4e65-9c36-8cf6174abef1/MeasureReport-7bc64137-ecc6-421a-bb2f-0177667a25b7.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ dd5a1e46-1b99-45a3-b4d3-1fde205d8a11 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/dd5a1e46-1b99-45a3-b4d3-1fde205d8a11/MeasureReport-bc945d90-f897-463b-bbc2-f9b922117784.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ ff814452-be6d-4e4b-905b-c1ae2a551645 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/ff814452-be6d-4e4b-905b-c1ae2a551645/MeasureReport-8f09729a-45b0-45dc-bfdd-047cf0d896ef.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
+| [ ff814452-be6d-4e4b-905b-c1ae2a551645 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/ff814452-be6d-4e4b-905b-c1ae2a551645/MeasureReport-8f09729a-45b0-45dc-bfdd-047cf0d896ef.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | FAIL |
 
 
 #### CMS135FHIRACEIorARBorARNIforHF
@@ -852,7 +859,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | CMS71FHIRSTKAnticoagAFFlutter | 13 | 0 | 0 |
 | CMS72FHIRSTKAntithromboticDay2 | 252 | 0 | 0 |
 | CMS104FHIRSTKDCAntithrombotic | 175 | 0 | 0 |
-| CMS108FHIRVTEProphylaxis | 26 | 0 | 0 |
+| CMS108FHIRVTEProphylaxis | 31 | 0 | 0 |
 | CMS129FHIRProstCaBoneScanUse | 67 | 0 | 0 |
 | CMS135FHIRACEIorARBorARNIforHF | 81 | 0 | 0 |
 | CMS144FHIRHFBetaBlockerForLVSD | 112 | 0 | 0 |
@@ -877,7 +884,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 | 0 | 0 |
 | NHSNGlycemicControlHypoglycemiaInitialPopulation | 4 | 0 | 0 |
 
-| **Total** | **1672** | **20** | **9** |
+| **Total** | **1677** | **20** | **9** |
 
 ### CMS2FHIRPCSDepScreenAndFollowUp
 
@@ -1380,27 +1387,32 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
-| 068814f1-4270-4e10-b470-9a5433bceb3e | Numerator | 1 | 0 | mismatch |
 | 0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4 | Denominator Exclusion | 1 | 0 | mismatch |
 | 1b450176-8caa-4133-bc9a-c066969f72ce | Denominator Exclusion | 1 | 0 | mismatch |
 | 33d162ce-3bc7-4b0a-8c04-fec0a42a6263 | Numerator | 0 | 1 | mismatch |
 | 3db5c5a1-2eec-4e01-8e59-ac389a0a2179 | Numerator | 0 | 1 | mismatch |
 | 41f2785f-4c4f-4497-a46b-e17fd8b5ee3f | Denominator Exclusion | 1 | 0 | mismatch |
 | 52790be5-0f6e-4ebd-85f5-57f35db8b56b | Numerator | 1 | 0 | mismatch |
+| 541ccffb-c1be-4c94-ab24-168d52e3a36b | Numerator | 0 | 1 | mismatch |
 | 543248c8-b6af-407d-b435-7e867c4770b4 | Numerator | 1 | 0 | mismatch |
 | 5741c41a-04ec-4967-83b2-b0d746bd0ed5 | Numerator | 0 | 1 | mismatch |
+| 575f2da0-c890-47a3-b17f-f9e134a1096e | Numerator | 0 | 1 | mismatch |
 | 610c90c9-f387-40f8-9bd7-710d20dfd6f0 | Numerator | 1 | 0 | mismatch |
 | 70a5b41a-14ac-4e08-b661-d5523ad80fbf | Denominator Exclusion | 1 | 0 | mismatch |
 | 73673965-9b35-446e-bad7-1701991e6906 | Numerator | 1 | 0 | mismatch |
 | 77c1bf41-fce8-4044-9eeb-c205b8fdc0a9 | Numerator | 1 | 0 | mismatch |
 | 8bb999a1-696a-497b-a5f4-aa55e146a16e | Numerator | 0 | 1 | mismatch |
+| 8e2cfc29-0925-45b9-857f-b9ee9b9fa248 | Numerator | 0 | 1 | mismatch |
 | 900f47c2-3615-4ffe-a9e0-3e7e70469ffb | Denominator Exclusion | 1 | 0 | mismatch |
 | 96c7b8e3-2c28-4b46-a579-f56d644cf762 | Denominator Exclusion | 1 | 0 | mismatch |
 | a3e0cca4-bdb1-4972-b6ca-84841cb66859 | Numerator | 1 | 0 | mismatch |
 | a8083d97-85af-4e1e-8770-30c49a287194 | Numerator | 1 | 0 | mismatch |
 | afad0252-21ef-48ee-9a5a-33dab92d8709 | Denominator Exclusion | 1 | 0 | mismatch |
+| b7783b8c-ba46-4509-a75e-203659abab3d | Numerator | 0 | 1 | mismatch |
 | cbd1de91-441a-4588-b000-2e589d099ab6 | Numerator | 1 | 0 | mismatch |
+| ccd7f9d7-35e8-4623-9f2e-f229cf7d829c | Numerator | 0 | 1 | mismatch |
 | d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1 | Numerator | 0 | 1 | mismatch |
+| dba7c9af-eb6f-4836-ba24-650a5acc87e7 | Numerator | 0 | 1 | mismatch |
 | dc0dcb01-87f0-4e65-9c36-8cf6174abef1 | Numerator | 0 | 1 | mismatch |
 | dd5a1e46-1b99-45a3-b4d3-1fde205d8a11 | Numerator | 0 | 1 | mismatch |
 | ea49dc35-7378-4436-aa37-53ec9f13b05d | Numerator | 2 | 1 | mismatch |

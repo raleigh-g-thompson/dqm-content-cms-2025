@@ -108,9 +108,18 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 - **Workaround**: Bypass the fluent function entirely; read the underlying FHIR extension directly:
   `(X.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime)`.
   `ext()` is declared generically for `DomainResource`/`Element` — no per-profile sibling to collide
-  with. Applied to CMS68, CMS996 (one site), CMS108, CMS190. CMS144 is blocked (no `ext()`-style
-  bypass exists for the `AHAOverall.cql` functions).
-- **References**: #19, #21; §5 item 3.
+  with. **Applied & verified on `defect-tracking` for CMS108 (2026-09-08, line 409)** — see the
+  "Applied workaround (branch status)" note at E-22. CMS144 is blocked (no `ext()`-style bypass exists
+  for the `AHAOverall.cql` functions).
+- **Branch status for the remaining sites**: the feature-branch `.ext()` fixes for CMS68 / CMS996 /
+  CMS190 (documented in conversion-notes #21) were NOT merged into `defect-tracking`; their source
+  still carries `.recorded()`/`.performed` as of 2026-09-08. Tracked live under **E-22** (CMS68 crash).
+- **References**: #19, #21; §5 item 3; E-22.
+- **Root cause identified (2026-09-08)**: E-03 is the content/symptom-side facet of the same defect now
+  root-caused under **E-22** (see E-22 "Root cause identified"). The `Procedure`/`ProcedureNotDone`
+  `recorded()` collision traces to `TypeBuilder.dataTypeToQName` (cql-to-elm 5.2.0) emitting the type's
+  `target` (`"Procedure"`) as the ELM QName for both — so the two overloads collide before runtime
+  signature selection. Dossier: `defect-tracking/proposed-engine-fixes.md` (Issue 1).
 
 ### E-04: Choice-type self-reference circular dispatch
 
@@ -272,6 +281,18 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 - **Workaround**: **None.** Needs a translator/ELM-level trace to diagnose further. Distinct from
   (not yet confirmed to be an instance of) any other issue on this list.
 - **References**: #17; §5 item 12.
+- **Corroboration - CMS108 VTE Prophylaxis (2026-09-08)**: 8 CMS108 test cases carry a
+  `MedicationRequest`-with-`TaskRejected` rejection arm (`"No VTE Prophylaxis Medication Administered
+  Or Ordered"` in `CMS108FHIRVTEProphylaxis.cql`, lines 343-358) that evaluates empty despite fully
+  correct data — same signature as CMS104 `5adc911a`. Cases: `182103c1`, `2eff6dbd`, `3c854f27`,
+  `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452` (all `Numerator 1→0`). Data verified
+  correct: MedicationRequest profile/status/intent/doNotPerform, medication code (e.g. RxNorm
+  `1232086` = rivaroxaban 20 MG in the "Rivaroxaban for VTE Prophylaxis" valueset
+  `2.16.840.1.113762.1.4.1110.50`), Task profile `us-quality-core-taskrejected` matches the
+  `TaskRejected` modelinfo class identifier, `focus` resolves to the MedicationRequest, and
+  `T.code ~ "Fulfill"` holds. The retrieve + join still returns `[]`. **Previously mis-labeled E-17**
+  (the positive profile-retrieve gap); reclassified to E-12 2026-09-08 and removed from E-17's
+  affected-test-cases. CMS190 uses the same `[TaskRejected]` join (lines 323, 355) — sweep pending.
 
 ### E-13: Sibling-profile condition union → `prevalenceInterval(Choice<...>)` mis-resolution — missing FHIRCommon Choice overload + translator cannot resolve the call (E-15 RETIRED, rolled into E-13)
 
@@ -343,6 +364,21 @@ fix as `[E-15]` now read `[E-13]`; any remaining "E-15" mention in this file or 
    below.
 - **References**: E-06; #10, #15, #16, #18, #19, #20 (the full saga); §5 items 4–6;
    change-classification.md §3 / §5; conversion-notes.md #27.
+- **Root cause identified (2026-09-08)** — see `defect-tracking/proposed-engine-fixes.md` (Issue 2).
+  A second, independent cql-to-elm translator defect explains why the language-correct Choice cannot
+  widen to `FHIR.Condition`. `ChoiceType` does not define a `baseType` nor override `isSubTypeOf`, so
+  a `Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>` compares as `ANY`. The
+  whole-object `Signature.isSuperTypeOf` check against the base `prevalenceInterval(Condition)`
+  overload therefore fails, and the `ConversionMap.getConversionScore` / `Signature` resolution never
+  finds the widening. The specific bug is in `findChoiceConversion`: it only matches when a Choice
+  member *equals* the target type, so a choice whose members are *subtypes* of the target (both derive
+  from `FHIR.Condition`) is a partial match that is **rejected** instead of accepted. Two fix
+  candidates (either): `ChoiceType.isSubTypeOf` should treat "all members are subtypes of the target"
+  as a valid widening, OR `findChoiceConversion` should accept a member that is a subtype of the
+  target (confirming trace in the dossier). **Distinct from E-22/E-03** (the `target`/QName emission
+  collision): E-13 is a `baseType`/Choice-widening defect on the same translator, not the same bug.
+  The applied base-`FHIR.Condition`-retrieve workaround remains the correct content fix and is
+  unaffected by this root-cause classification.
 
 ### E-14: `PCMaternal.cql` cast type change — suspected, unverified
 
@@ -749,6 +785,11 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   * **Denominator Exclusion 0->1 or 1->0** (CMS108: 2 cases; CMS190: 1 case): DenEx logical-union retrieves (`[Procedure: ...]`, `[MedicationRequest: ...]` -> `TaskRejected` join) misfire on USQC profiles - either adding or removing the exception arm.
   * **Initial Population / Denominator 0->1** (CMS190 `39215b49` only): a fixture carrying `Condition-85297158` (code O99.340 VTE-in-pregnancy, clinicalStatus null) profiled `us-quality-core-condition-encounter-diagnosis` is added by the CMS engine to IP/Denominator while the FI QI-Core baseline does not. Same family: `us-quality-core-condition-*` profile retrieve returns wrong result.
   All 48 cases verify **CMS-engine=0, QI-Core=1** (or equivalent for IP/Den, DenEx); the **profile-retrieve** is the engine issue, not a per-resource data issue. Same root cause as CMS56/CMS131 - tracked on E-17, applied to **all** `us-quality-core-*` profile retrieves.
+- **Reclassified 2026-09-08**: the 8 CMS108 `MedicationRequest`-with-`TaskRejected` rejection cases
+  (`182103c1`, `2eff6dbd`, `3c854f27`, `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452`)
+  were mis-attributed to E-17 as part of this broad corroboration sweep. Their true mechanism is the
+  E-12 `TaskRejected`-join-empty defect, not a profile retrieve (data/profile verified correct).
+  Removed from E-17's affected-test-cases; tracked on E-12.
 
 ### E-18: Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`
 
@@ -862,8 +903,38 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   `"Ambiguous call to operator 'recorded(org.hl7.elm.r1.NamedTypeSpecifier@1b69547d)' in library 'USQualityCoreCommon'."`
   The error is uncaught, the library evaluates no populations; engine_shared_issues reports `incomplete: 4`.
 - **Differentiator from E-17/E-21** (which are profile-retrieve gaps producing 0 for expected): here engine throws and produces no rows. Same root cause bucket: engine bug requiring engine-side fix.
-- **Workaround**: none shipped. Engine fix needed to resolve the ambiguity (likely multiple `recorded(...)` overloads in `USQualityCoreCommon.cql` poorly typed).
-- **Status**: **Confirmed** (1 case / 4 cells).
+- **Workaround**: the documented E-03 `.ext()` bypass (`...ext('.../us-quality-core-recorded').value as FHIR.dateTime`) avoids the ambiguous `recorded()` call entirely and is safe on this engine. CMS68 itself still crashes (`f2e2e1c0`) because its `.recorded()` is un-fixed on `defect-tracking`; engine-side resolution is still needed to make the naive `.recorded()` restoration safe.
+- **CMS108 workaround applied (2026-09-08)**: the same underlying `Procedure`/`ProcedureNotDone` `recorded()` ambiguity was why `CMS108FHIRVTEProphylaxis.cql:409` couldn't be restored to `.recorded()`; it was fixed with the E-03 `.ext()` bypass (see E-03 "Applied & verified on `defect-tracking`"). No `.recorded()` call is being made there, so E-22's crash is not triggered; this documents the shared root cause, not a CMS68 fix.
+- **Status**: **Confirmed** (1 case / 4 cells, CMS68 `f2e2e1c0`). Engine fix pending.
+- **Root cause identified (2026-09-08)** — see `defect-tracking/proposed-engine-fixes.md` (Issue 1):
+  an ELM-serialization-time bug, not a runtime ambiguity. `TypeBuilder.dataTypeToQName` (cql-to-elm
+  5.2.0, `clinical_quality_language` tag v5.2.0) substitutes the type's `target` for the type name
+  when emitting the ELM QName. Because `ProcedureNotDone` declares `target="Procedure"`,
+  `recorded(ProcedureNotDone)` serializes to the SAME QName `(ns,"Procedure")` as
+  `recorded(Procedure)`, so the two overloads are indistinguishable at overload resolution
+  (`FunctionRefEvaluator.pickFunctionDef` sees two identical candidates; `qnamesEqual` compares by
+  plain equality) → `Ambiguous call to operator 'recorded(...)'`. `SignatureLevel=Overloads|All`
+  cannot help: the QNames collide before signature selection, so no synthetic signature
+  disambiguates. Fix candidates (details + confirming trace in the dossier): emit the CHL data-type
+  name rather than `target` in `dataTypeToQName`; OR drop/rename the `recorded(ProcedureNotDone)`
+  overload in `USQualityCoreCommon.cql` (line 177); OR special-case negation profiles.
+- **Blast radius (model-wide `target` aliasing)** — every USQualityCore profile whose `target`
+  collides with another type name is a latent instance of the same defect wherever a fluent function
+  is overloaded across the pair:
+  - **Negation profiles aliasing their positive base** (the E-22 pattern): `CommunicationNotDone`→
+    `Communication`, `DeviceNotRequested`→`DeviceRequest`, `ImmunizationNotDone`→`Immunization`,
+    `MedicationAdministrationNotDone`→`MedicationAdministration`, `MedicationDispenseDeclined`→
+    `MedicationDispense`, `MedicationNotRequested`→`MedicationRequest`, `ProcedureNotDone`→`Procedure`,
+    `ServiceNotRequested`→`ServiceRequest`, `TaskRejected`→`Task`.
+  - **Non-negation target sharing**: `ConditionEncounterDiagnosis`/`ConditionProblemsHealthConcerns`→
+    `Condition`; `DiagnosticReportLab`/`DiagnosticReportNote`→`DiagnosticReport`;
+    `SimpleObservation`/`LaboratoryResultObservation`/`NonPatientObservation`/`ObservationCancelled`/
+    `ObservationClinicalResult`/`ObservationScreeningAssessment`→`Observation` (6 types).
+  - **Currently live in `USQualityCoreCommon.cql`**: only `recorded(procedure Procedure)` (line 171)
+    vs `recorded(procedureNotDone ProcedureNotDone)` (line 177) triggers it — every other function
+    (`code`, `medication`, `doNotPerform`, …) is declared across types with distinct targets, and no
+    measure declares its own negation-type fluent overload. The table above is the residual-risk
+    inventory for any future overload added across a colliding pair.
 
 ### E-23: QI-Core 4.11.0 engine-side regressions surfaced by 2026-09-05 fresh re-run
 
@@ -1060,7 +1131,7 @@ Measures with engine-issue workarounds applied (residual mismatches are non-engi
 |---|---|---|---|
 | CMS68 | E-03 | `.ext()` bypass for `.recorded()` | 0 — fully passing |
 | CMS996 | E-03, E-02 | `.ext()` bypass for `.recorded()` | 8 — distinct issues |
-| CMS108 | E-03 | `.ext()` bypass for `.recorded()` | 14 — distinct issues |
+| CMS108 | E-03, **E-12** | `.ext()` bypass for `.recorded()` (E-03) | 14 — distinct issues (8 of which are E-12 `TaskRejected`-join; reclassified 2026-09-08) |
 | CMS190 | E-03 | `.ext()` bypass for `.recorded()` | 11 — distinct issues |
 | CMS1173 | E-01, E-02 | **Not applied in current tree** (see E-01) | **62 MR** — `The Minimum operator is not implemented for type {http://hl7.org/fhir}dateTime` |
 | CMS156 | **E-13** (was E-15; re-attributed 2026-08-29; was mis-labelled E-01/E-02) | E-13 fix pending (Stage 3) | **177 MR** baseline — cannot load past the condition union |

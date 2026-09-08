@@ -2639,7 +2639,7 @@ CMS108FHIRVTEProphylaxis,04048fd6-1b9a-4061-a8a9-9a4879c42b04,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,068814f1-4270-4e10-b470-9a5433bceb3e,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,068814f1-4270-4e10-b470-9a5433bceb3e,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,068814f1-4270-4e10-b470-9a5433bceb3e,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,068814f1-4270-4e10-b470-9a5433bceb3e,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,068814f1-4270-4e10-b470-9a5433bceb3e,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,0dae06f1-1e15-4905-ae46-86ea310c2f1f,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,0dae06f1-1e15-4905-ae46-86ea310c2f1f,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,0dae06f1-1e15-4905-ae46-86ea310c2f1f,Group_1:Denominator Exclusion,0
@@ -2803,7 +2803,7 @@ CMS108FHIRVTEProphylaxis,52790be5-0f6e-4ebd-85f5-57f35db8b56b,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,541ccffb-c1be-4c94-ab24-168d52e3a36b,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,541ccffb-c1be-4c94-ab24-168d52e3a36b,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,541ccffb-c1be-4c94-ab24-168d52e3a36b,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,541ccffb-c1be-4c94-ab24-168d52e3a36b,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,541ccffb-c1be-4c94-ab24-168d52e3a36b,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,543248c8-b6af-407d-b435-7e867c4770b4,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,543248c8-b6af-407d-b435-7e867c4770b4,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,543248c8-b6af-407d-b435-7e867c4770b4,Group_1:Denominator Exclusion,0
@@ -2827,7 +2827,7 @@ CMS108FHIRVTEProphylaxis,5741c41a-04ec-4967-83b2-b0d746bd0ed5,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,575f2da0-c890-47a3-b17f-f9e134a1096e,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,575f2da0-c890-47a3-b17f-f9e134a1096e,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,575f2da0-c890-47a3-b17f-f9e134a1096e,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,575f2da0-c890-47a3-b17f-f9e134a1096e,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,575f2da0-c890-47a3-b17f-f9e134a1096e,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,5c5e2a11-a194-40b0-bc16-8e7302dafd24,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,5c5e2a11-a194-40b0-bc16-8e7302dafd24,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,5c5e2a11-a194-40b0-bc16-8e7302dafd24,Group_1:Denominator Exclusion,0
@@ -2919,7 +2919,7 @@ CMS108FHIRVTEProphylaxis,8da72843-3486-4507-99f5-c9622a389384,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,8e2cfc29-0925-45b9-857f-b9ee9b9fa248,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,8e2cfc29-0925-45b9-857f-b9ee9b9fa248,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,8e2cfc29-0925-45b9-857f-b9ee9b9fa248,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,8e2cfc29-0925-45b9-857f-b9ee9b9fa248,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,8e2cfc29-0925-45b9-857f-b9ee9b9fa248,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,8eb00db0-32af-43c6-9c00-79eb2a4462ad,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,8eb00db0-32af-43c6-9c00-79eb2a4462ad,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,8eb00db0-32af-43c6-9c00-79eb2a4462ad,Group_1:Denominator Exclusion,0
@@ -3023,7 +3023,7 @@ CMS108FHIRVTEProphylaxis,b6d4f313-21b9-4cd8-9e6f-b682d176a73f,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,bc83eb4d-4953-4995-9a14-5e2a764a6728,Group_1:Initial Population,2
 CMS108FHIRVTEProphylaxis,bc83eb4d-4953-4995-9a14-5e2a764a6728,Group_1:Denominator,2
 CMS108FHIRVTEProphylaxis,bc83eb4d-4953-4995-9a14-5e2a764a6728,Group_1:Denominator Exclusion,1
@@ -3043,7 +3043,7 @@ CMS108FHIRVTEProphylaxis,cbd1de91-441a-4588-b000-2e589d099ab6,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,cd776813-caeb-4f71-97a9-6c40882c7041,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,cd776813-caeb-4f71-97a9-6c40882c7041,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,cd776813-caeb-4f71-97a9-6c40882c7041,Group_1:Denominator Exclusion,1
@@ -3095,7 +3095,7 @@ CMS108FHIRVTEProphylaxis,d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1,Group_1:Numerator,
 CMS108FHIRVTEProphylaxis,dba7c9af-eb6f-4836-ba24-650a5acc87e7,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,dba7c9af-eb6f-4836-ba24-650a5acc87e7,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,dba7c9af-eb6f-4836-ba24-650a5acc87e7,Group_1:Denominator Exclusion,0
-CMS108FHIRVTEProphylaxis,dba7c9af-eb6f-4836-ba24-650a5acc87e7,Group_1:Numerator,0
+CMS108FHIRVTEProphylaxis,dba7c9af-eb6f-4836-ba24-650a5acc87e7,Group_1:Numerator,1
 CMS108FHIRVTEProphylaxis,dc0dcb01-87f0-4e65-9c36-8cf6174abef1,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,dc0dcb01-87f0-4e65-9c36-8cf6174abef1,Group_1:Denominator,1
 CMS108FHIRVTEProphylaxis,dc0dcb01-87f0-4e65-9c36-8cf6174abef1,Group_1:Denominator Exclusion,0

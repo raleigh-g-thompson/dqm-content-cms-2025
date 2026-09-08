@@ -13,9 +13,13 @@ from scripts.compare_results import (
     row_outcome,
     scores,
     scores_by_measure,
-    test_case_outcomes,
     write_engine_diff_csv,
 )
+# Aliased on import: the production name starts with `test_`, so importing it
+# under its own name makes pytest collect it as a test case and fail with
+# "fixture 'expected_rows' not found". It is a domain function -- "outcomes per
+# test case" -- not a test.
+from scripts.compare_results import test_case_outcomes as case_outcomes
 
 PENDING = {("m1", "g-pending")}
 
@@ -102,7 +106,7 @@ class ScoresTest(unittest.TestCase):
             ("m1", "g-a", "g1:Denominator"): "0",
             ("m1", "g-a", "g1:Numerator"): "1",
         }
-        self.assertEqual(test_case_outcomes(expected, actual), {("m1", "g-a"): "FAIL"})
+        self.assertEqual(case_outcomes(expected, actual), {("m1", "g-a"): "FAIL"})
 
 
 class ExcludePendingRowsTest(unittest.TestCase):
