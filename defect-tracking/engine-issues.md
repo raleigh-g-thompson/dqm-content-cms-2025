@@ -1,3 +1,5 @@
+<!-- GENERATED from scripts/comparison/known_issues.json — do not edit by hand -->
+
 # Engine / Translator Issues Tracker
 
 Running list of confirmed, suspected, and unverified engine/translator issues surfaced by the
@@ -26,7 +28,7 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 | E-09 | Quantity division across dimensions rounds to zero | **Confirmed** | `System.Quantity` construction | CMS156 |
 | E-10 | `singleton from empty list` throws instead of returning null | **Confirmed** | Fixture-side enrichment | CMS156 |
 | E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None (CQL) — fixture-side deflection only, engine fix blocked on JVM stack trace** | CMS135, CMS165 |
-| E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104 |
+| E-12 | Union branch evaluates empty despite correct data (`MedicationRequest`-with-`TaskRejected` joins) | **Confirmed** | **None — not traced** | CMS104, CMS108FHIRVTEProphylaxis |
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (62 site-level edits; 26 measures applied of 30; 4 pending Stage 3); inline `is`/`as` interim superseded; CMS133, CMS128 & CMS56 VERIFIED 2026-08-30; CMS131 applied 2026-08-30, verified 2026-08-31 (0007 report) | 30 measures total: original 7 (CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69) + CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156 (CMS22/CMS71 excluded — non-mixed retrieves) |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | ~~E-15~~ | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — | — |
@@ -281,7 +283,7 @@ Cross-referenced to `conversion-notes.md` entries (#N) and `change-classificatio
 - **Workaround**: **None.** Needs a translator/ELM-level trace to diagnose further. Distinct from
   (not yet confirmed to be an instance of) any other issue on this list.
 - **References**: #17; §5 item 12.
-- **Corroboration - CMS108 VTE Prophylaxis (2026-09-08)**: 8 CMS108 test cases carry a
+- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-08)**: 8 CMS108 test cases carry a
   `MedicationRequest`-with-`TaskRejected` rejection arm (`"No VTE Prophylaxis Medication Administered
   Or Ordered"` in `CMS108FHIRVTEProphylaxis.cql`, lines 343-358) that evaluates empty despite fully
   correct data — same signature as CMS104 `5adc911a`. Cases: `182103c1`, `2eff6dbd`, `3c854f27`,
@@ -1044,8 +1046,10 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   - `ef443a3d-6cde-467d-b374-d90a2f244e83`
   - `f4df05b5-547b-45d2-bc18-8fcbd5afbaf7`
 
-- **Status**: **Confirmed** (2026-09-05). Recommend this entry be merged into a
-  broader E-17 / E-23 reconciliation note if/when the upstream QI-Core engine
+- **Status**: **Confirmed** (2026-09-05; re-verified 2026-09-08 after the valueset-truncation
+  repair and full QI-Core engine re-run — the E-23 tracked cells are unchanged, confirming these
+  are real profile-retrieve regressions, not the truncation defect). Recommend this entry be
+  merged into a broader E-17 / E-23 reconciliation note if/when the upstream QI-Core engine
   fixes the profile-validation strictness.
 
 - **Resolution path**: requires changes on the **QI-Core engine side** or
@@ -1146,5 +1150,3 @@ Measures with engine-issue workarounds applied (residual mismatches are non-engi
 | CMS1154 | E-13 (was E-15), **E-16** (2026-08-29) | Base `FHIR.Condition` replace (E-13) | **0 MR** — 9/10 passing; 1 residual mismatch (`bc9c82ca` DenExcl 1→0) = E-16 `overlaps` null-high runtime defect (not class B / not drift) |
 | CMS104 | E-12 | None | 7 — union branch empty |
 | CMS0334, CMS1028 | E-14 | None | 1-2 each — unconfirmed |
-
-<!-- GENERATED from scripts/comparison/known_issues.json — do not edit by hand -->

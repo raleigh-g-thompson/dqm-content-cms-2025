@@ -62,8 +62,19 @@ class RenderTest(unittest.TestCase):
         doc = render(MULTI_CATALOG)
         self.assertIn("### E-13", doc)
         self.assertNotIn("### F-01", doc)
-        self.assertTrue(doc.endswith(MARKER))
         self.assertIn("## Cross-Cutting Lessons", doc)
+
+    def test_marker_is_the_first_line(self):
+        """The marker used to be emitted last, ~1,150 lines down, where readers
+        never saw it -- the document was hand-edited repeatedly and forked from
+        the catalog as a result. Line 1 is load-bearing, not cosmetic."""
+        doc = render(MULTI_CATALOG)
+        self.assertEqual(doc.splitlines()[0], MARKER)
+
+    def test_render_is_idempotent(self):
+        """CI diffs a fresh render against the committed file to detect
+        hand-edits; that check is only meaningful if render() is stable."""
+        self.assertEqual(render(MULTI_CATALOG), render(MULTI_CATALOG))
 
 
 if __name__ == "__main__":

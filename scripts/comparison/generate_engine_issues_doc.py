@@ -6,9 +6,16 @@ readable tracker from it. Run from the repo root:
 
     python3 scripts/comparison/generate_engine_issues_doc.py [catalog.json] [output.md]
 
-The output is byte-identical to the previously hand-maintained document (modulo
-the generator marker) when the catalog was produced by the migration script, so
-it can be diffed to prove no content was lost during the JSON migration.
+Regeneration is idempotent: running this twice, or running it against an
+unmodified catalog, reproduces the file byte-for-byte. That property is what
+makes `render()` safe to diff against the on-disk document in CI to detect
+hand-edits.
+
+History note: this docstring previously claimed the output was "byte-identical
+to the previously hand-maintained document". That was not true -- the markdown
+and the catalog forked (each holding facts the other lacked) and regenerating
+would have silently reverted a classification decision. The fork was reconciled
+2026-09-08; do not reintroduce the assumption that the two cannot drift.
 """
 import json
 import sys
@@ -58,6 +65,11 @@ def render(parts: dict) -> str:
     w = out.append
     issues = doc_issues(parts)
 
+    # Marker first: it was previously emitted as the very last line, 1,150 lines
+    # down, where nobody opening the file ever saw it. The document was
+    # hand-edited repeatedly as a result. Keep it on line 1.
+    w(MARKER)
+    w("")
     w((parts.get("preamble_md", "") or "").rstrip("\n"))
     w("")
     w(summary_table(issues))
@@ -75,8 +87,6 @@ def render(parts: dict) -> str:
 
     trailing = (parts.get("cross_cutting_lessons_md", "") or "").rstrip("\n")
     w(trailing)
-    w("")
-    w(MARKER)
 
     return "\n".join(out)
 
