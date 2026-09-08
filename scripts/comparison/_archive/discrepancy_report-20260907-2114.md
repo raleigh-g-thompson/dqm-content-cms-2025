@@ -1,7 +1,7 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-08 02:28:16.011978 |
+| Generated | 2026-09-07 21:14:00.886064 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 30 |
@@ -30,11 +30,11 @@
 | E-17 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps) | engine | **Confirmed** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 48 |
 | E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | engine | **Confirmed** | CMS156 | 1 |
 | M-05 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | migration | Not fixed | CMS144 | 0 |
-| C-02 | CMS157 — Cancer diagnosis not matching the "Cancer" valueset — RESOLVED via systemic repair of truncated local valueset expansions (`2.16.840.1.113883.3.526.3.1010`) | content | Fixed — verified 63/0 on CMS engine (2026-09-07 21:14); QICore-side repair applied, engine re-run pending | CMS157 | 0 |
+| C-02 | CMS157 — Cancer diagnosis not matching the "Cancer" valueset — RESOLVED via systemic repair of truncated local valueset expansions (`2.16.840.1.113883.3.526.3.1010`) | content | Fixed — valueset expansion repaired (42/45 truncations); engine re-run pending | CMS157 | 0 |
 | E-19 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (Numerator double-count) | engine | **Confirmed** | CMS347FHIRStatinPreventionTxCVD | 23 |
 | C-03 | CMS986 malnutrition Measure-Observation component rows authored in fixture MeasureReports do not match what the measure resource / CQL emits (CQL has function defines for `Measure Observation 1/2/3/4` score components but the measure resource population criteria only wire the count `Measure Observation`, not the score values; both engines return obs count = 0 so the authored score rows from MR are unreproducible) | content | **Confirmed** | CMS986FHIRMalnutritionScore | 120 |
 | C-04 | CMS1017 fall-prevention HHFI Denominator/Numerator/Measure-Observation rows authored in fixture MeasureReports do not match what the fixture's resources + CQL emits (fixtures carry no BMI Observations / no AdverseEvent entries, yet expected Denom Observation = 2/4/6 etc.) | content | **Confirmed** | CMS1017FHIRHHFI | 55 |
-| C-05 | CMS157 Pain Intensity Quantified — RESOLVED on CMS engine: prior 'fixture MR/Encounter-type authoring mismatch' conclusion RETRACTED (root cause was C-02 truncated 'Cancer' valueset); residual QICore column is stale-baseline artifact pending QICore re-run | content | Fixed — verified on CMS engine (63/0, 2026-09-07 21:14); QICore-side re-run pending | CMS157FHIRPainIntensityQuantified | 19 |
+| C-05 | CMS157 Pain Intensity Quantified fixture MR hand-authors Initial Population / Denominator rows, but fixtures' Encounter type doesn't match the valueset codes that the measure resource / CQL retrieves (`[Encounter: 'Office Visit']` / `[Encounter: 'Audio Visual Telehealth Encounter']`); both engines consistently 0 | content | **Confirmed** | CMS157FHIRPainIntensityQuantified | 19 |
 | C-06 | CMS816 HH Hypoglycemia fixture MR/Denominator authoring mismatch (shared %) | content | **Confirmed** | CMS816FHIRHHHypo | 12 |
 | C-07 | CMS871 HH Hyperglycemia fixture MR/Denominator authoring mismatch (shared %) | content | **Confirmed** | CMS871FHIRHHHyper | 16 |
 | C-08 | CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS142FHIRCommWithDrManagingDiab | 5 |

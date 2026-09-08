@@ -3006,7 +3006,7 @@ CMS108FHIRVTEProphylaxis,afad0252-21ef-48ee-9a5a-33dab92d8709,Group_1:Denominato
 CMS108FHIRVTEProphylaxis,afad0252-21ef-48ee-9a5a-33dab92d8709,Group_1:Numerator,0
 CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Denominator,1
-CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Denominator Exclusion,0
+CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Denominator Exclusion,1
 CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Numerator,0
 CMS108FHIRVTEProphylaxis,b30e1235-fe5d-4cd1-a536-4baafc680d7b,Group_1:Initial Population,1
 CMS108FHIRVTEProphylaxis,b30e1235-fe5d-4cd1-a536-4baafc680d7b,Group_1:Denominator,1
@@ -4135,8 +4135,8 @@ CMS1218FHIRHHRF,e2f1c511-959c-4f2a-b886-c820d983c2e3,Group_1:Initial Population,
 CMS1218FHIRHHRF,e2f1c511-959c-4f2a-b886-c820d983c2e3,Group_1:Denominator,1
 CMS1218FHIRHHRF,e2f1c511-959c-4f2a-b886-c820d983c2e3,Group_1:Denominator Exclusion,1
 CMS1218FHIRHHRF,e2f1c511-959c-4f2a-b886-c820d983c2e3,Group_1:Numerator,0
-CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Initial Population,1
-CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Denominator,1
+CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Initial Population,0
+CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Denominator,0
 CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Denominator Exclusion,0
 CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Numerator,0
 CMS1218FHIRHHRF,f09836ee-f6c6-4fd0-8e17-547df4d65bff,Group_1:Initial Population,1
@@ -10726,8 +10726,8 @@ CMS156FHIRHighRiskMedsElderly,eecbda8c-3a85-4880-9973-f67a6cd60db8,Group_3:Initi
 CMS156FHIRHighRiskMedsElderly,eecbda8c-3a85-4880-9973-f67a6cd60db8,Group_3:Denominator,0
 CMS156FHIRHighRiskMedsElderly,eecbda8c-3a85-4880-9973-f67a6cd60db8,Group_3:Denominator Exclusion,0
 CMS156FHIRHighRiskMedsElderly,eecbda8c-3a85-4880-9973-f67a6cd60db8,Group_3:Numerator,0
-CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_2:Denominator,0
@@ -10786,9 +10786,9 @@ CMS157FHIRPainIntensityQuantified,21096f8d-bfa3-4abe-a9b0-150e6dd8a615,Group_1:N
 CMS157FHIRPainIntensityQuantified,21096f8d-bfa3-4abe-a9b0-150e6dd8a615,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,21096f8d-bfa3-4abe-a9b0-150e6dd8a615,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,21096f8d-bfa3-4abe-a9b0-150e6dd8a615,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Denominator,0
-CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Numerator,0
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Denominator,1
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Numerator,1
 CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_2:Numerator,0
@@ -10807,8 +10807,8 @@ CMS157FHIRPainIntensityQuantified,28f57404-e619-4b1e-905f-5d89fffeffcd,Group_2:N
 CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Denominator,0
+CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Initial Population,2
+CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Denominator,2
 CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Numerator,0
 CMS157FHIRPainIntensityQuantified,33592e78-771b-4ed2-85e0-67aeb0175fbe,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,33592e78-771b-4ed2-85e0-67aeb0175fbe,Group_1:Denominator,0
@@ -10861,9 +10861,9 @@ CMS157FHIRPainIntensityQuantified,4cb92166-501c-46e1-9c52-6693e48b0c6d,Group_2:N
 CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Denominator,0
-CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Numerator,0
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Initial Population,1
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Denominator,1
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Numerator,1
 CMS157FHIRPainIntensityQuantified,5327f324-e0f7-4e95-92ea-a534864a978b,Group_1:Initial Population,1
 CMS157FHIRPainIntensityQuantified,5327f324-e0f7-4e95-92ea-a534864a978b,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,5327f324-e0f7-4e95-92ea-a534864a978b,Group_1:Numerator,0
@@ -10879,9 +10879,9 @@ CMS157FHIRPainIntensityQuantified,5595c36f-e82b-40cb-8327-8e691d471868,Group_2:N
 CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Denominator,0
-CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Numerator,0
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Initial Population,2
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Denominator,2
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Numerator,1
 CMS157FHIRPainIntensityQuantified,64e6ec83-91f3-49be-8a32-cce1f3468a2e,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,64e6ec83-91f3-49be-8a32-cce1f3468a2e,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,64e6ec83-91f3-49be-8a32-cce1f3468a2e,Group_1:Numerator,0
@@ -10891,8 +10891,8 @@ CMS157FHIRPainIntensityQuantified,64e6ec83-91f3-49be-8a32-cce1f3468a2e,Group_2:N
 CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Denominator,0
+CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Initial Population,1
+CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Denominator,1
 CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Numerator,0
 CMS157FHIRPainIntensityQuantified,6c1a8557-73be-4026-9ec6-f0699bfcbfda,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,6c1a8557-73be-4026-9ec6-f0699bfcbfda,Group_1:Denominator,0
@@ -10906,14 +10906,14 @@ CMS157FHIRPainIntensityQuantified,6e225f30-e9e3-4206-8e79-01dc394f6e2f,Group_1:N
 CMS157FHIRPainIntensityQuantified,6e225f30-e9e3-4206-8e79-01dc394f6e2f,Group_2:Initial Population,2
 CMS157FHIRPainIntensityQuantified,6e225f30-e9e3-4206-8e79-01dc394f6e2f,Group_2:Denominator,2
 CMS157FHIRPainIntensityQuantified,6e225f30-e9e3-4206-8e79-01dc394f6e2f,Group_2:Numerator,1
-CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Denominator,0
-CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Numerator,0
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Initial Population,2
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Denominator,2
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Numerator,1
 CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_2:Denominator,0
@@ -10927,24 +10927,24 @@ CMS157FHIRPainIntensityQuantified,77e4bd8b-a8d2-4aa4-8ff8-f746bd8f4e9d,Group_2:N
 CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Denominator,0
-CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Initial Population,1
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Denominator,1
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Numerator,1
+CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Denominator,0
-CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Numerator,0
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Initial Population,2
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Denominator,2
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Numerator,1
 CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Denominator,0
-CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Numerator,0
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Initial Population,2
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Denominator,2
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Numerator,2
 CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_2:Numerator,0
@@ -10954,8 +10954,8 @@ CMS157FHIRPainIntensityQuantified,91ebcd41-a1a5-45e0-95fd-e2a2799f4459,Group_1:N
 CMS157FHIRPainIntensityQuantified,91ebcd41-a1a5-45e0-95fd-e2a2799f4459,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,91ebcd41-a1a5-45e0-95fd-e2a2799f4459,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,91ebcd41-a1a5-45e0-95fd-e2a2799f4459,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_2:Denominator,0
@@ -10987,8 +10987,8 @@ CMS157FHIRPainIntensityQuantified,a85a50c2-760c-4bab-837c-a77623961dba,Group_2:N
 CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Denominator,0
+CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Initial Population,1
+CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Denominator,1
 CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Numerator,0
 CMS157FHIRPainIntensityQuantified,ae0726cf-ea31-4527-95b4-ed5da7b381bf,Group_1:Initial Population,1
 CMS157FHIRPainIntensityQuantified,ae0726cf-ea31-4527-95b4-ed5da7b381bf,Group_1:Denominator,1
@@ -11032,14 +11032,14 @@ CMS157FHIRPainIntensityQuantified,bed82a8e-cb87-42ec-8663-17d35c34c060,Group_1:N
 CMS157FHIRPainIntensityQuantified,bed82a8e-cb87-42ec-8663-17d35c34c060,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,bed82a8e-cb87-42ec-8663-17d35c34c060,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,bed82a8e-cb87-42ec-8663-17d35c34c060,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_2:Denominator,0
@@ -11071,9 +11071,9 @@ CMS157FHIRPainIntensityQuantified,da126090-7372-47c7-a703-8a06a0216fc0,Group_2:N
 CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_1:Numerator,0
-CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Initial Population,0
-CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Denominator,0
-CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Numerator,0
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Initial Population,1
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Denominator,1
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Numerator,1
 CMS157FHIRPainIntensityQuantified,e529e266-033b-4aec-abbc-d7fb27b7286c,Group_1:Initial Population,0
 CMS157FHIRPainIntensityQuantified,e529e266-033b-4aec-abbc-d7fb27b7286c,Group_1:Denominator,0
 CMS157FHIRPainIntensityQuantified,e529e266-033b-4aec-abbc-d7fb27b7286c,Group_1:Numerator,0
@@ -11086,8 +11086,8 @@ CMS157FHIRPainIntensityQuantified,ea08cba3-e556-496e-8aab-3b1e6f58fda0,Group_1:N
 CMS157FHIRPainIntensityQuantified,ea08cba3-e556-496e-8aab-3b1e6f58fda0,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,ea08cba3-e556-496e-8aab-3b1e6f58fda0,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,ea08cba3-e556-496e-8aab-3b1e6f58fda0,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_2:Denominator,0
@@ -11098,8 +11098,8 @@ CMS157FHIRPainIntensityQuantified,f0f73fe9-f8ae-4994-911f-1745e5efbce3,Group_1:N
 CMS157FHIRPainIntensityQuantified,f0f73fe9-f8ae-4994-911f-1745e5efbce3,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,f0f73fe9-f8ae-4994-911f-1745e5efbce3,Group_2:Denominator,0
 CMS157FHIRPainIntensityQuantified,f0f73fe9-f8ae-4994-911f-1745e5efbce3,Group_2:Numerator,0
-CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Initial Population,0
-CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Denominator,0
+CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Initial Population,1
+CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Denominator,1
 CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Numerator,0
 CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_2:Initial Population,0
 CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_2:Denominator,0
@@ -11903,8 +11903,8 @@ CMS190FHIRVTEProphylaxisICU,362755f7-cf57-4178-b0c0-a0fc22b376fe,Group_1:Denomin
 CMS190FHIRVTEProphylaxisICU,362755f7-cf57-4178-b0c0-a0fc22b376fe,Group_1:Denominator Exclusion,0
 CMS190FHIRVTEProphylaxisICU,362755f7-cf57-4178-b0c0-a0fc22b376fe,Group_1:Numerator,1
 CMS190FHIRVTEProphylaxisICU,362755f7-cf57-4178-b0c0-a0fc22b376fe,Group_1:Denominator Exception,0
-CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Initial Population,1
-CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Denominator,1
+CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Initial Population,0
+CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Denominator,0
 CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Denominator Exclusion,0
 CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Numerator,0
 CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Denominator Exception,0
@@ -24307,7 +24307,7 @@ CMS996FHIRAptTxforSTEMI,872dbe15-b15d-4baf-b202-874278bbb317,Group_1:Numerator,0
 CMS996FHIRAptTxforSTEMI,872dbe15-b15d-4baf-b202-874278bbb317,Group_1:Denominator Exception,0
 CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Denominator,1
-CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Denominator Exclusion,0
+CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Denominator Exclusion,1
 CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Numerator,0
 CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Denominator Exception,0
 CMS996FHIRAptTxforSTEMI,8a1096f9-08b8-4318-a073-6ee0cfd7f617,Group_1:Initial Population,1
@@ -24587,7 +24587,7 @@ CMS996FHIRAptTxforSTEMI,f6d175e8-c952-424a-9961-9cba93219131,Group_1:Numerator,0
 CMS996FHIRAptTxforSTEMI,f6d175e8-c952-424a-9961-9cba93219131,Group_1:Denominator Exception,0
 CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Denominator,1
-CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Denominator Exclusion,0
+CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Denominator Exclusion,1
 CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Numerator,0
 CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Denominator Exception,0
 CMS996FHIRAptTxforSTEMI,f7d55d17-b25e-4923-a880-dd79ef092ba6,Group_1:Initial Population,1

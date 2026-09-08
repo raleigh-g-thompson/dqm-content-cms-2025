@@ -208,6 +208,7 @@ CMS108FHIRVTEProphylaxis,96c7b8e3-2c28-4b46-a579-f56d644cf762,Group_1:Denominato
 CMS108FHIRVTEProphylaxis,a3e0cca4-bdb1-4972-b6ca-84841cb66859,Group_1:Numerator,1,0,mismatch
 CMS108FHIRVTEProphylaxis,a8083d97-85af-4e1e-8770-30c49a287194,Group_1:Numerator,1,0,mismatch
 CMS108FHIRVTEProphylaxis,afad0252-21ef-48ee-9a5a-33dab92d8709,Group_1:Denominator Exclusion,1,0,mismatch
+CMS108FHIRVTEProphylaxis,b0932ba4-4dfc-43ad-aa67-fbaee9638d3b,Group_1:Denominator Exclusion,1,0,mismatch
 CMS108FHIRVTEProphylaxis,b7783b8c-ba46-4509-a75e-203659abab3d,Group_1:Numerator,0,1,mismatch
 CMS108FHIRVTEProphylaxis,cbd1de91-441a-4588-b000-2e589d099ab6,Group_1:Numerator,1,0,mismatch
 CMS108FHIRVTEProphylaxis,ccd7f9d7-35e8-4623-9f2e-f229cf7d829c,Group_1:Numerator,0,1,mismatch
@@ -224,6 +225,8 @@ CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Denom
 CMS1173FHIRDiagnosticDelayVTE,cfa235c3-3b8b-4cbb-a78f-5c4fd2af04df,Group_1:Numerator,0,1,mismatch
 CMS1188FHIRHIVSTITesting,6c08efb1-922f-4e66-98bc-0de25182e723,Group_1:Numerator,1,0,mismatch
 CMS1188FHIRHIVSTITesting,77973e2d-625a-4c4f-aa69-2c716af0ad3c,Group_1:Numerator,1,0,mismatch
+CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Denominator,0,1,mismatch
+CMS1218FHIRHHRF,ea9c34ee-b50e-4d13-bd9c-ab2033d15717,Group_1:Initial Population,0,1,mismatch
 CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Denominator,1,0,mismatch
 CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Initial Population,1,0,mismatch
 CMS1264FHIRECATREHQR,01959faf-5ea5-41cb-b960-b74da18cca85,Group_1:Numerator,1,0,mismatch
@@ -815,6 +818,52 @@ CMS149FHIRDementiaCognitiveAssess,e1e5ecba-2f9f-41c6-9bd2-2a1bc26a0273,Group_1:I
 CMS149FHIRDementiaCognitiveAssess,fd115ded-69a6-4766-bdd9-d6364347401e,Group_1:Denominator,1,0,mismatch
 CMS149FHIRDementiaCognitiveAssess,fd115ded-69a6-4766-bdd9-d6364347401e,Group_1:Initial Population,1,0,mismatch
 CMS149FHIRDementiaCognitiveAssess,fd115ded-69a6-4766-bdd9-d6364347401e,Group_1:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,055640ae-dc71-4e1d-918b-e367013de209,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,233d84af-d725-4682-8253-d6c4e02da0d5,Group_1:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Denominator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,2c3f5ac5-6b7f-4bb8-a4fe-8faf0553b21e,Group_2:Initial Population,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,51d8547c-f07f-4441-b616-f458f38e4506,Group_2:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Denominator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Initial Population,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,5cca62ff-f856-4b8f-9902-6a018a4599cb,Group_2:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,66c60f6c-2a7b-4868-b9bd-5ede60b61463,Group_2:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Denominator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Initial Population,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,719a6ae4-ac86-406f-a762-380383e4a74d,Group_1:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,757c5855-602e-4c25-8783-c22afccc1618,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,7cedf97f-741c-4c37-9ae9-40e0b8c64576,Group_2:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,837cc0e4-cc26-48cd-9d34-232d7fbcd056,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Denominator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Initial Population,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,8e23417a-471a-45bb-b936-57466dc6592c,Group_1:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Denominator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Initial Population,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,90d3454a-ca4b-4035-a524-255a2f03bef7,Group_1:Numerator,2,0,mismatch
+CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,9972f780-aa2f-40e0-ba7d-133d7fe38bc9,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,aa355e31-8d29-4b06-8d13-7d00a2c817da,Group_2:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,c97c9ecf-6c31-4868-bbd3-7a5509bb3882,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,d4b441fb-5b3a-40f7-ada1-ecf06376f4fb,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,e085c0d1-a736-4596-a5cd-7de785d0d144,Group_2:Numerator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,ede0d103-285f-42f0-807e-ff272f1ae70e,Group_1:Initial Population,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Denominator,1,0,mismatch
+CMS157FHIRPainIntensityQuantified,fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4,Group_1:Initial Population,1,0,mismatch
 CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Denominator,1,0,mismatch
 CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,002fcec4-89ed-42be-a7b7-41fa0acddf8c,Group_1:Numerator,1,0,mismatch
@@ -825,6 +874,8 @@ CMS190FHIRVTEProphylaxisICU,25265601-4e27-4fe0-8d35-68ebac8f9894,Group_1:Numerat
 CMS190FHIRVTEProphylaxisICU,298f3f92-5047-46fc-ad92-9f27887ffc55,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,324eb2e7-2beb-4c84-88ff-bdf9fa5d8171,Group_1:Numerator,1,0,mismatch
+CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Denominator,0,1,mismatch
+CMS190FHIRVTEProphylaxisICU,39215b49-af59-45a7-a773-65e8353dfafd,Group_1:Initial Population,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,4c32b73b-abba-431b-a352-f0f454e7c9dd,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,4d76c150-b6a5-4a1a-8801-81c24ce398b7,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,4fc421c7-e490-4d4e-a326-53d08635efb9,Group_1:Numerator,0,1,mismatch
@@ -1664,6 +1715,7 @@ CMS986FHIRMalnutritionScore,a4f53b12-e0e3-4faf-8e66-6ce8193a6477,Group_6:Measure
 CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Denominator Exception,0,1,mismatch
 CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Denominator Exception,0,1,mismatch
 CMS996FHIRAptTxforSTEMI,83e7cc74-5ae5-4fb9-922f-15faa555890a,Group_1:Denominator Exclusion,1,0,mismatch
+CMS996FHIRAptTxforSTEMI,88d99809-90d6-4cbc-a4bb-d5d73375fc81,Group_1:Denominator Exclusion,1,0,mismatch
 CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Denominator Exception,0,1,mismatch
 CMS996FHIRAptTxforSTEMI,a0de0e88-9054-45d4-a417-3b9ea5ebe78a,Group_1:Denominator Exclusion,1,0,mismatch
 CMS996FHIRAptTxforSTEMI,b4219e21-be97-4f81-8a31-fee0035179c8,Group_1:Denominator,1,0,mismatch
@@ -1673,6 +1725,7 @@ CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Denominator
 CMS996FHIRAptTxforSTEMI,ef443a3d-6cde-467d-b374-d90a2f244e83,Group_1:Denominator Exclusion,1,0,mismatch
 CMS996FHIRAptTxforSTEMI,f4df05b5-547b-45d2-bc18-8fcbd5afbaf7,Group_1:Denominator Exclusion,1,0,mismatch
 CMS996FHIRAptTxforSTEMI,f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847,Group_1:Denominator Exclusion,1,0,mismatch
+CMS996FHIRAptTxforSTEMI,f71b56bb-42fc-4db0-aa60-6b7b91333295,Group_1:Denominator Exclusion,1,0,mismatch
 CMS996FHIRAptTxforSTEMI,f7d55d17-b25e-4923-a880-dd79ef092ba6,Group_1:Denominator Exclusion,1,0,mismatch
 NHSNAcuteCareHospitalMonthlyInitialPopulation1,025529dc-5384-4544-acb2-c2b6f7c9a23c,Group_1:Initial Population,1,0,mismatch
 NHSNAcuteCareHospitalMonthlyInitialPopulation1,0353da56-ca21-45d3-8f96-8954167143ae,Group_1:Initial Population,1,0,mismatch

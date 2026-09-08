@@ -974,12 +974,12 @@
   },
   {
    "id": "C-02",
-   "title": "CMS157 — Cancer diagnosis coded in ICD-10-CM vs SNOMED-only valueset",
+   "title": "CMS157 — Cancer diagnosis not matching the \"Cancer\" valueset — RESOLVED via systemic repair of truncated local valueset expansions (`2.16.840.1.113883.3.526.3.1010`)",
    "category": "content",
-   "status": "Not fixed",
+   "status": "Fixed — verified 63/0 on CMS engine (2026-09-07 21:14); QICore-side repair applied, engine re-run pending",
    "resolved": false,
-   "root_cause_status": "open",
-   "workaround": "None — fixture/valueset alignment needed",
+   "root_cause_status": "confirmed — committed valueset files held only page-0 (1000 codes) of a paged $expand",
+   "workaround": "Run scripts/comparison/repair_valueset_cache.py to copy complete expansions from input-cache/txcache into input/vocabulary/valueset/external; CMS engine re-run confirms resolution; mirror the 42 repaired files into dqm-content-qicore-2025 and re-run the QI-Core engine + regen baseline",
    "references": {
     "conversion_notes": [
      "#33"
@@ -989,7 +989,7 @@
     "CMS157"
    ],
    "affected_test_cases": [],
-   "body_md": "### C-02: CMS157 — terminology/content gap, not engine\n\n- **Symptom**: fixtures code the “Cancer” diagnosis in ICD-10-CM (`C00.0`, `C40.00`, …)\n  but the measure's “Cancer” valueset (`2.16.840.1.113883.3.526.3.1010`) is\n  SNOMED-only, so the (E-13-sound) base `[Condition: \"Cancer\"]` retrieve correctly\n  matches none of them → 19 residual mismatches.\n- **Resolution**: fixture/valueset alignment needed.\n- **Category**: terminology / content gap (not an engine issue).\n"
+   "body_md": "### C-02: CMS157 — cancer-diagnosis mismatches — CONFIRMED stale/truncated local valueset expansion, now repaired\n\n- **REVISED 2026-09-07 — root cause CONFIRMED systemic**: the earlier claim that the\n  “Cancer” valueset (`2.16.840.1.113883.3.526.3.1010`) is SNOMED-only is **wrong**.\n  The valueset is a mix of SNOMED CT and ICD-10-CM codes, composed of sub-valuesets\n  `2.16.840.1.113883.3.526.2.1078` (SNOMED + ICD-10-CM, incl. `C00.0`, `C00.3`,\n  `C18.6`, `C22.0`, `C34.01`, `C40.00`) and `2.16.840.1.113883.3.526.2.1079`\n  (SNOMED, incl. `80914001`).\n- **Symptom**: 19 failing test cases — 17 carry ICD-10-CM cancer diagnoses\n  (`C00.0`, `C00.3`, `C18.6`, `C22.0`, `C34.01`, `C40.00`), 2 carry SNOMED `80914001`\n  (e.g. fixture `055640ae.../Condition-8f04d38c...`). The (E-13-sound) base\n  `[Condition: \"Cancer\"]` retrieve matches none of them → 19 residual mismatches.\n- **Root cause (confirmed, systemic)**: the committed local valueset files each\n  stored only the *first page* (1000 codes) of a paged `$expand`\n  (`expansion.parameter` `count:1000, offset:0`), even though `expansion.total`\n  declared the true count. `scripts/comparison/audit_valueset_cache.py` found **45\n  truncated files** across all measures (not just CMS157) plus 1462 more that were\n  complete but retained the paging artifact. The IG Publisher's terminology cache\n  (`input-cache/txcache/vs-*.json`) holds the complete expansions.\n- **Evidence (2026-09-07)**: the committed local expansion\n  (`ValueSet-2.16.840.1.113883.3.526.3.1010-20200306.json`) contained 1000 SNOMED\n  entries of the declared `total: 7563`, with **no** ICD-10-CM codes and **not even**\n  the SNOMED `80914001`. Both sub-valueset files\n  (`ValueSet-2.16.840.1.113883.3.526.2.1078-20250130.json`,\n  `ValueSet-2.16.840.1.113883.3.526.2.1079-20250131.json`) DO contain those codes.\n  All 7 unique failing codes are present in the sub-valuesets but absent from the\n  committed expansion.\n- **Resolution**: `scripts/comparison/repair_valueset_cache.py` copied the complete\n  txcache expansions into the committed files — **42/45 repaired**\n  (`2.16.840.1.113883.3.526.3.1010` now `total: 7541`, full `contains`, no paging\n  param; all 7 failing codes present). 3 remain unresolvable from cache:\n  `...3.464.1003.110.11.1151` (version drift — cache has 20251016 vs committed\n  20250205), `...3.600.1.1623` and `...3.600.1.1624` (no txcache entry;\n  non-NLM/legacy OIDs).\n- **Verification (2026-09-07 21:14 engine re-run)**: CMS engine now passes **63/0** on\n  CMS157 — all 19 formerly-failing cases return exactly the expected counts\n  (`compare_results.py` / `discrepancy_report.md`). C-05's parallel\n  'fixture authoring mismatch' diagnosis is retracted (folded here).\n- **QICore side**: the 42 repaired files were mirrored into `dqm-content-qicore-2025`\n  (verified byte-identical source; the 42 repaired files were the only files differing\n  between the repos). The QICore baseline (`qicore-2025-actual-results.csv`, 2026-09-05)\n  and its `TestCaseResult-*.json` set predate the repair, so the report's QICore column\n  (760 failing / 1730 qicore-only cells) is stale until the QI-Core engine is re-run in\n  that repo and the baseline regenerated via `extract_population_qicore.py --input ... --force`.\n- **Category**: terminology / stale-content (confirmed), not an engine issue.\n"
   },
   {
    "id": "F-08",
@@ -2280,17 +2280,18 @@
   },
   {
    "id": "C-05",
-   "title": "CMS157 Pain Intensity Quantified fixture MR hand-authors Initial Population / Denominator rows, but fixtures' Encounter type doesn't match the valueset codes that the measure resource / CQL retrieves (`[Encounter: 'Office Visit']` / `[Encounter: 'Audio Visual Telehealth Encounter']`); both engines consistently 0",
+   "title": "CMS157 Pain Intensity Quantified — RESOLVED on CMS engine: prior 'fixture MR/Encounter-type authoring mismatch' conclusion RETRACTED (root cause was C-02 truncated 'Cancer' valueset); residual QICore column is stale-baseline artifact pending QICore re-run",
    "category": "content",
-   "status": "**Confirmed**",
+   "status": "Fixed — verified on CMS engine (63/0, 2026-09-07 21:14); QICore-side re-run pending",
    "resolved": false,
-   "root_cause_status": "open",
-   "workaround": "**None - content authoring mismatch**. Either drop orphan `Group_1:Initial Population` / `Group_1:Denominator` rows from fixture MeasureReports, or supply qualifying Office Visit / Telehealth Encounter types in the fixtures.",
+   "root_cause_status": "retracted — prior authoring-mismatch diagnosis disproven; real cause = C-02 valueset truncation",
+   "workaround": "None needed — valuesets repaired via scripts/comparison/repair_valueset_cache.py; re-run the QI-Core engine (cql.explorer.project.execute-all in the QICore repo) and regenerate qicore-2025-actual-results.csv to close the residual classification",
    "references": {
     "defect_tracking": [
      "defect-tracking catalog (CMS157 fixture MR authoring mismatch)"
     ],
     "issues": [
+     "C-02",
      "C-03",
      "C-04"
     ]
@@ -2376,7 +2377,7 @@
      "guid": "fe6ef07d-bff1-4e0e-9bf4-b0424a1d0ab4"
     }
    ],
-   "body_md": "### C-05: CMS157 Pain Intensity Quantified fixture MR/Denominator authoring mismatch (shared across both engines)\n\n- **Symptom**: 19 failing test cases / 46 mismatched cells (Group_1: Initial Population, Denominator, plus 8 Numerator). Both engines return IP=0; expected=1; Denominator mirrored; Numerator mirrored on 8/19 cases.\n- **Mechanism**: the CQL's \"Initial Population 1\" (`input/cql/CMS157FHIRPainIntensityQuantified.cql` lines 42-43) uses\n  `[Encounter: \"Office Visit\"] union [Encounter: \"Audio Visual Telehealth Encounter\"]` plus `[Procedure: \"Chemotherapy Administration\"]` and `[Condition: \"Cancer\"]`. The fixture Encounters carry `type` (or no `type`) that doesn't match \"Office Visit\" / \"Audio Visual Telehealth Encounter\", so Initial Population = 0; expected IP=1 was hand-authored in the MR.\n- **Case samples**:\n  * `055640ae-dc71-...`: 1 SNOMED Condition 80914001 (cancer), 1 Encounter (no type code), 2 Procedure/CPT 51720. Expected IP=1, act=0.\n  * `233d84af-...`: 1 Condition, 1 Encounter, 4 Procedures, 1 Observation; expected IP=1, act=0.\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS157FHIRPainIntensityQuantified`): **shared: 46 / cms-only: 0 / qicore-only: 0 / conflicting: 0 / pass: 332 / shared% of not-passing: 100.0%**.\n- **Workaround**: none shipped. Candidates: (1) drop orphan IP/Denominator rows from fixture MRs; (2) restore qualifying Office Visit / Telehealth Encounter types in fixtures.\n- **C-02 status preserved**: the CMS157 cancer-diagnosis ICD-10-vs-SNOMED valueset content issue (C-02) remains parallel; this C-05 entry tracks the IP/Denominator authoring side that hasn't been documented yet.\n"
+   "body_md": "### C-05: CMS157 Pain Intensity Quantified — RESOLVED on CMS engine; prior authoring-mismatch diagnosis RETRACTED\n\n- **REVISED 2026-09-07 (post-valueset-repair engine run) — prior diagnosis retracted**: the earlier\n  claim that the fixture Encounters carry `type` (or no `type`) that doesn't match the\n  `[Encounter: \"Office Visit\"]` / `[Encounter: \"Audio Visual Telehealth Encounter\"]` valuesets was\n  **wrong**. The 19 fixtures were correct all along; the actual (and only) blockage was the truncated\n  \"Cancer\" valueset (C-02): its empty expansion made `[Condition: \"Cancer\"]` match nothing, so\n  Initial Population evaluated 0 regardless of the Encounters. After the C-02 repair, the CMS engine\n  returns exactly the expected counts on **all 63/63** CMS157 test cases (only the Cancer valueset\n  `2.16.840.1.113883.3.526.3.1010` was repaired; Office Visit / Audio Visual Telehealth / Chemotherapy\n  Administration valuesets were never truncated).\n- **Residual**: the sequential `discrepancy_report.md` rows for CMS157 (CMS actual=expected vs\n  QI-Core=0) and the 46 `qicore-only` cells are **stale-baseline artifacts**: `qicore-2025-actual-results.csv`\n  (`2026-09-05`) and the QI-Core `TestCaseResult-*.json` set predate the valueset repair, and the\n  QI-Core repo carried the identical 45 truncated files. Re-run the QI-Core engine in\n  `dqm-content-qicore-2025` and regenerate the baseline to confirm the QICore column flip.\n- **Previous symptom record (historical)**: 19 failing test cases / 46 mismatched cells (Group_1:\n  Initial Population, Denominator, plus 8 Numerator). Both engines returned IP=0; expected=1;\n  Denominator mirrored; Numerator mirrored on 8/19 cases.\n- **Historical mechanism (now disproven)**: `[Encounter: \"Office Visit\"] union [Encounter: \"Audio Visual\n  Telehealth Encounter\"]` plus `[Procedure: \"Chemotherapy Administration\"]` and `[Condition: \"Cancer\"]`;\n  the inference that fixture Encounters carried no matching `type` code was incorrect.\n- **Category**: terminology / stale-content (folded into C-02), not fixture authoring.\n"
   },
   {
    "id": "C-06",
