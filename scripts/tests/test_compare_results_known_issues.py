@@ -1,3 +1,4 @@
+import glob
 import os
 import shutil
 import tempfile
@@ -144,6 +145,43 @@ class ArchiveReportTest(unittest.TestCase):
 
     def test_missing_report_returns_none(self):
         self.assertIsNone(archive_report(os.path.join(self.tmp, "nope.md")))
+
+    def test_byte_identical_report_is_deduplicated(self):
+        first = archive_report(self.report)
+        second = archive_report(self.report)
+        self.assertEqual(first, second)
+        archives = glob.glob(os.path.join(self.tmp, "_archive",
+                                          "discrepancy_report-*"))
+        self.assertEqual(len(archives), 1)
+
+    def test_retention_cap_keeps_only_keep_newest(self):
+        archive_dir = os.path.join(self.tmp, "_archive")
+        os.makedirs(archive_dir, exist_ok=True)
+        for i in range(12):
+            stamp = f"20260901-{i:02d}"
+            path = os.path.join(archive_dir, f"discrepancy_report-{stamp}.md")
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(f"stale {i:02d}")
+        dest = archive_report(self.report)
+        self.assertIsNot(dest, None)
+        reports = sorted(os.listdir(archive_dir))
+        self.assertEqual(len(reports), 10)
+        self.assertIn(os.path.basename(dest), reports)
+
+    def test_retention_cap_prunes_old_even_when_identical_new_one_exists(self):
+        archive_dir = os.path.join(self.tmp, "_archive")
+        os.makedirs(archive_dir, exist_ok=True)
+        for i in range(11):
+            stamp = f"20260901-{i:02d}"
+            with open(os.path.join(archive_dir,
+                                   f"discrepancy_report-{stamp}.md"),
+                      "w", encoding="utf-8") as fh:
+                fh.write(f"stale {i:02d}")
+        first = archive_report(self.report)
+        self.assertEqual(len(os.listdir(archive_dir)), 10)
+        second = archive_report(self.report)
+        self.assertEqual(first, second)
+        self.assertEqual(len(os.listdir(archive_dir)), 10)
 
 
 class KnownIssueLabelTest(unittest.TestCase):

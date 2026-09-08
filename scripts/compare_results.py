@@ -1,6 +1,7 @@
 import os
 import csv
 import glob
+import hashlib
 import re
 import shutil
 import sys
@@ -720,10 +721,36 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         f.write('\n---\n')
         f.write('\n_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._\n')
 
-def archive_report(report_path: str, now: datetime = None) -> str:
+_ARCHIVE_STAMP_RE = re.compile(r"^discrepancy_report-(\d{8}-\d{4})")
+
+
+def _archive_stamp_key(name: str) -> str:
+    """The ``YYYYMMDD-HHMM`` stamp embedded in an archive filename; "" if none
+    (such files rank oldest and are pruned first)."""
+    match = _ARCHIVE_STAMP_RE.match(name)
+    return match.group(1) if match else ""
+
+
+def _sha256(path: Path) -> bytes:
+    digest = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for block in iter(lambda: fh.read(65536), b""):
+            digest.update(block)
+    return digest.digest()
+
+
+def archive_report(report_path: str, now: datetime = None, keep: int = 10) -> str:
     """Copy the generated discrepancy report to _archive/ with a timestamp.
 
-    Returns the archive path written (or None if the report file is absent).
+    Returns the archive path written, or None if the report file is absent or
+    a byte-identical copy was already archived (in which case the existing
+    path is returned).
+
+    Phase 6 (hygiene) self-limits the directory instead of letting it grow
+    forever: a content-hash dedupe means rerunning unchanged data creates no
+    new archive, and a rolling retention cap keeps only the ``keep`` most
+    recent ``discrepancy_report-*.md`` files (ranked by the ``YYYYMMDD-HHMM``
+    stamp embedded in the filename), deleting the rest.
     """
     src = Path(report_path)
     if not src.exists():
@@ -732,7 +759,18 @@ def archive_report(report_path: str, now: datetime = None) -> str:
     archive_dir.mkdir(parents=True, exist_ok=True)
     stamp = clock.resolve(now).strftime("%Y%m%d-%H%M")
     dest = archive_dir / f"{src.stem}-{stamp}{src.suffix}"
+
+    pattern = f"{src.stem}-*{src.suffix}"
+    digest = _sha256(src)
+    for existing in archive_dir.glob(pattern):
+        if _sha256(existing) == digest:
+            return str(existing)
+
     shutil.copy2(src, dest)
+    for stale in sorted(
+            archive_dir.glob(pattern), key=lambda p: _archive_stamp_key(p.name),
+            reverse=True)[keep:]:
+        stale.unlink()
     return str(dest)
 
 
