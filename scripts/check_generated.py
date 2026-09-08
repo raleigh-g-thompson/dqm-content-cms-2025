@@ -4,9 +4,10 @@
 Three files in this repo carry a "do not edit by hand" banner and are supposed to
 be fully reproducible from their declared source:
 
-  * scripts/comparison/known_issues.json  <- compiled from defect-tracking/issues/
-  * defect-tracking/engine-issues.md      <- scripts/comparison/known_issues.json
-  * scripts/comparison/catalog_issue_details.md <- known_issues.json + discrepancy_report.md
+* scripts/comparison/known_issues.json  <- compiled from defect-tracking/issues/
+   * defect-tracking/engine-issues.md      <- scripts/comparison/known_issues.json
+   * scripts/comparison/catalog_issue_details.md <- known_issues.json + discrepancy_report.md
+   * defect-tracking/improvement-tracking.md <- scripts/comparison/run-history.jsonl
 
 The first of those forked from its source for months before anyone noticed --
 the banner was on the last line of a 1,150-line file, so nobody scrolled far
@@ -42,6 +43,8 @@ import generate_engine_issues_doc as engine_issues_gen
 import build_catalog
 import known_issues as known_issues_lib
 import render_catalog_issue_details as catalog_details_gen
+import generate_improvement_tracking as improvement_tracking_gen
+import run_history as run_history_lib
 
 REPO_ROOT = os.path.dirname(_SCRIPTS_DIR)
 
@@ -88,6 +91,16 @@ def check_catalog_issue_details_md():
     return output_path, expected
 
 
+def check_improvement_tracking_md():
+    """defect-tracking/improvement-tracking.md, regenerated from the append-only
+    run-history log."""
+    output_path = os.path.join(
+        REPO_ROOT, "defect-tracking", "improvement-tracking.md")
+    entries = run_history_lib.read_all(run_history_lib.DEFAULT_PATH)
+    expected = improvement_tracking_gen.render(entries)
+    return output_path, expected
+
+
 def check_known_issues_json():
     """scripts/comparison/known_issues.json, compiled from defect-tracking/issues/."""
     issues_dir = os.path.join(REPO_ROOT, "defect-tracking", "issues")
@@ -102,6 +115,7 @@ CHECKS = [
     ("known_issues.json", check_known_issues_json),
     ("engine-issues.md", check_engine_issues_md),
     ("catalog_issue_details.md", check_catalog_issue_details_md),
+    ("improvement-tracking.md", check_improvement_tracking_md),
 ]
 
 

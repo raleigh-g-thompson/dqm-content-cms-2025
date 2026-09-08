@@ -33,6 +33,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
         self.report = os.path.join(self.tmp, "discrepancy_report.md")
         self.known_issues = os.path.join(self.tmp, "known_issues.json")
         self.engine_issues_out = os.path.join(self.tmp, "engine-issues.md")
+        self.improvement_tracking_out = os.path.join(self.tmp, "improvement-tracking.md")
 
         _write_csv(self.expected, [
             ("CMS1", "g1", "Group_1:Initial Population", "1"),
@@ -72,6 +73,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
             "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
             "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
             "--skip-catalog-build",
         ]
@@ -80,11 +82,22 @@ class RunReportsEndToEndTest(unittest.TestCase):
     def test_exits_zero_on_a_clean_run(self):
         self.assertEqual(self._run(), 0)
 
-    def test_writes_all_three_outputs(self):
+    def test_writes_all_four_outputs(self):
         self._run()
         self.assertTrue(os.path.exists(self.output))
         self.assertTrue(os.path.exists(self.report))
         self.assertTrue(os.path.exists(self.engine_issues_out))
+        self.assertTrue(os.path.exists(self.improvement_tracking_out))
+
+    def test_improvement_tracking_is_generated_from_the_run_history(self):
+        """Step 2 must regenerate improvement-tracking.md from the log that
+        step 1 appended to -- not from the repo's real run-history.jsonl."""
+        self._run()
+        with open(self.improvement_tracking_out, encoding="utf-8") as fh:
+            content = fh.read()
+        self.assertTrue(content.startswith(
+            "<!-- GENERATED from scripts/comparison/run-history.jsonl"))
+        self.assertIn("Runs recorded: 1", content)
 
     def test_engine_issues_doc_is_generated_from_the_same_catalog(self):
         """The exact failure mode this script exists to prevent: the doc and
@@ -112,6 +125,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
             "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
             "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
             "--skip-drift-check",
         ]
@@ -157,6 +171,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
             "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
             "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
             "--issues-dir", issues_dir,
         ]
@@ -174,12 +189,18 @@ class RunReportsEndToEndTest(unittest.TestCase):
         first write: a run with a temp --run-history-path must never touch
         scripts/comparison/run-history.jsonl."""
         from scripts.comparison.run_history import DEFAULT_PATH
+        from scripts.comparison.generate_improvement_tracking import DEFAULT_OUTPUT
         before = (DEFAULT_PATH.read_text(encoding="utf-8")
                  if DEFAULT_PATH.exists() else None)
+        improvement_before = (DEFAULT_OUTPUT.read_text(encoding="utf-8")
+                              if DEFAULT_OUTPUT.exists() else None)
         self._run()
         after = (DEFAULT_PATH.read_text(encoding="utf-8")
                  if DEFAULT_PATH.exists() else None)
+        improvement_after = (DEFAULT_OUTPUT.read_text(encoding="utf-8")
+                             if DEFAULT_OUTPUT.exists() else None)
         self.assertEqual(before, after)
+        self.assertEqual(improvement_before, improvement_after)
         self.assertTrue(os.path.exists(
             os.path.join(self.tmp, "run-history.jsonl")))
 

@@ -6,8 +6,8 @@ self-contained and holds exactly one ``Patient-<guid>.json``.  CQL evaluates in 
 ``context Patient`` scoped to that single patient, so any resource whose
 patient-identity reference points at a *different* (or non-existent) patient is
 invisible to the measure logic and silently produces empty retrieves / false
-populations (a data-authoring error, not a CQL bug - see conversion-notes
-entries #7 / #11).
+populations (a data-authoring error, not a CQL bug - see catalog issues
+F-02 / F-03 in defect-tracking/engine-issues.md).
 
 This script walks every test-case folder, determines the authoritative patient
 GUID (the ``id`` of the lone ``Patient-*.json``), discovers every top-level

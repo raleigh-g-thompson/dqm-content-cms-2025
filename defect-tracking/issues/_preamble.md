@@ -11,6 +11,8 @@ repo's CQL or test fixtures. Every confirmed issue has a reproducible symptom an
 currently-applied CQL-level workaround (where one exists); the workaround is a mitigation, not
 proof the underlying behavior is correct.
 
-Cross-referenced to `conversion-notes.md` entries (#N) and `change-classification.md` (§5).
+Measures are classified in the per-issue entries (category `engine` / `content` / `migration` /
+`fixture`); the depth analysis lives in `defect-tracking/proposed-engine-fixes.md` and the
+generated outputs in `defect-tracking/engine-issues.md` + `scripts/comparison/`.
 
 ---
