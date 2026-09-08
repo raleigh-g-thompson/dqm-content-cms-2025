@@ -447,11 +447,12 @@ def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
     """Return a markdown label of known-issue IDs affecting a case, or '—'.
 
     Only unresolved issues whose enumerated affected_test_cases include the case
-    are reported; resolved/historical issues do not appear (their cases pass).
+    are reported; resolved/historical issues (``defect_status`` in
+    ``fixed-upstream``/``retired``) do not appear (their cases pass).
     """
     labels = []
     for issue in issues:
-        if issue.get("resolved", False):
+        if known_issues_lib.is_resolved(issue):
             continue
         for case in issue.get("affected_test_cases", []):
             if case.get("measure") == measure_name and case.get("guid") == patient_guid:

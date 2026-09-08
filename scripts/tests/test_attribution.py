@@ -20,11 +20,11 @@ from scripts.comparison.attribution import (
 CATALOG = {
     "issues": [
         {
-            "id": "E-01", "category": "engine", "resolved": False,
+            "id": "E-01", "category": "engine", "defect_status": "confirmed",
             "affected_test_cases": [{"measure": "M1", "guid": "g-fail"}],
         },
         {
-            "id": "C-01", "category": "content", "resolved": False,
+            "id": "C-01", "category": "content", "defect_status": "workaround-applied",
             "affected_test_cases": [
                 {"measure": "M1", "guid": "g-pass"},
                 {"measure": "M1", "guid": "g-nonexistent"},
@@ -32,7 +32,7 @@ CATALOG = {
             ],
         },
         {
-            "id": "F-01", "category": "fixture", "resolved": True,
+            "id": "F-01", "category": "fixture", "defect_status": "fixed-upstream",
             "affected_test_cases": [{"measure": "M1", "guid": "g-orphan"}],
         },
     ]
@@ -82,18 +82,18 @@ class UnattributedTest(unittest.TestCase):
         self.assertNotIn(("M1", "g-fail"), ledger().unattributed_failures)
 
     def test_resolved_issues_do_not_attribute(self):
-        """A resolved issue must not absorb a live failure -- otherwise closing
-        an issue would silently hide a regression."""
+        """A genuinely-fixed issue must not absorb a live failure -- otherwise
+        closing an issue would silently hide a regression."""
         catalog = {"issues": [{
-            "id": "F-9", "resolved": True,
+            "id": "F-9", "defect_status": "fixed-upstream",
             "affected_test_cases": [{"measure": "M1", "guid": "g-untriaged"}],
         }]}
         led = ledger(catalog=catalog)
         self.assertIn(("M1", "g-untriaged"), led.unattributed_failures)
 
-    def test_string_false_resolved_still_counts_as_open(self):
-        """Some catalog entries were authored with the JSON string "false",
-        which is truthy in Python; is_resolved() handles it and so must we.
+    def test_legacy_string_false_resolved_still_counts_as_open(self):
+        """Some catalog entries were authored with the JSON string "false"
+        (the legacy `resolved` field); is_resolved() handles it and so must we.
 
         A raw `issue["resolved"]` read would treat this issue as resolved and
         leave g-untriaged unexplained.

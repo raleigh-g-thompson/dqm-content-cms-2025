@@ -43,15 +43,16 @@ AUTHORED_ISSUES_DIR = (
 
 # Every ID known to exist as of 2026-09-08. Guards against an individual issue
 # vanishing while the totals stay plausible (e.g. one deleted, one added).
-# Note: E-20 is absent by design -- `git log --all -S'E-20'` returns zero
-# commits across every branch and file, so the number was skipped, never used.
+# E-20 is a tombstone: `git log --all -S'E-20'` returns zero commits across
+# every branch and file, so the number was skipped, never used -- kept as a
+# permanent ID gap (see defect-tracking/issues/E-20.md).
 REQUIRED_IDS = {
     "B-01",
     "C-01", "C-02", "C-03", "C-04", "C-05", "C-06", "C-07",
     "C-08", "C-09", "C-10", "C-11", "C-12", "C-13", "C-14",
     "E-01", "E-02", "E-03", "E-04", "E-05", "E-06", "E-07", "E-08",
     "E-09", "E-10", "E-11", "E-12", "E-13", "E-14", "E-15", "E-16",
-    "E-17", "E-18", "E-19", "E-21", "E-22", "E-23",
+    "E-17", "E-18", "E-19", "E-20", "E-21", "E-22", "E-23",
     "F-01", "F-02", "F-03", "F-04", "F-05", "F-06",
     "F-07", "F-08", "F-09", "F-10", "F-11", "F-12",
     "M-01", "M-02", "M-03", "M-04", "M-05",

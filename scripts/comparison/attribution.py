@@ -95,9 +95,11 @@ class AttributionLedger(NamedTuple):
 def _open_issue_cases(catalog: dict) -> Dict[str, Set[Case]]:
     """(issue id -> cited cases) for issues that are still open.
 
-    Uses ``known_issues_lib.is_resolved`` rather than the raw ``resolved`` field:
-    some entries were authored with the JSON *string* "false", and a non-empty
-    string is truthy in Python, so a raw read silently treats them as resolved.
+    Uses ``known_issues_lib.is_resolved`` (the two-field ``defect_status``
+    seam) rather than the raw ``resolved`` field: a worked-around-but-unfixed
+    engine bug stays open, and historical string-valued ``resolved`` entries
+    are handled by the shared helper, so a raw non-empty-string read never
+    silently treats an issue as resolved.
     """
     out: Dict[str, Set[Case]] = {}
     for issue in known_issues_lib.pending_issues(catalog):

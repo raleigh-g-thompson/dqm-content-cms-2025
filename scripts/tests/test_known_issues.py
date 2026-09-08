@@ -5,6 +5,7 @@ import unittest
 
 from scripts.comparison.known_issues import (
     DEFAULT_CATALOG_PATH,
+    DEFECT_STATUS_ALL,
     affected_measure_guid_pairs,
     is_resolved,
     issues_for_case,
@@ -22,7 +23,7 @@ SAMPLE = {
             "title": "`Unable to extract codes from fhirType Reference`",
             "category": "engine",
             "status": "Confirmed",
-            "resolved": False,
+            "defect_status": "confirmed",
             "root_cause_status": "open",
             "affected_measures": ["CMS135FHIRACEIorARBorARNIforHF"],
             "affected_test_cases": [
@@ -35,7 +36,7 @@ SAMPLE = {
             "title": "Historical fixture issue",
             "category": "fixture",
             "status": "Resolved",
-            "resolved": True,
+            "defect_status": "fixed-upstream",
             "root_cause_status": "resolved",
             "affected_measures": ["CMS135FHIRACEIorARBorARNIforHF"],
             "affected_test_cases": [
@@ -118,54 +119,68 @@ class IssuesForCaseTest(unittest.TestCase):
 
 
 class CatalogHygieneTest(unittest.TestCase):
-    """The catalog has historically accumulated a few `resolved` values written
-    as JSON strings ("true"/"false") instead of booleans.  Because Python's
-    `not "false"` is False (non-empty string is truthy), the entries end up
-    in `resolved_issues` even when the author clearly meant pending.  Lock the
-    catalog to boolean values so `pending_issues` reflects intent."""
+    """Phase 4b: every catalog issue must carry a valid authored
+    ``defect_status`` enum value. The old ``resolved`` boolean was a single
+    axis that could not express "worked around but not actually fixed";
+    ``defect_status`` is the enum that does. Lock the catalog to it."""
 
-    def test_repo_catalog_uses_boolean_resolved(self):
+    def test_repo_catalog_uses_enum_defect_status(self):
         catalog = load_catalog()
         offenders = [i["id"] for i in catalog["issues"]
-                     if not isinstance(i.get("resolved"), bool)]
+                     if i.get("defect_status") not in DEFECT_STATUS_ALL]
         self.assertFalse(
             offenders,
-            f"{offenders}: 'resolved' must be a JSON boolean, not a string "
-            "(truthy strings defeat pending_issues).",
+            f"{offenders}: 'defect_status' must be one of {sorted(DEFECT_STATUS_ALL)}",
         )
 
 
 class IsResolvedTest(unittest.TestCase):
-    """The catalog hygiene test guards against future regressions, but the
-    helper itself should also be robust to stale string values that survived
-    a brief unset window or copy-paste from older tooling."""
+    """is_resolved is the seam for "is the underlying bug actually fixed". Only
+    the resolved enum values count; worked-around-but-unfixed issues stay open.
+    The legacy-ish ``resolved`` boolean/string fallback still maps sensibly so
+    transitional/unit-test dicts never need to know about the migration."""
 
-    def test_boolean_true(self):
-        self.assertTrue(is_resolved({"resolved": True}))
+    def test_fixed_upstream_is_resolved(self):
+        self.assertTrue(is_resolved({"defect_status": "fixed-upstream"}))
 
-    def test_boolean_false(self):
-        self.assertFalse(is_resolved({"resolved": False}))
+    def test_retired_is_resolved(self):
+        self.assertTrue(is_resolved({"defect_status": "retired"}))
 
-    def test_string_true(self):
-        self.assertTrue(is_resolved({"resolved": "true"}))
+    def test_workaround_applied_stays_open(self):
+        self.assertFalse(is_resolved({"defect_status": "workaround-applied"}))
 
-    def test_string_false(self):
-        self.assertFalse(is_resolved({"resolved": "false"}))
+    def test_confirmed_stays_open(self):
+        self.assertFalse(is_resolved({"defect_status": "confirmed"}))
 
-    def test_string_mixed_case(self):
-        self.assertTrue(is_resolved({"resolved": "True"}))
-        self.assertFalse(is_resolved({"resolved": "FALSE"}))
+    def test_suspected_stays_open(self):
+        self.assertFalse(is_resolved({"defect_status": "suspected"}))
 
     def test_missing_defaults_to_pending(self):
         self.assertFalse(is_resolved({}))
 
-    def test_int_zero(self):
+    def test_legacy_boolean_true_maps_to_resolved(self):
+        self.assertTrue(is_resolved({"resolved": True}))
+
+    def test_legacy_boolean_false_maps_to_confirmed(self):
+        self.assertFalse(is_resolved({"resolved": False}))
+
+    def test_legacy_string_true(self):
+        self.assertTrue(is_resolved({"resolved": "true"}))
+
+    def test_legacy_string_false(self):
+        self.assertFalse(is_resolved({"resolved": "false"}))
+
+    def test_legacy_string_mixed_case(self):
+        self.assertTrue(is_resolved({"resolved": "True"}))
+        self.assertFalse(is_resolved({"resolved": "FALSE"}))
+
+    def test_legacy_int_zero(self):
         self.assertFalse(is_resolved({"resolved": 0}))
 
-    def test_int_one(self):
+    def test_legacy_int_one(self):
         self.assertTrue(is_resolved({"resolved": 1}))
 
-    def test_string_pending_filter(self):
+    def test_legacy_string_pending_filter(self):
         catalog = {"issues": [
             {"id": "E-string", "resolved": "false"},
             {"id": "F-string", "resolved": "true"},

@@ -25,30 +25,56 @@ def load_catalog(path=None) -> dict:
         return json.load(fh)
 
 
-def is_resolved(issue: dict) -> bool:
-    """Robust resolution check that accepts both booleans and JSON strings.
+# Authored defect states (Phase 4b two-field model). ``defect_status`` answers
+# "is the underlying bug actually fixed?" and is authored in each issue's front
+# matter. It deliberately distinguishes a worked-around-but-unfixed engine bug
+# from a genuinely fixed one, so the engine handoff register stays populated.
+DEFECT_STATUS_OPEN = {"confirmed", "workaround-applied", "suspected"}
+DEFECT_STATUS_RESOLVED = {"fixed-upstream", "retired"}
+DEFECT_STATUS_ALL = DEFECT_STATUS_OPEN | DEFECT_STATUS_RESOLVED
 
-    Catalog drift: a few historical entries were authored with ``resolved``
-    stored as the JSON string ``"false"`` instead of the JSON ``false`` boolean.
-    Because Python's ``not "false"`` is ``False`` (any non-empty string is
-    truthy), the entry would be reported as resolved even though the author
-    clearly meant pending.  Treat ``"true"`` -> True, ``"false"`` -> False,
-    and any other truthy non-empty string -> True (conservative: trust an
-    absent value over a non-empty string).  Booleans and ints pass through
-    unchanged.
+
+def defect_status_of(issue: dict) -> str:
+    """The authored defect state, defaulting sensibly when absent/historical.
+
+    Phase 4b replaced the single ``resolved`` boolean with the authored
+    ``defect_status`` enum plus a strictly auto-derived ``failing_cases`` (the
+    'does it cost us test failures right now' evidence side, computed live at
+    the report layer -- never stored here). Consumers that classify "is this
+    bug actually fixed" read ``defect_status`` through this helper.
+
+    A few pre-4b/transitional entries may still carry the legacy ``resolved``
+    boolean instead of a ``defect_status``; map those so callers never have to
+    know about the migration.
     """
-    val = issue.get("resolved", False)
-    if isinstance(val, bool):
+    val = issue.get("defect_status")
+    if isinstance(val, str) and val in DEFECT_STATUS_ALL:
         return val
-    if isinstance(val, int):
-        return bool(val)
-    if isinstance(val, str):
-        return val.strip().lower() == "true"
-    return bool(val)
+    legacy = issue.get("resolved", False)
+    if isinstance(legacy, bool):
+        return "fixed-upstream" if legacy else "confirmed"
+    if isinstance(legacy, int):
+        return "fixed-upstream" if legacy else "confirmed"
+    if isinstance(legacy, str):  # historical JSON string "false"
+        return "fixed-upstream" if legacy.strip().lower() == "true" else "confirmed"
+    return "confirmed"
+
+
+def is_resolved(issue: dict) -> bool:
+    """True when the authored defect is actually fixed (or retired).
+
+    Phase 4b: the underlying bug is "resolved" only for ``fixed-upstream`` and
+    ``retired``. ``workaround-applied`` and ``confirmed`` stay open even though
+    their cited cases may be passing -- a workaround hides a live engine bug and
+    must remain visible in the handoff register. This is the seam that
+    ``pending_issues`` / ``resolved_issues`` / ``pending_case_set`` / the
+    discrepancy-report label and the catalog-details renderer all read through.
+    """
+    return defect_status_of(issue) in DEFECT_STATUS_RESOLVED
 
 
 def pending_issues(catalog: dict) -> List[dict]:
-    """Issues whose cases still affect the score (resolved False)."""
+    """Issues whose cited cases still affect the score (not resolved)."""
     return [i for i in catalog.get("issues", []) if not is_resolved(i)]
 
 
@@ -71,8 +97,9 @@ def affected_measure_guid_pairs(issue: dict) -> List[TestCaseKey]:
 def pending_case_set(catalog: dict) -> Set[TestCaseKey]:
     """Set of (measure, guid) flagged by any unresolved issue.
 
-    Issues with ``resolved == false`` contribute their affected test cases to
-    the set used for 'resolution pending' handling. Issue-level
+    Issues that are not ``is_resolved`` (i.e. ``defect_status`` in the open set)
+    contribute their affected test cases to the set used for 'resolution
+    pending' handling. Issue-level
     ``affected_measures`` alone (without GUIDs) is NOT sufficient to mark
     specific cases — only enumerated ``affected_test_cases`` pairs are.
     """

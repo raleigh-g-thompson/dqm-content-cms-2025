@@ -34,7 +34,7 @@ Per-issue file shape::
     title = "convert Duration to days returns null"
     category = "engine"
     status = "**Confirmed**"
-    resolved = true
+    defect_status = "workaround-applied"
     root_cause_status = "open"
     workaround = "Hand-rolled ToDays() helper"
     affected_measures = ["CMS128", "CMS156"]
@@ -65,11 +65,12 @@ DEFAULT_ISSUES_DIR = REPO_ROOT / "defect-tracking" / "issues"
 DEFAULT_OUTPUT = REPO_ROOT / "scripts" / "comparison" / "known_issues.json"
 
 ISSUE_FIELD_ORDER = [
-    "id", "title", "category", "status", "resolved", "root_cause_status",
-    "workaround", "references", "affected_measures",
+    "id", "title", "category", "status", "defect_status", "verified_on",
+    "root_cause_status", "workaround", "references", "affected_measures",
 ]
 # summary_row is honored if present in front matter but is emitted last in the
-# JSON (matching the pre-existing key order in the committed catalog).
+# JSON (matching the pre-existing key order in the committed catalog). In 4b it
+# is dropped from all authored files; a residual value would still round-trip.
 # top-level keys ordered as the committed catalog emits them; any key not in
 # this list (e.g. the historical trailing "enriched": true) is appended last.
 _CATALOG_KEY_ORDER = [

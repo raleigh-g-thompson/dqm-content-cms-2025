@@ -35,14 +35,14 @@ ACTUAL = {
 ISSUES = [
     {
         "id": "E-11",
-        "resolved": False,
+        "defect_status": "confirmed",
         "affected_test_cases": [
             {"measure": "m1", "guid": "g-pending"},
         ],
     },
     {
         "id": "F-01",
-        "resolved": True,
+        "defect_status": "fixed-upstream",
         "affected_test_cases": [
             {"measure": "m1", "guid": "g-pending"},
         ],

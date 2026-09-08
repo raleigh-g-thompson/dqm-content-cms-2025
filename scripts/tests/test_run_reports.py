@@ -142,7 +142,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
                 "title = \"Test issue\"\n"
                 "category = \"engine\"\n"
                 "status = \"**Confirmed**\"\n"
-                "resolved = false\n"
+                "defect_status = \"confirmed\"\n"
                 "root_cause_status = \"open\"\n"
                 "affected_measures = []\n"
                 "+++\n"

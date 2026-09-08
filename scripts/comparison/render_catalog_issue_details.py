@@ -59,7 +59,7 @@ def _render_issue(issue, citation_count, max_test_cases):
         ("Title", title),
         ("Category", issue.get("category", "")),
         ("Status", issue.get("status", "")),
-        ("Resolution", "resolved" if is_resolved(issue) else "pending"),
+        ("Defect status", issue.get("defect_status", "")),
     ]
     affected_measures = ", ".join(issue.get("affected_measures", [])) or "(none)"
     meta.append(("Affected measures", affected_measures))
