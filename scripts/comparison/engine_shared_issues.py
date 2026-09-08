@@ -11,12 +11,13 @@ Data sources (all `measure_name,guid,Group_N:Population,count` CSVs):
   * actual_results.csv              (US Quality Core engine, fresh)
   * qicore-2025-actual-results.csv  (QI-Core engine, older; do NOT regenerate)
 
-Classification per cell (E=expected, C=CMS actual, Q=QICore actual):
+Classification per cell (E=expected, C=CMS actual, Q=QICore actual) -- see
+classification.py for the full vocabulary and rationale:
   pass               C==E and Q==E
   shared             C!=E and Q!=E and C==Q            (candidate engine issue)
   shared-direction   C!=E and Q!=E and sign(C-E)==sign(Q-E) and C!=Q  (weaker)
-  cms-only           C!=E and Q==E
-  qicore-only        Q!=E and C==E
+  cms-wrong          C!=E and Q==E   (was "cms-only" -- renamed, see classification.py)
+  qicore-wrong       Q!=E and C==E   (was "qicore-only")
   conflicting        C!=E and Q!=E and opposite directions
   incomplete         either actual missing for the cell
 
@@ -24,8 +25,8 @@ Expected/case cells that appear in only one actual set are reported as
 `incomplete` (presence differences), never as shared issues.
 
 Population naming: expected_results.csv uses `Group_N:Measure Population
-Observation` where the engines emit `Group_N:Measure Observation`; the former
-is aliased to the latter so the join is 1:1.
+Observation` where the engines emit `Group_N:Measure Observation`; canonicalised
+via scripts/comparison/populations.py so the join is 1:1.
 
 Usage:
   python3 scripts/comparison/engine_shared_issues.py [--measure CMS69FHIRPCSBMIScreenAndFollowUp]
@@ -36,14 +37,16 @@ import argparse
 import csv
 import json
 import os
+import sys
 from collections import defaultdict
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DEFAULT_MEASURE = "CMS69FHIRPCSBMIScreenAndFollowUp"
+sys.path.insert(0, str(SCRIPT_DIR))
+from classification import classify_cell
+from populations import canonical_cell
 
-# expected_results.csv uses this name where the engines use 'Measure Observation'
-POP_ALIAS = {"Measure Population Observation": "Measure Observation"}
+DEFAULT_MEASURE = "CMS69FHIRPCSBMIScreenAndFollowUp"
 
 # population-name prefix -> human bucket ordering for report columns
 POP_ABBREV = {
@@ -69,11 +72,7 @@ def read_csv(path):
         for row in csv.DictReader(f):
             meas = row["measure_name"]
             guid = row["guid"]
-            pop = row["population"]
-            # normalize population name for cross-file consistency
-            base, _, name = pop.rpartition(":")
-            if name in POP_ALIAS:
-                pop = f"{base}:{POP_ALIAS[name]}"
+            pop = canonical_cell(row["population"])
             raw = row["count"]
             num = None
             try:
@@ -84,32 +83,16 @@ def read_csv(path):
     return data
 
 
-def sign(x):
-    if x is None:
-        return 0
-    return (x > 0) - (x < 0)
-
-
 def classify(E, C, Q):
-    """Return (bucket, (c_num, q_num, e_num)) for a cell."""
+    """Return (bucket, (e_num, c_num, q_num)) for a cell.
+
+    Thin wrapper around classification.classify_cell -- kept so callers here
+    don't need to know the (raw, num) tuple shape this module stores values in.
+    """
     c_num = C[1] if C else None
     q_num = Q[1] if Q else None
     e_num = E[1] if E else None
-    if e_num is None:
-        return "no-expected", (e_num, c_num, q_num)
-    if c_num is None or q_num is None:
-        return "incomplete", (e_num, c_num, q_num)
-    if c_num == e_num and q_num == e_num:
-        return "pass", (e_num, c_num, q_num)
-    if c_num != e_num and q_num != e_num and c_num == q_num:
-        return "shared", (e_num, c_num, q_num)
-    if c_num != e_num and q_num != e_num and sign(c_num - e_num) == sign(q_num - e_num):
-        return "shared-direction", (e_num, c_num, q_num)
-    if c_num != e_num and q_num == e_num:
-        return "cms-only", (e_num, c_num, q_num)
-    if q_num != e_num and c_num == e_num:
-        return "qicore-only", (e_num, c_num, q_num)
-    return "conflicting", (e_num, c_num, q_num)
+    return classify_cell(e_num, c_num, q_num), (e_num, c_num, q_num)
 
 
 def bucket_abbrev(pop):
@@ -121,7 +104,7 @@ def bucket_abbrev(pop):
 
 
 def render_report(measure, expected, actuals, bucket_rows):
-    orders = ["shared", "shared-direction", "cms-only", "qicore-only", "conflicting", "incomplete"]
+    orders = ["shared", "shared-direction", "cms-wrong", "qicore-wrong", "conflicting", "incomplete"]
     table = "| Test Case | Population | Expected | CMS Actual | QI-Core Actual | Population | Type |\n"
     table += "|---|---|---:|---:|---:|---|---|\n"
     for bucket in orders:
@@ -193,7 +176,7 @@ def main():
     lines.append("")
     lines.append("| Bucket | Count |")
     lines.append("|---|---:|")
-    for b in ["shared", "shared-direction", "cms-only", "qicore-only", "conflicting", "incomplete", "pass"]:
+    for b in ["shared", "shared-direction", "cms-wrong", "qicore-wrong", "conflicting", "incomplete", "pass"]:
         lines.append(f"| {b} | {totals.get(b, 0)} |")
     lines.append(f"| **total cells** | {sum(totals.values())} |")
     lines.append("")
@@ -205,7 +188,7 @@ def main():
     lines.append("Interpretation: exact-magnitude agreement between two different engine versions")
     lines.append("on the same logical population cell is the strongest available signal of an")
     lines.append("engine-level bug shared by both engines. Cells where only one engine deviates")
-    lines.append("(cms-only / qicore-only) are the disprove evidence for the shared-engine hypothesis.")
+    lines.append("(cms-wrong / qicore-wrong) are the disprove evidence for the shared-engine hypothesis.")
     lines.append("")
     lines.append("## Per-bucket cells")
     lines.append("")
@@ -217,7 +200,7 @@ def main():
 
     # quick stdout summary
     print(f"measure: {args.measure}")
-    for b in ["shared", "shared-direction", "cms-only", "qicore-only", "conflicting", "incomplete", "pass"]:
+    for b in ["shared", "shared-direction", "cms-wrong", "qicore-wrong", "conflicting", "incomplete", "pass"]:
         print(f"  {b:18} {totals.get(b, 0)}")
     print(f"  shared% of not-passing: {shared_pct:.1f}%")
 

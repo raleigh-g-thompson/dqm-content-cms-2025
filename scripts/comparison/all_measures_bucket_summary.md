@@ -1,6 +1,6 @@
 # Cross-Engine Bucket Summary (all measures)
 
-| Measure | pass | shared | shared-dir | cms-only | qicore-only | conflicting | incomplete | **total cells** |
+| Measure | pass | shared | shared-dir | cms-wrong | qicore-wrong | conflicting | incomplete | **total cells** |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | CMS0334FHIRPCCesareanBirth | 549 | 2 | 0 | 0 | 1 | 0 | 0 | 552 |
 | CMS1017FHIRHHFI | 325 | 87 | 0 | 0 | 0 | 0 | 4 | 416 |
@@ -8,14 +8,14 @@
 | CMS104FHIRSTKDCAntithrombotic | 216 | 19 | 10 | 9 | 156 | 0 | 0 | 410 |
 | CMS1056FHIRCTClinical | 40 | 0 | 0 | 0 | 0 | 0 | 0 | 40 |
 | CMS1074FHIRCTIQR | 40 | 0 | 0 | 0 | 0 | 0 | 0 | 40 |
-| CMS108FHIRVTEProphylaxis | 519 | 10 | 0 | 14 | 17 | 0 | 0 | 560 |
+| CMS108FHIRVTEProphylaxis | 526 | 8 | 0 | 8 | 18 | 0 | 0 | 560 |
 | CMS1154ScreeningPrediabetesFHIR | 39 | 1 | 0 | 0 | 0 | 0 | 0 | 40 |
 | CMS1157FHIRHIVRetention | 81 | 0 | 0 | 0 | 0 | 0 | 0 | 81 |
 | CMS1173FHIRDiagnosticDelayVTE | 256 | 0 | 0 | 0 | 4 | 0 | 0 | 260 |
 | CMS117FHIRChildImmunStatus | 180 | 0 | 0 | 0 | 0 | 0 | 0 | 180 |
 | CMS1188FHIRHIVSTITesting | 100 | 0 | 0 | 0 | 2 | 0 | 0 | 102 |
 | CMS1206FHIRCTOQR | 40 | 0 | 0 | 0 | 0 | 0 | 0 | 40 |
-| CMS1218FHIRHHRF | 274 | 2 | 0 | 0 | 0 | 0 | 0 | 276 |
+| CMS1218FHIRHHRF | 276 | 0 | 0 | 0 | 0 | 0 | 0 | 276 |
 | CMS122FHIRDiabetesAssessGT9Pct | 220 | 0 | 0 | 0 | 0 | 0 | 0 | 220 |
 | CMS1244FHIRECATHOQR | 216 | 0 | 0 | 0 | 0 | 0 | 0 | 216 |
 | CMS124FHIRCervicalCancerScreen | 136 | 0 | 0 | 0 | 0 | 0 | 0 | 136 |
@@ -41,11 +41,11 @@
 | CMS154FHIRAppropriateTxforURI | 132 | 0 | 0 | 0 | 0 | 0 | 0 | 132 |
 | CMS155FHIRWgtAssessCounseling | 408 | 0 | 0 | 0 | 0 | 0 | 0 | 408 |
 | CMS156FHIRHighRiskMedsElderly | 706 | 2 | 0 | 0 | 0 | 0 | 0 | 708 |
-| CMS157FHIRPainIntensityQuantified | 332 | 46 | 0 | 0 | 0 | 0 | 0 | 378 |
+| CMS157FHIRPainIntensityQuantified | 378 | 0 | 0 | 0 | 0 | 0 | 0 | 378 |
 | CMS159FHIRDepRemissionat12Months | 264 | 4 | 0 | 0 | 0 | 0 | 0 | 268 |
 | CMS165FHIRControllingHighBP | 268 | 0 | 0 | 0 | 0 | 0 | 4 | 272 |
 | CMS177FHIRChildMDDSuicideAssmt | 121 | 0 | 0 | 2 | 0 | 0 | 0 | 123 |
-| CMS190FHIRVTEProphylaxisICU | 582 | 10 | 0 | 15 | 18 | 0 | 0 | 625 |
+| CMS190FHIRVTEProphylaxisICU | 584 | 8 | 0 | 15 | 18 | 0 | 0 | 625 |
 | CMS22FHIRPCSBPScreeningFollowUp | 205 | 0 | 0 | 14 | 1 | 0 | 0 | 220 |
 | CMS2FHIRPCSDepScreenAndFollowUp | 172 | 0 | 0 | 8 | 0 | 0 | 0 | 180 |
 | CMS314FHIRHIVViralSuppression | 129 | 0 | 0 | 0 | 0 | 0 | 0 | 129 |
@@ -71,7 +71,7 @@
 | CMS90FHIRFSAforHeartFailure | 148 | 0 | 0 | 0 | 0 | 0 | 0 | 148 |
 | CMS951FHIRKidneyHealthEval | 220 | 0 | 0 | 0 | 0 | 0 | 0 | 220 |
 | CMS986FHIRMalnutritionScore | 2944 | 494 | 0 | 6 | 0 | 0 | 0 | 3444 |
-| CMS996FHIRAptTxforSTEMI | 555 | 2 | 0 | 5 | 8 | 0 | 0 | 570 |
+| CMS996FHIRAptTxforSTEMI | 557 | 0 | 0 | 5 | 8 | 0 | 0 | 570 |
 | CMSFHIR529HybridHospitalWideReadmission | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
 | CMSFHIR844HybridHospitalWideMortality | 8 | 2 | 0 | 0 | 0 | 0 | 0 | 10 |
 | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 0 | 0 | 0 | 0 | 27 | 0 | 0 | 27 |
@@ -83,10 +83,10 @@
 
 ## Global totals
 
-- **pass**: 22110
-- **shared**: 786
+- **pass**: 22169
+- **shared**: 732
 - **shared-direction**: 17
-- **cms-only**: 204
-- **qicore-only**: 1456
+- **cms-wrong**: 198
+- **qicore-wrong**: 1457
 - **conflicting**: 0
 - **incomplete**: 79

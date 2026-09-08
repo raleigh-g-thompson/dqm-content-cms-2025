@@ -177,24 +177,24 @@ class EngineDiffTest(unittest.TestCase):
         self.qi = {
             ("m1", "g-a", "g1:Denominator"): "1",   # match
             ("m1", "g-b", "g1:Numerator"): "0",     # mismatch
-            ("m1", "g-d", "g1:Numerator"): "1",     # qicore-only
+            ("m1", "g-d", "g1:Numerator"): "1",     # missing in cms (g-c is missing in qicore)
         }
 
-    def test_classifies_match_mismatch_cms_only_qicore_only(self):
+    def test_classifies_match_mismatch_missing_in_cms_missing_in_qicore(self):
         diff = diff_actual_results(self.cms, self.qi)
         self.assertIn("m1", diff)
-        self.assertEqual(diff["m1"]["match"], 1)  # g-a
-        self.assertEqual(diff["m1"]["mismatch"], [(("m1", "g-b", "g1:Numerator"), "1", "0")])
-        self.assertEqual(diff["m1"]["cms_only"], [("m1", "g-c", "g1:Denominator")])
-        self.assertEqual(diff["m1"]["qicore_only"], [("m1", "g-d", "g1:Numerator")])
+        self.assertEqual(diff["m1"].match, 1)  # g-a
+        self.assertEqual(diff["m1"].mismatch, [(("m1", "g-b", "g1:Numerator"), "1", "0")])
+        self.assertEqual(diff["m1"].missing_in_qicore, [("m1", "g-c", "g1:Denominator")])
+        self.assertEqual(diff["m1"].missing_in_cms, [("m1", "g-d", "g1:Numerator")])
 
     def test_qicore_is_reference(self):
-        # A row present only in QI-Core is qicore-only (missing CMS population),
-        # and a row present only in CMS is cms-only.
+        # A row present only in QI-Core is missing from CMS, and a row present
+        # only in CMS is missing from QI-Core.
         diff = diff_actual_results(self.cms, self.qi)
-        self.assertEqual(len(diff["m1"]["qicore_only"]), 1)
-        self.assertEqual(len(diff["m1"]["cms_only"]), 1)
-        self.assertEqual(len(diff["m1"]["mismatch"]), 1)
+        self.assertEqual(len(diff["m1"].missing_in_cms), 1)
+        self.assertEqual(len(diff["m1"].missing_in_qicore), 1)
+        self.assertEqual(len(diff["m1"].mismatch), 1)
 
     def test_empty_inputs(self):
         self.assertEqual(diff_actual_results({}, {}), {})
@@ -203,10 +203,10 @@ class EngineDiffTest(unittest.TestCase):
         rows = {("m1", "g-a", "g1:Denominator"): "1",
                 ("m1", "g-b", "g1:Numerator"): "0"}
         diff = diff_actual_results(rows, dict(rows))
-        self.assertEqual(diff["m1"]["match"], 2)
-        self.assertEqual(diff["m1"]["mismatch"], [])
-        self.assertEqual(diff["m1"]["cms_only"], [])
-        self.assertEqual(diff["m1"]["qicore_only"], [])
+        self.assertEqual(diff["m1"].match, 2)
+        self.assertEqual(diff["m1"].mismatch, [])
+        self.assertEqual(diff["m1"].missing_in_qicore, [])
+        self.assertEqual(diff["m1"].missing_in_cms, [])
 
     def test_render_section_contains_measure_and_totals(self):
         diff = diff_actual_results(self.cms, self.qi)
@@ -229,10 +229,10 @@ class EngineDiffTest(unittest.TestCase):
             lines = fh.read().splitlines()
         self.assertEqual(lines[0],
                          "measure_name,guid,population,cms_count,qicore_count,diff_type")
-        self.assertEqual(len(lines), 4)  # header + 1 mismatch + 1 cms-only + 1 qicore-only
+        self.assertEqual(len(lines), 4)  # header + 1 mismatch + missing-in-cms + missing-in-qicore
         self.assertIn("m1,g-b,g1:Numerator,1,0,mismatch", lines)
-        self.assertIn("m1,g-c,g1:Denominator,,,cms-only", lines)
-        self.assertIn("m1,g-d,g1:Numerator,,,qicore-only", lines)
+        self.assertIn("m1,g-c,g1:Denominator,,,missing-in-qicore", lines)
+        self.assertIn("m1,g-d,g1:Numerator,,,missing-in-cms", lines)
 
 
 class QICoreRowOutcomeTest(unittest.TestCase):

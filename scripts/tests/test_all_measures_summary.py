@@ -30,11 +30,13 @@ class ClassifyTest(unittest.TestCase):
     def test_shared_when_both_equal_but_different_from_expected(self):
         self.assertEqual(classify(0, 1, 1), "shared")
 
-    def test_cms_only(self):
-        self.assertEqual(classify(1, 0, 1), "cms-only")
+    def test_cms_wrong(self):
+        """Was "cms-only" -- renamed in classification.py to stop colliding
+        with compare_results.py's unrelated, presence-only vocabulary."""
+        self.assertEqual(classify(1, 0, 1), "cms-wrong")
 
-    def test_qicore_only(self):
-        self.assertEqual(classify(1, 1, 0), "qicore-only")
+    def test_qicore_wrong(self):
+        self.assertEqual(classify(1, 1, 0), "qicore-wrong")
 
     def test_shared_direction(self):
         self.assertEqual(classify(0, 2, 4), "shared-direction")
@@ -49,7 +51,9 @@ class ClassifyTest(unittest.TestCase):
         self.assertEqual(classify(1, 1, None), "incomplete")
 
     def test_not_expected_when_no_expected(self):
-        self.assertEqual(classify(None, 1, 1), "not-expected")
+        """The bucket name itself was renamed "not-expected" -> "no-expected"
+        so both scripts that share classification.py agree on the term."""
+        self.assertEqual(classify(None, 1, 1), "no-expected")
 
 
 class NormalizeTest(unittest.TestCase):
@@ -68,12 +72,12 @@ class NormalizeTest(unittest.TestCase):
 
 class RenderMarkdownTest(unittest.TestCase):
     def test_includes_measure_and_bucket_totals(self):
-        per_measure = {"CMSX": {"pass": 5, "qicore-only": 3}}
-        totals = {"pass": 5, "qicore-only": 3, "shared": 0}
+        per_measure = {"CMSX": {"pass": 5, "qicore-wrong": 3}}
+        totals = {"pass": 5, "qicore-wrong": 3, "shared": 0}
         md = render_markdown(per_measure, totals)
         self.assertIn("| CMSX |", md)
         self.assertIn("- **pass**: 5", md)
-        self.assertIn("- **qicore-only**: 3", md)
+        self.assertIn("- **qicore-wrong**: 3", md)
 
 
 class BuildPerMeasureSummaryTest(unittest.TestCase):
@@ -98,7 +102,7 @@ class BuildPerMeasureSummaryTest(unittest.TestCase):
                 ("CMSX", "g2", "Group_1:Numerator", "1"),
             ])
             _write(tmp_path / "qic.csv", [
-                ("CMSX", "g1", "Group_1:Numerator", "0"),  # qicore-only
+                ("CMSX", "g1", "Group_1:Numerator", "0"),  # qicore-wrong
                 ("CMSX", "g2", "Group_1:Numerator", "1"),  # shared (cms=1, qic=1, expected=0)
             ])
             # Patch ROOT
@@ -107,7 +111,7 @@ class BuildPerMeasureSummaryTest(unittest.TestCase):
                 actual_path=tmp_path / "cms.csv",
                 qicore_path=tmp_path / "qic.csv",
             )
-        self.assertEqual(per["CMSX"]["qicore-only"], 1)
+        self.assertEqual(per["CMSX"]["qicore-wrong"], 1)
         self.assertEqual(per["CMSX"]["shared"], 1)
 
 

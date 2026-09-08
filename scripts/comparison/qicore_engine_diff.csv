@@ -1210,26 +1210,26 @@ CMS347FHIRStatinPreventionTxCVD,fcd4fe20-9013-4d1c-965b-1445f0088624,Group_3:Ini
 CMS347FHIRStatinPreventionTxCVD,fe38b06e-b202-4620-a5ac-e2d0d99591d7,Group_3:Denominator,1,0,mismatch
 CMS347FHIRStatinPreventionTxCVD,fe38b06e-b202-4620-a5ac-e2d0d99591d7,Group_3:Denominator Exception,1,0,mismatch
 CMS347FHIRStatinPreventionTxCVD,fe38b06e-b202-4620-a5ac-e2d0d99591d7,Group_3:Initial Population,1,0,mismatch
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exception,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exclusion,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Initial Population,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Numerator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exception,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exclusion,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Initial Population,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Numerator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exception,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exclusion,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Initial Population,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Numerator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exception,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exclusion,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Initial Population,,,cms-only
-CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Numerator,,,cms-only
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exception,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Denominator Exclusion,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Initial Population,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_1:Numerator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exception,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Denominator Exclusion,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Initial Population,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_2:Numerator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exception,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Denominator Exclusion,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Initial Population,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_3:Numerator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exception,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Denominator Exclusion,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Initial Population,,,missing-in-qicore
+CMS347FHIRStatinPreventionTxCVD,6da189af-7eb0-47b0-8c77-905944706aa1,Group_4:Numerator,,,missing-in-qicore
 CMS506FHIRSafeUseofOpioids,57da77da-de92-4ef5-9311-1d86e67c9de4,Group_1:Denominator Exclusion,1,0,mismatch
 CMS506FHIRSafeUseofOpioids,5e76e39a-8a30-4035-8d44-3362f4826aa7,Group_1:Denominator Exclusion,1,0,mismatch
 CMS506FHIRSafeUseofOpioids,81dc5bb4-3273-492a-beff-2f7b0394f3c8,Group_1:Denominator Exclusion,1,0,mismatch
@@ -1325,15 +1325,15 @@ CMS646FHIRIntravesicalBCGTherapy,ab48e0c0-6543-4537-8f00-bfcdcba7a81b,Group_1:Nu
 CMS646FHIRIntravesicalBCGTherapy,b786e9d7-b4ae-4cd1-b7eb-a6d4f789424e,Group_1:Denominator Exclusion,1,0,mismatch
 CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Denominator Exception,0,1,mismatch
 CMS646FHIRIntravesicalBCGTherapy,f5c2b6b4-4458-4be5-8c3b-20d2fb0ad36c,Group_1:Denominator Exclusion,1,0,mismatch
-CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator,,,qicore-only
-CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator Exception,,,qicore-only
-CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator Exclusion,,,qicore-only
-CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Initial Population,,,qicore-only
-CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Numerator,,,qicore-only
-CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Denominator,,,qicore-only
-CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Denominator Exception,,,qicore-only
-CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Initial Population,,,qicore-only
-CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Numerator,,,qicore-only
+CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator,,,missing-in-cms
+CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator Exception,,,missing-in-cms
+CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Denominator Exclusion,,,missing-in-cms
+CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Initial Population,,,missing-in-cms
+CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,Group_1:Numerator,,,missing-in-cms
+CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Denominator,,,missing-in-cms
+CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Denominator Exception,,,missing-in-cms
+CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Initial Population,,,missing-in-cms
+CMS68FHIRDocumentationCurrentMeds,f2e2e1c0-9e35-4592-9579-72a236cb2f56,Group_1:Numerator,,,missing-in-cms
 CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Denominator,0,1,mismatch
 CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Numerator,0,1,mismatch
 CMS71FHIRSTKAnticoagAFFlutter,4151585a-f621-4de5-91df-4e4227e2165e,Group_1:Denominator,1,0,mismatch

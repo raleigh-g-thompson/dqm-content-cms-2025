@@ -1,7 +1,7 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-08 13:26:49.953607 |
+| Generated | 2026-09-08 12:57:30.650763 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 30 |
@@ -1436,13 +1436,13 @@ Mismatched Test Cases (1 of 10 test cases)
 
 ## Engine Diff: CMS vs QI-Core (qicore-2025)
 
-_Where the CMS engine's actual results differ from the QI-Core engine's (source of truth) on the same test case and population. "Missing in CMS" rows are populations the QI-Core engine produced that CMS did not; "Missing in QI-Core" is the reverse._
+_Where the CMS engine's actual results differ from the QI-Core engine's (source of truth) on the same test case and population. QI-Core-only rows are populations the QI-Core engine produced that are absent from CMS._
 
-| Measure | Mismatch | Missing in CMS | Missing in QI-Core |
+| Measure | Mismatch | CMS-Only | QI-Core-Only |
 | --- | ---: | ---: | ---: |
 | CMS2FHIRPCSDepScreenAndFollowUp | 8 | 0 | 0 |
 | CMS22FHIRPCSBPScreeningFollowUp | 15 | 0 | 0 |
-| CMS68FHIRDocumentationCurrentMeds | 0 | 4 | 0 |
+| CMS68FHIRDocumentationCurrentMeds | 0 | 0 | 4 |
 | CMS71FHIRSTKAnticoagAFFlutter | 13 | 0 | 0 |
 | CMS72FHIRSTKAntithromboticDay2 | 252 | 0 | 0 |
 | CMS104FHIRSTKDCAntithrombotic | 175 | 0 | 0 |
@@ -1455,10 +1455,10 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | CMS177FHIRChildMDDSuicideAssmt | 2 | 0 | 0 |
 | CMS190FHIRVTEProphylaxisICU | 33 | 0 | 0 |
 | CMS0334FHIRPCCesareanBirth | 1 | 0 | 0 |
-| CMS347FHIRStatinPreventionTxCVD | 342 | 0 | 20 |
+| CMS347FHIRStatinPreventionTxCVD | 342 | 20 | 0 |
 | CMS506FHIRSafeUseofOpioids | 5 | 0 | 0 |
 | CMS645FHIRBoneDensityPCADTherapy | 80 | 0 | 0 |
-| CMS646FHIRIntravesicalBCGTherapy | 10 | 5 | 0 |
+| CMS646FHIRIntravesicalBCGTherapy | 10 | 0 | 5 |
 | CMS771FHIRUrinarySymptomScoreBPH | 47 | 0 | 0 |
 | CMS819FHIRHHORAE | 2 | 0 | 0 |
 | CMS871FHIRHHHyper | 2 | 0 | 0 |
@@ -1471,7 +1471,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 | 0 | 0 |
 | NHSNGlycemicControlHypoglycemiaInitialPopulation | 4 | 0 | 0 |
 
-| **Total** | **1672** | **9** | **20** |
+| **Total** | **1672** | **20** | **9** |
 
 ### CMS2FHIRPCSDepScreenAndFollowUp
 
@@ -1510,10 +1510,10 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
-| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Denominator | — | — | missing-in-cms |
-| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Denominator Exception | — | — | missing-in-cms |
-| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Initial Population | — | — | missing-in-cms |
-| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Numerator | — | — | missing-in-cms |
+| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Denominator | — | — | qicore-only |
+| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Denominator Exception | — | — | qicore-only |
+| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Initial Population | — | — | qicore-only |
+| f2e2e1c0-9e35-4592-9579-72a236cb2f56 | Numerator | — | — | qicore-only |
 
 ### CMS71FHIRSTKAnticoagAFFlutter
 
@@ -2862,26 +2862,26 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | fe38b06e-b202-4620-a5ac-e2d0d99591d7 | Denominator | 1 | 0 | mismatch |
 | fe38b06e-b202-4620-a5ac-e2d0d99591d7 | Denominator Exception | 1 | 0 | mismatch |
 | fe38b06e-b202-4620-a5ac-e2d0d99591d7 | Initial Population | 1 | 0 | mismatch |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | missing-in-qicore |
-| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | missing-in-qicore |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exception | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Denominator Exclusion | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Initial Population | — | — | cms-only |
+| 6da189af-7eb0-47b0-8c77-905944706aa1 | Numerator | — | — | cms-only |
 
 ### CMS506FHIRSafeUseofOpioids
 
@@ -2992,11 +2992,11 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | b786e9d7-b4ae-4cd1-b7eb-a6d4f789424e | Denominator Exclusion | 1 | 0 | mismatch |
 | e648fa70-0532-49b0-92f6-dfb5a6d28d94 | Denominator Exception | 0 | 1 | mismatch |
 | f5c2b6b4-4458-4be5-8c3b-20d2fb0ad36c | Denominator Exclusion | 1 | 0 | mismatch |
-| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator | — | — | missing-in-cms |
-| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator Exception | — | — | missing-in-cms |
-| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator Exclusion | — | — | missing-in-cms |
-| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Initial Population | — | — | missing-in-cms |
-| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Numerator | — | — | missing-in-cms |
+| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator | — | — | qicore-only |
+| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator Exception | — | — | qicore-only |
+| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Denominator Exclusion | — | — | qicore-only |
+| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Initial Population | — | — | qicore-only |
+| 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 | Numerator | — | — | qicore-only |
 
 ### CMS771FHIRUrinarySymptomScoreBPH
 

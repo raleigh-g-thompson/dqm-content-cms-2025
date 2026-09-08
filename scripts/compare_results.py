@@ -13,8 +13,16 @@ from typing import Dict, List, NamedTuple, Set, Tuple, TypedDict
 _SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _SCRIPTS_DIR)
 sys.path.insert(0, os.path.join(_SCRIPTS_DIR, "comparison"))
+import attribution
+import classification
 import known_issues as known_issues_lib
 import render_catalog_issue_details as render_catalog_lib
+from populations import (
+    CANONICAL_POPULATIONS,
+    canonical_cell,
+    is_scored,
+    split_population,
+)
 
 measure_id_pattern = r"(?:CMS|CMSFHIR)(?P<measure_id>\d+)"
 
@@ -24,21 +32,12 @@ ResultDelta = namedtuple('ResultDelta', ['patient_guid', 'group', 'population', 
 Comparison = namedtuple('Comparison', ['expected', 'actual'])
 TestCaseGroupId = namedtuple('TestCaseId', ['patient_guid', 'group'])
 
-# source: https://terminology.hl7.org/CodeSystem-measure-population.html
-ValidMeasurePopulationTypes = [
-    'Initial Population',
-    'Numerator',
-    'Numerator Exclusion',
-    'Numerator Observations',
-    'Denominator',
-    'Denominator Exclusion',
-    'Denominator-exclusion',
-    'Denominator-exception',
-    'Denominator Exception',
-    'Denominator Observations',
-    'Measure Population',
-    'Measure Population Exclusion'
-]
+# Canonical scored populations live in scripts/comparison/populations.py, which
+# also holds the alias table reconciling the different spellings the expected and
+# actual extractors emit. Kept as a module-level name for backwards compatibility
+# with callers/tests that referenced it; membership tests should go through
+# populations.is_scored(), which applies aliases first.
+ValidMeasurePopulationTypes = sorted(CANONICAL_POPULATIONS)
 
 class MissingPopulation(NamedTuple):
     result_key: ResultKey
@@ -57,28 +56,54 @@ class MeasureDiscrepancy:
     missing_populations: List[MissingPopulation] = field(default_factory=list)
     mismatched_test_cases: Dict[TestCaseGroupId, Dict[str, Comparison]] = field(default_factory=dict)
 
+class UnscoredCell(NamedTuple):
+    measure_name: str
+    patient_guid: str
+    population: str
+
+
 class Results(NamedTuple):
     rows: Dict[str, str]
     groups: Dict[ResultKey, Dict[str, str]]
+    unscored: List[UnscoredCell] = []
+
 
 def capture_results(file: str) -> Results:
+    """Read a results CSV into row- and group-keyed dicts.
+
+    Population names are canonicalised on the way in (see
+    ``scripts/comparison/populations.py``) so that keys from the expected and
+    actual extractors line up even where they spell the same population
+    differently -- e.g. CMS986's "Measure Population Observation" in expected
+    vs "Measure Observation" in both engines' actuals. Canonicalising here, at
+    the single read point, keeps every downstream key consistent.
+
+    Cells whose population is not a scored population are collected in
+    ``unscored`` instead of being silently dropped, so the report can say what
+    it did not measure.
+    """
     rows = {}
     results = {}
+    unscored: List[UnscoredCell] = []
     with open(file, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if not row['measure_name'].lower().startswith("test"):
-                key = (row["measure_name"], row["guid"], row["population"])
-                rows[key] = row["count"]
+            if row['measure_name'].lower().startswith("test"):
+                continue
 
-                group_and_population = row["population"].split(':')
-                if group_and_population[1] not in ValidMeasurePopulationTypes:
-                    continue
+            group, population = split_population(row["population"])
+            key = (row["measure_name"], row["guid"], f"{group}:{population}")
+            rows[key] = row["count"]
 
-                result_key = ResultKey(row["measure_name"], row["guid"], group_and_population[0])
-                result = results.setdefault(result_key, {})
-                result[group_and_population[1]] = row["count"]
-    return Results(rows, results)
+            if population not in CANONICAL_POPULATIONS:
+                unscored.append(UnscoredCell(
+                    row["measure_name"], row["guid"], row["population"]))
+                continue
+
+            result_key = ResultKey(row["measure_name"], row["guid"], group)
+            result = results.setdefault(result_key, {})
+            result[population] = row["count"]
+    return Results(rows, results, unscored)
 
 
 # ---------------------------------------------------------------------------
@@ -89,45 +114,24 @@ def capture_results(file: str) -> Results:
 # ---------------------------------------------------------------------------
 EngineDiffClass = namedtuple('EngineDiffClass', ['label', 'detail'])
 
-def diff_actual_results(cms_rows: Dict, qicore_rows: Dict) -> Dict[str, Dict]:
+def diff_actual_results(cms_rows: Dict, qicore_rows: Dict) -> Dict[str, "classification.PresenceBucket"]:
     """Compare two engines' per-case actual results.
 
     ``cms_rows`` / ``qicore_rows`` are the ``Results.rows`` dicts from
     ``capture_results``, keyed ``(measure_name, patient_guid, population)`` where
     population is the full ``Group_N:PopulationType`` string.
 
-    The QI-Core actuals are treated as the reference ("source of truth"); a row
-    present only in the QI-Core input is reported as QICORE-ONLY so a missing CMS
-    population is surfaced, while a row present only in CMS is reported as
-    CMS-ONLY.
+    Expected results are not consulted -- this is a two-way presence/value
+    comparison of the two engines' raw output. See classification.py for the
+    full vocabulary; in short, ``missing_in_cms`` is a row QI-Core produced that
+    CMS did not, and ``missing_in_qicore`` is the reverse (these were previously
+    named "qicore_only"/"cms_only", which collided with an unrelated,
+    expected-relative vocabulary used elsewhere -- see classification.py).
 
-    Returns a nested dict keyed by measure name:
-        { measure: { "mismatch": [(key, cms_count, qicore_count), ...],
-                     "cms_only":  [key, ...],
-                     "qicore_only": [key, ...],
-                     "match": int } }
+    Returns ``{measure: PresenceBucket}`` (a NamedTuple with ``.mismatch``,
+    ``.missing_in_cms``, ``.missing_in_qicore``, ``.match``).
     """
-    result: Dict[str, Dict] = {}
-    cms_keys = set(cms_rows)
-    qi_keys = set(qicore_rows)
-
-    for key in sorted(qi_keys):
-        measure, _guid, _pop = key
-        bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
-        if key not in cms_keys:
-            bucket["qicore_only"].append(key)
-            continue
-        if cms_rows[key] == qicore_rows[key]:
-            bucket["match"] += 1
-        else:
-            bucket["mismatch"].append((key, cms_rows[key], qicore_rows[key]))
-
-    for key in sorted(cms_keys - qi_keys):
-        measure, _guid, _pop = key
-        bucket = result.setdefault(measure, {"mismatch": [], "cms_only": [], "qicore_only": [], "match": 0})
-        bucket["cms_only"].append(key)
-
-    return result
+    return classification.classify_presence(cms_rows, qicore_rows)
 
 
 def render_engine_diff_section(engine_diff: Dict[str, Dict]) -> List[str]:
@@ -140,25 +144,27 @@ def render_engine_diff_section(engine_diff: Dict[str, Dict]) -> List[str]:
         return []
 
     def row_total(m):
-        return len(engine_diff[m]["mismatch"]) + len(engine_diff[m]["cms_only"]) + len(engine_diff[m]["qicore_only"])
+        d = engine_diff[m]
+        return len(d.mismatch) + len(d.missing_in_qicore) + len(d.missing_in_cms)
 
     non_empty = [m for m in engine_diff if row_total(m) > 0]
     out = ["## Engine Diff: CMS vs QI-Core (qicore-2025)\n",
            "\n"]
     out.append("_Where the CMS engine's actual results differ from the QI-Core engine's "
-               "(source of truth) on the same test case and population. QI-Core-only rows "
-               "are populations the QI-Core engine produced that are absent from CMS._\n")
+               "(source of truth) on the same test case and population. \"Missing in CMS\" "
+               "rows are populations the QI-Core engine produced that CMS did not; "
+               "\"Missing in QI-Core\" is the reverse._\n")
     out.append("\n")
-    out.append(f"| Measure | Mismatch | CMS-Only | QI-Core-Only |\n")
+    out.append(f"| Measure | Mismatch | Missing in CMS | Missing in QI-Core |\n")
     out.append("| --- | ---: | ---: | ---: |\n")
-    total_mm = sum(len(engine_diff[m]["mismatch"]) for m in engine_diff)
-    total_cms = sum(len(engine_diff[m]["cms_only"]) for m in engine_diff)
-    total_qi = sum(len(engine_diff[m]["qicore_only"]) for m in engine_diff)
+    total_mm = sum(len(engine_diff[m].mismatch) for m in engine_diff)
+    total_missing_cms = sum(len(engine_diff[m].missing_in_cms) for m in engine_diff)
+    total_missing_qi = sum(len(engine_diff[m].missing_in_qicore) for m in engine_diff)
     for measure in sort_measure_names(non_empty):
         d = engine_diff[measure]
-        out.append(f"| {measure} | {len(d['mismatch'])} | {len(d['cms_only'])} | {len(d['qicore_only'])} |\n")
+        out.append(f"| {measure} | {len(d.mismatch)} | {len(d.missing_in_cms)} | {len(d.missing_in_qicore)} |\n")
     out.append(f"\n")
-    out.append(f"| **Total** | **{total_mm}** | **{total_cms}** | **{total_qi}** |\n")
+    out.append(f"| **Total** | **{total_mm}** | **{total_missing_cms}** | **{total_missing_qi}** |\n")
     out.append("\n")
 
     def population_label(pop_key):
@@ -169,15 +175,15 @@ def render_engine_diff_section(engine_diff: Dict[str, Dict]) -> List[str]:
         d = engine_diff[measure]
         out.append(f"### {measure}\n\n")
         rows = []
-        for key, cms_cnt, qi_cnt in sorted(d["mismatch"], key=lambda t: sort_by_test_case(t[0][1], t[0][2])):
+        for key, cms_cnt, qi_cnt in sorted(d.mismatch, key=lambda t: sort_by_test_case(t[0][1], t[0][2])):
             _m, guid, pop = key
-            rows.append([guid, population_label(pop), cms_cnt, qi_cnt, "mismatch"])
-        for key in sorted(d["cms_only"], key=lambda t: sort_by_test_case(t[1], t[2])):
+            rows.append([guid, population_label(pop), cms_cnt, qi_cnt, classification.MISMATCH])
+        for key in sorted(d.missing_in_cms, key=lambda t: sort_by_test_case(t[1], t[2])):
             _m, guid, pop = key
-            rows.append([guid, population_label(pop), "—", "—", "cms-only"])
-        for key in sorted(d["qicore_only"], key=lambda t: sort_by_test_case(t[1], t[2])):
+            rows.append([guid, population_label(pop), "—", "—", classification.MISSING_IN_CMS])
+        for key in sorted(d.missing_in_qicore, key=lambda t: sort_by_test_case(t[1], t[2])):
             _m, guid, pop = key
-            rows.append([guid, population_label(pop), "—", "—", "qicore-only"])
+            rows.append([guid, population_label(pop), "—", "—", classification.MISSING_IN_QICORE])
         if rows:
             out.append("| Test Case | Population | CMS Actual | QI-Core Actual | Type |\n")
             out.append("|---|---|---:|---:|---|\n")
@@ -192,22 +198,25 @@ def write_engine_diff_csv(engine_diff: Dict[str, Dict], out_path: str) -> None:
 
     Emits one row per differing population. ``measure_name,guid,population`` are
     the cross-repo key; ``cms_count``/``qicore_count`` are the two engines' actuals
-    (empty for rows present in only one); ``diff_type`` is mismatch|cms-only|qicore-only.
+    (empty for rows present in only one); ``diff_type`` is one of
+    mismatch|missing-in-cms|missing-in-qicore (see classification.py -- these
+    were previously "cms-only"/"qicore-only", renamed to stop colliding with the
+    unrelated, expected-relative vocabulary used by engine_shared_issues.py).
     """
     with open(out_path, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
         writer.writerow(["measure_name", "guid", "population", "cms_count", "qicore_count", "diff_type"])
         for measure in sorted(engine_diff):
             d = engine_diff[measure]
-            for key, cms_cnt, qi_cnt in d["mismatch"]:
+            for key, cms_cnt, qi_cnt in d.mismatch:
                 _m, guid, pop = key
-                writer.writerow([measure, guid, pop, cms_cnt, qi_cnt, "mismatch"])
-            for key in d["cms_only"]:
+                writer.writerow([measure, guid, pop, cms_cnt, qi_cnt, classification.MISMATCH])
+            for key in d.missing_in_cms:
                 _m, guid, pop = key
-                writer.writerow([measure, guid, pop, "", "", "cms-only"])
-            for key in d["qicore_only"]:
+                writer.writerow([measure, guid, pop, "", "", classification.MISSING_IN_CMS])
+            for key in d.missing_in_qicore:
                 _m, guid, pop = key
-                writer.writerow([measure, guid, pop, "", "", "qicore-only"])
+                writer.writerow([measure, guid, pop, "", "", classification.MISSING_IN_QICORE])
 
 
 def row_outcome(expected_result: str, actual_result: str) -> Tuple[str, str]:
@@ -246,8 +255,8 @@ def test_case_outcomes(expected_rows: Dict, actual_rows: Dict) -> Dict[Tuple[str
     """
     outcomes: Dict[Tuple[str, str], str] = {}
     for key, expected_result in expected_rows.items():
-        # key fields: [ 'measure_name', 'patient_guid', 'group' ]
-        if key[2].split(':')[1] not in ValidMeasurePopulationTypes:
+        # key fields: [ 'measure_name', 'patient_guid', 'group:population' ]
+        if not is_scored(key[2].split(':', 1)[1]):
             continue
         actual_result = actual_rows.get(key)
         result, _ = row_outcome(expected_result, actual_result)
@@ -270,10 +279,11 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict) -> Tuple[
     output = []
 
     for key, expected_result in expected_rows.items():
-        # key fields: [ 'measure_name', 'patient_guid', 'group' ]
-        # verify the population
-        if key[2].split(':')[1] not in ValidMeasurePopulationTypes:
-            # TODO: include 'bad' population in report so user know why population wasn't used in report
+        # key fields: [ 'measure_name', 'patient_guid', 'group:population' ]
+        # Unscored populations are excluded here and reported in the discrepancy
+        # report's "Cells excluded from scoring" section (Results.unscored), so
+        # the omission is visible rather than silent.
+        if not is_scored(key[2].split(':', 1)[1]):
             continue
 
         actual_result = actual_rows.get(key)
@@ -448,7 +458,7 @@ def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
     return "<br>".join(labels) if labels else "—"
 
 
-def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None):
+def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None, unscored_cells: List = None):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
     issues = issues or []
     expected_keys = (list(expected_rows.keys()) if expected_rows is not None
@@ -456,14 +466,24 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
     pending = known_issues_lib.pending_case_set({"issues": issues})
     pending_issues = known_issues_lib.pending_issues({"issues": issues})
 
-    # Dual scores: all vs excluding resolution-pending cases.
-    if expected_rows is not None and actual_rows is not None:
-        excl_expected, excl_actual = exclude_pending_rows(expected_rows, actual_rows, pending)
-        excl_pass, excl_fail = scores(excl_expected, excl_actual)
-    else:
-        excl_pass, excl_fail = pass_count, fail_count
     pending_case_count = len({(k[0], k[1]) for k in expected_keys}
                              & pending) if expected_keys else 0
+
+    # Attribution ledger replaces the old dual score. The previous
+    # "excl. resolution-pending" figure subtracted every case cited by an open
+    # issue -- but most of those cases had started passing, so it removed ~4
+    # passing cases for every failing one and reported a 100.00% that could not
+    # be reached by failure. The ledger keeps one denominator and reports how
+    # many failures have a written cause instead. See attribution.py.
+    ledger = None
+    if expected_rows is not None and actual_rows is not None:
+        ledger = attribution.build_ledger(
+            expected_rows,
+            actual_rows,
+            {"issues": issues},
+            test_case_outcomes(expected_rows, actual_rows),
+            unscored_cells or (),
+        )
 
     # QICore pass/fail counts (computed from expected vs QICore actuals).
     qicore_discrepancies: Dict[str, MeasureDiscrepancy] = {}
@@ -488,11 +508,16 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                 ['Total Test Cases', len(set([(result_key.measure_name, result_key.patient_guid) for result_key in expected_results.keys()]))],
                 ['Measures with Discrepancies', len(discrepancies)],
                 ['Known Issues (resolution pending)', f'{len(pending_issues)} issues / {pending_case_count} test cases'],
-                ['Passing Test Cases (all)', pad(pass_count, fail_count)],
-                ['Failing Test Cases (all)', pad(fail_count, pass_count)],
-                ['Passing Test Cases (excl. resolution-pending)', pad(excl_pass, excl_fail)],
-                ['Failing Test Cases (excl. resolution-pending)', pad(excl_fail, excl_pass)],
+                ['Passing Test Cases', pad(pass_count, fail_count)],
+                ['Failing Test Cases', pad(fail_count, pass_count)],
         ]
+        if ledger is not None:
+            summary_rows.extend([
+                ['&nbsp;&nbsp;— attributed to an open known issue',
+                 f'{ledger.attributed_failures}'],
+                ['&nbsp;&nbsp;— **UNATTRIBUTED** (regression / untriaged)',
+                 f'**{ledger.unattributed_count}**'],
+            ])
         if qicore_groups is not None:
             summary_rows.extend([
                 ['QICore Passing Test Cases', pad(qicore_total_pass, qicore_total_fail)],
@@ -503,6 +528,10 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
             ['Details', 'Value'],
             summary_rows
         ))
+        if ledger is not None:
+            f.write('\n')
+            f.write('\n'.join(attribution.render_health_section(ledger)))
+            f.write('\n')
         if pending_issues:
             f.write('\n## Known Issues (resolution-pending)\n\n')
             f.writelines(create_markdown_table(
@@ -724,14 +753,21 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
     print(f"PASS (test cases): {pass_fail_count[0]} ({pass_pct:.2f})%")
     print(f"FAIL (test cases): {pass_fail_count[1]} ({(100 - pass_pct):.2f})%")
     if issues:
-        pending = known_issues_lib.pending_case_set({"issues": issues})
-        excl_expected, excl_actual = exclude_pending_rows(expected_results[0], actual_results[0], pending)
-        p, fl = scores(excl_expected, excl_actual)
-        denom = p + fl
-        print(f"PASS (excl. resolution-pending): {p} ({p / denom * 100:.2f}%)" if denom else f"PASS (excl. resolution-pending): {p}")
-        print(f"FAIL (excl. resolution-pending): {fl} ({(100 - p / denom * 100) if denom else 0:.2f})%")
-    
-    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0], engine_diff, qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None)
+        ledger = attribution.build_ledger(
+            expected_results[0], actual_results[0], {"issues": issues},
+            test_case_outcomes(expected_results[0], actual_results[0]),
+            expected_results.unscored)
+        print(f"  attributed to an open known issue: {ledger.attributed_failures}")
+        print(f"  UNATTRIBUTED (regression/untriaged): {ledger.unattributed_count}")
+        if ledger.stale_count:
+            print(f"  stale attributions (cited case now passes): {ledger.stale_count}")
+        if ledger.phantom_count:
+            print(f"  phantom attributions (case not in expected): {ledger.phantom_count}")
+        if ledger.unscored_cases:
+            print(f"  test cases not fully measured: {len(ledger.unscored_cases)}")
+
+
+    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0], engine_diff, qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, expected_results.unscored)
 
     archived = archive_report(comparison_report)
     if archived:
