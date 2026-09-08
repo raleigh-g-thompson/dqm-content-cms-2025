@@ -59,6 +59,10 @@ class RunReportsEndToEndTest(unittest.TestCase):
         # pollute the repo's actual run history with fixture-sized fake runs
         # every time it executes (caught in review -- see the retrofit note
         # in run_reports.py's --run-history-path help text).
+        # --skip-catalog-build keeps these tests hermetic: they exercise the
+        # report pipeline on a fixture known_issues.json, not the real
+        # defect-tracking/issues/ tree (the compile wiring has its own test,
+        # test_catalog_is_compiled_before_compare_results).
         args = [
             "--expected", self.expected,
             "--actual", self.actual,
@@ -69,6 +73,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
             "--engine-issues-output", self.engine_issues_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--skip-catalog-build",
         ]
         return main(args)
 
@@ -112,6 +117,57 @@ class RunReportsEndToEndTest(unittest.TestCase):
         ]
         self.assertEqual(main(args), 0)
         self.assertTrue(os.path.exists(self.report))
+
+    def test_catalog_is_compiled_before_compare_results(self):
+        """Step 0 must compile known_issues.json from the authored issue tree,
+        so compare_results consumes the freshly-compiled catalog even when the
+        on-disk JSON was stale or absent."""
+        issues_dir = os.path.join(self.tmp, "issues")
+        os.makedirs(issues_dir)
+        with open(os.path.join(issues_dir, "_preamble.md"), "w", encoding="utf-8") as fh:
+            fh.write("+++\nschema_version = 1\ngenerated_from = \"test/\"\n+++\n"
+                     "# Preamble\n")
+        with open(os.path.join(issues_dir, "_cross_cutting_lessons.md"), "w",
+                  encoding="utf-8") as fh:
+            fh.write("## Cross-Cutting\n")
+        with open(os.path.join(issues_dir, "_manifest.txt"), "w", encoding="utf-8") as fh:
+            fh.write("# test manifest\nT-01\n")
+        with open(os.path.join(issues_dir, "cases.csv"), "w", newline="",
+                  encoding="utf-8") as fh:
+            fh.write("issue_id,measure,guid\n")
+        with open(os.path.join(issues_dir, "T-01.md"), "w", encoding="utf-8") as fh:
+            fh.write(
+                "+++\n"
+                "id = \"T-01\"\n"
+                "title = \"Test issue\"\n"
+                "category = \"engine\"\n"
+                "status = \"**Confirmed**\"\n"
+                "resolved = false\n"
+                "root_cause_status = \"open\"\n"
+                "affected_measures = []\n"
+                "+++\n"
+                "### T-01: test body\n")
+
+        args = [
+            "--expected", self.expected,
+            "--actual", self.actual,
+            "--output", self.output,
+            "--report", self.report,
+            "--known-issues", self.known_issues,
+            "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
+            "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
+            "--engine-issues-output", self.engine_issues_out,
+            "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--issues-dir", issues_dir,
+        ]
+        self.assertEqual(main(args), 0)
+
+        with open(self.known_issues, encoding="utf-8") as fh:
+            catalog = json.load(fh)
+        self.assertEqual(catalog["schema_version"], 1)
+        self.assertEqual(catalog["generated_from"], "test/")
+        self.assertEqual([i["id"] for i in catalog["issues"]], ["T-01"])
+        self.assertEqual(catalog["issues"][0]["body_md"], "### T-01: test body\n")
 
     def test_run_history_is_written_to_the_override_path_not_the_real_one(self):
         """Regression guard for the pollution bug this test file caused on

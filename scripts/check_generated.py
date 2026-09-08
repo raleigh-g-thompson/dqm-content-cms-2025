@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Regenerate-and-diff drift detector for files marked GENERATED.
 
-Two files in this repo carry a "do not edit by hand" banner and are supposed to
+Three files in this repo carry a "do not edit by hand" banner and are supposed to
 be fully reproducible from their declared source:
 
+  * scripts/comparison/known_issues.json  <- compiled from defect-tracking/issues/
   * defect-tracking/engine-issues.md      <- scripts/comparison/known_issues.json
   * scripts/comparison/catalog_issue_details.md <- known_issues.json + discrepancy_report.md
 
@@ -38,6 +39,7 @@ sys.path.insert(0, _SCRIPTS_DIR)
 sys.path.insert(0, _COMPARISON_DIR)
 
 import generate_engine_issues_doc as engine_issues_gen
+import build_catalog
 import known_issues as known_issues_lib
 import render_catalog_issue_details as catalog_details_gen
 
@@ -86,8 +88,18 @@ def check_catalog_issue_details_md():
     return output_path, expected
 
 
+def check_known_issues_json():
+    """scripts/comparison/known_issues.json, compiled from defect-tracking/issues/."""
+    issues_dir = os.path.join(REPO_ROOT, "defect-tracking", "issues")
+    output_path = os.path.join(
+        REPO_ROOT, "scripts", "comparison", "known_issues.json")
+    return output_path, build_catalog.serialize(
+        build_catalog.build_catalog(issues_dir))
+
+
 # (label, check_fn) -- check_fn() returns (output_path, expected_content).
 CHECKS = [
+    ("known_issues.json", check_known_issues_json),
     ("engine-issues.md", check_engine_issues_md),
     ("catalog_issue_details.md", check_catalog_issue_details_md),
 ]

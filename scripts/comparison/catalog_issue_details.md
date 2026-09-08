@@ -1,6 +1,6 @@
 # Known-Catalog Issue Details
 
-- Generated: 2026-09-08T13:46:04
+- Generated: 2026-09-08T14:29:42
 - Catalog: `scripts/comparison/known_issues.json`
 - Catalog size: 56 issues (26 pending, 30 resolved)
 - Issues rendered: 26

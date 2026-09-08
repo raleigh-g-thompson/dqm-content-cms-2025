@@ -9,12 +9,21 @@ been at risk:
   * The JSON is routinely reformatted wholesale, so a dropped array is invisible
     in review -- a 12k-line diff hides a 200-mapping deletion.
 
+Since Phase 4a the JSON is a compiled build artifact: the attributions live in
+``defect-tracking/issues/cases.csv`` and the issue filenames in
+``defect-tracking/issues/``. The compiled catalog is verified byte-for-byte
+against the source tree by ``test_build_catalog.py``; the floors here are
+checked against BOTH the authored source (cases.csv row count, issue-file
+count) and the compiled catalog, so a dropped row in either side fails, not
+just the artifact.
+
 These tests assert *floors*, not exact values: adding issues or attributions is
 expected and passes, while any net loss fails.  When you intentionally retire an
 issue, lower the floor and remove the ID from ``REQUIRED_IDS`` in the same
 commit, so the deletion is a reviewable, deliberate line in the diff rather than
 a silent side effect.
 """
+import csv
 import unittest
 
 from scripts.comparison.known_issues import (
@@ -26,6 +35,11 @@ from scripts.comparison.known_issues import (
 # lower ONLY alongside a deliberate retirement.
 MIN_ISSUE_COUNT = 56
 MIN_CASE_MAPPINGS = 1228
+
+AUTHORED_ISSUES_DIR = (
+    __import__("pathlib").Path(__file__).resolve().parents[2]
+    / "defect-tracking" / "issues"
+)
 
 # Every ID known to exist as of 2026-09-08. Guards against an individual issue
 # vanishing while the totals stay plausible (e.g. one deleted, one added).
@@ -47,6 +61,21 @@ REQUIRED_IDS = {
 
 class CatalogSizeFloorTest(unittest.TestCase):
 
+    def _authored_issue_file_count(self):
+        if not AUTHORED_ISSUES_DIR.is_dir():
+            self.skipTest("defect-tracking/issues/ not present")
+        return len([p for p in AUTHORED_ISSUES_DIR.glob("*.md")
+                    if not p.name.startswith("_")])
+
+    def _authored_case_mapping_count(self):
+        cases = AUTHORED_ISSUES_DIR / "cases.csv"
+        if not cases.is_file():
+            self.skipTest("cases.csv not present")
+        with open(cases, "r", newline="", encoding="utf-8") as fh:
+            self.assertEqual(fh.readline().strip(), "issue_id,measure,guid",
+                             "cases.csv must keep its 3-column header")
+            return sum(1 for _ in fh)
+
     def test_issue_count_does_not_shrink(self):
         issues = load_catalog()["issues"]
         self.assertGreaterEqual(
@@ -63,6 +92,22 @@ class CatalogSizeFloorTest(unittest.TestCase):
             total, MIN_CASE_MAPPINGS,
             f"case attributions dropped to {total} (floor {MIN_CASE_MAPPINGS}). "
             "These are hand-curated and not reconstructible from the CSVs.",
+        )
+
+    def test_authored_issue_files_do_not_shrink(self):
+        n = self._authored_issue_file_count()
+        self.assertGreaterEqual(
+            n, MIN_ISSUE_COUNT,
+            f"defect-tracking/issues/ has {n} issue files (floor "
+            f"{MIN_ISSUE_COUNT}). The released catalog is compiled from here.",
+        )
+
+    def test_authored_cases_rows_do_not_shrink(self):
+        n = self._authored_case_mapping_count()
+        self.assertGreaterEqual(
+            n, MIN_CASE_MAPPINGS,
+            f"cases.csv has {n} rows (floor {MIN_CASE_MAPPINGS}). The released "
+            "catalog's affected_test_cases are compiled from here.",
         )
 
 
