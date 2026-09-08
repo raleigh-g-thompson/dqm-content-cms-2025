@@ -1,0 +1,28 @@
+#!/bin/sh
+# Local pre-commit guard: fast tests + generated-file drift check.
+#
+# Not installed automatically -- git does not run hooks from a tracked
+# directory on its own. Install once per clone:
+#
+#   git config core.hooksPath scripts/git-hooks
+#
+# This intentionally does not depend on the `pre-commit` framework; the repo
+# has no other Python tooling dependency beyond pytest (see
+# requirements-dev.txt), so a plain shell script keeps setup to one command.
+
+set -e
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo "pre-commit: running test suite..."
+python3 -m pytest -q
+
+echo "pre-commit: checking generated files for drift..."
+python3 scripts/check_generated.py --quiet || {
+    echo "pre-commit: a generated file has drifted from its source."
+    echo "Run 'python3 scripts/check_generated.py' for details, then either"
+    echo "undo the hand-edit or re-run 'python3 scripts/run_reports.py'."
+    exit 1
+}
+
+echo "pre-commit: OK"

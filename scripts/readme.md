@@ -2,6 +2,35 @@
 
 This repository provides a workflow for comparing expected and actual results for measure test cases. The process generates a comparison file at `./scripts/comparison/output_results.csv` that summarizes PASS/FAIL for each population result.
 
+> **Note (2026-09):** This file describes the original 3-step manual workflow, which is
+> still accurate for steps 1-2 below. Step 3 (`compare_results.py`) now has additional
+> siblings that should run alongside it -- see **Recommended: `run_reports.py`** below.
+> A full rewrite of this document is planned; until then, treat this note as the
+> up-to-date entry point.
+
+## Recommended: `scripts/run_reports.py`
+
+After running `extract_population_expected.py` and `extract_population_actual.py` (steps
+1-2 below), run:
+
+```
+python3 scripts/run_reports.py
+```
+
+instead of calling `compare_results.py` directly. It runs the comparison, regenerates
+`defect-tracking/engine-issues.md` from the issue catalog, and verifies neither generated
+file has drifted from its source -- all three in one command. Running `compare_results.py`
+alone (or editing `scripts/comparison/known_issues.json` without a follow-up regen) is how
+`engine-issues.md` forked silently from its source for 11 commits before anyone noticed; see
+`scripts/check_generated.py`'s docstring.
+
+To catch that kind of drift (or a test regression) before it's committed, install the local
+git hook once per clone:
+
+```
+git config core.hooksPath scripts/git-hooks
+```
+
 ## Workflow Steps
 
 1. **Run the CQL plugin**  

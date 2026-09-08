@@ -1,0 +1,36 @@
+name: checks
+
+# Guards the two failure modes that motivated Phase 3 of the reporting
+# restructure:
+#   1. Regressions in the comparison/attribution/classification logic --
+#      caught by the pytest suite under scripts/tests/.
+#   2. A generated file (defect-tracking/engine-issues.md,
+#      scripts/comparison/catalog_issue_details.md) hand-edited out of sync
+#      with its source -- caught by scripts/check_generated.py. This is the
+#      exact failure that let engine-issues.md and known_issues.json fork
+#      silently for 11 commits (the "do not edit by hand" banner was on the
+#      last line of a 1,150-line file, where nobody saw it).
+
+on:
+  push:
+    branches: [main, master, defect-tracking]
+  pull_request:
+
+jobs:
+  pytest-and-drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run test suite
+        run: python3 -m pytest
+
+      - name: Check generated files for drift
+        run: python3 scripts/check_generated.py

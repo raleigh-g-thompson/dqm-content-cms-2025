@@ -91,9 +91,10 @@ def render(parts: dict) -> str:
     return "\n".join(out)
 
 
-def main():
-    catalog_path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_CATALOG
-    output_path = Path(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_OUTPUT
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    catalog_path = Path(argv[0]) if len(argv) > 0 else DEFAULT_CATALOG
+    output_path = Path(argv[1]) if len(argv) > 1 else DEFAULT_OUTPUT
 
     with open(catalog_path, encoding="utf-8") as fh:
         catalog = json.load(fh)

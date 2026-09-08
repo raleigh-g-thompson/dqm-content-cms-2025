@@ -1,0 +1,6 @@
+# Test-only dependencies for scripts/tests/.
+#
+# No requirements.txt existed before -- the local test suite only ran because
+# pytest happened to be installed globally on developers' machines. CI needs
+# an explicit manifest to install from.
+pytest>=8.0

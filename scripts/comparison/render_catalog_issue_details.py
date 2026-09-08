@@ -14,14 +14,15 @@ Usage:
 import argparse
 import re
 import sys
-from datetime import datetime
 from pathlib import Path
 
 try:
     from scripts.comparison.known_issues import is_resolved, load_catalog
+    from scripts.comparison.clock import resolve as _resolve_now
 except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from known_issues import is_resolved, load_catalog
+    from clock import resolve as _resolve_now
 
 ROOT = Path(__file__).resolve().parent
 
@@ -109,7 +110,7 @@ def _render_issue(issue, citation_count, max_test_cases):
 
 
 def render_markdown(catalog, citations=None, categories=None, include_resolved=False,
-                    only_cited=False, max_test_cases=5):
+                    only_cited=False, max_test_cases=5, now=None):
     """Render the catalog-issue details markdown.
 
     ``categories`` None means "all categories"; otherwise an iterable of
@@ -138,7 +139,7 @@ def render_markdown(catalog, citations=None, categories=None, include_resolved=F
     lines = [
         "# Known-Catalog Issue Details",
         "",
-        f"- Generated: {datetime.now().isoformat(timespec='seconds')}",
+        f"- Generated: {_resolve_now(now).isoformat(timespec='seconds')}",
         "- Catalog: `scripts/comparison/known_issues.json`",
         f"- Catalog size: {total_catalog} issues ({num_pending} pending, {num_resolved} resolved)",
         f"- Issues rendered: {len(issues)}",
@@ -160,7 +161,7 @@ def render_markdown(catalog, citations=None, categories=None, include_resolved=F
 
 def write_catalog_details(known_issues_path, discrepancy_report_path, output_path,
                           categories=None, include_resolved=False, only_cited=False,
-                          max_test_cases=5):
+                          max_test_cases=5, now=None):
     """Read inputs and write the details report; returns the markdown."""
     catalog = load_catalog(known_issues_path)
     report_path = Path(discrepancy_report_path)
@@ -174,6 +175,7 @@ def write_catalog_details(known_issues_path, discrepancy_report_path, output_pat
         include_resolved=include_resolved,
         only_cited=only_cited,
         max_test_cases=max_test_cases,
+        now=now,
     )
     Path(output_path).write_text(md, encoding="utf-8")
     return md

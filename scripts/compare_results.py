@@ -15,8 +15,10 @@ sys.path.insert(0, _SCRIPTS_DIR)
 sys.path.insert(0, os.path.join(_SCRIPTS_DIR, "comparison"))
 import attribution
 import classification
+import clock
 import known_issues as known_issues_lib
 import render_catalog_issue_details as render_catalog_lib
+import run_history
 from populations import (
     CANONICAL_POPULATIONS,
     canonical_cell,
@@ -458,7 +460,7 @@ def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
     return "<br>".join(labels) if labels else "—"
 
 
-def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None, unscored_cells: List = None):
+def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None, unscored_cells: List = None, now: datetime = None):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
     issues = issues or []
     expected_keys = (list(expected_rows.keys()) if expected_rows is not None
@@ -503,7 +505,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
     with open(file, "w", newline="") as f:
         f.write('# Discrepancy Report\n')
         summary_rows = [
-                ['Generated', datetime.now()],
+                ['Generated', clock.resolve(now)],
                 ['Total Measures', len(set([result_key.measure_name for result_key in expected_results.keys()]))],
                 ['Total Test Cases', len(set([(result_key.measure_name, result_key.patient_guid) for result_key in expected_results.keys()]))],
                 ['Measures with Discrepancies', len(discrepancies)],
@@ -717,7 +719,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         f.write('\n---\n')
         f.write('\n_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._\n')
 
-def archive_report(report_path: str) -> str:
+def archive_report(report_path: str, now: datetime = None) -> str:
     """Copy the generated discrepancy report to _archive/ with a timestamp.
 
     Returns the archive path written (or None if the report file is absent).
@@ -727,13 +729,20 @@ def archive_report(report_path: str) -> str:
         return None
     archive_dir = src.parent / "_archive"
     archive_dir.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now().strftime("%Y%m%d-%H%M")
+    stamp = clock.resolve(now).strftime("%Y%m%d-%H%M")
     dest = archive_dir / f"{src.stem}-{stamp}{src.suffix}"
     shutil.copy2(src, dest)
     return str(dest)
 
 
-def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None, qicore_actual_file: str = None, qicore_diff_csv: str = None):
+def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None, qicore_actual_file: str = None, qicore_diff_csv: str = None, now: datetime = None, run_history_path: str = None):
+    # Resolved once so every timestamp this run produces -- the report's
+    # "Generated" row, the archive filename, catalog_issue_details.md's
+    # "Generated" line, and the run-history entry -- agrees. Passing an
+    # explicit `now` (or setting SOURCE_DATE_EPOCH) makes the whole run
+    # deterministic, which is what lets check_generated.py regenerate-and-diff.
+    now = clock.resolve(now)
+
     expected_results = capture_results(expected_file)
     actual_results = capture_results(actual_file)
 
@@ -752,11 +761,12 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
     pass_pct = pass_fail_count[0] / (pass_fail_count[0] + pass_fail_count[1]) * 100
     print(f"PASS (test cases): {pass_fail_count[0]} ({pass_pct:.2f})%")
     print(f"FAIL (test cases): {pass_fail_count[1]} ({(100 - pass_pct):.2f})%")
+
+    ledger = attribution.build_ledger(
+        expected_results[0], actual_results[0], {"issues": issues},
+        test_case_outcomes(expected_results[0], actual_results[0]),
+        expected_results.unscored)
     if issues:
-        ledger = attribution.build_ledger(
-            expected_results[0], actual_results[0], {"issues": issues},
-            test_case_outcomes(expected_results[0], actual_results[0]),
-            expected_results.unscored)
         print(f"  attributed to an open known issue: {ledger.attributed_failures}")
         print(f"  UNATTRIBUTED (regression/untriaged): {ledger.unattributed_count}")
         if ledger.stale_count:
@@ -767,9 +777,9 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
             print(f"  test cases not fully measured: {len(ledger.unscored_cases)}")
 
 
-    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0], engine_diff, qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, expected_results.unscored)
+    generate_comparison_report(comparison_report, expected_results[1], actual_results[1], pass_fail_count[0], pass_fail_count[1], issues, expected_results[0], actual_results[0], engine_diff, qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None, expected_results.unscored, now)
 
-    archived = archive_report(comparison_report)
+    archived = archive_report(comparison_report, now)
     if archived:
         print(f"Archived report -> {archived}")
 
@@ -778,7 +788,20 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
         known_issues_path=known_issues_file,
         discrepancy_report_path=comparison_report,
         output_path=details_out,
+        now=now,
     )
+
+    run_history.record({
+        "timestamp": now.isoformat(),
+        "total_cases": ledger.total_cases,
+        "passing": ledger.passing,
+        "failing": ledger.failing,
+        "attributed_failures": ledger.attributed_failures,
+        "unattributed_failures": ledger.unattributed_count,
+        "stale_attributions": ledger.stale_count,
+        "phantom_attributions": ledger.phantom_count,
+        "unscored_cases": len(ledger.unscored_cases),
+    }, path=run_history_path)
     print(f"Wrote catalog issue details -> {details_out}")
 
 if __name__ == '__main__':
