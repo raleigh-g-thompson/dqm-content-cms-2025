@@ -326,6 +326,28 @@ class RunReportsEndToEndTest(unittest.TestCase):
             content = fh.read()
         self.assertIn("CMS1,g1,Group_1:Initial Population,1", content)
 
+    def test_detailed_flag_writes_detailed_report_sibling(self):
+        args = [
+            "--expected", self.expected,
+            "--actual", self.actual,
+            "--output", self.output,
+            "--report", self.report,
+            "--known-issues", self.known_issues,
+            "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
+            "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
+            "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
+            "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--updated-cql-output", self.updated_cql_out,
+            "--skip-catalog-build",
+            "--skip-extract",
+            "--detailed",
+        ]
+        self.assertEqual(main(args), 0)
+        self.assertTrue(os.path.exists(self.report))
+        detailed = os.path.join(self.tmp, "discrepancy_report-detailed.md")
+        self.assertTrue(os.path.exists(detailed))
+
     def test_run_history_is_written_to_the_override_path_not_the_real_one(self):
         """Regression guard for the pollution bug this test file caused on
         first write: a run with a temp --run-history-path must never touch

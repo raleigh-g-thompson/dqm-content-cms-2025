@@ -43,6 +43,7 @@ Usage:
   python3 scripts/run_reports.py
   python3 scripts/run_reports.py --skip-extract
   python3 scripts/run_reports.py --known-issues path/to/known_issues.json
+  python3 scripts/run_reports.py --detailed   # also write <report>-detailed.md
 
 Run from the repo root; all default paths are relative to it, matching
 scripts/compare_results.py's own defaults.
@@ -119,6 +120,10 @@ def main(argv=None):
                         help=f"Directory holding the CQL engine output. Defaults "
                              f"to '{_DEFAULT_RESULTS_DIR}'; auto-detects *.txt vs "
                              f"TestCaseResult-*.json.")
+    parser.add_argument("--detailed", action="store_true",
+                        help="Also write a full-detail discrepancy report "
+                             "(`<report>-detailed.md`) alongside the slim "
+                             "default report.")
     parser.add_argument("--skip-extract", action="store_true",
                         help="Skip step 0; use --actual as-is. Use when the "
                              "actual_results.csv is already up to date or when "
@@ -155,6 +160,7 @@ def main(argv=None):
         args.qicore_actual,
         args.qicore_diff_csv,
         run_history_path=args.run_history_path,
+        detailed=args.detailed,
     )
 
     print()

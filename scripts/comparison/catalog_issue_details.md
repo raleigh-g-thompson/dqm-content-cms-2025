@@ -1,8 +1,8 @@
 # Known-Catalog Issue Details
 
-- Generated: 2026-09-10T00:39:27
+- Generated: 2026-09-10T08:10:14
 - Catalog: `scripts/comparison/known_issues.json`
-- Catalog size: 57 issues (38 pending, 19 resolved)
+- Catalog size: 58 issues (38 pending, 20 resolved)
 - Issues rendered: 38
 - Issues cited in `discrepancy_report.md`: 18
 
@@ -271,42 +271,6 @@ _Full enumeration (16 case(s)): `scripts/comparison/known_issues.json` under the
 - **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.
 - **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.
 - **Status**: **Confirmed** (16 cases). Not remediated.
-
-### Workaround
-
-**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.
-
----
-
-## C-08 — CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %)
-
-- **ID**: C-08
-- **Title**: CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %)
-- **Category**: content
-- **Status**: **Confirmed**
-- **Defect status**: confirmed
-- **Affected measures**: CMS142FHIRCommWithDrManagingDiab
-- **Cited in discrepancy_report.md**: 5
-
-### Affected test cases (first 5 of 5)
-
-- `CMS142FHIRCommWithDrManagingDiab` / `05f1e2a6-b317-42bb-827f-993ca3995f5b`
-- `CMS142FHIRCommWithDrManagingDiab` / `41ae0086-ac99-4a31-9546-21b054bbf7d8`
-- `CMS142FHIRCommWithDrManagingDiab` / `6aef5a18-59bd-4a47-80bc-2bd44636e41f`
-- `CMS142FHIRCommWithDrManagingDiab` / `b85440e4-b902-49cd-b3d6-363ba7a99bce`
-- `CMS142FHIRCommWithDrManagingDiab` / `d9840e8c-3359-42c2-b354-4b236c3c1b15`
-
-_Full enumeration (5 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
-
-### Body
-
-### C-08: CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch (shared across both engines)
-
-- **Symptom**: 5 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).
-- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS142FHIRCommWithDrManagingDiab`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.
-- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.
-- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.
-- **Status**: **Confirmed** (5 cases). Not remediated.
 
 ### Workaround
 
@@ -1752,6 +1716,86 @@ _Full enumeration (64 case(s)): `scripts/comparison/known_issues.json` under the
 ### Workaround
 
 **None**. The CMS engine matches expected on these cells, so the CMS-side output is the source of truth. The fresh QI-Core engine output is canonical for QI-Core measures; this entry documents the divergence so the QI-Core harness operator can investigate. If the upstream QI-Core engine is fixed, re-run `scripts/extract_population_qicore.py --force` and re-classify.
+
+---
+
+## E-24 — `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearin…
+
+- **ID**: E-24
+- **Title**: `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing Communication has no `subject` reference (CMS142 5 cases, both engines; NOT C-08)
+- **Category**: engine
+- **Status**: **Under investigation**
+- **Defect status**: suspected
+- **Affected measures**: CMS142FHIRCommWithDrManagingDiab
+- **Cited in discrepancy_report.md**: 5
+
+### Affected test cases (first 5 of 5)
+
+- `CMS142FHIRCommWithDrManagingDiab` / `05f1e2a6-b317-42bb-827f-993ca3995f5b`
+- `CMS142FHIRCommWithDrManagingDiab` / `41ae0086-ac99-4a31-9546-21b054bbf7d8`
+- `CMS142FHIRCommWithDrManagingDiab` / `6aef5a18-59bd-4a47-80bc-2bd44636e41f`
+- `CMS142FHIRCommWithDrManagingDiab` / `b85440e4-b902-49cd-b3d6-363ba7a99bce`
+- `CMS142FHIRCommWithDrManagingDiab` / `d9840e8c-3359-42c2-b354-4b236c3c1b15`
+
+_Full enumeration (5 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
+
+### Body
+
+### E-24: CMS142 `[CommunicationNotDone: category in "Macular Edema Findings Absent"]` returns `[]` for subject-less category-bearing Communication resources
+
+- **Not C-08**: this is NOT a fixture MeasureReport / expected-results authoring mismatch
+  (C-08 is retired; see `defect-tracking/issues/C-08.md`). The expected value (1 on
+  `Group_1:Denominator Exception`) is correct, but neither engine produces it from the
+  fixture resources + CQL.
+- **Symptom**: 5 CMS142 test cases fail on `Group_1:Denominator Exception`
+  (expected 1, actual 0) on BOTH the CMS engine (`scripts/comparison/actual_results.csv`,
+  engine 5.3.0) and the QI-Core engine (`scripts/comparison/qicore-2025-actual-results.csv`):
+  `05f1e2a6-b317-42bb-827f-993ca3995f5b`, `41ae0086-ac99-4a31-9546-21b054bbf7d8`,
+  `6aef5a18-59bd-4a47-80bc-2bd44636e41f`, `b85440e4-b902-49cd-b3d6-363ba7a99bce`,
+  `d9840e8c-3359-42c2-b354-4b236c3c1b15`.
+- **CQL site**: the three "Medical or Patient Reason for Not Communicating ..." defines in
+  `input/cql/CMS142FHIRCommWithDrManagingDiab.cql` retrieve CommunicationNotDone by
+  `category in` valueset — line 133 (`"Level of Severity of Retinopathy Findings"`), line 141
+  (`"Macular Edema Findings Present"`), line 155 (`"Macular Edema Findings Absent"`).
+  All three evaluates to `[]` in the per-fixture engine traces
+  (`input/tests/results/CMS142FHIRCommWithDrManagingDiab/TestCaseResult-<guid>.json`).
+- **Valueset is correct / filter is not a codes mismatch**: `"Macular Edema Findings Absent"`
+  expands to a single code `428341000124108`
+  (`input/vocabulary/valueset/external/ValueSet-2.16.840.1.113883.3.526.2.1391-20130614.json`),
+  and the failing fixtures DO carry a CommunicationNotDone with `status: not-done`,
+  `statusReason` in `"Medical Reason"` valueset (`183932001`; `"Medical Reason"` valueset
+  `2.16.840.1.113883.3.526.3.1007`), `sent` inside the encounter period, and category exactly
+  matching the valueset expansion code.
+- **Controlled test / discriminator**: the `category in` filter itself is NOT broken. Passing
+  control cases `03b74242-d93e-438e-ac6a-f46b41548209` and
+  `2dd72971-2da8-4365-8147-106425cf4a6f` hit line 155 with the SAME code `428341000124108`
+  (`Medical or Patient Reason for Not Communicating Absence of Macular Edema =>
+  [Communication(...)]`) and produce a Denominator Exception of 1. The only difference between
+  the passing controls and the 5 failing fixtures: in the passing fixtures the category-bearing
+  CommunicationNotDone has a `subject` reference to the patient; in all 5 failing fixtures the
+  category-bearing CommunicationNotDone has `subject: null` (the subject reference sits on the
+  OTHER Communication resource, which has no category). Category codes in the failing fixtures:
+  `b85440e4`→`59276001` (Level of Severity), `05f1e2a6`/`6aef5a18`/`41ae0086`→`428341000124108`
+  (Absent Macular Edema), `d9840e8c`→`312903003` (Present Macular Edema).
+- **Hypothesis**: patient-context retrieves on these engines only attribute resources that carry
+  a `subject`/`patient` reference to the focused patient; a subject-less CommunicationNotDone is
+  invisible to the retrieve even when its `category` matches the valueset, so the negation
+  (not-communicated) indication is never seen and the Denominator Exception never fires.
+  The QI-Core sibling fixtures are identical (same subject-less Communication resources under
+  `dqm-content-qicore-2025/input/tests/measure/CMS142FHIRCommWithDrManagingDiab/`), which is
+  why both engines agree and the old C-08 "shared" classification was misleading.
+- **Status**: **Under investigation** (5 cases / 1 population each, both engines). Not yet
+  confirmed as engine-vs-fixture; needs an engine-side repro (e.g. a subject-less
+  CommunicationNotDone in a patient context returning `[]` while a subject-bearing clone
+  returns the resource) or a fixture-side correction before closing.
+- **Resolution path**: engine-side fix for subject-less resource attribution in patient-context
+  retrieves, OR fixture fix adding `subject` to the category-bearing CommunicationNotDone (and
+  confirming expected_results regeneration). Either way the fix is NOT a content/measure
+  authoring change — C-08's premise does not apply.
+
+### Workaround
+
+**None - possible engine bug**. Not a content authoring mismatch (reclassified off C-08). Candidate mitigations (unverified): add `subject` reference to the category-bearing CommunicationNotDone in fixtures, or confirm expected engine semantics for subject-less resources in a patient-context retrieve.
 
 ---
 

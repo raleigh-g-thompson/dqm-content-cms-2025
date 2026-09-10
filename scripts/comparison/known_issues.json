@@ -3772,48 +3772,23 @@
     },
     {
       "id": "C-08",
-      "title": "CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %)",
+      "title": "~~CMS142 Diabetes Communication Hand-Off fixture MR authoring mismatch (shared %)~~ RETIRED 2026-09-10 — all CMS142 cases reclassified to E-24",
       "category": "content",
-      "status": "**Confirmed**",
-      "defect_status": "confirmed",
-      "root_cause_status": "open",
-      "workaround": "**None - content authoring mismatch**. Either restore fixture data the CQL needs (qualifying Encounter types, Procedures, Observations, Conditions) or drop orphan rows from fixture MeasureReports / expected_results.csv.",
+      "status": "**RETIRED 2026-09-10 — all CMS142 cases reclassified to E-24 (CommunicationNotDone `category in` retrieve gap; see E-24)**",
+      "defect_status": "retired",
+      "root_cause_status": "retired",
+      "workaround": "—",
       "references": {
         "defect_tracking": [
-          "defect-tracking catalog (CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch)"
+          "E-24 (CMS142 5 cases — engine retrieve gap, NOT content authoring)"
         ],
         "issues": [
-          "C-03",
-          "C-04",
-          "C-05"
+          "E-24"
         ]
       },
-      "affected_measures": [
-        "CMS142FHIRCommWithDrManagingDiab"
-      ],
-      "affected_test_cases": [
-        {
-          "measure": "CMS142FHIRCommWithDrManagingDiab",
-          "guid": "05f1e2a6-b317-42bb-827f-993ca3995f5b"
-        },
-        {
-          "measure": "CMS142FHIRCommWithDrManagingDiab",
-          "guid": "41ae0086-ac99-4a31-9546-21b054bbf7d8"
-        },
-        {
-          "measure": "CMS142FHIRCommWithDrManagingDiab",
-          "guid": "6aef5a18-59bd-4a47-80bc-2bd44636e41f"
-        },
-        {
-          "measure": "CMS142FHIRCommWithDrManagingDiab",
-          "guid": "b85440e4-b902-49cd-b3d6-363ba7a99bce"
-        },
-        {
-          "measure": "CMS142FHIRCommWithDrManagingDiab",
-          "guid": "d9840e8c-3359-42c2-b354-4b236c3c1b15"
-        }
-      ],
-      "body_md": "### C-08: CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch (shared across both engines)\n\n- **Symptom**: 5 failing test cases / cells where expected rows carried in fixture MeasureReports do not match what the fixtures' resources + CQL / measure resource emit. Both engines consistently return 0 (or fail).\n- **Evidence** (`scripts/comparison/engine_shared_issues.py --measure CMS142FHIRCommWithDrManagingDiab`): `shared: 100% of not-passing`. Cms-only / qicore-only / conflicting / incomplete all 0.\n- **Mechanism**: same as C-03/C-04/C-05 - fixture MR hand-authors expected values that don't reproduce with the fixture Resources + CQL + measure-resource wiring. Both engines agree that the qualifying data is missing.\n- **Workaround**: none shipped. Candidates: (1) restore the qualifying data the CQL wants in fixtures; (2) drop orphan rows from expected_results.csv generation.\n- **Status**: **Confirmed** (5 cases). Not remediated.\n"
+      "affected_measures": [],
+      "affected_test_cases": [],
+      "body_md": "### C-08: CMS142FHIRCommWithDrManagingDiab fixture MR authoring mismatch — RETIRED 2026-09-10, reclassified to E-24\n\nThis block is the operational record of the retired C-08 defect. All 5 affected CMS142 test\ncases were reclassified to **E-24** (see `defect-tracking/issues/E-24.md`).\n\n- **Original claim**: 5 failing test cases / cells where expected rows carried in fixture\n  MeasureReports do not match what the fixtures' resources + CQL / measure resource emit, with\n  both engines consistently returning 0 (`shared: 100% of not-passing`).\n- **Why this is wrong**: the expected value (1 on `Group_1:Denominator Exception`) is correct,\n  and the fixtures DO carry the qualifying CommunicationNotDone data (correct `status`,\n  `statusReason` in `\"Medical Reason\"`, `sent` inside the encounter period, category matching\n  the valueset expansion). The fault is that the category-bearing CommunicationNotDone has\n  `subject: null`, so the `[CommunicationNotDone: category in ...]` retrieves\n  (CMS142 line 155 and siblings) evaluate to `[]` and no Denominator Exception fires — a\n  retrieve/attribution gap (likely engine), NOT a MeasureReport authoring mismatch.\n- **Reclassification**: `cases.csv` rows for C-08 moved to E-24 (2026-09-10). Catalog rebuilt\n  via `scripts/comparison/build_catalog.py`; `known_issues.json` attribution updated\n  accordingly."
     },
     {
       "id": "C-09",
@@ -5374,6 +5349,48 @@
         }
       ],
       "body_md": "### E-23: QI-Core 4.11.0 engine-side regressions surfaced by 2026-09-05 fresh re-run\n\n- **Symptom**: After regenerating the `qicore-2025-actual-results.csv` baseline\n  from the freshly-run QI-Core engine output (3,964 TestCaseResult JSONs across\n  74 measures), 812 previously-passing (or previously-absent) cells now\n  classify as `qicore-only`: CMS engine matches expected; QI-Core engine returns\n  a smaller number (typically 0 where expected is 1).\n\n- **Mechanism**: The fresh QI-Core engine (translator 5.2.0 / clinicalReasoning\n  4.11.0) fails to retrieve the corresponding resources that the CMS engine\n  successfully retrieves from the same fixture bundle. This is consistent with\n  a profile-retrieve strictness regression in QI-Core's stricter US Quality Core\n  / QI-Core 6.0.0 profile handling — QI-Core validates `meta.profile` against\n  the QI-Core 6.0.0 profile URL, while the fixtures' resources carry the older\n  `us-core-*` profiles. The CMS engine, which handles both, succeeds.\n\n- **Per-measure impact** (cells where fresh qicore broke previously-passing cells):\n  * CMS347FHIRStatinPreventionTxCVD: 208 cells\n  * CMS145FHIRCADBBlockerTPMIorLVSD: 157 cells\n  * CMS144FHIRHFBetaBlockerForLVSD: 109 cells\n  * CMS645FHIRBoneDensityPCADTherapy: 77 cells\n  * CMS135FHIRACEIorARBorARNIforHF: 72 cells\n  * CMS129FHIRProstCaBoneScanUse: 67 cells\n  * CMS771FHIRUrinarySymptomScoreBPH: 47 cells\n  * CMS149FHIRDementiaCognitiveAssess: 21 cells\n  * CMS190FHIRVTEProphylaxisICU: 16 cells\n  * CMS108FHIRVTEProphylaxis: 15 cells\n  * CMS1028FHIRPCSevereOBComps: 10 cells\n  * CMS996FHIRAptTxforSTEMI: 8 cells\n  * CMS506FHIRSafeUseofOpioids: 5 cells\n\n  Note: measures with `qicore-only` cells that *predate* the 2026-09-05 re-run\n  (e.g. CMS72 245 cells, CMS104 156, CMS1264 152, CMS128 0 cells — all resolved)\n  are tracked separately under B-01; this entry covers only the **net-new**\n  regressions attributable to the engine re-run.\n\n- **Distinct from E-17** (CMS108 / CMS190 cms-only profile retrieve gap): E-17\n  documents the CMS engine failing to retrieve QI-Core's stricter profiles on a\n  handful of resource types. E-23 documents the inverse: QI-Core engine failing\n  on US Quality Core's profile validation. The two are mirror-image facets of\n  the same engine-version-reconciliation work.\n\n- **Affected test cases** (representative GUIDs across the 13 affected measures):\n  - `002fcec4-89ed-42be-a7b7-41fa0acddf8c`\n  - `0045ec92-0b70-4961-8a7c-41b5c43d53a1`\n  - `00cd231f-4460-4d84-8e04-d8b0a04d8afd`\n  - `019de843-7347-4a25-ad9e-2a4ca3a84054`\n  - `022c05d8-8337-4f1a-9d69-abb6500b1be5`\n  - `02cdc116-49ce-4277-ad9e-de6bc2a3274d`\n  - `031e746c-9c2c-4eea-acca-a26c8862c9d5`\n  - `0405033f-c6a4-4619-93da-14c9c5613d7b`\n  - `0438e6ec-b6c0-422d-b8c9-074e5f8d9af5`\n  - `04c67cc9-bf23-4f31-988c-8bac7e96f938`\n  - `051c5977-9f2c-4e8b-8e02-ac3ec0c718d6`\n  - `051c9480-438e-48d5-b91f-5f8f980b1f8b`\n  - `056a27fa-04fc-45d6-bf3f-07482f8db4a8`\n  - `05afd17d-f9a0-4588-bb3a-ffefd2f6c271`\n  - `06f036ce-62f0-4807-88d2-f3f8e70d2f31`\n  - `072be19e-9540-452c-9d7f-03c104cffa97`\n  - `07efd4bb-b45d-4bfd-aeb2-08de49742d91`\n  - `0c0256d2-a6d4-4ed3-bd95-ac7d88108b6c`\n  - `0d2e80d0-d70a-4eba-9bfe-23d1dfeb546e`\n  - `0d48b3b3-c5f0-4955-810d-eb4f1b8714ca`\n  - `0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4`\n  - `10a6f006-eabc-4a40-80bd-2a135e45e597`\n  - `12fda733-0b5d-4f3d-93b2-59c35ba85898`\n  - `13ce1b7d-3af6-4ef3-a4ae-6cd7c3075be8`\n  - `149c3a7c-2b80-47f8-b50d-5c1d233eedb7`\n  - `187cc99d-9cb5-442f-8201-3695e5358101`\n  - `1b450176-8caa-4133-bc9a-c066969f72ce`\n  - `1bbf669f-a5f6-4dde-a8b2-1be100394e18`\n  - `1d166b9e-0d11-4247-a9a8-f610f36a74f2`\n  - `1dc53422-497d-492a-8aa4-8a165264a14d`\n  - `1f58a561-bf40-43dd-89a3-8d590013ee1c`\n  - `2105cba2-6e61-487d-a737-3efe876028e8`\n  - `228562c7-76c5-42e1-b4b6-0b952faa75c4`\n  - `2333a56a-8346-4afc-93a2-0626a9a1ac2d`\n  - `24068f4d-3179-4f2f-872e-02e3b362cac0`\n  - `24a5102c-7e6e-4ec6-8433-737b0fe8c854`\n  - `25265601-4e27-4fe0-8d35-68ebac8f9894`\n  - `2585c4a2-7b38-48e4-9317-19ddbbcfa107`\n  - `27111f10-365a-4ec3-a918-f856c687211e`\n  - `27fca7ba-ef00-44ec-8d97-919908f42495`\n  - `298d5342-fa0a-4386-bf48-b9c977a1c367`\n  - `298f3f92-5047-46fc-ad92-9f27887ffc55`\n  - `2a1d8b51-131f-4552-90f7-59ca5a7979ce`\n  - `2b0d7791-29b6-4f10-b72a-b6a50667770d`\n  - `3ab3ac1d-9b5e-4087-8862-dcb2562fb90f`\n  - `3d4b6868-31ce-42f8-87c1-ab06d851d53f`\n  - `4911c0c6-22e1-45ad-b39d-7e4d88c200d8`\n  - `4c234ec0-3f89-4d55-b767-219d1130f634`\n  - `4e9a1928-a33f-4be3-aa05-c69e9fc4bff7`\n  - `52790be5-0f6e-4ebd-85f5-57f35db8b56b`\n  - `543248c8-b6af-407d-b435-7e867c4770b4`\n  - `57da77da-de92-4ef5-9311-1d86e67c9de4`\n  - `5e76e39a-8a30-4035-8d44-3362f4826aa7`\n  - `610c90c9-f387-40f8-9bd7-710d20dfd6f0`\n  - `67e19058-917d-43f8-98d3-d16730fc7d32`\n  - `81dc5bb4-3273-492a-beff-2f7b0394f3c8`\n  - `83e7cc74-5ae5-4fb9-922f-15faa555890a`\n  - `980e3550-6c75-4c4d-a64d-0657107e7cec`\n  - `a0de0e88-9054-45d4-a417-3b9ea5ebe78a`\n  - `b4219e21-be97-4f81-8a31-fee0035179c8`\n  - `cdb80ca8-b110-436d-83e8-b339ebc09a44`\n  - `e24d8c71-61dc-4e0d-bfc1-a5ebc186706d`\n  - `ef443a3d-6cde-467d-b374-d90a2f244e83`\n  - `f4df05b5-547b-45d2-bc18-8fcbd5afbaf7`\n\n- **Status**: **Confirmed** (2026-09-05; re-verified 2026-09-08 after the valueset-truncation\n  repair and full QI-Core engine re-run — the E-23 tracked cells are unchanged, confirming these\n  are real profile-retrieve regressions, not the truncation defect). Recommend this entry be\n  merged into a broader E-17 / E-23 reconciliation note if/when the upstream QI-Core engine\n  fixes the profile-validation strictness.\n\n- **Resolution path**: requires changes on the **QI-Core engine side** or\n  fixture profile URLs being upgraded from `us-core-*` to `us-quality-core-*`\n  / `qi-core-*` — out of scope for this catalog.\n"
+    },
+    {
+      "id": "E-24",
+      "title": "`[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing Communication has no `subject` reference (CMS142 5 cases, both engines; NOT C-08)",
+      "category": "engine",
+      "status": "**Under investigation**",
+      "defect_status": "suspected",
+      "root_cause_status": "open",
+      "workaround": "**None - possible engine bug**. Not a content authoring mismatch (reclassified off C-08). Candidate mitigations (unverified): add `subject` reference to the category-bearing CommunicationNotDone in fixtures, or confirm expected engine semantics for subject-less resources in a patient-context retrieve.",
+      "references": {
+        "defect_tracking": [
+          "C-08 (retired - CMS142 reclassified to E-24)",
+          "engine_shared_issues CMS142 shared bucket (100% of not-passing)"
+        ],
+        "issues": []
+      },
+      "affected_measures": [
+        "CMS142FHIRCommWithDrManagingDiab"
+      ],
+      "affected_test_cases": [
+        {
+          "measure": "CMS142FHIRCommWithDrManagingDiab",
+          "guid": "05f1e2a6-b317-42bb-827f-993ca3995f5b"
+        },
+        {
+          "measure": "CMS142FHIRCommWithDrManagingDiab",
+          "guid": "41ae0086-ac99-4a31-9546-21b054bbf7d8"
+        },
+        {
+          "measure": "CMS142FHIRCommWithDrManagingDiab",
+          "guid": "6aef5a18-59bd-4a47-80bc-2bd44636e41f"
+        },
+        {
+          "measure": "CMS142FHIRCommWithDrManagingDiab",
+          "guid": "b85440e4-b902-49cd-b3d6-363ba7a99bce"
+        },
+        {
+          "measure": "CMS142FHIRCommWithDrManagingDiab",
+          "guid": "d9840e8c-3359-42c2-b354-4b236c3c1b15"
+        }
+      ],
+      "body_md": "### E-24: CMS142 `[CommunicationNotDone: category in \"Macular Edema Findings Absent\"]` returns `[]` for subject-less category-bearing Communication resources\n\n- **Not C-08**: this is NOT a fixture MeasureReport / expected-results authoring mismatch\n  (C-08 is retired; see `defect-tracking/issues/C-08.md`). The expected value (1 on\n  `Group_1:Denominator Exception`) is correct, but neither engine produces it from the\n  fixture resources + CQL.\n- **Symptom**: 5 CMS142 test cases fail on `Group_1:Denominator Exception`\n  (expected 1, actual 0) on BOTH the CMS engine (`scripts/comparison/actual_results.csv`,\n  engine 5.3.0) and the QI-Core engine (`scripts/comparison/qicore-2025-actual-results.csv`):\n  `05f1e2a6-b317-42bb-827f-993ca3995f5b`, `41ae0086-ac99-4a31-9546-21b054bbf7d8`,\n  `6aef5a18-59bd-4a47-80bc-2bd44636e41f`, `b85440e4-b902-49cd-b3d6-363ba7a99bce`,\n  `d9840e8c-3359-42c2-b354-4b236c3c1b15`.\n- **CQL site**: the three \"Medical or Patient Reason for Not Communicating ...\" defines in\n  `input/cql/CMS142FHIRCommWithDrManagingDiab.cql` retrieve CommunicationNotDone by\n  `category in` valueset — line 133 (`\"Level of Severity of Retinopathy Findings\"`), line 141\n  (`\"Macular Edema Findings Present\"`), line 155 (`\"Macular Edema Findings Absent\"`).\n  All three evaluates to `[]` in the per-fixture engine traces\n  (`input/tests/results/CMS142FHIRCommWithDrManagingDiab/TestCaseResult-<guid>.json`).\n- **Valueset is correct / filter is not a codes mismatch**: `\"Macular Edema Findings Absent\"`\n  expands to a single code `428341000124108`\n  (`input/vocabulary/valueset/external/ValueSet-2.16.840.1.113883.3.526.2.1391-20130614.json`),\n  and the failing fixtures DO carry a CommunicationNotDone with `status: not-done`,\n  `statusReason` in `\"Medical Reason\"` valueset (`183932001`; `\"Medical Reason\"` valueset\n  `2.16.840.1.113883.3.526.3.1007`), `sent` inside the encounter period, and category exactly\n  matching the valueset expansion code.\n- **Controlled test / discriminator**: the `category in` filter itself is NOT broken. Passing\n  control cases `03b74242-d93e-438e-ac6a-f46b41548209` and\n  `2dd72971-2da8-4365-8147-106425cf4a6f` hit line 155 with the SAME code `428341000124108`\n  (`Medical or Patient Reason for Not Communicating Absence of Macular Edema =>\n  [Communication(...)]`) and produce a Denominator Exception of 1. The only difference between\n  the passing controls and the 5 failing fixtures: in the passing fixtures the category-bearing\n  CommunicationNotDone has a `subject` reference to the patient; in all 5 failing fixtures the\n  category-bearing CommunicationNotDone has `subject: null` (the subject reference sits on the\n  OTHER Communication resource, which has no category). Category codes in the failing fixtures:\n  `b85440e4`→`59276001` (Level of Severity), `05f1e2a6`/`6aef5a18`/`41ae0086`→`428341000124108`\n  (Absent Macular Edema), `d9840e8c`→`312903003` (Present Macular Edema).\n- **Hypothesis**: patient-context retrieves on these engines only attribute resources that carry\n  a `subject`/`patient` reference to the focused patient; a subject-less CommunicationNotDone is\n  invisible to the retrieve even when its `category` matches the valueset, so the negation\n  (not-communicated) indication is never seen and the Denominator Exception never fires.\n  The QI-Core sibling fixtures are identical (same subject-less Communication resources under\n  `dqm-content-qicore-2025/input/tests/measure/CMS142FHIRCommWithDrManagingDiab/`), which is\n  why both engines agree and the old C-08 \"shared\" classification was misleading.\n- **Status**: **Under investigation** (5 cases / 1 population each, both engines). Not yet\n  confirmed as engine-vs-fixture; needs an engine-side repro (e.g. a subject-less\n  CommunicationNotDone in a patient context returning `[]` while a subject-bearing clone\n  returns the resource) or a fixture-side correction before closing.\n- **Resolution path**: engine-side fix for subject-less resource attribution in patient-context\n  retrieves, OR fixture fix adding `subject` to the category-bearing CommunicationNotDone (and\n  confirming expected_results regeneration). Either way the fix is NOT a content/measure\n  authoring change — C-08's premise does not apply."
     },
     {
       "id": "F-01",

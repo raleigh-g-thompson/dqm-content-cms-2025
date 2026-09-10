@@ -462,7 +462,7 @@ def known_issue_label(issues, measure_name: str, patient_guid: str) -> str:
     return "<br>".join(labels) if labels else "—"
 
 
-def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None, unscored_cells: List = None, now: datetime = None):
+def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict[str, str]], actual_results: Dict[ResultKey, Dict[str, str]], pass_count: int, fail_count: int, issues: List[dict] = None, expected_rows: Dict[str, str] = None, actual_rows: Dict[str, str] = None, engine_diff: Dict[str, Dict] = None, qicore_rows: Dict[str, str] = None, qicore_groups: Dict[ResultKey, Dict[str, str]] = None, unscored_cells: List = None, now: datetime = None, detailed: bool = False):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
     issues = issues or []
     expected_keys = (list(expected_rows.keys()) if expected_rows is not None
@@ -532,11 +532,11 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
             ['Details', 'Value'],
             summary_rows
         ))
-        if ledger is not None:
+        if ledger is not None and detailed:
             f.write('\n')
             f.write('\n'.join(attribution.render_health_section(ledger)))
             f.write('\n')
-        if pending_issues:
+        if pending_issues and detailed:
             f.write('\n## Known Issues (resolution-pending)\n\n')
             f.writelines(create_markdown_table(
                 ['ID', 'Issue', 'Category', 'Status', 'Affected measures', 'Tracked test cases'],
@@ -606,7 +606,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
                     '|---|:---:|:---:|---|\n'))
 
         non_discrepancy_measures = [measure_name for measure_name in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()]))) if measure_name not in discrepancies]
-        if non_discrepancy_measures or (qicore_groups is not None and qicore_discrepancies is not None):
+        if detailed and (non_discrepancy_measures or (qicore_groups is not None and qicore_discrepancies is not None)):
             f.write('## Measures with No Discrepancies\n\n')
             # CMS measures with no discrepancies
             f.write(f'### CMS Measures ({len(non_discrepancy_measures)})\n')
@@ -721,7 +721,19 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         f.write('\n---\n')
         f.write('\n_See [catalog_issue_details.md](./catalog_issue_details.md) for per-issue detail on every catalog issue cited above._\n')
 
-_ARCHIVE_STAMP_RE = re.compile(r"^discrepancy_report-(\d{8}-\d{4})")
+_ARCHIVE_STAMP_RE = re.compile(r"^discrepancy_report(?:-detailed)?-(\d{8}-\d{4})")
+
+
+def detailed_report_path(report_path: str) -> str:
+    """The sibling of ``report_path`` with ``-detailed`` before the extension.
+
+    ``scripts/comparison/discrepancy_report.md`` -> the "full detail" variant
+    ``scripts/comparison/discrepancy_report-detailed.md``, which
+    ``archive_report`` treats as its own archive family so the slim and
+    detailed copies keep independent retention caps.
+    """
+    p = Path(report_path)
+    return str(p.with_name(f"{p.stem}-detailed{p.suffix}"))
 
 
 def _archive_stamp_key(name: str) -> str:
@@ -774,7 +786,7 @@ def archive_report(report_path: str, now: datetime = None, keep: int = 10) -> st
     return str(dest)
 
 
-def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None, qicore_actual_file: str = None, qicore_diff_csv: str = None, now: datetime = None, run_history_path: str = None):
+def main(expected_file: str, actual_file: str, output_file: str, comparison_report: str, known_issues_file: str = None, qicore_actual_file: str = None, qicore_diff_csv: str = None, now: datetime = None, run_history_path: str = None, detailed: bool = False):
     # Resolved once so every timestamp this run produces -- the report's
     # "Generated" row, the archive filename, catalog_issue_details.md's
     # "Generated" line, and the run-history entry -- agrees. Passing an
@@ -822,6 +834,19 @@ def main(expected_file: str, actual_file: str, output_file: str, comparison_repo
     if archived:
         print(f"Archived report -> {archived}")
 
+    if detailed:
+        detailed_report = detailed_report_path(comparison_report)
+        generate_comparison_report(
+            detailed_report, expected_results[1], actual_results[1],
+            pass_fail_count[0], pass_fail_count[1], issues,
+            expected_results[0], actual_results[0], engine_diff,
+            qicore_results[0] if qicore_actual_file and os.path.exists(qicore_actual_file) else None,
+            qicore_results[1] if qicore_actual_file and os.path.exists(qicore_actual_file) else None,
+            expected_results.unscored, now, detailed=True)
+        archived_detailed = archive_report(detailed_report, now)
+        if archived_detailed:
+            print(f"Archived detailed report -> {archived_detailed}")
+
     details_out = os.path.join(os.path.dirname(comparison_report), "catalog_issue_details.md")
     render_catalog_lib.write_catalog_details(
         known_issues_path=known_issues_file,
@@ -853,6 +878,9 @@ if __name__ == '__main__':
     qicore_diff_csv = "./scripts/comparison/qicore_engine_diff.csv"
 
     args = sys.argv[1:]
+    detailed = "--detailed" in args
+    if detailed:
+        args.remove("--detailed")
     if "--known-issues" in args:
         idx = args.index("--known-issues")
         if idx + 1 < len(args):
@@ -880,4 +908,4 @@ if __name__ == '__main__':
         if len(args) > 4:
             known_issues_file = args[4]
 
-    main(expected_file, actual_file, output_file, comparison_report, known_issues_file, qicore_actual_file, qicore_diff_csv)
+    main(expected_file, actual_file, output_file, comparison_report, known_issues_file, qicore_actual_file, qicore_diff_csv, detailed=detailed)
