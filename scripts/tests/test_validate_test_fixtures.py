@@ -310,6 +310,122 @@ class ApplyFixTest(unittest.TestCase):
         self.assertEqual(collect_anomaly_fixes(collect_test_cases(self.tests_root)), [])
 
 
+class RequiredPatientFieldTest(unittest.TestCase):
+
+    def setUp(self):
+        self._tmp = tempfile.mkdtemp()
+        self.tests_root = self._tmp
+        self.good = "11111111-1111-1111-1111-111111111111"
+        self.other = "99999999-9999-9999-9999-999999999999"
+        self.case = os.path.join(self.tests_root, "CMS104X", self.good)
+        os.makedirs(self.case)
+        make_patient(self.case, self.good)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self._tmp, ignore_errors=True)
+
+    def _cases(self):
+        return collect_test_cases(self.tests_root)
+
+    def test_task_missing_for_flagged(self):
+        write_json(self.case, "Task-t.json", {"resourceType": "Task"})
+        findings, _ = validate(self._cases())
+        self.assertEqual(len(findings), 1)
+        f = findings[0]
+        self.assertEqual(f[3], "for")
+        self.assertEqual(f[4], "(missing)")
+        self.assertEqual(f[5], self.good)
+        self.assertEqual(f[6], "MISSING-REQUIRED-FIELD")
+
+    def test_task_for_wrong_shape_flagged_missing(self):
+        # A `for` that is present but not a well-formed Patient/ reference cannot
+        # associate the Task with the patient context at runtime next to one that is.
+        write_json(self.case, "Task-t.json", {
+            "resourceType": "Task",
+            "focus": {"reference": "MedicationRequest/9b5c77d2-ba3b-49a2-a6c2-7060b3221c1a"},
+            "for": {"display": "Patient with odd GUID"},
+        })
+        findings, _ = validate(self._cases())
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0][6], "MISSING-REQUIRED-FIELD")
+
+    def test_task_correct_for_not_flagged(self):
+        write_json(self.case, "Task-t.json", {
+            "resourceType": "Task",
+            "for": {"reference": f"Patient/{self.good}"},
+        })
+        findings, _ = validate(self._cases())
+        self.assertEqual(findings, [])
+
+    def test_task_wrong_patient_for_still_broad(self):
+        write_json(self.case, "Task-t.json", {
+            "resourceType": "Task",
+            "for": {"reference": f"Patient/{self.other}"},
+        })
+        findings, _ = validate(self._cases())
+        self.assertEqual(len(findings), 1)
+        f = findings[0]
+        self.assertEqual(f[3], "for")
+        # `self.other` is not a real patient in this narrow universe, so classify
+        # may call it PLACEHOLDER; the invariant is that it stays BROAD/NOT-FIXED
+        # (reported, never touched by the CORE auto-fix or --fix-task-for).
+        self.assertIn("BROAD", f[6])
+        self.assertIn("NOT-FIXED", f[6])
+        self.assertFalse(collect_fixable(findings))
+
+    def test_non_task_missing_patient_field_not_flagged(self):
+        # The required-field check is deliberately resource-type-scoped: an
+        # Encounter without `subject` is still not flagged (existing semantics).
+        write_json(self.case, "Encounter-e.json", {"resourceType": "Encounter", "status": "finished"})
+        findings, _ = validate(self._cases())
+        self.assertEqual(findings, [])
+
+    def test_missing_for_with_sibling_for_present_flagged(self):
+        # A missing `for` must be flagged even when a sibling Task in the same
+        # folder carries one (discover_patient_fields is folder-scoped and would
+        # otherwise mask it).
+        write_json(self.case, "Task-a.json", {"resourceType": "Task"})
+        write_json(self.case, "Task-b.json", {
+            "resourceType": "Task",
+            "for": {"reference": f"Patient/{self.good}"},
+        })
+        findings, _ = validate(self._cases())
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0][2], "Task-a.json")
+
+    def test_apply_task_for_fix_injects_and_positions(self):
+        from scripts.validate_test_fixtures import apply_task_for_fix, collect_task_for_findings
+        write_json(self.case, "Task-t.json", {
+            "resourceType": "Task",
+            "id": "t1",
+            "focus": {"reference": "MedicationRequest/9b5c77d2-ba3b-49a2-a6c2-7060b3221c1a"},
+            "executionPeriod": {"start": "2026-11-01T09:00:00.000+00:00"},
+        })
+        findings, _ = validate(self._cases())
+        fixable = collect_task_for_findings(findings)
+        self.assertEqual(len(fixable), 1)
+        path = os.path.join(self.case, "Task-t.json")
+        self.assertTrue(apply_task_for_fix(fixable[0], tests_root=self.tests_root))
+        with open(path) as fh:
+            data = json.load(fh)
+        keys = list(data.keys())
+        self.assertEqual(data["for"], {"reference": f"Patient/{self.good}"})
+        # `for` is re-inserted immediately after `focus`; nothing else changed.
+        self.assertEqual(keys.index("for"), keys.index("focus") + 1)
+        self.assertEqual(data["id"], "t1")
+        self.assertEqual(len(data), 5)
+        # A second apply is a no-op.
+        self.assertFalse(apply_task_for_fix(fixable[0], tests_root=self.tests_root))
+
+    def test_collect_task_for_findings_filters_category(self):
+        from scripts.validate_test_fixtures import collect_task_for_findings
+        good = ("CMS104X", self.good, "Task-t.json", "for", self.good, self.good, "BROAD-WRONG-NOT-FIXED")
+        missing = ("CMS104X", self.good, "Task-t.json", "for", "(missing)", self.good,
+                   "MISSING-REQUIRED-FIELD")
+        self.assertEqual(collect_task_for_findings([good, missing]), [missing])
+
+
 class ProfileNamespaceMigrationTest(unittest.TestCase):
 
     OLD = "http://fhir.org/guides/onc/us-quality-core/StructureDefinition"

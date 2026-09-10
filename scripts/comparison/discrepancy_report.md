@@ -1,14 +1,14 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-10 00:04:38.626293 |
+| Generated | 2026-09-10 00:39:27.879721 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 30 |
 | Known Issues (resolution pending) | 38 issues / 982 test cases |
-| Passing Test Cases | 3598 (90.77%) |
-| Failing Test Cases | 366 (9.23%) |
-| &nbsp;&nbsp;— attributed to an open known issue | 366 |
+| Passing Test Cases | 3622 (91.37%) |
+| Failing Test Cases | 342 (8.63%) |
+| &nbsp;&nbsp;— attributed to an open known issue | 342 |
 | &nbsp;&nbsp;— **UNATTRIBUTED** (regression / untriaged) | **0** |
 | QICore Passing Test Cases | 3045 (76.82%) |
 | QICore Failing Test Cases | 919 (23.18%) |
@@ -20,15 +20,17 @@
 
 _Every percentage in the summary uses the full 3,964-case denominator. **Unattributed** is the trust metric: 0 means every failing case has a written, case-linked cause._
 
-### Stale attributions (674)
+### Stale attributions (702)
 
 Cases an open issue still claims that now pass. These inflate any known-issues-excluded score; each is a candidate for closing the issue or trimming its case list.
 
 | Issue | Cases now passing |
 | --- | --- |
-| B-01 | 613 |
+| B-01 | 617 |
 | C-12 | 1 |
-| C-14 | 2 |
+| C-14 | 6 |
+| E-12 | 16 |
+| E-21 | 4 |
 | E-23 | 58 |
 
 ### Repro-scaffold references (2)
@@ -89,7 +91,7 @@ Issues citing a `testE*` repro library. These are excluded from scoring by desig
 |---|:---:|:---:|
 | Missing Results | 5 | 10 |
 | Missing Populations | 1 | 4 |
-| Mismatched Test Cases | 28 | 352 |
+| Mismatched Test Cases | 28 | 328 |
 
 
 
@@ -104,13 +106,13 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | CMS56FHIRFuncStatHipReplacement | 58 / 0 | 58 / 0 | Match — both pass |
 | CMS68FHIRDocumentationCurrentMeds | 18 / 1 | 19 / 0 | CMS has discrepancies, QICore passes |
 | CMS69FHIRPCSBMIScreenAndFollowUp | 63 / 0 | 63 / 0 | Match — both pass |
-| CMS71FHIRSTKAnticoagAFFlutter | 75 / 8 | 80 / 3 | Both have discrepancies |
-| CMS72FHIRSTKAntithromboticDay2 | 145 / 13 | 51 / 107 | Both have discrepancies |
+| CMS71FHIRSTKAnticoagAFFlutter | 79 / 4 | 80 / 3 | Both have discrepancies |
+| CMS72FHIRSTKAntithromboticDay2 | 147 / 11 | 51 / 107 | Both have discrepancies |
 | CMS74FHIRDentalCariesPrevention | 20 / 0 | 20 / 0 | Match — both pass |
 | CMS75FHIRChildrenDentalDecay | 20 / 0 | 20 / 0 | Match — both pass |
 | CMS90FHIRFSAforHeartFailure | 37 / 0 | 37 / 0 | Match — both pass |
-| CMS104FHIRSTKDCAntithrombotic | 67 / 15 | 13 / 69 | Both have discrepancies |
-| CMS108FHIRVTEProphylaxis | 124 / 16 | 114 / 26 | Both have discrepancies |
+| CMS104FHIRSTKDCAntithrombotic | 69 / 13 | 13 / 69 | Both have discrepancies |
+| CMS108FHIRVTEProphylaxis | 132 / 8 | 114 / 26 | Both have discrepancies |
 | CMS117FHIRChildImmunStatus | 45 / 0 | 45 / 0 | Match — both pass |
 | CMS122FHIRDiabetesAssessGT9Pct | 55 / 0 | 55 / 0 | Match — both pass |
 | CMS124FHIRCervicalCancerScreen | 34 / 0 | 34 / 0 | Match — both pass |
@@ -139,7 +141,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | CMS159FHIRDepRemissionat12Months | 65 / 2 | 65 / 2 | Both have discrepancies |
 | CMS165FHIRControllingHighBP | 67 / 1 | 67 / 1 | Both have discrepancies |
 | CMS177FHIRChildMDDSuicideAssmt | 40 / 1 | 41 / 0 | CMS has discrepancies, QICore passes |
-| CMS190FHIRVTEProphylaxisICU | 115 / 10 | 99 / 26 | Both have discrepancies |
+| CMS190FHIRVTEProphylaxisICU | 123 / 2 | 99 / 26 | Both have discrepancies |
 | CMS314FHIRHIVViralSuppression | 43 / 0 | 43 / 0 | Match — both pass |
 | CMS0334FHIRPCCesareanBirth | 137 / 1 | 136 / 2 | Both have discrepancies |
 | CMS347FHIRStatinPreventionTxCVD | 164 / 24 | 76 / 112 | Both have discrepancies |
@@ -268,10 +270,10 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS2FHIRPCSDepScreenAndFollowUp](#cms2fhirpcsdepscreenandfollowup) | 36 | 0 | 0 | 22.22%   (8) | 36 / 0 | passes |
 | [CMS22FHIRPCSBPScreeningFollowUp](#cms22fhirpcsbpscreeningfollowup) | 44 | 0 | 0 | 27.27%   (12) | 43 / 1 | has discrepancies (1) |
 | [CMS68FHIRDocumentationCurrentMeds](#cms68fhirdocumentationcurrentmeds) | 19 | 1 | 0 | 0.00%   (0) | 19 / 0 | passes |
-| [CMS71FHIRSTKAnticoagAFFlutter](#cms71fhirstkanticoagafflutter) | 83 | 0 | 0 | 9.64%   (8) | 80 / 3 | has discrepancies (3) |
-| [CMS72FHIRSTKAntithromboticDay2](#cms72fhirstkantithromboticday2) | 158 | 0 | 0 | 8.23%   (13) | 51 / 107 | has discrepancies (107) |
-| [CMS104FHIRSTKDCAntithrombotic](#cms104fhirstkdcantithrombotic) | 82 | 0 | 0 | 18.29%   (15) | 13 / 69 | has discrepancies (69) |
-| [CMS108FHIRVTEProphylaxis](#cms108fhirvteprophylaxis) | 140 | 0 | 0 | 11.43%   (16) | 114 / 26 | has discrepancies (26) |
+| [CMS71FHIRSTKAnticoagAFFlutter](#cms71fhirstkanticoagafflutter) | 83 | 0 | 0 | 4.82%   (4) | 80 / 3 | has discrepancies (3) |
+| [CMS72FHIRSTKAntithromboticDay2](#cms72fhirstkantithromboticday2) | 158 | 0 | 0 | 6.96%   (11) | 51 / 107 | has discrepancies (107) |
+| [CMS104FHIRSTKDCAntithrombotic](#cms104fhirstkdcantithrombotic) | 82 | 0 | 0 | 15.85%   (13) | 13 / 69 | has discrepancies (69) |
+| [CMS108FHIRVTEProphylaxis](#cms108fhirvteprophylaxis) | 140 | 0 | 0 | 5.71%   (8) | 114 / 26 | has discrepancies (26) |
 | [CMS135FHIRACEIorARBorARNIforHF](#cms135fhiraceiorarborarniforhf) | 40 | 3 | 0 | 20.00%   (8) | 10 / 30 | has discrepancies (27) |
 | [CMS142FHIRCommWithDrManagingDiab](#cms142fhircommwithdrmanagingdiab) | 32 | 0 | 0 | 15.62%   (5) | 27 / 5 | has discrepancies (5) |
 | [CMS144FHIRHFBetaBlockerForLVSD](#cms144fhirhfbetablockerforlvsd) | 48 | 0 | 0 | 6.25%   (3) | 4 / 44 | has discrepancies (44) |
@@ -280,7 +282,7 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | [CMS159FHIRDepRemissionat12Months](#cms159fhirdepremissionat12months) | 67 | 0 | 0 | 2.99%   (2) | 65 / 2 | has discrepancies (2) |
 | [CMS165FHIRControllingHighBP](#cms165fhircontrollinghighbp) | 68 | 1 | 0 | 0.00%   (0) | 67 / 1 | has discrepancies (0) |
 | [CMS177FHIRChildMDDSuicideAssmt](#cms177fhirchildmddsuicideassmt) | 41 | 0 | 0 | 2.44%   (1) | 41 / 0 | passes |
-| [CMS190FHIRVTEProphylaxisICU](#cms190fhirvteprophylaxisicu) | 125 | 0 | 0 | 8.00%   (10) | 99 / 26 | has discrepancies (26) |
+| [CMS190FHIRVTEProphylaxisICU](#cms190fhirvteprophylaxisicu) | 125 | 0 | 0 | 1.60%   (2) | 99 / 26 | has discrepancies (26) |
 | [CMS0334FHIRPCCesareanBirth](#cms0334fhirpccesareanbirth) | 138 | 0 | 0 | 0.72%   (1) | 136 / 2 | has discrepancies (2) |
 | [CMS347FHIRStatinPreventionTxCVD](#cms347fhirstatinpreventiontxcvd) | 188 | 0 | 0 | 12.77%   (24) | 76 / 112 | has discrepancies (111) |
 | [CMS645FHIRBoneDensityPCADTherapy](#cms645fhirbonedensitypcadtherapy) | 51 | 0 | 0 | 5.88%   (3) | 15 / 36 | has discrepancies (36) |
@@ -354,17 +356,13 @@ Missing Results (1 of 19 test cases)
 
 QICore: 80 / 3 — has discrepancies (3 mismatched, 0 missing)
 
-Mismatched Test Cases (8 of 83 test cases)
+Mismatched Test Cases (4 of 83 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 017a2267-f463-47a6-8b8b-dc91465e0869 ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/017a2267-f463-47a6-8b8b-dc91465e0869/MeasureReport-3a870421-64af-44eb-8c7a-533079bc2259.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | C-14 — resolution pending | FAIL<br>FAIL |
 | [ 0587a75d-0dcc-4c6b-bfc0-f5727342ec1f ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/0587a75d-0dcc-4c6b-bfc0-f5727342ec1f/MeasureReport-c8a99645-6e7a-467b-87aa-456cdc7cafb9.json) | Group_1 | Denominator<br>Numerator | 1<br>1 | 0<br>0 | E-21 — resolution pending | PASS<br>PASS |
 | [ 56ae006d-ab1b-428d-8614-2ccd5d962650 ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/56ae006d-ab1b-428d-8614-2ccd5d962650/MeasureReport-71b26a14-7533-4479-82e3-7bc54d9ce0db.json) | Group_1 | Denominator<br>Numerator | 1<br>1 | 0<br>0 | E-21 — resolution pending | PASS<br>PASS |
 | [ 595ebfd1-fe6a-4b4b-96a1-23a72f6a70da ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/595ebfd1-fe6a-4b4b-96a1-23a72f6a70da/MeasureReport-793a4c67-2bc9-4601-9521-999a2628ffdd.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | PASS<br>PASS |
-| [ 9a72ea26-595f-4442-8b00-fc52ed228aa6 ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/9a72ea26-595f-4442-8b00-fc52ed228aa6/MeasureReport-47b2254f-ca43-470b-9229-eeb4071ba6e0.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | C-14 — resolution pending | FAIL<br>FAIL |
-| [ b29204ac-96ce-4be0-90ad-ae8ecfa4f245 ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/b29204ac-96ce-4be0-90ad-ae8ecfa4f245/MeasureReport-e5339c1c-c4cd-497b-97a1-ed9fb1a1bc2e.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | PASS<br>PASS |
 | [ c640ff8f-5b2a-448e-85a2-e739af7a8dc4 ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/c640ff8f-5b2a-448e-85a2-e739af7a8dc4/MeasureReport-8b1280e5-8c6d-48b1-ac5a-e4c07e338f56.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | PASS<br>PASS |
-| [ e20b4e76-8523-43ab-abc2-a4f4137a84bb ](../.././input/tests/measure/CMS71FHIRSTKAnticoagAFFlutter/e20b4e76-8523-43ab-abc2-a4f4137a84bb/MeasureReport-ce8fcdb9-f3ff-4f3f-a6cc-114d96185bcb.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | E-21 — resolution pending | PASS<br>PASS |
 
 
 #### CMS72FHIRSTKAntithromboticDay2
@@ -372,21 +370,19 @@ Mismatched Test Cases (8 of 83 test cases)
 
 QICore: 51 / 107 — has discrepancies (107 mismatched, 0 missing)
 
-Mismatched Test Cases (13 of 158 test cases)
+Mismatched Test Cases (11 of 158 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
 | [ 2f7681fa-66b0-4395-aa35-7622e37709ae ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/2f7681fa-66b0-4395-aa35-7622e37709ae/MeasureReport-97f5ba10-36d6-4246-b935-fcfc8f4b1061.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ 3432dedb-7130-4614-9283-6c1569fab90f ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/3432dedb-7130-4614-9283-6c1569fab90f/MeasureReport-acfc5ee1-09d4-4012-b12a-8487396b9856.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ 5a329008-fcc1-4168-ab9c-89cb5dd6ff32 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/5a329008-fcc1-4168-ab9c-89cb5dd6ff32/MeasureReport-dda268cb-4395-4776-acd8-0fee046d392a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>1 | 1<br>1<br>0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
 | [ 7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/7ddb2db9-020e-45b1-aaf5-2fbcf281d6b8/MeasureReport-bad7b4ba-e916-41e2-a314-11854e1021ff.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
-| [ 82399522-ba6c-4997-afc9-23f55bb7da89 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/82399522-ba6c-4997-afc9-23f55bb7da89/MeasureReport-fe335f74-59a9-4afc-ba4c-7a9e003733d6.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ a1a37483-1a67-4dd9-a8ca-b4d49a28a19d ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/a1a37483-1a67-4dd9-a8ca-b4d49a28a19d/MeasureReport-e3bfac2a-251a-49fe-9694-6c60803d9ded.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ be5c4068-2639-4b0c-bea3-5b7c80a6fe3b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/be5c4068-2639-4b0c-bea3-5b7c80a6fe3b/MeasureReport-ad329961-b67b-413b-a186-d6b269572c42.json) | Group_1 | Denominator Exception | 1 | 0 | C-14 — resolution pending | FAIL |
 | [ cb7c95fc-6d6b-4e07-81e8-a79385142b94 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/cb7c95fc-6d6b-4e07-81e8-a79385142b94/MeasureReport-6844e7ed-08a4-43d5-be1c-720dc795b3cf.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 3<br>3<br>2 | 1<br>1<br>0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
 | [ d496f08e-c55b-44b1-97a7-f86cf9ead1e2 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/d496f08e-c55b-44b1-97a7-f86cf9ead1e2/MeasureReport-81e3066d-7dba-46fa-bb3f-2abc24625551.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ dc187313-245c-4ed6-b6bb-fcb94c117fec ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/dc187313-245c-4ed6-b6bb-fcb94c117fec/MeasureReport-d0cc2adb-8b9f-442d-82e2-5ef90a9c30d3.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ e126cdec-dbc8-4ee8-964f-e88e46c04f88 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/e126cdec-dbc8-4ee8-964f-e88e46c04f88/MeasureReport-58249af5-0abc-464b-9e0a-456f7c31b4cf.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
-| [ ed638412-155e-4349-8461-4550fd4fae3b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/ed638412-155e-4349-8461-4550fd4fae3b/MeasureReport-cf1aeb73-d464-4dd9-9f46-38afe84f76ec.json) | Group_1 | Denominator Exception | 1 | 0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL |
 | [ febd4b3e-99bc-4c55-bba9-3b2136c2160b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/febd4b3e-99bc-4c55-bba9-3b2136c2160b/MeasureReport-4f80f98a-71ab-45d6-bdda-d0875ec02ec9.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion<br>Numerator | 4<br>4<br>2<br>2 | 1<br>1<br>0<br>1 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL<br>FAIL |
 
 
@@ -395,7 +391,7 @@ Mismatched Test Cases (13 of 158 test cases)
 
 QICore: 13 / 69 — has discrepancies (69 mismatched, 0 missing)
 
-Mismatched Test Cases (15 of 82 test cases)
+Mismatched Test Cases (13 of 82 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
 | [ 0b1aa8ee-e8bf-49f5-b968-48c5a9702843 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/0b1aa8ee-e8bf-49f5-b968-48c5a9702843/MeasureReport-38f44642-a505-41c0-b367-013e4bb44d58.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion | 1<br>1<br>1 | 0<br>0<br>0 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
@@ -406,12 +402,10 @@ Mismatched Test Cases (15 of 82 test cases)
 | [ 48952352-d74c-491c-9420-6e999e60f52a ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/48952352-d74c-491c-9420-6e999e60f52a/MeasureReport-5eeb7443-d897-40c5-8815-c5dead56e05e.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ 591c23ea-1ddd-4800-9203-4b6946979818 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/591c23ea-1ddd-4800-9203-4b6946979818/MeasureReport-a871588f-5c88-44ce-890e-ccac41059f64.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ 593382e8-4ad5-4300-b0ad-26c8954281c6 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/593382e8-4ad5-4300-b0ad-26c8954281c6/MeasureReport-bb6002b4-0bd0-43fa-a7a0-748bd0444688.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
-| [ 5adc911a-c2a1-475c-a347-9da4ee98c6df ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/5adc911a-c2a1-475c-a347-9da4ee98c6df/MeasureReport-fbd77dd4-8f40-4bf2-bee9-e1e5ce62d7aa.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ 7b1ac1a8-b7be-41ec-a77f-db545af22263 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/7b1ac1a8-b7be-41ec-a77f-db545af22263/MeasureReport-373169e3-3ba1-4ace-bf0c-5c212910cccf.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ a2b8327c-eaf4-4552-863e-851426e729d4 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/a2b8327c-eaf4-4552-863e-851426e729d4/MeasureReport-0ced6c1b-75a5-4ee3-a7a0-017818c03e9a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 1<br>1<br>1 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
 | [ ac56c496-c5d6-4c23-be20-130ee8327fd2 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/ac56c496-c5d6-4c23-be20-130ee8327fd2/MeasureReport-34148ef9-fbdd-48ca-ab5d-6a11fd288074.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ c15bee15-84c1-494a-ac82-2159b06da175 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/c15bee15-84c1-494a-ac82-2159b06da175/MeasureReport-bbe28035-6557-410d-964f-21cf38904d0f.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 3<br>3<br>2 | 1<br>1<br>0 | B-01 — resolution pending<br>C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
-| [ e081bee5-67f8-464f-9356-9b287e32a35a ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/e081bee5-67f8-464f-9356-9b287e32a35a/MeasureReport-560b8ee7-5246-423f-8065-7f02c28eb91f.json) | Group_1 | Denominator Exception<br>Numerator | 1<br>0 | 0<br>1 | B-01 — resolution pending<br>E-21 — resolution pending | FAIL<br>PASS |
 | [ e84c89f7-3c9e-4ee9-b71a-5025aadb5990 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/e84c89f7-3c9e-4ee9-b71a-5025aadb5990/MeasureReport-51e29a50-abca-429e-95eb-8364998be573.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exception | 1<br>1<br>1 | 0<br>0<br>0 | C-14 — resolution pending | FAIL<br>FAIL<br>FAIL |
 
 
@@ -420,25 +414,17 @@ Mismatched Test Cases (15 of 82 test cases)
 
 QICore: 114 / 26 — has discrepancies (26 mismatched, 0 missing)
 
-Mismatched Test Cases (16 of 140 test cases)
+Mismatched Test Cases (8 of 140 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 182103c1-0a38-4d85-819c-148e4e105716 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/182103c1-0a38-4d85-819c-148e4e105716/MeasureReport-ccb6ece2-ea74-4377-b826-2118740d1eee.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812/MeasureReport-735dcbb8-d535-493a-a79c-ff4a9f72ee50.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ 33d162ce-3bc7-4b0a-8c04-fec0a42a6263 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/33d162ce-3bc7-4b0a-8c04-fec0a42a6263/MeasureReport-da823951-b92e-4ee9-904f-839f7e8db8df.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 3c854f27-5103-4367-bdef-97c3cde1edb8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/3c854f27-5103-4367-bdef-97c3cde1edb8/MeasureReport-1c32114e-5b9f-4f01-b021-0b3dd5bd8adf.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ 3db5c5a1-2eec-4e01-8e59-ac389a0a2179 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/3db5c5a1-2eec-4e01-8e59-ac389a0a2179/MeasureReport-384a4771-57ba-472a-9ffd-17eeba8f39d7.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ 41f2785f-4c4f-4497-a46b-e17fd8b5ee3f ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/41f2785f-4c4f-4497-a46b-e17fd8b5ee3f/MeasureReport-ff4c0b9f-8014-4119-ab3f-78a8e7e8f935.json) | Group_1 | Denominator Exclusion | 0 | 1 | E-17 — resolution pending | PASS |
-| [ 525e73f2-77be-49b1-920f-6fc31ef38d22 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/525e73f2-77be-49b1-920f-6fc31ef38d22/MeasureReport-9cb7f213-6011-4f8b-be16-010172559897.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ 5741c41a-04ec-4967-83b2-b0d746bd0ed5 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/5741c41a-04ec-4967-83b2-b0d746bd0ed5/MeasureReport-10dddf5e-f066-457d-b056-01329b17c73e.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 5f739500-ee12-4662-8980-ef95d8fa74c8 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/5f739500-ee12-4662-8980-ef95d8fa74c8/MeasureReport-5dd7eca4-05b6-49c4-87b7-a7313b46d684.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ 8bb999a1-696a-497b-a5f4-aa55e146a16e ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/8bb999a1-696a-497b-a5f4-aa55e146a16e/MeasureReport-f1938984-85bf-4eff-b9b8-e89a556b2f35.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ 91ff5f1a-cfdb-472d-b8c3-144f499d1ccc ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/91ff5f1a-cfdb-472d-b8c3-144f499d1ccc/MeasureReport-cee9ae71-29f6-41ee-a479-0fc2d8b338c5.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ d205878e-b861-43a8-92e8-47f680987e4d ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/d205878e-b861-43a8-92e8-47f680987e4d/MeasureReport-e96f2279-a61f-40e2-9e19-9137ee4b12e6.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1/MeasureReport-43331d8f-cf2d-4a0c-a3a2-e4b8e060a7eb.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ dc0dcb01-87f0-4e65-9c36-8cf6174abef1 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/dc0dcb01-87f0-4e65-9c36-8cf6174abef1/MeasureReport-7bc64137-ecc6-421a-bb2f-0177667a25b7.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
 | [ dd5a1e46-1b99-45a3-b4d3-1fde205d8a11 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/dd5a1e46-1b99-45a3-b4d3-1fde205d8a11/MeasureReport-bc945d90-f897-463b-bbc2-f9b922117784.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ ff814452-be6d-4e4b-905b-c1ae2a551645 ](../.././input/tests/measure/CMS108FHIRVTEProphylaxis/ff814452-be6d-4e4b-905b-c1ae2a551645/MeasureReport-8f09729a-45b0-45dc-bfdd-047cf0d896ef.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 
 
 #### CMS135FHIRACEIorARBorARNIforHF
@@ -562,19 +548,11 @@ Mismatched Test Cases (1 of 41 test cases)
 
 QICore: 99 / 26 — has discrepancies (26 mismatched, 0 missing)
 
-Mismatched Test Cases (10 of 125 test cases)
+Mismatched Test Cases (2 of 125 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9/MeasureReport-bb0ca899-9892-4d53-a171-fa41dc45d404.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 2bcbe960-db7d-4088-a574-d771baf0f9c7 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/2bcbe960-db7d-4088-a574-d771baf0f9c7/MeasureReport-cfb7bc83-85fe-45b7-b133-a2b1429e1e31.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca/MeasureReport-4ca4bed8-36fa-40a9-a273-ce3f8e9f377e.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808/MeasureReport-53445771-3d55-46d3-8091-a92e9f7a0915.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ 98d6da30-f55a-411d-94b4-359b204bcb5a ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/98d6da30-f55a-411d-94b4-359b204bcb5a/MeasureReport-6e63dc69-1e82-44f5-bccb-e417baa090e5.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
-| [ a30e5588-0e2a-487c-b4d3-15d9e0006741 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/a30e5588-0e2a-487c-b4d3-15d9e0006741/MeasureReport-bdba93da-ab6a-4f3b-b72e-86f0168f9b43.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ a82cd0c1-900e-4ab3-a498-840ac1608486 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/a82cd0c1-900e-4ab3-a498-840ac1608486/MeasureReport-94a26fc6-de93-43a2-9be0-2ca52b24d988.json) | Group_1 | Denominator Exclusion | 0 | 1 | E-17 — resolution pending | PASS |
-| [ dbfc823e-0e2f-409d-a409-2d9399db1118 ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/dbfc823e-0e2f-409d-a409-2d9399db1118/MeasureReport-e7db6f05-3243-4d94-bf90-1b5c6cff7c10.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 | [ f035a977-30d0-487c-b542-a596e718420c ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/f035a977-30d0-487c-b542-a596e718420c/MeasureReport-2318030c-b923-45ed-988f-5925f46200e9.json) | Group_1 | Numerator | 1 | 0 | E-17 — resolution pending | PASS |
-| [ f981eba4-4aac-45ce-8c52-f0bc02c9a0dc ](../.././input/tests/measure/CMS190FHIRVTEProphylaxisICU/f981eba4-4aac-45ce-8c52-f0bc02c9a0dc/MeasureReport-01143c30-f69f-464f-99fd-405617644ce8.json) | Group_1 | Numerator | 1 | 0 | E-12 — resolution pending | FAIL |
 
 
 #### CMS0334FHIRPCCesareanBirth
@@ -1442,16 +1420,16 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | CMS22FHIRPCSBPScreeningFollowUp | 15 | 0 | 0 |
 | CMS68FHIRDocumentationCurrentMeds | 0 | 4 | 0 |
 | CMS71FHIRSTKAnticoagAFFlutter | 13 | 0 | 0 |
-| CMS72FHIRSTKAntithromboticDay2 | 252 | 0 | 0 |
+| CMS72FHIRSTKAntithromboticDay2 | 254 | 0 | 0 |
 | CMS104FHIRSTKDCAntithrombotic | 175 | 0 | 0 |
-| CMS108FHIRVTEProphylaxis | 26 | 0 | 0 |
+| CMS108FHIRVTEProphylaxis | 34 | 0 | 0 |
 | CMS129FHIRProstCaBoneScanUse | 67 | 0 | 0 |
 | CMS135FHIRACEIorARBorARNIforHF | 81 | 0 | 0 |
 | CMS144FHIRHFBetaBlockerForLVSD | 112 | 0 | 0 |
 | CMS145FHIRCADBBlockerTPMIorLVSD | 158 | 0 | 0 |
 | CMS149FHIRDementiaCognitiveAssess | 21 | 0 | 0 |
 | CMS177FHIRChildMDDSuicideAssmt | 2 | 0 | 0 |
-| CMS190FHIRVTEProphylaxisICU | 20 | 0 | 0 |
+| CMS190FHIRVTEProphylaxisICU | 28 | 0 | 0 |
 | CMS0334FHIRPCCesareanBirth | 1 | 0 | 0 |
 | CMS347FHIRStatinPreventionTxCVD | 342 | 0 | 20 |
 | CMS506FHIRSafeUseofOpioids | 5 | 0 | 0 |
@@ -1469,7 +1447,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | NHSNAcuteCareHospitalMonthlyInitialPopulation1 | 27 | 0 | 0 |
 | NHSNGlycemicControlHypoglycemiaInitialPopulation | 4 | 0 | 0 |
 
-| **Total** | **1659** | **9** | **20** |
+| **Total** | **1677** | **9** | **20** |
 
 ### CMS2FHIRPCSDepScreenAndFollowUp
 
@@ -1517,6 +1495,8 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 
 | Test Case | Population | CMS Actual | QI-Core Actual | Type |
 |---|---|---:|---:|---|
+| 017a2267-f463-47a6-8b8b-dc91465e0869 | Denominator Exception | 1 | 0 | mismatch |
+| 017a2267-f463-47a6-8b8b-dc91465e0869 | Numerator | 0 | 1 | mismatch |
 | 0587a75d-0dcc-4c6b-bfc0-f5727342ec1f | Denominator | 0 | 1 | mismatch |
 | 0587a75d-0dcc-4c6b-bfc0-f5727342ec1f | Numerator | 0 | 1 | mismatch |
 | 4151585a-f621-4de5-91df-4e4227e2165e | Denominator | 1 | 0 | mismatch |
@@ -1524,12 +1504,10 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | 56ae006d-ab1b-428d-8614-2ccd5d962650 | Numerator | 0 | 1 | mismatch |
 | 595ebfd1-fe6a-4b4b-96a1-23a72f6a70da | Denominator Exception | 0 | 1 | mismatch |
 | 595ebfd1-fe6a-4b4b-96a1-23a72f6a70da | Numerator | 1 | 0 | mismatch |
-| b29204ac-96ce-4be0-90ad-ae8ecfa4f245 | Denominator Exception | 0 | 1 | mismatch |
-| b29204ac-96ce-4be0-90ad-ae8ecfa4f245 | Numerator | 1 | 0 | mismatch |
+| 9a72ea26-595f-4442-8b00-fc52ed228aa6 | Denominator Exception | 1 | 0 | mismatch |
+| 9a72ea26-595f-4442-8b00-fc52ed228aa6 | Numerator | 0 | 1 | mismatch |
 | c640ff8f-5b2a-448e-85a2-e739af7a8dc4 | Denominator Exception | 0 | 1 | mismatch |
 | c640ff8f-5b2a-448e-85a2-e739af7a8dc4 | Numerator | 1 | 0 | mismatch |
-| e20b4e76-8523-43ab-abc2-a4f4137a84bb | Denominator Exception | 0 | 1 | mismatch |
-| e20b4e76-8523-43ab-abc2-a4f4137a84bb | Numerator | 1 | 0 | mismatch |
 
 ### CMS72FHIRSTKAntithromboticDay2
 
@@ -1642,6 +1620,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | 7e3bf20a-7a5b-4d50-aa34-267ab19da7b2 | Initial Population | 1 | 0 | mismatch |
 | 7e3bf20a-7a5b-4d50-aa34-267ab19da7b2 | Numerator | 1 | 0 | mismatch |
 | 82399522-ba6c-4997-afc9-23f55bb7da89 | Denominator | 1 | 0 | mismatch |
+| 82399522-ba6c-4997-afc9-23f55bb7da89 | Denominator Exception | 1 | 0 | mismatch |
 | 82399522-ba6c-4997-afc9-23f55bb7da89 | Initial Population | 1 | 0 | mismatch |
 | 82fd75d8-4816-4d24-b18c-0e454c430eb5 | Denominator | 1 | 0 | mismatch |
 | 82fd75d8-4816-4d24-b18c-0e454c430eb5 | Denominator Exception | 1 | 0 | mismatch |
@@ -1767,6 +1746,7 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | eafd6c1f-c099-48b8-8101-b24b4a49cd0b | Denominator Exclusion | 1 | 0 | mismatch |
 | eafd6c1f-c099-48b8-8101-b24b4a49cd0b | Initial Population | 1 | 0 | mismatch |
 | ed638412-155e-4349-8461-4550fd4fae3b | Denominator | 1 | 0 | mismatch |
+| ed638412-155e-4349-8461-4550fd4fae3b | Denominator Exception | 1 | 0 | mismatch |
 | ed638412-155e-4349-8461-4550fd4fae3b | Initial Population | 1 | 0 | mismatch |
 | edd8668f-d541-4869-9bb6-02e9e2c2509d | Denominator Exclusion | 1 | 0 | mismatch |
 | f0d37c4e-7377-4876-8533-f955963f96f9 | Denominator | 1 | 0 | mismatch |
@@ -1854,8 +1834,8 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | 593382e8-4ad5-4300-b0ad-26c8954281c6 | Initial Population | 1 | 0 | mismatch |
 | 593382e8-4ad5-4300-b0ad-26c8954281c6 | Numerator | 1 | 0 | mismatch |
 | 5adc911a-c2a1-475c-a347-9da4ee98c6df | Denominator | 1 | 0 | mismatch |
+| 5adc911a-c2a1-475c-a347-9da4ee98c6df | Denominator Exception | 1 | 0 | mismatch |
 | 5adc911a-c2a1-475c-a347-9da4ee98c6df | Initial Population | 1 | 0 | mismatch |
-| 5adc911a-c2a1-475c-a347-9da4ee98c6df | Numerator | 1 | 0 | mismatch |
 | 5aee33a0-e42c-4a79-97b7-40e7ac8b270e | Denominator | 1 | 0 | mismatch |
 | 5aee33a0-e42c-4a79-97b7-40e7ac8b270e | Denominator Exception | 1 | 0 | mismatch |
 | 5aee33a0-e42c-4a79-97b7-40e7ac8b270e | Initial Population | 1 | 0 | mismatch |
@@ -1941,8 +1921,8 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | dd6c17ad-396b-4ff5-9538-e06da5f0a39c | Denominator | 1 | 0 | mismatch |
 | dd6c17ad-396b-4ff5-9538-e06da5f0a39c | Initial Population | 1 | 0 | mismatch |
 | e081bee5-67f8-464f-9356-9b287e32a35a | Denominator | 1 | 0 | mismatch |
+| e081bee5-67f8-464f-9356-9b287e32a35a | Denominator Exception | 1 | 0 | mismatch |
 | e081bee5-67f8-464f-9356-9b287e32a35a | Initial Population | 1 | 0 | mismatch |
-| e081bee5-67f8-464f-9356-9b287e32a35a | Numerator | 1 | 0 | mismatch |
 | e13ab79b-1b28-4a37-96cc-e63baa5f88cd | Denominator | 1 | 0 | mismatch |
 | e13ab79b-1b28-4a37-96cc-e63baa5f88cd | Denominator Exclusion | 1 | 0 | mismatch |
 | e13ab79b-1b28-4a37-96cc-e63baa5f88cd | Initial Population | 1 | 0 | mismatch |
@@ -1974,30 +1954,38 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 |---|---|---:|---:|---|
 | 068814f1-4270-4e10-b470-9a5433bceb3e | Numerator | 1 | 0 | mismatch |
 | 0ddb05b5-03af-4d2a-9d9c-0be8034d1ff4 | Denominator Exclusion | 1 | 0 | mismatch |
+| 182103c1-0a38-4d85-819c-148e4e105716 | Numerator | 1 | 0 | mismatch |
 | 1b450176-8caa-4133-bc9a-c066969f72ce | Denominator Exclusion | 1 | 0 | mismatch |
+| 2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812 | Numerator | 1 | 0 | mismatch |
 | 33d162ce-3bc7-4b0a-8c04-fec0a42a6263 | Numerator | 0 | 1 | mismatch |
+| 3c854f27-5103-4367-bdef-97c3cde1edb8 | Numerator | 1 | 0 | mismatch |
 | 3db5c5a1-2eec-4e01-8e59-ac389a0a2179 | Numerator | 0 | 1 | mismatch |
 | 41f2785f-4c4f-4497-a46b-e17fd8b5ee3f | Denominator Exclusion | 1 | 0 | mismatch |
+| 525e73f2-77be-49b1-920f-6fc31ef38d22 | Numerator | 1 | 0 | mismatch |
 | 52790be5-0f6e-4ebd-85f5-57f35db8b56b | Numerator | 1 | 0 | mismatch |
 | 543248c8-b6af-407d-b435-7e867c4770b4 | Numerator | 1 | 0 | mismatch |
 | 5741c41a-04ec-4967-83b2-b0d746bd0ed5 | Numerator | 0 | 1 | mismatch |
+| 5f739500-ee12-4662-8980-ef95d8fa74c8 | Numerator | 1 | 0 | mismatch |
 | 610c90c9-f387-40f8-9bd7-710d20dfd6f0 | Numerator | 1 | 0 | mismatch |
 | 70a5b41a-14ac-4e08-b661-d5523ad80fbf | Denominator Exclusion | 1 | 0 | mismatch |
 | 73673965-9b35-446e-bad7-1701991e6906 | Numerator | 1 | 0 | mismatch |
 | 77c1bf41-fce8-4044-9eeb-c205b8fdc0a9 | Numerator | 1 | 0 | mismatch |
 | 8bb999a1-696a-497b-a5f4-aa55e146a16e | Numerator | 0 | 1 | mismatch |
 | 900f47c2-3615-4ffe-a9e0-3e7e70469ffb | Denominator Exclusion | 1 | 0 | mismatch |
+| 91ff5f1a-cfdb-472d-b8c3-144f499d1ccc | Numerator | 1 | 0 | mismatch |
 | 96c7b8e3-2c28-4b46-a579-f56d644cf762 | Denominator Exclusion | 1 | 0 | mismatch |
 | a3e0cca4-bdb1-4972-b6ca-84841cb66859 | Numerator | 1 | 0 | mismatch |
 | a8083d97-85af-4e1e-8770-30c49a287194 | Numerator | 1 | 0 | mismatch |
 | afad0252-21ef-48ee-9a5a-33dab92d8709 | Denominator Exclusion | 1 | 0 | mismatch |
 | cbd1de91-441a-4588-b000-2e589d099ab6 | Numerator | 1 | 0 | mismatch |
+| d205878e-b861-43a8-92e8-47f680987e4d | Numerator | 1 | 0 | mismatch |
 | d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1 | Numerator | 0 | 1 | mismatch |
 | dc0dcb01-87f0-4e65-9c36-8cf6174abef1 | Numerator | 0 | 1 | mismatch |
 | dd5a1e46-1b99-45a3-b4d3-1fde205d8a11 | Numerator | 0 | 1 | mismatch |
 | ea49dc35-7378-4436-aa37-53ec9f13b05d | Numerator | 2 | 1 | mismatch |
 | eb754c68-82c7-48cd-a2f0-26ee1cd92544 | Denominator Exclusion | 1 | 0 | mismatch |
 | ef0bebdc-61bf-4233-abd3-1f3c99a2cd8d | Numerator | 1 | 0 | mismatch |
+| ff814452-be6d-4e4b-905b-c1ae2a551645 | Numerator | 1 | 0 | mismatch |
 
 ### CMS129FHIRProstCaBoneScanUse
 
@@ -2478,22 +2466,30 @@ _Where the CMS engine's actual results differ from the QI-Core engine's (source 
 | 0d48b3b3-c5f0-4955-810d-eb4f1b8714ca | Numerator | 1 | 0 | mismatch |
 | 24068f4d-3179-4f2f-872e-02e3b362cac0 | Denominator Exclusion | 1 | 0 | mismatch |
 | 25265601-4e27-4fe0-8d35-68ebac8f9894 | Numerator | 1 | 0 | mismatch |
+| 282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9 | Numerator | 1 | 0 | mismatch |
 | 298f3f92-5047-46fc-ad92-9f27887ffc55 | Numerator | 1 | 0 | mismatch |
+| 2bcbe960-db7d-4088-a574-d771baf0f9c7 | Numerator | 1 | 0 | mismatch |
 | 2e1ee160-9c41-4c6f-b368-56c074cfb592 | Denominator Exclusion | 1 | 0 | mismatch |
 | 324eb2e7-2beb-4c84-88ff-bdf9fa5d8171 | Numerator | 1 | 0 | mismatch |
+| 4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca | Numerator | 1 | 0 | mismatch |
 | 4d76c150-b6a5-4a1a-8801-81c24ce398b7 | Numerator | 1 | 0 | mismatch |
 | 67df96df-45ff-4387-bc4d-04055a95483f | Numerator | 1 | 0 | mismatch |
 | 8de031c4-05db-42db-b0e5-902696c6e495 | Denominator Exclusion | 1 | 0 | mismatch |
+| 8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808 | Numerator | 1 | 0 | mismatch |
+| 98d6da30-f55a-411d-94b4-359b204bcb5a | Numerator | 1 | 0 | mismatch |
 | 99fbf673-e18e-43db-bccf-6edc67fcb13f | Numerator | 1 | 0 | mismatch |
 | a2563ca7-fda7-4cfd-a5cf-a688225749e2 | Numerator | 1 | 0 | mismatch |
+| a30e5588-0e2a-487c-b4d3-15d9e0006741 | Numerator | 1 | 0 | mismatch |
 | a82cd0c1-900e-4ab3-a498-840ac1608486 | Denominator Exclusion | 1 | 0 | mismatch |
 | d5d8e66a-01da-462b-95b6-e47b16285b1f | Denominator Exclusion | 1 | 0 | mismatch |
 | d665c40d-2323-471f-9642-983472d2be7b | Denominator Exclusion | 1 | 0 | mismatch |
 | d70dcaf9-4e69-4395-9612-ee1e156f6184 | Numerator | 2 | 1 | mismatch |
+| dbfc823e-0e2f-409d-a409-2d9399db1118 | Numerator | 1 | 0 | mismatch |
 | efad4991-4382-4ceb-8bc4-32e8ac088e47 | Numerator | 1 | 0 | mismatch |
 | f028ed8f-f83b-4c77-bb08-2c4df7694a12 | Denominator Exclusion | 1 | 0 | mismatch |
 | f035a977-30d0-487c-b542-a596e718420c | Numerator | 0 | 1 | mismatch |
 | f8f09c1f-37fc-4088-a39d-710971b626b7 | Denominator Exclusion | 1 | 0 | mismatch |
+| f981eba4-4aac-45ce-8c52-f0bc02c9a0dc | Numerator | 1 | 0 | mismatch |
 
 ### CMS0334FHIRPCCesareanBirth
 

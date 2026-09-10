@@ -32,12 +32,22 @@ Fields split into two tiers:
   reference a different actor (a practitioner, a reporter) or a different
   person (subscriber vs beneficiary).
 
+A presence check is additionally enforced for a small set of fields the engine
+*requires* on a given resource type for ``context Patient`` scoping to work at
+all: ``Task.for`` is the model's patient ``contextPath`` for Task retrieves, so
+a Task missing it is silently filtered out of every ``[Task...]`` retrieve (an
+empty result is a data-authoring error, not a CQL bug).  See
+``REQUIRED_PATIENT_FIELDS``.  ``--fix-task-for`` injects the missing reference
+(``for`` = ``Patient/<folder patient guid>``); it is scrubbed separately from
+the CORE auto-fix so the generic patient-reference rewrite never touches it.
+
 Run from the repo root (Python 3.12):
 
     python ./scripts/validate_test_fixtures.py                 # report only
     python ./scripts/validate_test_fixtures.py --measure CMS104 # one measure
     python ./scripts/validate_test_fixtures.py --json          # machine output
     python ./scripts/validate_test_fixtures.py --fix --apply   # rewrite CORE fields
+    python ./scripts/validate_test_fixtures.py --fix-task-for --apply  # inject Task.for
 
     python ./scripts/validate_test_fixtures.py --fix-profile-ns               # dry-run: report only
     python ./scripts/validate_test_fixtures.py --fix-profile-ns --apply       # migrate onc->astp base
@@ -65,6 +75,17 @@ TESTS_ROOT = os.path.join("input", "tests", "measure")
 CORE_PATIENT_FIELDS = ("subject", "patient", "beneficiary")
 
 PATIENT_REF_RE = re.compile(r"^Patient/(?P<id>[A-Za-z0-9\-]+)$")
+
+# Patient-identity fields that MUST be present on a given resourceType for the
+# engine's `context Patient` scoping to work.  The engine evaluates the model's
+# patient `contextPath` per resource (BaseRetrieveProvider.filterByContext); if
+# the path resolves to nothing the resource is silently skipped, so a Task
+# without `for` is invisible to every `[Task...]` retrieve that references it.
+# A field that is present but not a well-formed `Patient/<guid>` reference is
+# treated the same as missing.
+REQUIRED_PATIENT_FIELDS = {
+    "Task": ("for",),
+}
 
 Finding = Tuple[str, str, str, str, str, str, str]  # (measure, patient, file, field, referenced, expected, category)
 
@@ -284,6 +305,16 @@ def validate(test_cases, verbose: bool = False,
                 if verbose:
                     print(f"  [{category}] {measure}/{guid} {os.path.basename(path)} "
                           f".{field} -> {referenced} (expected {expected})")
+            for req_field in REQUIRED_PATIENT_FIELDS.get(data.get("resourceType"), ()):
+                value = data.get(req_field)
+                if _patient_ref_guid(value) is not None:
+                    continue
+                findings.append((measure, guid, os.path.basename(path), req_field,
+                                 "(missing)", expected, "MISSING-REQUIRED-FIELD"))
+                if verbose:
+                    print(f"  [MISSING-REQUIRED-FIELD] {measure}/{guid} "
+                          f"{os.path.basename(path)} .{req_field} "
+                          f"(expected Patient/{expected})")
     return findings, anomalies
 
 
@@ -307,6 +338,46 @@ def apply_fix_finding(finding: Finding, tests_root: str = TESTS_ROOT) -> bool:
     data[field] = value
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(data, fh, indent=2)
+        fh.write("\n")
+    return True
+
+
+def collect_task_for_findings(findings: List[Finding]) -> List[Finding]:
+    """Return findings a ``--fix-task-for`` run would repair (Task resources whose
+    ``for`` patient reference is missing or not a well-formed Patient/ reference)."""
+    return [f for f in findings if f[6] == "MISSING-REQUIRED-FIELD"]
+
+
+def apply_task_for_fix(finding: Finding, tests_root: str = TESTS_ROOT) -> bool:
+    """Inject the missing ``for`` patient reference into a Task resource in place.
+
+    ``for`` is set to ``Patient/<expected>`` (the folder's own patient GUID) and
+    re-inserted after ``focus``/``code`` when present so the JSON reads like its
+    sibling fixtures; key order is semantically irrelevant.  Returns True if the
+    file was actually edited."""
+    measure, guid, filename, _field, _referenced, expected, _cat = finding
+    path = os.path.join(tests_root, measure, guid, filename)
+    data = load_json(path)
+    if data is None or data.get("resourceType") != "Task":
+        return False
+    if _patient_ref_guid(data.get("for")) is not None:
+        return False
+    keys = list(data.keys())
+    if "focus" in keys:
+        pos = keys.index("focus") + 1
+    elif "code" in keys:
+        pos = keys.index("code") + 1
+    else:
+        pos = len(keys)
+    rebuilt = {}
+    for i, key in enumerate(keys):
+        if i == pos:
+            rebuilt["for"] = {"reference": f"Patient/{expected}"}
+        rebuilt[key] = data[key]
+    if "for" not in rebuilt:
+        rebuilt["for"] = {"reference": f"Patient/{expected}"}
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(rebuilt, fh, indent=2)
         fh.write("\n")
     return True
 
@@ -498,6 +569,9 @@ def main():
                         help="Emit findings as JSON to stdout instead of a markdown report")
     parser.add_argument("--fix", action="store_true",
                         help="Enable fixing; implies dry-run unless --apply is given")
+    parser.add_argument("--fix-task-for", action="store_true",
+                        help="Inject a missing `for` patient reference into Task "
+                             "resources; implies dry-run unless --apply is given")
     parser.add_argument("--apply", action="store_true",
                         help="Actually write fixes (only CORE patient-identity fields). Requires --fix.")
     parser.add_argument("--verbose", "-v", action="store_true",
@@ -564,6 +638,29 @@ def main():
         if args.measure:
             test_cases = [tc for tc in collect_test_cases() if tc[0] == args.measure]
             findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids)
+        print(summary)
+
+    # --- Task.for injection (separate from the CORE patient-reference fixer) ---
+    if args.fix_task_for:
+        task_for_findings = collect_task_for_findings(findings)
+        if args.apply:
+            applied = 0
+            for finding in task_for_findings:
+                if apply_task_for_fix(finding):
+                    applied += 1
+            summary = (f"TASK-FOR APPLIED: injected `for` into {applied} of "
+                       f"{len(task_for_findings)} Task resource(s). Review with "
+                       f"`git diff` (no commit made).")
+            # Re-run validation after apply so the report reflects final state.
+            findings, anomalies = validate(collect_test_cases(),
+                                           all_patient_ids=all_patient_ids)
+            if args.measure:
+                test_cases = [tc for tc in collect_test_cases() if tc[0] == args.measure]
+                findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids)
+        else:
+            summary = (f"TASK-FOR DRY-RUN: {len(task_for_findings)} Task resource(s) "
+                       f"missing a valid `for` reference would be fixed. "
+                       f"Pass --apply to write.")
         print(summary)
 
     report = render_report(findings, anomalies)
