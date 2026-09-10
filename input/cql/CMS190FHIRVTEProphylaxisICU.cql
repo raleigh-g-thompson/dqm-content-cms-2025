@@ -372,7 +372,8 @@ define "No Mechanical VTE Prophylaxis Performed Or Ordered":
           // [E-03 / M-04] .performed is null/unbounded on a ProcedureNotDone (data-absent-reason: not-performed);
           // read the us-quality-core-recorded extension directly instead of .recorded() (ambiguous overload).
           // Original: let DeviceNotDoneTiming: DeviceNotApplied.performed; authoredOn: DeviceNotDoneTiming
-          authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
+          // authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
+          authoredOn: DeviceNotApplied.recorded()
         }
     )
 
