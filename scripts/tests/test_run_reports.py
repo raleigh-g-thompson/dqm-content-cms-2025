@@ -6,6 +6,12 @@ how engine-issues.md and known_issues.json forked in the first place (the
 person who edited the catalog had no reason to know a second script needed
 running). The test proves the combined command produces a report, regenerates
 the tracker, and leaves both consistent with each other on a minimal fixture.
+
+Since the extraction step (0/6) was folded in, every fixture-driven test
+passes --skip-extract so the hand-written actual.csv isn't clobbered by
+extract_population_actual.main() reading the real ./input/tests/results/
+during a pytest run. The dedicated test_extract_feeds_compare_from_fresh_results
+test exercises the extraction wiring end-to-end with a temp results dir.
 """
 import csv
 import json
@@ -64,6 +70,9 @@ class RunReportsEndToEndTest(unittest.TestCase):
         # report pipeline on a fixture known_issues.json, not the real
         # defect-tracking/issues/ tree (the compile wiring has its own test,
         # test_catalog_is_compiled_before_compare_results).
+        # --skip-extract keeps these tests hermetic against step 0/6: without
+        # it the orchestrator would read the real ./input/tests/results/
+        # during a pytest run and overwrite the hand-written --actual fixture.
         args = [
             "--expected", self.expected,
             "--actual", self.actual,
@@ -76,6 +85,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
             "--skip-catalog-build",
+            "--skip-extract",
         ]
         return main(args)
 
@@ -90,8 +100,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
         self.assertTrue(os.path.exists(self.improvement_tracking_out))
 
     def test_improvement_tracking_is_generated_from_the_run_history(self):
-        """Step 2 must regenerate improvement-tracking.md from the log that
-        step 1 appended to -- not from the repo's real run-history.jsonl."""
+        """Step 3 must regenerate improvement-tracking.md from the log that
+        step 2 appended to -- not from the repo's real run-history.jsonl."""
         self._run()
         with open(self.improvement_tracking_out, encoding="utf-8") as fh:
             content = fh.read()
@@ -127,13 +137,15 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--skip-catalog-build",
+            "--skip-extract",
             "--skip-drift-check",
         ]
         self.assertEqual(main(args), 0)
         self.assertTrue(os.path.exists(self.report))
 
     def test_catalog_is_compiled_before_compare_results(self):
-        """Step 0 must compile known_issues.json from the authored issue tree,
+        """Step 1 must compile known_issues.json from the authored issue tree,
         so compare_results consumes the freshly-compiled catalog even when the
         on-disk JSON was stale or absent."""
         issues_dir = os.path.join(self.tmp, "issues")
@@ -174,6 +186,7 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
             "--issues-dir", issues_dir,
+            "--skip-extract",
         ]
         self.assertEqual(main(args), 0)
 
@@ -183,6 +196,104 @@ class RunReportsEndToEndTest(unittest.TestCase):
         self.assertEqual(catalog["generated_from"], "test/")
         self.assertEqual([i["id"] for i in catalog["issues"]], ["T-01"])
         self.assertEqual(catalog["issues"][0]["body_md"], "### T-01: test body\n")
+
+    def test_extract_feeds_compare_from_fresh_results(self):
+        """Step 0/6 must read input/tests/results/ and write --actual before
+        compare consumes it -- the orchestrator is the contract that ties
+        extraction to the rest of the pipeline."""
+        measure = "CMS74FHIRDentalCariesPrevention"
+        guid = "11111111-1111-4111-8111-111111111111"
+        results_dir = os.path.join(self.tmp, "results")
+        measure_subdir = os.path.join(results_dir, measure)
+        os.makedirs(measure_subdir)
+        trace_path = os.path.join(measure_subdir, f"{guid}.txt")
+        with open(trace_path, "w", encoding="utf-8") as fh:
+            fh.write(
+                "CQL: /tmp/cql\n"
+                "Terminology: /tmp/valueset\n"
+                "Test cases:\n"
+                f"{guid} - /tmp/{measure}/{guid}\n"
+                "\n"
+                "Initial Population=true\n"
+                "Denominator=true\n"
+                "Numerator=true\n"
+                f"Patient=Patient(id={guid})\n"
+            )
+
+        extracted_actual = os.path.join(self.tmp, "extracted_actual.csv")
+        # Pre-populate --actual with junk so the assertion proves extraction
+        # overwrote it rather than the orchestrator leaving it untouched.
+        with open(extracted_actual, "w", encoding="utf-8") as fh:
+            fh.write("measure_name,guid,population,count\nUNRELATED,0,Group_1:Initial Population,0\n")
+
+        _write_csv(self.expected, [
+            (measure, guid, "Group_1:Initial Population", "1"),
+            (measure, guid, "Group_1:Denominator", "1"),
+            (measure, guid, "Group_1:Numerator", "1"),
+        ])
+
+        args = [
+            "--expected", self.expected,
+            "--actual", extracted_actual,
+            "--output", os.path.join(self.tmp, "output_results.csv"),
+            "--report", os.path.join(self.tmp, "discrepancy_report.md"),
+            "--known-issues", self.known_issues,
+            "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
+            "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
+            "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
+            "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--results-dir", results_dir,
+            "--skip-catalog-build",
+            "--skip-drift-check",
+        ]
+        self.assertEqual(main(args), 0)
+
+        # The extracted CSV must contain a row for our measure, proving the
+        # orchestrator wrote it via extract_population_actual (the hand-
+        # written UNRELATED row above would fail this assertion if extraction
+        # had been skipped).
+        with open(extracted_actual, encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+        measure_rows = [r for r in rows if r["measure_name"] == measure]
+        self.assertGreater(len(measure_rows), 0)
+        populations = {(r["guid"], r["population"]) for r in measure_rows}
+        self.assertIn((guid, "Group_1:Initial Population"), populations)
+        self.assertIn((guid, "Group_1:Denominator"), populations)
+        self.assertIn((guid, "Group_1:Numerator"), populations)
+
+        self.assertTrue(os.path.exists(os.path.join(self.tmp, "discrepancy_report.md")))
+
+    def test_extract_skipped_when_results_dir_is_empty(self):
+        """When --results-dir is empty or absent the orchestrator must NOT
+        overwrite --actual; it prints a notice and proceeds using whatever
+        is there. This guards the 'no fresh CQL run yet' state."""
+        actual = os.path.join(self.tmp, "preserved_actual.csv")
+        _write_csv(actual, [("CMS1", "g1", "Group_1:Initial Population", "1")])
+
+        empty_results_dir = os.path.join(self.tmp, "empty_results")
+        os.makedirs(empty_results_dir)
+
+        args = [
+            "--expected", self.expected,
+            "--actual", actual,
+            "--output", os.path.join(self.tmp, "output_results.csv"),
+            "--report", os.path.join(self.tmp, "discrepancy_report.md"),
+            "--known-issues", self.known_issues,
+            "--qicore-actual", os.path.join(self.tmp, "nonexistent-qicore.csv"),
+            "--qicore-diff-csv", os.path.join(self.tmp, "qicore_diff.csv"),
+            "--engine-issues-output", self.engine_issues_out,
+            "--improvement-tracking-output", self.improvement_tracking_out,
+            "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--results-dir", empty_results_dir,
+            "--skip-catalog-build",
+            "--skip-drift-check",
+        ]
+        self.assertEqual(main(args), 0)
+
+        with open(actual, encoding="utf-8") as fh:
+            content = fh.read()
+        self.assertIn("CMS1,g1,Group_1:Initial Population,1", content)
 
     def test_run_history_is_written_to_the_override_path_not_the_real_one(self):
         """Regression guard for the pollution bug this test file caused on

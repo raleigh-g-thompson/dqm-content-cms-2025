@@ -30,7 +30,7 @@ generated outputs in `defect-tracking/engine-issues.md` + `scripts/comparison/`.
 | E-09 | Quantity division across dimensions rounds to zero | **Confirmed** | `System.Quantity` construction | CMS156 |
 | E-10 | `singleton from empty list` throws instead of returning null | **Confirmed** | Fixture-side enrichment | CMS156 |
 | E-11 | `Unable to extract codes from fhirType Reference` | **Confirmed** | **None (CQL) — fixture-side deflection only, engine fix blocked on JVM stack trace** | CMS135, CMS165 |
-| E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104, CMS108FHIRVTEProphylaxis |
+| E-12 | Union branch evaluates empty despite correct data | **Confirmed** | **None — not traced** | CMS104, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU |
 | E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | **Confirmed / Applied** | Single `FHIR.Condition` retrieve replacing the union (62 site-level edits; all 30 measures applied — 2026-08-28: 7, 2026-08-29 Stages 1-2: 15, 2026-08-30 Stage 3: CMS133/CMS128/CMS56/CMS131, 2026-08-31 Stage 3 completion: CMS157/CMS159/CMS996/CMS156); inline `is`/`as` interim superseded; CMS133, CMS128 & CMS56 VERIFIED 2026-08-30; CMS131 applied 2026-08-30, verified 2026-08-31 (0007 report) | CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69, CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156, CMS22, CMS71 |
 | E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | **Suspected** | None — unverified | CMS0334, CMS1028 |
 | E-15 | ~~Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves on the new engine~~ | **RETIRED 2026-08-29 — all E-15 issues rolled into E-13** (see E-13; CQL comments updated from `[E-15]` to `[E-13]`) | — |  |
@@ -307,7 +307,18 @@ generated outputs in `defect-tracking/engine-issues.md` + `scripts/comparison/`.
   `TaskRejected` modelinfo class identifier, `focus` resolves to the MedicationRequest, and
   `T.code ~ "Fulfill"` holds. The retrieve + join still returns `[]`. **Previously mis-labeled E-17**
   (the positive profile-retrieve gap); reclassified to E-12 2026-09-08 and removed from E-17's
-  affected-test-cases. CMS190 uses the same `[TaskRejected]` join (lines 323, 355) — sweep pending.
+  affected-test-cases.
+- **Corroboration - CMS190 (2026-09-09)**: 8 CMS190 cases use the same `[TaskRejected]` join
+  (`"No VTE Prophylaxis Medication Administered Or Ordered"` line ~317 and
+  `"No Mechanical VTE Prophylaxis Performed Or Ordered"` line ~351) and were reclassified from E-17
+  (the 2026-09-04 sweep had attributed them to the profile-retrieve gap). MedicationRequest+TaskRejected:
+  `282ae3a0`, `2bcbe960`, `98d6da30`, `a30e5588`, `dbfc823e`; ServiceRequest+TaskRejected:
+  `4724cb2f`, `8ec9cf6a`, `f981eba4`. `e8931859` was initially suspected but has **no Task** — its
+  arm is `ProcedureNotDone` negation, tracked on M-04 (resolved); `a82cd0c1` (DenEx 0→1, no Task)
+  stays E-17.
+- **Re-confirmed under LS v5.3 (2026-09-09)**: all 16 cases (8 CMS108 + 8 CMS190) still fail
+  (`Numerator 1→0`) after the CQL engine upgrade; the `TaskRejected`-join-empty defect is
+  unaffected. Remains **open**, no workaround.
 
 ### E-13: Sibling-profile condition union → `prevalenceInterval(Choice<...>)` mis-resolution — missing FHIRCommon Choice overload + translator cannot resolve the call (E-15 RETIRED, rolled into E-13)
 
@@ -808,6 +819,31 @@ CQL comments marking the fix now read `[E-13]` (renamed from `[E-15]` 2026-08-29
   were mis-attributed to E-17 as part of this broad corroboration sweep. Their true mechanism is the
   E-12 `TaskRejected`-join-empty defect, not a profile retrieve (data/profile verified correct).
   Removed from E-17's affected-test-cases; tracked on E-12.
+- **Reclassified 2026-09-09 (CMS190 deep trace)**: the 2026-09-04 sweep over-claimed for CMS108/CMS190.
+  Re-attribution against the current run `cases.csv`:
+  * **13 CMS190 cases were not engine profile retrieves at all** — they are the CQL negation
+    `authoredOn` content bug (M-04): 9 `MedicationAdministrationNotDone` with a start-only
+    `effectivePeriod` (`authoredOn: NoMedicationAdm.effective` — `during day of` is null on an
+    open-ended Period) and 4 `ProcedureNotDone` device arms (`authoredOn: DeviceNotApplied.performed`).
+    `208cb0f9`, `4fc421c7`, `7e7f4563`, `95a54d01`, `9ddea16c`, `c0481b47`, `f00f3778`, `f82746cf`,
+    `f859dd94`, `4c32b73b`, `632831b0`, `a9c75661`, `e8931859`. Moved to M-04; CMS190 CQL now ports
+    the CMS108 `recorded()` / `.ext()` fix.
+  * **8 CMS190 cases are the E-12 `TaskRejected`-join-empty engine defect** (`282ae3a0`, `2bcbe960`,
+    `98d6da30`, `a30e5588`, `dbfc823e`, `4724cb2f`, `8ec9cf6a`, `f981eba4`; `MedicationRequest`+`TaskRejected`
+    and `ServiceRequest`+`TaskRejected` arms). Moved to E-12.
+  * **CMS190 E-17 is now 2 cases**: `f035a977` (INR lab `34714-6` `...-observation-lab` + completed
+    Procedure numerator 1->0) and `a82cd0c1` (DenEx 0->1 via Comfort-Measures `ServiceRequest`,
+    no Task). Both remain genuine `us-quality-core-*` retrieve discrepancies.
+  * **CMS108 E-17 is now the 8 currently-failing cases** (`33d162ce`, `d9b7ffa9`, `dd5a1e46` =
+    completed `MedicationAdministration`; `3db5c5a1`, `5741c41a`, `8bb999a1`, `dc0dcb01` = INR
+    Observation; `41f2785f` = DenEx `ServiceRequest`). The other 8 CMS108 rows from the sweep now
+    PASS (the negation fix `recorded()`/`.ext()` resolved them) and were removed as stale.
+  * `39215b49` (IP/Den) removed as stale — currently passes.
+- **Re-confirmed under LS v5.3 (2026-09-09)**: the remaining 10 cases (`8bb999a1`, `33d162ce`,
+  `3db5c5a1`, `41f2785f`, `5741c41a`, `d9b7ffa9`, `dc0dcb01`, `dd5a1e46` CMS108; `a82cd0c1`,
+  `f035a977` CMS190) still fail after upgrading the CQL engine to v5.3 (passing 3585→3598 was
+  solely the M-04 negation fix; E-17 failures unchanged). The profile-retrieve gap is upstream and
+  independent of the engine version bump.
 
 ### E-18: Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"`
 

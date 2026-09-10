@@ -4357,7 +4357,8 @@
       },
       "affected_measures": [
         "CMS104",
-        "CMS108FHIRVTEProphylaxis"
+        "CMS108FHIRVTEProphylaxis",
+        "CMS190FHIRVTEProphylaxisICU"
       ],
       "affected_test_cases": [
         {
@@ -4391,9 +4392,41 @@
         {
           "measure": "CMS108FHIRVTEProphylaxis",
           "guid": "ff814452-be6d-4e4b-905b-c1ae2a551645"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "2bcbe960-db7d-4088-a574-d771baf0f9c7"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "98d6da30-f55a-411d-94b4-359b204bcb5a"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "a30e5588-0e2a-487c-b4d3-15d9e0006741"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "dbfc823e-0e2f-409d-a409-2d9399db1118"
+        },
+        {
+          "measure": "CMS190FHIRVTEProphylaxisICU",
+          "guid": "f981eba4-4aac-45ce-8c52-f0bc02c9a0dc"
         }
       ],
-      "body_md": "### E-12: Union branch evaluates empty despite correct data\n\n- **Symptom**: CMS104's `\"Reason For Not Giving Antithrombotic At Discharge\"` second union branch\n  (`MedicationRequest`-with-`TaskRejected` pattern) evaluates empty even when every referenced field\n  (`Task` status, `MedicationRequest`, valueset membership, `reasonCode`) is individually confirmed\n  correct.\n- **Confirmed affected**: CMS104 (fixture `5adc911a-...`, description \"task rejected-patient\n  refusal\"). Trace dump shows `Reason For Not Giving Antithrombotic At Discharge=[]`.\n- **Workaround**: **None.** Needs a translator/ELM-level trace to diagnose further. Distinct from\n  (not yet confirmed to be an instance of) any other issue on this list.\n- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-08)**: 8 CMS108 test cases carry a\n  `MedicationRequest`-with-`TaskRejected` rejection arm (`\"No VTE Prophylaxis Medication Administered\n  Or Ordered\"` in `CMS108FHIRVTEProphylaxis.cql`, lines 343-358) that evaluates empty despite fully\n  correct data — same signature as CMS104 `5adc911a`. Cases: `182103c1`, `2eff6dbd`, `3c854f27`,\n  `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452` (all `Numerator 1→0`). Data verified\n  correct: MedicationRequest profile/status/intent/doNotPerform, medication code (e.g. RxNorm\n  `1232086` = rivaroxaban 20 MG in the \"Rivaroxaban for VTE Prophylaxis\" valueset\n  `2.16.840.1.113762.1.4.1110.50`), Task profile `us-quality-core-taskrejected` matches the\n  `TaskRejected` modelinfo class identifier, `focus` resolves to the MedicationRequest, and\n  `T.code ~ \"Fulfill\"` holds. The retrieve + join still returns `[]`. **Previously mis-labeled E-17**\n  (the positive profile-retrieve gap); reclassified to E-12 2026-09-08 and removed from E-17's\n  affected-test-cases. CMS190 uses the same `[TaskRejected]` join (lines 323, 355) — sweep pending.\n"
+      "body_md": "### E-12: Union branch evaluates empty despite correct data\n\n- **Symptom**: CMS104's `\"Reason For Not Giving Antithrombotic At Discharge\"` second union branch\n  (`MedicationRequest`-with-`TaskRejected` pattern) evaluates empty even when every referenced field\n  (`Task` status, `MedicationRequest`, valueset membership, `reasonCode`) is individually confirmed\n  correct.\n- **Confirmed affected**: CMS104 (fixture `5adc911a-...`, description \"task rejected-patient\n  refusal\"). Trace dump shows `Reason For Not Giving Antithrombotic At Discharge=[]`.\n- **Workaround**: **None.** Needs a translator/ELM-level trace to diagnose further. Distinct from\n  (not yet confirmed to be an instance of) any other issue on this list.\n- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-08)**: 8 CMS108 test cases carry a\n  `MedicationRequest`-with-`TaskRejected` rejection arm (`\"No VTE Prophylaxis Medication Administered\n  Or Ordered\"` in `CMS108FHIRVTEProphylaxis.cql`, lines 343-358) that evaluates empty despite fully\n  correct data — same signature as CMS104 `5adc911a`. Cases: `182103c1`, `2eff6dbd`, `3c854f27`,\n  `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452` (all `Numerator 1→0`). Data verified\n  correct: MedicationRequest profile/status/intent/doNotPerform, medication code (e.g. RxNorm\n  `1232086` = rivaroxaban 20 MG in the \"Rivaroxaban for VTE Prophylaxis\" valueset\n  `2.16.840.1.113762.1.4.1110.50`), Task profile `us-quality-core-taskrejected` matches the\n  `TaskRejected` modelinfo class identifier, `focus` resolves to the MedicationRequest, and\n  `T.code ~ \"Fulfill\"` holds. The retrieve + join still returns `[]`. **Previously mis-labeled E-17**\n  (the positive profile-retrieve gap); reclassified to E-12 2026-09-08 and removed from E-17's\n  affected-test-cases.\n- **Corroboration - CMS190 (2026-09-09)**: 8 CMS190 cases use the same `[TaskRejected]` join\n  (`\"No VTE Prophylaxis Medication Administered Or Ordered\"` line ~317 and\n  `\"No Mechanical VTE Prophylaxis Performed Or Ordered\"` line ~351) and were reclassified from E-17\n  (the 2026-09-04 sweep had attributed them to the profile-retrieve gap). MedicationRequest+TaskRejected:\n  `282ae3a0`, `2bcbe960`, `98d6da30`, `a30e5588`, `dbfc823e`; ServiceRequest+TaskRejected:\n  `4724cb2f`, `8ec9cf6a`, `f981eba4`. `e8931859` was initially suspected but has **no Task** — its\n  arm is `ProcedureNotDone` negation, tracked on M-04 (resolved); `a82cd0c1` (DenEx 0→1, no Task)\n  stays E-17.\n- **Re-confirmed under LS v5.3 (2026-09-09)**: all 16 cases (8 CMS108 + 8 CMS190) still fail\n  (`Numerator 1→0`) after the CQL engine upgrade; the `TaskRejected`-join-empty defect is\n  unaffected. Remains **open**, no workaround.\n"
     },
     {
       "id": "E-13",
@@ -4533,10 +4566,6 @@
       "affected_test_cases": [
         {
           "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "068814f1-4270-4e10-b470-9a5433bceb3e"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
           "guid": "33d162ce-3bc7-4b0a-8c04-fec0a42a6263"
         },
         {
@@ -4549,15 +4578,7 @@
         },
         {
           "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "541ccffb-c1be-4c94-ab24-168d52e3a36b"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
           "guid": "5741c41a-04ec-4967-83b2-b0d746bd0ed5"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "575f2da0-c890-47a3-b17f-f9e134a1096e"
         },
         {
           "measure": "CMS108FHIRVTEProphylaxis",
@@ -4565,27 +4586,7 @@
         },
         {
           "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "8e2cfc29-0925-45b9-857f-b9ee9b9fa248"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "b0932ba4-4dfc-43ad-aa67-fbaee9638d3b"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "b7783b8c-ba46-4509-a75e-203659abab3d"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "ccd7f9d7-35e8-4623-9f2e-f229cf7d829c"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
           "guid": "d9b7ffa9-ed78-484c-8880-b4cbf2b4b6a1"
-        },
-        {
-          "measure": "CMS108FHIRVTEProphylaxis",
-          "guid": "dba7c9af-eb6f-4836-ba24-650a5acc87e7"
         },
         {
           "measure": "CMS108FHIRVTEProphylaxis",
@@ -4597,102 +4598,14 @@
         },
         {
           "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "208cb0f9-a6e9-4207-b6a4-3325fb463099"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "282ae3a0-a4fd-4fed-8ce9-bff3840c7ca9"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "2bcbe960-db7d-4088-a574-d771baf0f9c7"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "39215b49-af59-45a7-a773-65e8353dfafd"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "4724cb2f-b5bd-4c50-85cc-4a5ba25f04ca"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "4c32b73b-abba-431b-a352-f0f454e7c9dd"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "4fc421c7-e490-4d4e-a326-53d08635efb9"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "632831b0-1ebf-47b5-b439-3a124cd77c37"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "7e7f4563-a628-40ab-990b-ca0837313759"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "8ec9cf6a-2dcd-4c2e-9e2e-1ba237b66808"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "95a54d01-197e-48ef-bb48-d3d398aecbe8"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "98d6da30-f55a-411d-94b4-359b204bcb5a"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "9ddea16c-55d3-4dda-a1d8-a256fbff0b64"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "a30e5588-0e2a-487c-b4d3-15d9e0006741"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
           "guid": "a82cd0c1-900e-4ab3-a498-840ac1608486"
         },
         {
           "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "a9c75661-be1c-41b2-aa15-222cc7d2ca81"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "c0481b47-738b-4a09-8901-915ece2beb7e"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "dbfc823e-0e2f-409d-a409-2d9399db1118"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "e8931859-4ad8-49c8-9cdd-8697293456a2"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "f00f3778-6ad1-466d-a3bd-bcbc63d62b55"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
           "guid": "f035a977-30d0-487c-b542-a596e718420c"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "f82746cf-f6cd-4fcc-bc9e-7e569ae26211"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "f859dd94-f201-4517-a368-32b98dd486c9"
-        },
-        {
-          "measure": "CMS190FHIRVTEProphylaxisICU",
-          "guid": "f981eba4-4aac-45ce-8c52-f0bc02c9a0dc"
         }
       ],
-      "body_md": "### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)\n\n- **Symptom**: the HOOS/HOOSJr/PROMIS10/VR12 Numerator assessment defines evaluate to `[]` even when\n  the fixture carries all required `ObservationScreeningAssessment` resources with the correct\n  profile (`us-quality-core-observation-screening-assessment`), codes, effective dates, and non-null\n  values. Exposed by the CMS56 E-13 fix (1228 report): 10 `Numerator 1→0` mismatches, all flowing\n  through the five `Date {HOOS,HOOSJr,PROMIS10,VR12 Oblique,VR12 Orthogonal} Total Assessment\n  Completed` defines.\n- **Evidence**: `TestCaseResult-c19b82ba-...json` shows `Date HOOS Total Assessment Completed` = `[]`\n  for every one of the 58 CMS56 cases, including c19b82ba whose fixture has all 5 HOOS subscale\n  observations (72093-8, 72094-6, 72095-3, 72096-1, 72097-9) on both 2024-11-01 (initial, same day as\n  the THA) and 2025-08-28 (follow-up) with `status final`, category `survey`, and `valueInteger: 60`.\n  The CQL chains `[ObservationScreeningAssessment: <code>].isAssessmentPerformed()` — this is a\n  `us-quality-core-observation-screening-assessment` profile-retrieve / `isAssessmentPerformed()` gap,\n  not a fixture problem (fixtures match the measure intent, expected Numerator = 1).\n- **Confirmed affected**: CMS56 (10 of 18 mismatches); **CMS131 (6 of 24 mismatches — corroboration\n  via the 0007 report, 2026-08-31)**. The CMS131 DenExcl cases extend the same proof for the\n  observation-assessment analogue of the class-B joins: `45755-6` \"Hospice care [Minimum Data Set]\"\n  (f77b9abc → Hospice), `71007-9` FACIT-Pal ×2 (a6cd48c6, e9b9b388 → PalliativeCare), `98181-1`\n  \"Medical equipment used\" (61dfb0bd → Frailty Equipment), `71802-3` \"Housing status\" (f0b61b7a →\n  LTCF nursing home), and `R26.89` \"Frailty Symptom\" (f45a1cb0 → `SimpleObservation.isSymptom()`\n  analogue) all evaluate `[]`/absent so their excludes don't fire. This is the same profile-retrieve\n  family as the `[USCore.BMIProfile]` → `[]` / `[USCore.ObservationPregnancyStatusProfile]` gaps\n  catalogued under\n  class B (see E-13 block and \"Class B catalog\"); `ObservationScreeningAssessment` is the\n  observation-assessment analogue. Other measures using `isAssessmentPerformed()` over a screening-\n  assessment profile are candidates to sweep after the CMS56 numerator path is characterized.\n- **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /\n  `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation\n  probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.\n- **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007\n  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The\n  E-13 objective for both measures (MR → 0) is met.\n- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-04)**: 48 failing cases / 49 cells (CMS108: 24/24; CMS190: 24/25). Pattern:\n  * **Numerator 1->0** (44 cases: 22 CMS108 + 22 CMS190): VTE prophylaxis Numerator retrieves `[MedicationAdministration: ...]` / `[Procedure: ...]` / `[MedicationRequest: ...]` / `[ServiceRequest: ...]` against `us-quality-core-medicationadministration` / `...-procedure` / `...-medicationrequest` / `...-servicerequest` profiles. CMS engine fails to enumerate any of these on USQC-profiled resources with valid status + code (e.g. `33d162ce`: positive MedAdmin `...medicationadministration`, `status=completed`, QI-Core=1, CMS=0); same profile-retrieve gap as CMS56/CMS131, just on a wider `us-quality-core-*` profile set.\n  * **Denominator Exclusion 0->1 or 1->0** (CMS108: 2 cases; CMS190: 1 case): DenEx logical-union retrieves (`[Procedure: ...]`, `[MedicationRequest: ...]` -> `TaskRejected` join) misfire on USQC profiles - either adding or removing the exception arm.\n  * **Initial Population / Denominator 0->1** (CMS190 `39215b49` only): a fixture carrying `Condition-85297158` (code O99.340 VTE-in-pregnancy, clinicalStatus null) profiled `us-quality-core-condition-encounter-diagnosis` is added by the CMS engine to IP/Denominator while the FI QI-Core baseline does not. Same family: `us-quality-core-condition-*` profile retrieve returns wrong result.\n  All 48 cases verify **CMS-engine=0, QI-Core=1** (or equivalent for IP/Den, DenEx); the **profile-retrieve** is the engine issue, not a per-resource data issue. Same root cause as CMS56/CMS131 - tracked on E-17, applied to **all** `us-quality-core-*` profile retrieves.\n- **Reclassified 2026-09-08**: the 8 CMS108 `MedicationRequest`-with-`TaskRejected` rejection cases\n  (`182103c1`, `2eff6dbd`, `3c854f27`, `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452`)\n  were mis-attributed to E-17 as part of this broad corroboration sweep. Their true mechanism is the\n  E-12 `TaskRejected`-join-empty defect, not a profile retrieve (data/profile verified correct).\n  Removed from E-17's affected-test-cases; tracked on E-12.\n"
+      "body_md": "### E-17: `ObservationScreeningAssessment` retrieve returns empty despite qualifying observations (CMS56 Numerator assessments / CMS131 DenExcl)\n\n- **Symptom**: the HOOS/HOOSJr/PROMIS10/VR12 Numerator assessment defines evaluate to `[]` even when\n  the fixture carries all required `ObservationScreeningAssessment` resources with the correct\n  profile (`us-quality-core-observation-screening-assessment`), codes, effective dates, and non-null\n  values. Exposed by the CMS56 E-13 fix (1228 report): 10 `Numerator 1→0` mismatches, all flowing\n  through the five `Date {HOOS,HOOSJr,PROMIS10,VR12 Oblique,VR12 Orthogonal} Total Assessment\n  Completed` defines.\n- **Evidence**: `TestCaseResult-c19b82ba-...json` shows `Date HOOS Total Assessment Completed` = `[]`\n  for every one of the 58 CMS56 cases, including c19b82ba whose fixture has all 5 HOOS subscale\n  observations (72093-8, 72094-6, 72095-3, 72096-1, 72097-9) on both 2024-11-01 (initial, same day as\n  the THA) and 2025-08-28 (follow-up) with `status final`, category `survey`, and `valueInteger: 60`.\n  The CQL chains `[ObservationScreeningAssessment: <code>].isAssessmentPerformed()` — this is a\n  `us-quality-core-observation-screening-assessment` profile-retrieve / `isAssessmentPerformed()` gap,\n  not a fixture problem (fixtures match the measure intent, expected Numerator = 1).\n- **Confirmed affected**: CMS56 (10 of 18 mismatches); **CMS131 (6 of 24 mismatches — corroboration\n  via the 0007 report, 2026-08-31)**. The CMS131 DenExcl cases extend the same proof for the\n  observation-assessment analogue of the class-B joins: `45755-6` \"Hospice care [Minimum Data Set]\"\n  (f77b9abc → Hospice), `71007-9` FACIT-Pal ×2 (a6cd48c6, e9b9b388 → PalliativeCare), `98181-1`\n  \"Medical equipment used\" (61dfb0bd → Frailty Equipment), `71802-3` \"Housing status\" (f0b61b7a →\n  LTCF nursing home), and `R26.89` \"Frailty Symptom\" (f45a1cb0 → `SimpleObservation.isSymptom()`\n  analogue) all evaluate `[]`/absent so their excludes don't fire. This is the same profile-retrieve\n  family as the `[USCore.BMIProfile]` → `[]` / `[USCore.ObservationPregnancyStatusProfile]` gaps\n  catalogued under\n  class B (see E-13 block and \"Class B catalog\"); `ObservationScreeningAssessment` is the\n  observation-assessment analogue. Other measures using `isAssessmentPerformed()` over a screening-\n  assessment profile are candidates to sweep after the CMS56 numerator path is characterized.\n- **Workaround**: none shipped. Under investigation — likely an engine profile-retrieve /\n  `isAssessmentPerformed()` status-filter discrepancy on the new engine; a `testE15`-style isolation\n  probe over a single `ObservationScreeningAssessment` fixture would confirm engine-vs-CQL attribution.\n- **Status**: **Confirmed** (2026-08-30, CMS56 1228 report; CMS131 corroborated 2026-08-31, 0007\n  report). For CMS56 blocks the numerator (10 cases); for CMS131 blocks 6 DenExcl cases (of 24). The\n  E-13 objective for both measures (MR → 0) is met.\n- **Corroboration - CMS108/CMS190 VTE Prophylaxis (2026-09-04)**: 48 failing cases / 49 cells (CMS108: 24/24; CMS190: 24/25). Pattern:\n  * **Numerator 1->0** (44 cases: 22 CMS108 + 22 CMS190): VTE prophylaxis Numerator retrieves `[MedicationAdministration: ...]` / `[Procedure: ...]` / `[MedicationRequest: ...]` / `[ServiceRequest: ...]` against `us-quality-core-medicationadministration` / `...-procedure` / `...-medicationrequest` / `...-servicerequest` profiles. CMS engine fails to enumerate any of these on USQC-profiled resources with valid status + code (e.g. `33d162ce`: positive MedAdmin `...medicationadministration`, `status=completed`, QI-Core=1, CMS=0); same profile-retrieve gap as CMS56/CMS131, just on a wider `us-quality-core-*` profile set.\n  * **Denominator Exclusion 0->1 or 1->0** (CMS108: 2 cases; CMS190: 1 case): DenEx logical-union retrieves (`[Procedure: ...]`, `[MedicationRequest: ...]` -> `TaskRejected` join) misfire on USQC profiles - either adding or removing the exception arm.\n  * **Initial Population / Denominator 0->1** (CMS190 `39215b49` only): a fixture carrying `Condition-85297158` (code O99.340 VTE-in-pregnancy, clinicalStatus null) profiled `us-quality-core-condition-encounter-diagnosis` is added by the CMS engine to IP/Denominator while the FI QI-Core baseline does not. Same family: `us-quality-core-condition-*` profile retrieve returns wrong result.\n  All 48 cases verify **CMS-engine=0, QI-Core=1** (or equivalent for IP/Den, DenEx); the **profile-retrieve** is the engine issue, not a per-resource data issue. Same root cause as CMS56/CMS131 - tracked on E-17, applied to **all** `us-quality-core-*` profile retrieves.\n- **Reclassified 2026-09-08**: the 8 CMS108 `MedicationRequest`-with-`TaskRejected` rejection cases\n  (`182103c1`, `2eff6dbd`, `3c854f27`, `525e73f2`, `5f739500`, `91ff5f1a`, `d205878e`, `ff814452`)\n  were mis-attributed to E-17 as part of this broad corroboration sweep. Their true mechanism is the\n  E-12 `TaskRejected`-join-empty defect, not a profile retrieve (data/profile verified correct).\n  Removed from E-17's affected-test-cases; tracked on E-12.\n- **Reclassified 2026-09-09 (CMS190 deep trace)**: the 2026-09-04 sweep over-claimed for CMS108/CMS190.\n  Re-attribution against the current run `cases.csv`:\n  * **13 CMS190 cases were not engine profile retrieves at all** — they are the CQL negation\n    `authoredOn` content bug (M-04): 9 `MedicationAdministrationNotDone` with a start-only\n    `effectivePeriod` (`authoredOn: NoMedicationAdm.effective` — `during day of` is null on an\n    open-ended Period) and 4 `ProcedureNotDone` device arms (`authoredOn: DeviceNotApplied.performed`).\n    `208cb0f9`, `4fc421c7`, `7e7f4563`, `95a54d01`, `9ddea16c`, `c0481b47`, `f00f3778`, `f82746cf`,\n    `f859dd94`, `4c32b73b`, `632831b0`, `a9c75661`, `e8931859`. Moved to M-04; CMS190 CQL now ports\n    the CMS108 `recorded()` / `.ext()` fix.\n  * **8 CMS190 cases are the E-12 `TaskRejected`-join-empty engine defect** (`282ae3a0`, `2bcbe960`,\n    `98d6da30`, `a30e5588`, `dbfc823e`, `4724cb2f`, `8ec9cf6a`, `f981eba4`; `MedicationRequest`+`TaskRejected`\n    and `ServiceRequest`+`TaskRejected` arms). Moved to E-12.\n  * **CMS190 E-17 is now 2 cases**: `f035a977` (INR lab `34714-6` `...-observation-lab` + completed\n    Procedure numerator 1->0) and `a82cd0c1` (DenEx 0->1 via Comfort-Measures `ServiceRequest`,\n    no Task). Both remain genuine `us-quality-core-*` retrieve discrepancies.\n  * **CMS108 E-17 is now the 8 currently-failing cases** (`33d162ce`, `d9b7ffa9`, `dd5a1e46` =\n    completed `MedicationAdministration`; `3db5c5a1`, `5741c41a`, `8bb999a1`, `dc0dcb01` = INR\n    Observation; `41f2785f` = DenEx `ServiceRequest`). The other 8 CMS108 rows from the sweep now\n    PASS (the negation fix `recorded()`/`.ext()` resolved them) and were removed as stale.\n  * `39215b49` (IP/Den) removed as stale — currently passes.\n- **Re-confirmed under LS v5.3 (2026-09-09)**: the remaining 10 cases (`8bb999a1`, `33d162ce`,\n  `3db5c5a1`, `41f2785f`, `5741c41a`, `d9b7ffa9`, `dc0dcb01`, `dd5a1e46` CMS108; `a82cd0c1`,\n  `f035a977` CMS190) still fail after upgrading the CQL engine to v5.3 (passing 3585→3598 was\n  solely the M-04 negation fix; E-17 failures unchanged). The profile-retrieve gap is upstream and\n  independent of the engine version bump.\n"
     },
     {
       "id": "E-18",
@@ -6099,10 +6012,10 @@
       "id": "M-04",
       "title": "Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity",
       "category": "migration",
-      "status": "Partial — `.ext()` applied for CMS108 only (CMS68/CMS996/CMS190 unmerged; see E-03)",
-      "defect_status": "workaround-applied",
+      "status": "Resolved — `.recorded()`/`.ext()` applied for CMS108 and CMS190 and verified (CMS68/CMS996 still carry the old field; see E-03)",
+      "defect_status": "resolved-with-workaround",
       "root_cause_status": "open",
-      "workaround": "`.ext()` bypass",
+      "workaround": "`.recorded()` / `.ext()` bypass",
       "references": {},
       "affected_measures": [
         "CMS190",
@@ -6111,7 +6024,7 @@
         "CMS68"
       ],
       "affected_test_cases": [],
-      "body_md": "### M-04: Field swapped to `.effective`/`.performed`\n\n- **Symptom**: fields were swapped from `.recorded` to `.effective`/`.performed` during\n  migration specifically to dodge a translator ambiguity — wrong field, chosen to avoid\n  a crash.\n- **Resolution**: the `.ext()` bypass (engine E-03 ambiguity remains upstream) is **applied for\n  CMS108** on `defect-tracking` (2026-09-08, per E-03). The CMS68 / CMS996 / CMS190 `.ext()` fixes\n  remain on the feature branch — **unmerged** into `defect-tracking` as of 2026-09-08 (see E-03\n  \"Branch status\"; CMS68 tracked live under E-22).\n- **Category**: migration regression (interacts with engine E-03).\n"
+      "body_md": "### M-04: Field swapped to `.effective`/`.performed`\n\n- **Symptom**: fields were swapped from `.recorded` to `.effective`/`.performed` during\n  migration specifically to dodge a translator ambiguity — wrong field, chosen to avoid\n  a crash.\n- **Resolution**: the `.ext()` bypass (engine E-03 ambiguity remains upstream) is **applied for\n  CMS108** on `defect-tracking` (2026-09-08, per E-03). The CMS68 / CMS996 / CMS190 `.ext()` fixes\n  remain on the feature branch — **unmerged** into `defect-tracking` as of 2026-09-08 (see E-03\n  \"Branch status\"; CMS68 tracked live under E-22).\n- **Category**: migration regression (interacts with engine E-03).\n- **CMS190 applied 2026-09-09 (ported from CMS108)**: not-done negation resources in\n  `CMS190FHIRVTEProphylaxisICU.cql` carry a start-only `effectivePeriod` (or null `performed`),\n  so comparing `authoredOn` on the negation `Period` in `X during day of Y` evaluates null and\n  drops the case from the Numerator. Ported the CMS108 source-level fixes:\n  * line ~301 `authoredOn: NoMedicationAdm.effective` → `authoredOn: NoMedicationAdm.recorded()`;\n  * device arm (~line 373) `DeviceNotApplied.performed` → the `us-quality-core-recorded` extension\n    value via `.ext('.../us-quality-core-recorded').value as FHIR.dateTime`.\n  All 13 CMS190 negation fixtures carry `us-quality-core-recorded`. 13 CMS190 cases previously\n  mis-attributed to engine E-17 (2026-09-04 sweep) were reclassified 2026-09-09 to M-04:\n  `208cb0f9`, `4fc421c7`, `7e7f4563`, `95a54d01`, `9ddea16c`, `c0481b47`, `f00f3778`, `f82746cf`,\n  `f859dd94` (medication), `4c32b73b`, `632831b0`, `a9c75661`, `e8931859` (device).\n  Engine re-run pending (VS Code) to confirm the Numerator flip 0→1.\n- **Verified 2026-09-09 (engine re-run)**: re-ran the measure from VS Code (CQL engine LS v5.3) and\n  regenerated reports. All 13 CMS190 negation cases flip to Numerator **1** — `passing 3585→3598`,\n  `failing 379→366`, 0 unattributed. The fix is CQL content (source-level `recorded()` / `.ext()`),\n  independent of the engine version. The 13 M-04 rows were removed from `cases.csv` as no longer\n  failing; the issue is tracked as resolved. The E-03 translator ambiguity that motivated the\n  original field swap remains open upstream.\n"
     },
     {
       "id": "M-05",

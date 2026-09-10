@@ -2,9 +2,9 @@
 
 # Improvement Tracking
 
-- Generated: 2026-09-08T16:29:47
+- Generated: 2026-09-09T23:29:14
 - Source: `scripts/comparison/run-history.jsonl` (append-only, one line per full-suite run)
-- Runs recorded: 6
+- Runs recorded: 10
 
 _This file is regenerated from the run-history log; do not hand-edit. Identical numbers across adjacent rows mean a rerun of the same data, not a claim about a plateau._
 
@@ -16,18 +16,22 @@ _This file is regenerated from the run-history log; do not hand-edit. Identical 
 | 4 | 2026-09-08T15:14:27.439267 | 3964 | 3585 | 379 | 379 | 0 | 683 | 0 | 0 |
 | 5 | 2026-09-08T15:16:53.811912 | 3964 | 3585 | 379 | 379 | 0 | 683 | 0 | 0 |
 | 6 | 2026-09-08T16:29:46.651815 | 3964 | 3585 | 379 | 379 | 0 | 683 | 0 | 0 |
+| 7 | 2026-09-08T19:09:13.732877 | 3964 | 3585 | 379 | 379 | 0 | 683 | 0 | 0 |
+| 8 | 2026-09-09T23:00:15.526381 | 3964 | 3585 | 379 | 379 | 0 | 674 | 0 | 0 |
+| 9 | 2026-09-09T23:24:52.881327 | 3964 | 3598 | 366 | 366 | 0 | 687 | 0 | 0 |
+| 10 | 2026-09-09T23:29:13.465216 | 3964 | 3598 | 366 | 366 | 0 | 674 | 0 | 0 |
 
 ## Since the first recorded run
 
 | Metric | First run | Latest run | Delta |
 |--------|----------:|-----------:|------:|
 | Total | 3964 | 3964 | 0 |
-| Passing | 3585 | 3585 | 0 |
-| Failing | 379 | 379 | 0 |
-| Attributed | 379 | 379 | 0 |
+| Passing | 3585 | 3598 | +13 |
+| Failing | 379 | 366 | -13 |
+| Attributed | 379 | 366 | -13 |
 | Unattributed | 0 | 0 | 0 |
-| Stale attributions | 683 | 683 | 0 |
+| Stale attributions | 683 | 674 | -9 |
 | Phantom attributions | 0 | 0 | 0 |
 | Unscored | 0 | 0 | 0 |
 
-_Latest run: 2026-09-08T16:29:46.651815._
+_Latest run: 2026-09-09T23:29:13.465216._

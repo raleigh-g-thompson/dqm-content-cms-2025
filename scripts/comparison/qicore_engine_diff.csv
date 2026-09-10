@@ -814,36 +814,23 @@ CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Deno
 CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,002fcec4-89ed-42be-a7b7-41fa0acddf8c,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,0d48b3b3-c5f0-4955-810d-eb4f1b8714ca,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,208cb0f9-a6e9-4207-b6a4-3325fb463099,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,24068f4d-3179-4f2f-872e-02e3b362cac0,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,25265601-4e27-4fe0-8d35-68ebac8f9894,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,298f3f92-5047-46fc-ad92-9f27887ffc55,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,2e1ee160-9c41-4c6f-b368-56c074cfb592,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,324eb2e7-2beb-4c84-88ff-bdf9fa5d8171,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,4c32b73b-abba-431b-a352-f0f454e7c9dd,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,4d76c150-b6a5-4a1a-8801-81c24ce398b7,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,4fc421c7-e490-4d4e-a326-53d08635efb9,Group_1:Numerator,0,1,mismatch
-CMS190FHIRVTEProphylaxisICU,632831b0-1ebf-47b5-b439-3a124cd77c37,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,67df96df-45ff-4387-bc4d-04055a95483f,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,7e7f4563-a628-40ab-990b-ca0837313759,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,8de031c4-05db-42db-b0e5-902696c6e495,Group_1:Denominator Exclusion,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,95a54d01-197e-48ef-bb48-d3d398aecbe8,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,99fbf673-e18e-43db-bccf-6edc67fcb13f,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,9ddea16c-55d3-4dda-a1d8-a256fbff0b64,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,a2563ca7-fda7-4cfd-a5cf-a688225749e2,Group_1:Numerator,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,a82cd0c1-900e-4ab3-a498-840ac1608486,Group_1:Denominator Exclusion,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,a9c75661-be1c-41b2-aa15-222cc7d2ca81,Group_1:Numerator,0,1,mismatch
-CMS190FHIRVTEProphylaxisICU,c0481b47-738b-4a09-8901-915ece2beb7e,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,d5d8e66a-01da-462b-95b6-e47b16285b1f,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,d665c40d-2323-471f-9642-983472d2be7b,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,d70dcaf9-4e69-4395-9612-ee1e156f6184,Group_1:Numerator,2,1,mismatch
-CMS190FHIRVTEProphylaxisICU,e8931859-4ad8-49c8-9cdd-8697293456a2,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,efad4991-4382-4ceb-8bc4-32e8ac088e47,Group_1:Numerator,1,0,mismatch
-CMS190FHIRVTEProphylaxisICU,f00f3778-6ad1-466d-a3bd-bcbc63d62b55,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,f028ed8f-f83b-4c77-bb08-2c4df7694a12,Group_1:Denominator Exclusion,1,0,mismatch
 CMS190FHIRVTEProphylaxisICU,f035a977-30d0-487c-b542-a596e718420c,Group_1:Numerator,0,1,mismatch
-CMS190FHIRVTEProphylaxisICU,f82746cf-f6cd-4fcc-bc9e-7e569ae26211,Group_1:Numerator,0,1,mismatch
-CMS190FHIRVTEProphylaxisICU,f859dd94-f201-4517-a368-32b98dd486c9,Group_1:Numerator,0,1,mismatch
 CMS190FHIRVTEProphylaxisICU,f8f09c1f-37fc-4088-a39d-710971b626b7,Group_1:Denominator Exclusion,1,0,mismatch
 CMS22FHIRPCSBPScreeningFollowUp,0278fdf0-f067-46e8-aeb1-fb96dff3c947,Group_1:Denominator Exception,0,1,mismatch
 CMS22FHIRPCSBPScreeningFollowUp,1f16120b-56c9-4d72-8dd4-01d8a0175d77,Group_1:Denominator Exception,0,1,mismatch

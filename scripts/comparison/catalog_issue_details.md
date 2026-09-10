@@ -1,6 +1,6 @@
 # Known-Catalog Issue Details
 
-- Generated: 2026-09-08T16:29:46
+- Generated: 2026-09-09T23:29:13
 - Catalog: `scripts/comparison/known_issues.json`
 - Catalog size: 57 issues (38 pending, 19 resolved)
 - Issues rendered: 38
@@ -998,10 +998,10 @@ _Full enumeration (5 case(s)): `scripts/comparison/known_issues.json` under the 
 - **Category**: engine
 - **Status**: **Confirmed**
 - **Defect status**: confirmed
-- **Affected measures**: CMS104, CMS108FHIRVTEProphylaxis
-- **Cited in discrepancy_report.md**: 8
+- **Affected measures**: CMS104, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU
+- **Cited in discrepancy_report.md**: 16
 
-### Affected test cases (first 5 of 8)
+### Affected test cases (first 5 of 16)
 
 - `CMS108FHIRVTEProphylaxis` / `182103c1-0a38-4d85-819c-148e4e105716`
 - `CMS108FHIRVTEProphylaxis` / `2eff6dbd-f3a2-43ee-9ad3-aab4d3b84812`
@@ -1009,7 +1009,7 @@ _Full enumeration (5 case(s)): `scripts/comparison/known_issues.json` under the 
 - `CMS108FHIRVTEProphylaxis` / `525e73f2-77be-49b1-920f-6fc31ef38d22`
 - `CMS108FHIRVTEProphylaxis` / `5f739500-ee12-4662-8980-ef95d8fa74c8`
 
-_Full enumeration (8 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
+_Full enumeration (16 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
 
 ### Body
 
@@ -1034,7 +1034,18 @@ _Full enumeration (8 case(s)): `scripts/comparison/known_issues.json` under the 
   `TaskRejected` modelinfo class identifier, `focus` resolves to the MedicationRequest, and
   `T.code ~ "Fulfill"` holds. The retrieve + join still returns `[]`. **Previously mis-labeled E-17**
   (the positive profile-retrieve gap); reclassified to E-12 2026-09-08 and removed from E-17's
-  affected-test-cases. CMS190 uses the same `[TaskRejected]` join (lines 323, 355) — sweep pending.
+  affected-test-cases.
+- **Corroboration - CMS190 (2026-09-09)**: 8 CMS190 cases use the same `[TaskRejected]` join
+  (`"No VTE Prophylaxis Medication Administered Or Ordered"` line ~317 and
+  `"No Mechanical VTE Prophylaxis Performed Or Ordered"` line ~351) and were reclassified from E-17
+  (the 2026-09-04 sweep had attributed them to the profile-retrieve gap). MedicationRequest+TaskRejected:
+  `282ae3a0`, `2bcbe960`, `98d6da30`, `a30e5588`, `dbfc823e`; ServiceRequest+TaskRejected:
+  `4724cb2f`, `8ec9cf6a`, `f981eba4`. `e8931859` was initially suspected but has **no Task** — its
+  arm is `ProcedureNotDone` negation, tracked on M-04 (resolved); `a82cd0c1` (DenEx 0→1, no Task)
+  stays E-17.
+- **Re-confirmed under LS v5.3 (2026-09-09)**: all 16 cases (8 CMS108 + 8 CMS190) still fail
+  (`Numerator 1→0`) after the CQL engine upgrade; the `TaskRejected`-join-empty defect is
+  unaffected. Remains **open**, no workaround.
 
 ### Workaround
 
@@ -1262,17 +1273,17 @@ _Full enumeration (2 case(s)): `scripts/comparison/known_issues.json` under the 
 - **Status**: **Confirmed**
 - **Defect status**: confirmed
 - **Affected measures**: CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU
-- **Cited in discrepancy_report.md**: 31
+- **Cited in discrepancy_report.md**: 10
 
-### Affected test cases (first 5 of 40)
+### Affected test cases (first 5 of 10)
 
-- `CMS108FHIRVTEProphylaxis` / `068814f1-4270-4e10-b470-9a5433bceb3e`
 - `CMS108FHIRVTEProphylaxis` / `33d162ce-3bc7-4b0a-8c04-fec0a42a6263`
 - `CMS108FHIRVTEProphylaxis` / `3db5c5a1-2eec-4e01-8e59-ac389a0a2179`
 - `CMS108FHIRVTEProphylaxis` / `41f2785f-4c4f-4497-a46b-e17fd8b5ee3f`
-- `CMS108FHIRVTEProphylaxis` / `541ccffb-c1be-4c94-ab24-168d52e3a36b`
+- `CMS108FHIRVTEProphylaxis` / `5741c41a-04ec-4967-83b2-b0d746bd0ed5`
+- `CMS108FHIRVTEProphylaxis` / `8bb999a1-696a-497b-a5f4-aa55e146a16e`
 
-_Full enumeration (40 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
+_Full enumeration (10 case(s)): `scripts/comparison/known_issues.json` under the `affected_test_cases` field of this issue._
 
 ### Body
 
@@ -1319,6 +1330,31 @@ _Full enumeration (40 case(s)): `scripts/comparison/known_issues.json` under the
   were mis-attributed to E-17 as part of this broad corroboration sweep. Their true mechanism is the
   E-12 `TaskRejected`-join-empty defect, not a profile retrieve (data/profile verified correct).
   Removed from E-17's affected-test-cases; tracked on E-12.
+- **Reclassified 2026-09-09 (CMS190 deep trace)**: the 2026-09-04 sweep over-claimed for CMS108/CMS190.
+  Re-attribution against the current run `cases.csv`:
+  * **13 CMS190 cases were not engine profile retrieves at all** — they are the CQL negation
+    `authoredOn` content bug (M-04): 9 `MedicationAdministrationNotDone` with a start-only
+    `effectivePeriod` (`authoredOn: NoMedicationAdm.effective` — `during day of` is null on an
+    open-ended Period) and 4 `ProcedureNotDone` device arms (`authoredOn: DeviceNotApplied.performed`).
+    `208cb0f9`, `4fc421c7`, `7e7f4563`, `95a54d01`, `9ddea16c`, `c0481b47`, `f00f3778`, `f82746cf`,
+    `f859dd94`, `4c32b73b`, `632831b0`, `a9c75661`, `e8931859`. Moved to M-04; CMS190 CQL now ports
+    the CMS108 `recorded()` / `.ext()` fix.
+  * **8 CMS190 cases are the E-12 `TaskRejected`-join-empty engine defect** (`282ae3a0`, `2bcbe960`,
+    `98d6da30`, `a30e5588`, `dbfc823e`, `4724cb2f`, `8ec9cf6a`, `f981eba4`; `MedicationRequest`+`TaskRejected`
+    and `ServiceRequest`+`TaskRejected` arms). Moved to E-12.
+  * **CMS190 E-17 is now 2 cases**: `f035a977` (INR lab `34714-6` `...-observation-lab` + completed
+    Procedure numerator 1->0) and `a82cd0c1` (DenEx 0->1 via Comfort-Measures `ServiceRequest`,
+    no Task). Both remain genuine `us-quality-core-*` retrieve discrepancies.
+  * **CMS108 E-17 is now the 8 currently-failing cases** (`33d162ce`, `d9b7ffa9`, `dd5a1e46` =
+    completed `MedicationAdministration`; `3db5c5a1`, `5741c41a`, `8bb999a1`, `dc0dcb01` = INR
+    Observation; `41f2785f` = DenEx `ServiceRequest`). The other 8 CMS108 rows from the sweep now
+    PASS (the negation fix `recorded()`/`.ext()` resolved them) and were removed as stale.
+  * `39215b49` (IP/Den) removed as stale — currently passes.
+- **Re-confirmed under LS v5.3 (2026-09-09)**: the remaining 10 cases (`8bb999a1`, `33d162ce`,
+  `3db5c5a1`, `41f2785f`, `5741c41a`, `d9b7ffa9`, `dc0dcb01`, `dd5a1e46` CMS108; `a82cd0c1`,
+  `f035a977` CMS190) still fail after upgrading the CQL engine to v5.3 (passing 3585→3598 was
+  solely the M-04 negation fix; E-17 failures unchanged). The profile-retrieve gap is upstream and
+  independent of the engine version bump.
 
 ### Workaround
 
@@ -1755,8 +1791,8 @@ Fixture-side enrichment (doseAndRate/timing)
 - **ID**: M-04
 - **Title**: Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity
 - **Category**: migration
-- **Status**: Partial — `.ext()` applied for CMS108 only (CMS68/CMS996/CMS190 unmerged; see E-03)
-- **Defect status**: workaround-applied
+- **Status**: Resolved — `.recorded()`/`.ext()` applied for CMS108 and CMS190 and verified (CMS68/CMS996 still carry the old field; see E-03)
+- **Defect status**: resolved-with-workaround
 - **Affected measures**: CMS190, CMS996, CMS108, CMS68
 
 ### Affected test cases
@@ -1775,10 +1811,28 @@ _None enumerated (0 test cases). This issue is tracked at the measure level only
   remain on the feature branch — **unmerged** into `defect-tracking` as of 2026-09-08 (see E-03
   "Branch status"; CMS68 tracked live under E-22).
 - **Category**: migration regression (interacts with engine E-03).
+- **CMS190 applied 2026-09-09 (ported from CMS108)**: not-done negation resources in
+  `CMS190FHIRVTEProphylaxisICU.cql` carry a start-only `effectivePeriod` (or null `performed`),
+  so comparing `authoredOn` on the negation `Period` in `X during day of Y` evaluates null and
+  drops the case from the Numerator. Ported the CMS108 source-level fixes:
+  * line ~301 `authoredOn: NoMedicationAdm.effective` → `authoredOn: NoMedicationAdm.recorded()`;
+  * device arm (~line 373) `DeviceNotApplied.performed` → the `us-quality-core-recorded` extension
+    value via `.ext('.../us-quality-core-recorded').value as FHIR.dateTime`.
+  All 13 CMS190 negation fixtures carry `us-quality-core-recorded`. 13 CMS190 cases previously
+  mis-attributed to engine E-17 (2026-09-04 sweep) were reclassified 2026-09-09 to M-04:
+  `208cb0f9`, `4fc421c7`, `7e7f4563`, `95a54d01`, `9ddea16c`, `c0481b47`, `f00f3778`, `f82746cf`,
+  `f859dd94` (medication), `4c32b73b`, `632831b0`, `a9c75661`, `e8931859` (device).
+  Engine re-run pending (VS Code) to confirm the Numerator flip 0→1.
+- **Verified 2026-09-09 (engine re-run)**: re-ran the measure from VS Code (CQL engine LS v5.3) and
+  regenerated reports. All 13 CMS190 negation cases flip to Numerator **1** — `passing 3585→3598`,
+  `failing 379→366`, 0 unattributed. The fix is CQL content (source-level `recorded()` / `.ext()`),
+  independent of the engine version. The 13 M-04 rows were removed from `cases.csv` as no longer
+  failing; the issue is tracked as resolved. The E-03 translator ambiguity that motivated the
+  original field swap remains open upstream.
 
 ### Workaround
 
-`.ext()` bypass
+`.recorded()` / `.ext()` bypass
 
 ---
 

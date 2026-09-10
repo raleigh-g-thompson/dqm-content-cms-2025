@@ -345,39 +345,49 @@ def save_results(output_file: str, rows: List[List[str]]):
         writer.writerow(header)
         writer.writerows(rows)
 
-if __name__ == '__main__':
-    VERBOSE=True
-    measure_resource_dir = "./input/resources/measure"
-    output_file = "./scripts/comparison/actual_results.csv"
-    results_dir = "./input/tests/results"
+
+_MEASURE_RESOURCE_DIR = "./input/resources/measure"
+_DEFAULT_OUTPUT = "./scripts/comparison/actual_results.csv"
+_DEFAULT_RESULTS_DIR = "./input/tests/results"
+
+
+def main(argv=None):
+    """Parse argv (or sys.argv) and run the extract.
+
+    Exposed as a function so other scripts (notably ``run_reports.py`` step 0/6)
+    can call into the same logic without re-implementing the wiring or
+    spawning a subprocess.
+    """
+    global VERBOSE
+    VERBOSE = True
 
     parser = argparse.ArgumentParser(description="Extract actual population counts from CQL engine result files.")
-    parser.add_argument("--results-dir", default=results_dir,
-                        help=f"Directory containing result files. Defaults to '{results_dir}'.")
+    parser.add_argument("--results-dir", default=_DEFAULT_RESULTS_DIR,
+                        help=f"Directory containing result files. Defaults to '{_DEFAULT_RESULTS_DIR}'.")
+    parser.add_argument("--output", default=_DEFAULT_OUTPUT,
+                        help=f"Where to write the extracted CSV. Defaults to '{_DEFAULT_OUTPUT}'.")
     format_group = parser.add_mutually_exclusive_group()
     format_group.add_argument("-jr", "--json-results", action="store_true",
                               help="Read JSON test case result files (input/tests/results/<MEASURE NAME>/TestCaseResult-*.json).")
     format_group.add_argument("-txt", "--text-results", action="store_true",
                               help="Read flat text result files (*.txt), either directly in the results directory or in per-measure subdirectories.")
-    args = parser.parse_args()
-
-    results_dir = args.results_dir
+    args = parser.parse_args(argv)
 
     log("Loading Measure Criteria")
-    all_measure_criteria =  load_measure_criteria(measure_resource_dir)
+    all_measure_criteria = load_measure_criteria(_MEASURE_RESOURCE_DIR)
 
     log("Loading Measures")
     if args.json_results:
-        measure_sections = load_json_results(results_dir)
+        measure_sections = load_json_results(args.results_dir)
     elif args.text_results:
-        measure_sections = load_measure_sections(results_dir)
+        measure_sections = load_measure_sections(args.results_dir)
     else:
-        results_format = detect_results_format(results_dir)
-        log(f"No result format flag provided; detected '{results_format}' format in '{results_dir}'.")
+        results_format = detect_results_format(args.results_dir)
+        log(f"No result format flag provided; detected '{results_format}' format in '{args.results_dir}'.")
         if results_format == 'txt':
-            measure_sections = load_measure_sections(results_dir)
+            measure_sections = load_measure_sections(args.results_dir)
         else:
-            measure_sections = load_json_results(results_dir)
+            measure_sections = load_json_results(args.results_dir)
 
     log("Capturing Results")
     results = capture_results(measure_sections, all_measure_criteria)
@@ -386,4 +396,8 @@ if __name__ == '__main__':
     rows = convert_results_to_rows(results)
 
     log("Saving Results")
-    save_results(output_file, rows)
+    save_results(args.output, rows)
+
+
+if __name__ == '__main__':
+    main()
