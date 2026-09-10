@@ -106,6 +106,7 @@ class DetailedReportFixtureTest(unittest.TestCase):
         self.assertNotIn("## Attribution Health", text)
         self.assertNotIn("## Known Issues (resolution-pending)", text)
         self.assertNotIn("## Measures with No Discrepancies", text)
+        self.assertNotIn("## CMS vs QICore Comparison", text)
 
     def test_detailed_report_includes_the_three_sections(self):
         self._render(self.full, detailed=True)
@@ -113,6 +114,54 @@ class DetailedReportFixtureTest(unittest.TestCase):
         self.assertIn("## Attribution Health", text)
         self.assertIn("## Known Issues (resolution-pending)", text)
         self.assertIn("## Measures with No Discrepancies", text)
+
+
+class DetailedReportQICoreTest(unittest.TestCase):
+    """`## CMS vs QICore Comparison` follows the same detailed gate."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.slim = os.path.join(self.tmp, "discrepancy_report.md")
+        self.full = os.path.join(self.tmp, "discrepancy_report-detailed.md")
+
+        expected_csv = os.path.join(self.tmp, "expected.csv")
+        actual_csv = os.path.join(self.tmp, "actual.csv")
+        _write_csv(expected_csv, _PASS_ROWS + _FAIL_ROWS)
+        _write_csv(actual_csv, _PASS_ROWS + [
+            (m, g, p, "0") for m, g, p, _ in _FAIL_ROWS
+        ])
+
+        self.expected = capture_results(expected_csv)
+        self.actual = capture_results(actual_csv)
+        # Mirror CMS groups so the QI-Core side has something to compare against.
+        self.qicore = capture_results(actual_csv)
+
+    def _render(self, path, detailed):
+        return generate_comparison_report(
+            path,
+            self.expected.groups,
+            self.actual.groups,
+            pass_count=3,
+            fail_count=3,
+            issues=[],
+            expected_rows=self.expected.rows,
+            actual_rows=self.actual.rows,
+            engine_diff=None,
+            qicore_rows=self.qicore.rows,
+            qicore_groups=self.qicore.groups,
+            unscored_cells=self.expected.unscored,
+            detailed=detailed,
+        )
+
+    def test_slim_report_omits_cms_vs_qicore_comparison(self):
+        self._render(self.slim, detailed=False)
+        with open(self.slim, encoding="utf-8") as fh:
+            self.assertNotIn("## CMS vs QICore Comparison", fh.read())
+
+    def test_detailed_report_includes_cms_vs_qicore_comparison(self):
+        self._render(self.full, detailed=True)
+        with open(self.full, encoding="utf-8") as fh:
+            self.assertIn("## CMS vs QICore Comparison", fh.read())
 
 
 class DetailedReportMainTest(unittest.TestCase):

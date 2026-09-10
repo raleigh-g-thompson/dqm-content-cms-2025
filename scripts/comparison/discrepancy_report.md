@@ -1,7 +1,7 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-09-10 08:10:14.835495 |
+| Generated | 2026-09-10 08:49:08.047143 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 30 |
@@ -13,78 +13,6 @@
 | QICore Passing Test Cases | 3045 (76.82%) |
 | QICore Failing Test Cases | 919 (23.18%) |
 | QICore Measures with Discrepancies | 35 |
-
-
-
-## Attribution Health
-
-_Every percentage in the summary uses the full 3,964-case denominator. **Unattributed** is the trust metric: 0 means every failing case has a written, case-linked cause._
-
-### Stale attributions (702)
-
-Cases an open issue still claims that now pass. These inflate any known-issues-excluded score; each is a candidate for closing the issue or trimming its case list.
-
-| Issue | Cases now passing |
-| --- | --- |
-| B-01 | 617 |
-| C-12 | 1 |
-| C-14 | 6 |
-| E-12 | 16 |
-| E-21 | 4 |
-| E-23 | 58 |
-
-### Repro-scaffold references (2)
-
-Issues citing a `testE*` repro library. These are excluded from scoring by design, so they never appear as pass or fail -- listed for completeness, not as a problem to fix.
-
-| Issue | Measure |
-| --- | --- |
-| E-11 | testE11MedicationReference |
-| E-18 | testE18DateTimeCompare |
-
-
-## Known Issues (resolution-pending)
-
-| ID | Issue | Category | Status | Affected measures | Tracked test cases |
-|---|------|---------|-------|-----|------|
-| B-01 | QI-Core baseline `qicore-2025-actual-results.csv` (post 2026-09-05 fresh re-run) tracks 670 test cases across 26 measures where the fresh QI-Core engine output disagrees with the fixture MeasureReports' expectations (CMS engine matches; baseline is fresh, not stale, but the disagreements remain) | baseline | **Confirmed (refreshed 2026-09-08)** | CMS0334FHIRPCCesareanBirth, CMS1028FHIRPCSevereOBComps, CMS104FHIRSTKDCAntithrombotic, CMS108FHIRVTEProphylaxis, CMS1173FHIRDiagnosticDelayVTE, CMS1188FHIRHIVSTITesting, CMS1264FHIRECATREHQR, CMS129FHIRProstCaBoneScanUse, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS145FHIRCADBBlockerTPMIorLVSD, CMS149FHIRDementiaCognitiveAssess, CMS190FHIRVTEProphylaxisICU, CMS22FHIRPCSBPScreeningFollowUp, CMS347FHIRStatinPreventionTxCVD, CMS506FHIRSafeUseofOpioids, CMS645FHIRBoneDensityPCADTherapy, CMS646FHIRIntravesicalBCGTherapy, CMS71FHIRSTKAnticoagAFFlutter, CMS72FHIRSTKAntithromboticDay2, CMS771FHIRUrinarySymptomScoreBPH, CMS819FHIRHHORAE, CMS871FHIRHHHyper, CMS996FHIRAptTxforSTEMI, NHSNAcuteCareHospitalMonthlyInitialPopulation1, NHSNGlycemicControlHypoglycemiaInitialPopulation | 670 |
-| C-03 | CMS986 malnutrition Measure-Observation component rows authored in fixture MeasureReports do not match what the measure resource / CQL emits (CQL has function defines for `Measure Observation 1/2/3/4` score components but the measure resource population criteria only wire the count `Measure Observation`, not the score values; both engines return obs count = 0 so the authored score rows from MR are unreproducible) | content | **Confirmed** | CMS986FHIRMalnutritionScore | 120 |
-| C-04 | CMS1017 fall-prevention HHFI Denominator/Numerator/Measure-Observation rows authored in fixture MeasureReports do not match what the fixture's resources + CQL emits (fixtures carry no BMI Observations / no AdverseEvent entries, yet expected Denom Observation = 2/4/6 etc.) | content | **Confirmed** | CMS1017FHIRHHFI | 55 |
-| C-06 | CMS816 HH Hypoglycemia fixture MR/Denominator authoring mismatch (shared %) | content | **Confirmed** | CMS816FHIRHHHypo | 12 |
-| C-07 | CMS871 HH Hyperglycemia fixture MR/Denominator authoring mismatch (shared %) | content | **Confirmed** | CMS871FHIRHHHyper | 16 |
-| C-09 | CMS819 HH Opioid-Related Adverse Events fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS819FHIRHHORAE | 2 |
-| C-10 | CMS159 Depression Remission fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS159FHIRDepRemissionat12Months | 2 |
-| C-11 | CMS0334 Cesarean Birth fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS0334FHIRPCCesareanBirth | 1 |
-| C-12 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch (shared %) | content | **Confirmed** | CMS1218FHIRHHRF | 1 |
-| C-13 | CMSFHIR844 Hybrid Hospital-Wide Mortality fixture MR Initial Population authoring mismatch (shared %) - both engines 0/1 vs exp 1/2 | content | **Confirmed** | CMSFHIR844HybridHospitalWideMortality | 2 |
-| C-14 | CMS72 / CMS104 / CMS646 / CMS71 residual fixture MR authoring gaps where both engines agree (Denominator-Exception / Denominator / Numerator / IP populations hand-authored in fixture MR but uncomputable from present resources) | content | **Confirmed** | CMS72FHIRSTKAntithromboticDay2, CMS104FHIRSTKDCAntithrombotic, CMS646FHIRIntravesicalBCGTherapy, CMS71FHIRSTKAnticoagAFFlutter, CMS145FHIRCADBBlockerTPMIorLVSD, CMS156FHIRHighRiskMedsElderly, CMS1028FHIRPCSevereOBComps, CMS996FHIRAptTxforSTEMI | 28 |
-| E-01 | `Min()` over DateTime throws | engine | **Confirmed** | CMS1173, CMS871 | 0 |
-| E-02 | Raw `FHIR.dateTime` / choice-typed `X.effective` in temporal operators fails | engine | **Confirmed** | CMS1173 | 0 |
-| E-03 | Fluent overload ambiguity (sibling profiles, same Java class) | engine | **Confirmed** | CMS68, CMS996, CMS108, CMS190, CMS144 | 0 |
-| E-04 | Choice-type self-reference circular dispatch | engine | **Confirmed** | CMS90, CMS133, CMS142, CMS143, CMS155, CMS157, CMS159, CMS951 | 0 |
-| E-05 | Sibling overloads ambiguous at runtime (same Java class) | engine | **Confirmed** | CMS90, CMS133, CMS142, CMS143, CMS155, CMS157, CMS159, CMS951, CMS144 | 0 |
-| E-06 | `as` cannot widen Choice to ancestor type | engine | **Confirmed** |  | 0 |
-| E-07 | `convert Duration to days` returns null | engine | **Confirmed** | CMS128, CMS156 | 0 |
-| E-08 | `ConvertQuantity` rejects calendar-word units from `ToQuantity` | engine | **Confirmed** | CMS156 | 0 |
-| E-09 | Quantity division across dimensions rounds to zero | engine | **Confirmed** | CMS156 | 0 |
-| E-10 | `singleton from empty list` throws instead of returning null | engine | **Confirmed** | CMS156 | 0 |
-| E-11 | `Unable to extract codes from fhirType Reference` | engine | **Confirmed** | CMS135, CMS165 | 5 |
-| E-12 | Union branch evaluates empty despite correct data | engine | **Confirmed** | CMS104, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 16 |
-| E-13 | Union of `ConditionProblemsHealthConcerns` ∪ `ConditionEncounterDiagnosis` → `Choice<...>` fed to `prevalenceInterval()` mis-resolves: missing FHIRCommon Choice overload + translator cannot resolve the call (the Choice should coerce to base `Condition` — engine/translator issue) | engine | **Confirmed / Applied** | CMS347, CMS117, CMS138, CMS153, CMS136, CMS155, CMS69, CMS645, CMS1154, CMS1157, CMS75, CMS142, CMS143, CMS771, CMS1188, CMS124, CMS349, CMS90, CMS646, CMS314, CMS129, CMS951, CMS128, CMS56, CMS131, CMS159, CMS133, CMS996, CMS157, CMS156, CMS22, CMS71 | 0 |
-| E-14 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | engine | **Suspected** | CMS0334, CMS1028 | 0 |
-| E-16 | `overlaps` on a half-open null-high interval (`[start, null)`) evaluates false — `FHIRCommon.prevalenceInterval()` inactive branch | engine | **Confirmed** | CMS1154, CMS347FHIRStatinPreventionTxCVD, CMS1154ScreeningPrediabetesFHIR | 2 |
-| E-17 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment — corroborated by VTE CMS108/CMS190 medicationadministration / procedure / medicationrequest / servicerequest / condition profile-retrieve gaps) | engine | **Confirmed** | CMS56FHIRFunctionalStatus, CMS131FHIRDiabetesEyeExam, CMS108FHIRVTEProphylaxis, CMS190FHIRVTEProphylaxisICU | 10 |
-| E-18 | Raw `FHIR.dateTime` returned from a define feeding `sort` and a mixed-type `Interval` endpoint throws `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date — the post-E-13 reappearance of the E-01/E-02 family) | engine | **Confirmed** | CMS156 | 1 |
-| E-19 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's `[MedicationRequest: "..."]` retrieve (Numerator double-count) | engine | **Confirmed** | CMS347FHIRStatinPreventionTxCVD | 23 |
-| E-21 | `us-quality-core-*` profile retrieves return empty for screening-assessment plus service/medication/procedure profile families (E-17 extended): CMS22 blood-pressure-screen + CMS135 ACEI/ARB HF + CMS144 HFrEF beta-blocker + CMS771 urinary-symptom + CMS177 MDD-screening + CMS645 CAD-bone-density + CMS71 anticoagulation-FLutter | engine | **Confirmed** | CMS22FHIRPCSBPScreeningFollowUp, CMS135FHIRACEIorARBorARNIforHF, CMS144FHIRHFBetaBlockerForLVSD, CMS771FHIRUrinarySymptomScoreBPH, CMS177FHIRChildMDDSuicideAssmt, CMS645FHIRBoneDensityPCADTherapy, CMS71FHIRSTKAnticoagAFFlutter, CMS2FHIRPCSDepScreenAndFollowUp, CMS996FHIRAptTxforSTEMI, CMS646FHIRIntravesicalBCGTherapy, CMS145FHIRCADBBlockerTPMIorLVSD, CMS104FHIRSTKDCAntithrombotic | 69 |
-| E-22 | `recorded(...)` operator ambiguous call in `USQualityCoreCommon` library throws (CMS68 test-case `f2e2e1c0` produces Missing Results across all 4 populations - engine error) | engine | **Confirmed** | CMS68FHIRDocumentationCurrentMeds | 1 |
-| E-23 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run — QI-Core 4.11.0 / translator 5.2.0 returns 0 for InitialPopulation / Denominator / Numerator populations where CMS engine + fixture MeasureReports agree on 1 (consistent with a profile-retrieve failure on QI-Core's stricter US Quality Core / QI-Core 6.0.0 profile handling) | engine | **Confirmed (refreshed 2026-09-05)** | CMS347FHIRStatinPreventionTxCVD, CMS145FHIRCADBBlockerTPMIorLVSD, CMS144FHIRHFBetaBlockerForLVSD, CMS645FHIRBoneDensityPCADTherapy, CMS135FHIRACEIorARBorARNIforHF, CMS129FHIRProstCaBoneScanUse, CMS771FHIRUrinarySymptomScoreBPH, CMS149FHIRDementiaCognitiveAssess, CMS190FHIRVTEProphylaxisICU, CMS108FHIRVTEProphylaxis, CMS1028FHIRPCSevereOBComps, CMS996FHIRAptTxforSTEMI, CMS506FHIRSafeUseofOpioids | 64 |
-| E-24 | `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing Communication has no `subject` reference (CMS142 5 cases, both engines; NOT C-08) | engine | **Under investigation** | CMS142FHIRCommWithDrManagingDiab | 5 |
-| F-06 | Sparse `MedicationRequest` dosage fixtures trip `singleton from empty list` | fixture | Fixed in probes | CMS156 | 0 |
-| M-04 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | migration | Partial — `.recorded()`/`.ext()` workaround applied and verified for CMS108 and CMS190 (CMS68/CMS996 still carry the old field; E-03 ambiguity still open upstream) | CMS190, CMS996, CMS108, CMS68 | 0 |
-| M-05 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | migration | Not fixed | CMS144 | 0 |
-| V-01 | Vendored `CMD.cql` `convert…to days` null / calendar-unit bug (medication dispense side) | vendored | Fixed locally | CMS128 | 0 |
-| V-02 | Vendored `CumulativeMedicationDuration` 6.0.000 model adaptation (CMS156) | vendored | Fixed locally | CMS156 | 0 |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
@@ -176,94 +104,6 @@ _Note: Measures can have multiple discrepancies, so the Measures with Discrepanc
 | NHSNGlycemicControlHypoglycemiaInitialPopulation | 80 / 0 | 76 / 4 | CMS passes, QICore has discrepancies |
 
 
-## Measures with No Discrepancies
-
-### CMS Measures (44)
-- CMS50FHIRReceiptofSpecialistReport [ [cql] ](../../input/cql/CMS50FHIRReceiptofSpecialistReport.cql) [ [test results] ](../../input/tests/results/CMS50FHIRReceiptofSpecialistReport.txt) — matches QICore
-- CMS56FHIRFuncStatHipReplacement [ [cql] ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ [test results] ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) — matches QICore
-- CMS69FHIRPCSBMIScreenAndFollowUp [ [cql] ](../../input/cql/CMS69FHIRPCSBMIScreenAndFollowUp.cql) [ [test results] ](../../input/tests/results/CMS69FHIRPCSBMIScreenAndFollowUp.txt) — matches QICore
-- CMS74FHIRDentalCariesPrevention [ [cql] ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ [test results] ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) — matches QICore
-- CMS75FHIRChildrenDentalDecay [ [cql] ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ [test results] ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) — matches QICore
-- CMS90FHIRFSAforHeartFailure [ [cql] ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ [test results] ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) — matches QICore
-- CMS117FHIRChildImmunStatus [ [cql] ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ [test results] ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) — matches QICore
-- CMS122FHIRDiabetesAssessGT9Pct [ [cql] ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ [test results] ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) — matches QICore
-- CMS124FHIRCervicalCancerScreen [ [cql] ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ [test results] ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) — matches QICore
-- CMS125FHIRBreastCancerScreen [ [cql] ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ [test results] ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) — matches QICore
-- CMS128FHIRAntidepressantMgmt [ [cql] ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ [test results] ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) — matches QICore
-- CMS129FHIRProstCaBoneScanUse [ [cql] ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ [test results] ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) — QICore has discrepancies
-- CMS130FHIRColorectalCancerScrn [ [cql] ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ [test results] ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) — matches QICore
-- CMS131FHIRDiabetesEyeExam [ [cql] ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ [test results] ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) — matches QICore
-- CMS133FHIRCataracts2040BCVA90Days [ [cql] ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ [test results] ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt) — matches QICore
-- CMS136FHIRChildADHDMedFollowUp [ [cql] ](../../input/cql/CMS136FHIRChildADHDMedFollowUp.cql) [ [test results] ](../../input/tests/results/CMS136FHIRChildADHDMedFollowUp.txt) — matches QICore
-- CMS137FHIRSUDTxInitEngagement [ [cql] ](../../input/cql/CMS137FHIRSUDTxInitEngagement.cql) [ [test results] ](../../input/tests/results/CMS137FHIRSUDTxInitEngagement.txt) — matches QICore
-- CMS138FHIRTobaccoScrnCessation [ [cql] ](../../input/cql/CMS138FHIRTobaccoScrnCessation.cql) [ [test results] ](../../input/tests/results/CMS138FHIRTobaccoScrnCessation.txt) — matches QICore
-- CMS139FHIRFallRiskScreening [ [cql] ](../../input/cql/CMS139FHIRFallRiskScreening.cql) [ [test results] ](../../input/tests/results/CMS139FHIRFallRiskScreening.txt) — matches QICore
-- CMS143FHIRPOAGOpticNerveEval [ [cql] ](../../input/cql/CMS143FHIRPOAGOpticNerveEval.cql) [ [test results] ](../../input/tests/results/CMS143FHIRPOAGOpticNerveEval.txt) — matches QICore
-- CMS146FHIRApproTestPharyngitis [ [cql] ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ [test results] ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) — matches QICore
-- CMS149FHIRDementiaCognitiveAssess [ [cql] ](../../input/cql/CMS149FHIRDementiaCognitiveAssess.cql) [ [test results] ](../../input/tests/results/CMS149FHIRDementiaCognitiveAssess.txt) — QICore has discrepancies
-- CMS153FHIRChlamydiaScreening [ [cql] ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ [test results] ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) — matches QICore
-- CMS154FHIRAppropriateTxforURI [ [cql] ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ [test results] ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) — matches QICore
-- CMS155FHIRWgtAssessCounseling [ [cql] ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ [test results] ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) — matches QICore
-- CMS157FHIRPainIntensityQuantified [ [cql] ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ [test results] ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) — matches QICore
-- CMS314FHIRHIVViralSuppression [ [cql] ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ [test results] ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) — matches QICore
-- CMS349FHIRHIVScreening [ [cql] ](../../input/cql/CMS349FHIRHIVScreening.cql) [ [test results] ](../../input/tests/results/CMS349FHIRHIVScreening.txt) — matches QICore
-- CMS506FHIRSafeUseofOpioids [ [cql] ](../../input/cql/CMS506FHIRSafeUseofOpioids.cql) [ [test results] ](../../input/tests/results/CMS506FHIRSafeUseofOpioids.txt) — QICore has discrepancies
-- CMSFHIR529HybridHospitalWideReadmission [ [cql] ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ [test results] ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) — matches QICore
-- CMS826FHIRHHPI [ [cql] ](../../input/cql/CMS826FHIRHHPI.cql) [ [test results] ](../../input/tests/results/CMS826FHIRHHPI.txt) — matches QICore
-- CMS832FHIRHHAKI [ [cql] ](../../input/cql/CMS832FHIRHHAKI.cql) [ [test results] ](../../input/tests/results/CMS832FHIRHHAKI.txt) — matches QICore
-- CMS951FHIRKidneyHealthEval [ [cql] ](../../input/cql/CMS951FHIRKidneyHealthEval.cql) [ [test results] ](../../input/tests/results/CMS951FHIRKidneyHealthEval.txt) — matches QICore
-- CMS1056FHIRCTClinical [ [cql] ](../../input/cql/CMS1056FHIRCTClinical.cql) [ [test results] ](../../input/tests/results/CMS1056FHIRCTClinical.txt) — matches QICore
-- CMS1074FHIRCTIQR [ [cql] ](../../input/cql/CMS1074FHIRCTIQR.cql) [ [test results] ](../../input/tests/results/CMS1074FHIRCTIQR.txt) — matches QICore
-- CMS1157FHIRHIVRetention [ [cql] ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ [test results] ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) — matches QICore
-- CMS1173FHIRDiagnosticDelayVTE [ [cql] ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ [test results] ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt) — QICore has discrepancies
-- CMS1188FHIRHIVSTITesting [ [cql] ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ [test results] ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) — QICore has discrepancies
-- CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt) — matches QICore
-- CMS1218FHIRHHRF [ [cql] ](../../input/cql/CMS1218FHIRHHRF.cql) [ [test results] ](../../input/tests/results/CMS1218FHIRHHRF.txt) — matches QICore
-- CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) — matches QICore
-- CMS1264FHIRECATREHQR [ [cql] ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ [test results] ](../../input/tests/results/CMS1264FHIRECATREHQR.txt) — QICore has discrepancies
-- NHSNAcuteCareHospitalMonthlyInitialPopulation1 [ [cql] ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ [test results] ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) — QICore has discrepancies
-- NHSNGlycemicControlHypoglycemiaInitialPopulation [ [cql] ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ [test results] ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) — QICore has discrepancies
-
-### QICore Measures (39)
-- CMS2FHIRPCSDepScreenAndFollowUp [ [cql] ](../../input/cql/CMS2FHIRPCSDepScreenAndFollowUp.cql) [ [test results] ](../../input/tests/results/CMS2FHIRPCSDepScreenAndFollowUp.txt) — CMS has discrepancies
-- CMS50FHIRReceiptofSpecialistReport [ [cql] ](../../input/cql/CMS50FHIRReceiptofSpecialistReport.cql) [ [test results] ](../../input/tests/results/CMS50FHIRReceiptofSpecialistReport.txt) — also passes in CMS
-- CMS56FHIRFuncStatHipReplacement [ [cql] ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ [test results] ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) — also passes in CMS
-- CMS68FHIRDocumentationCurrentMeds [ [cql] ](../../input/cql/CMS68FHIRDocumentationCurrentMeds.cql) [ [test results] ](../../input/tests/results/CMS68FHIRDocumentationCurrentMeds.txt) — CMS has discrepancies
-- CMS69FHIRPCSBMIScreenAndFollowUp [ [cql] ](../../input/cql/CMS69FHIRPCSBMIScreenAndFollowUp.cql) [ [test results] ](../../input/tests/results/CMS69FHIRPCSBMIScreenAndFollowUp.txt) — also passes in CMS
-- CMS74FHIRDentalCariesPrevention [ [cql] ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ [test results] ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) — also passes in CMS
-- CMS75FHIRChildrenDentalDecay [ [cql] ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ [test results] ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) — also passes in CMS
-- CMS90FHIRFSAforHeartFailure [ [cql] ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ [test results] ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) — also passes in CMS
-- CMS117FHIRChildImmunStatus [ [cql] ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ [test results] ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) — also passes in CMS
-- CMS122FHIRDiabetesAssessGT9Pct [ [cql] ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ [test results] ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) — also passes in CMS
-- CMS124FHIRCervicalCancerScreen [ [cql] ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ [test results] ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) — also passes in CMS
-- CMS125FHIRBreastCancerScreen [ [cql] ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ [test results] ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) — also passes in CMS
-- CMS128FHIRAntidepressantMgmt [ [cql] ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ [test results] ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) — also passes in CMS
-- CMS130FHIRColorectalCancerScrn [ [cql] ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ [test results] ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) — also passes in CMS
-- CMS131FHIRDiabetesEyeExam [ [cql] ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ [test results] ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) — also passes in CMS
-- CMS133FHIRCataracts2040BCVA90Days [ [cql] ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ [test results] ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt) — also passes in CMS
-- CMS136FHIRChildADHDMedFollowUp [ [cql] ](../../input/cql/CMS136FHIRChildADHDMedFollowUp.cql) [ [test results] ](../../input/tests/results/CMS136FHIRChildADHDMedFollowUp.txt) — also passes in CMS
-- CMS137FHIRSUDTxInitEngagement [ [cql] ](../../input/cql/CMS137FHIRSUDTxInitEngagement.cql) [ [test results] ](../../input/tests/results/CMS137FHIRSUDTxInitEngagement.txt) — also passes in CMS
-- CMS138FHIRTobaccoScrnCessation [ [cql] ](../../input/cql/CMS138FHIRTobaccoScrnCessation.cql) [ [test results] ](../../input/tests/results/CMS138FHIRTobaccoScrnCessation.txt) — also passes in CMS
-- CMS139FHIRFallRiskScreening [ [cql] ](../../input/cql/CMS139FHIRFallRiskScreening.cql) [ [test results] ](../../input/tests/results/CMS139FHIRFallRiskScreening.txt) — also passes in CMS
-- CMS143FHIRPOAGOpticNerveEval [ [cql] ](../../input/cql/CMS143FHIRPOAGOpticNerveEval.cql) [ [test results] ](../../input/tests/results/CMS143FHIRPOAGOpticNerveEval.txt) — also passes in CMS
-- CMS146FHIRApproTestPharyngitis [ [cql] ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ [test results] ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) — also passes in CMS
-- CMS153FHIRChlamydiaScreening [ [cql] ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ [test results] ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) — also passes in CMS
-- CMS154FHIRAppropriateTxforURI [ [cql] ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ [test results] ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) — also passes in CMS
-- CMS155FHIRWgtAssessCounseling [ [cql] ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ [test results] ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) — also passes in CMS
-- CMS157FHIRPainIntensityQuantified [ [cql] ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ [test results] ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) — also passes in CMS
-- CMS177FHIRChildMDDSuicideAssmt [ [cql] ](../../input/cql/CMS177FHIRChildMDDSuicideAssmt.cql) [ [test results] ](../../input/tests/results/CMS177FHIRChildMDDSuicideAssmt.txt) — CMS has discrepancies
-- CMS314FHIRHIVViralSuppression [ [cql] ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ [test results] ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) — also passes in CMS
-- CMS349FHIRHIVScreening [ [cql] ](../../input/cql/CMS349FHIRHIVScreening.cql) [ [test results] ](../../input/tests/results/CMS349FHIRHIVScreening.txt) — also passes in CMS
-- CMSFHIR529HybridHospitalWideReadmission [ [cql] ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ [test results] ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) — also passes in CMS
-- CMS826FHIRHHPI [ [cql] ](../../input/cql/CMS826FHIRHHPI.cql) [ [test results] ](../../input/tests/results/CMS826FHIRHHPI.txt) — also passes in CMS
-- CMS832FHIRHHAKI [ [cql] ](../../input/cql/CMS832FHIRHHAKI.cql) [ [test results] ](../../input/tests/results/CMS832FHIRHHAKI.txt) — also passes in CMS
-- CMS951FHIRKidneyHealthEval [ [cql] ](../../input/cql/CMS951FHIRKidneyHealthEval.cql) [ [test results] ](../../input/tests/results/CMS951FHIRKidneyHealthEval.txt) — also passes in CMS
-- CMS1056FHIRCTClinical [ [cql] ](../../input/cql/CMS1056FHIRCTClinical.cql) [ [test results] ](../../input/tests/results/CMS1056FHIRCTClinical.txt) — also passes in CMS
-- CMS1074FHIRCTIQR [ [cql] ](../../input/cql/CMS1074FHIRCTIQR.cql) [ [test results] ](../../input/tests/results/CMS1074FHIRCTIQR.txt) — also passes in CMS
-- CMS1157FHIRHIVRetention [ [cql] ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ [test results] ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) — also passes in CMS
-- CMS1206FHIRCTOQR [ [cql] ](../../input/cql/CMS1206FHIRCTOQR.cql) [ [test results] ](../../input/tests/results/CMS1206FHIRCTOQR.txt) — also passes in CMS
-- CMS1218FHIRHHRF [ [cql] ](../../input/cql/CMS1218FHIRHHRF.cql) [ [test results] ](../../input/tests/results/CMS1218FHIRHHRF.txt) — also passes in CMS
-- CMS1244FHIRECATHOQR [ [cql] ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ [test results] ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) — also passes in CMS
 ## Measures with Discrepancies (30)
 | Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases | QICore Passing / Failing Test Cases | QICore Status |
 |---|:---:|:---:|:---:|:---:|:---:|---|
@@ -780,15 +620,15 @@ Mismatched Test Cases (12 of 26 test cases)
 |---|---|---|:---:|:---:|---|:---:|
 | [ 113a6e72-7049-4a7f-90cf-5ec3435b0dee ](../.././input/tests/measure/CMS871FHIRHHHyper/113a6e72-7049-4a7f-90cf-5ec3435b0dee/MeasureReport-0ac4f7d5-15a2-4c2f-b38d-c2d2ff7775e2.json) | Group_1 | Denominator Observation | 4 | 0 | B-01 — resolution pending<br>C-07 — resolution pending | FAIL |
 | [ 48c2ed10-7c2d-4130-a215-a6f72b169111 ](../.././input/tests/measure/CMS871FHIRHHHyper/48c2ed10-7c2d-4130-a215-a6f72b169111/MeasureReport-fa9a16b8-16c8-441f-b6a3-520d3769719f.json) | Group_1 | Denominator Observation | 1 | 0 | C-07 — resolution pending | FAIL |
-| [ 4c12355d-2548-471a-a98f-b9a58c2cbfe0 ](../.././input/tests/measure/CMS871FHIRHHHyper/4c12355d-2548-471a-a98f-b9a58c2cbfe0/MeasureReport-13ec3a0e-0600-44a9-be19-99c22f815732.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
+| [ 4c12355d-2548-471a-a98f-b9a58c2cbfe0 ](../.././input/tests/measure/CMS871FHIRHHHyper/4c12355d-2548-471a-a98f-b9a58c2cbfe0/MeasureReport-13ec3a0e-0600-44a9-be19-99c22f815732.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
 | [ 7637e69b-5481-4edf-b186-334d4367f740 ](../.././input/tests/measure/CMS871FHIRHHHyper/7637e69b-5481-4edf-b186-334d4367f740/MeasureReport-e0a7ca11-615a-4a8a-842c-1becc018a26a.json) | Group_1 | Denominator Observation | 3 | 0 | C-07 — resolution pending | FAIL |
-| [ 76dc2b63-710c-4ac5-afef-f76c2ef07dcd ](../.././input/tests/measure/CMS871FHIRHHHyper/76dc2b63-710c-4ac5-afef-f76c2ef07dcd/MeasureReport-eaa31743-c56c-45e9-8bbd-877d956245a8.json) | Group_1 | Numerator Observation<br>Denominator Observation | 4<br>6 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
+| [ 76dc2b63-710c-4ac5-afef-f76c2ef07dcd ](../.././input/tests/measure/CMS871FHIRHHHyper/76dc2b63-710c-4ac5-afef-f76c2ef07dcd/MeasureReport-eaa31743-c56c-45e9-8bbd-877d956245a8.json) | Group_1 | Denominator Observation<br>Numerator Observation | 6<br>4 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
 | [ a52510f5-d529-419e-97ae-3979ae9b4d9a ](../.././input/tests/measure/CMS871FHIRHHHyper/a52510f5-d529-419e-97ae-3979ae9b4d9a/MeasureReport-79a43e8f-47d7-4e40-adcb-4e3dc843083d.json) | Group_1 | Denominator Observation | 1 | 0 | C-07 — resolution pending | FAIL |
-| [ b7534abb-5837-4f38-83b1-b14e52684f84 ](../.././input/tests/measure/CMS871FHIRHHHyper/b7534abb-5837-4f38-83b1-b14e52684f84/MeasureReport-a8968c87-ea2b-40f7-9064-9b17d657006a.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>9 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
+| [ b7534abb-5837-4f38-83b1-b14e52684f84 ](../.././input/tests/measure/CMS871FHIRHHHyper/b7534abb-5837-4f38-83b1-b14e52684f84/MeasureReport-a8968c87-ea2b-40f7-9064-9b17d657006a.json) | Group_1 | Denominator Observation<br>Numerator Observation | 9<br>1 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
 | [ b8dd3c0c-bc5c-4858-9f96-9faabbbaad45 ](../.././input/tests/measure/CMS871FHIRHHHyper/b8dd3c0c-bc5c-4858-9f96-9faabbbaad45/MeasureReport-b0d599a4-0476-4f92-921b-403084e5676e.json) | Group_1 | Denominator Observation | 3 | 0 | C-07 — resolution pending | FAIL |
 | [ c85ad9d3-e24d-47a2-a4ab-8a9b6d3bb9af ](../.././input/tests/measure/CMS871FHIRHHHyper/c85ad9d3-e24d-47a2-a4ab-8a9b6d3bb9af/MeasureReport-e88b5263-dda0-43ca-a6cf-ff775778e782.json) | Group_1 | Denominator Observation | 3 | 0 | C-07 — resolution pending | FAIL |
 | [ cb54c026-6ec9-4db5-b8ac-7cb713138ca8 ](../.././input/tests/measure/CMS871FHIRHHHyper/cb54c026-6ec9-4db5-b8ac-7cb713138ca8/MeasureReport-e5b2180c-cc9f-4942-acf3-0f53caf9e904.json) | Group_1 | Denominator Observation | 4 | 0 | C-07 — resolution pending | FAIL |
-| [ cff9d7db-ba56-4527-8cd4-3a6412945f16 ](../.././input/tests/measure/CMS871FHIRHHHyper/cff9d7db-ba56-4527-8cd4-3a6412945f16/MeasureReport-eb879220-8c9f-4c3d-be49-9c4baeebd226.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>3 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
+| [ cff9d7db-ba56-4527-8cd4-3a6412945f16 ](../.././input/tests/measure/CMS871FHIRHHHyper/cff9d7db-ba56-4527-8cd4-3a6412945f16/MeasureReport-eb879220-8c9f-4c3d-be49-9c4baeebd226.json) | Group_1 | Denominator Observation<br>Numerator Observation | 3<br>1 | 0<br>0 | C-07 — resolution pending | FAIL<br>FAIL |
 | [ f4e6ce4f-8209-4f79-a9ab-2678d3e0ded8 ](../.././input/tests/measure/CMS871FHIRHHHyper/f4e6ce4f-8209-4f79-a9ab-2678d3e0ded8/MeasureReport-9c64659f-b043-4a04-a74d-08159ec625eb.json) | Group_1 | Denominator Observation | 4 | 0 | C-07 — resolution pending | FAIL |
 
 
@@ -1334,14 +1174,14 @@ Missing Populations (4 of 65 test cases)
 Mismatched Test Cases (51 of 65 test cases)
 | Test Case | Group | Population | Expected | Actual | Known Issue | QICore |
 |---|---|---|:---:|:---:|---|:---:|
-| [ 02d5c5f5-9487-42af-bb5e-dfc3aaeb70eb ](../.././input/tests/measure/CMS1017FHIRHHFI/02d5c5f5-9487-42af-bb5e-dfc3aaeb70eb/MeasureReport-ff263746-408d-42f7-8afa-36508c44d892.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 02d5c5f5-9487-42af-bb5e-dfc3aaeb70eb ](../.././input/tests/measure/CMS1017FHIRHHFI/02d5c5f5-9487-42af-bb5e-dfc3aaeb70eb/MeasureReport-ff263746-408d-42f7-8afa-36508c44d892.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 0653f9dc-8461-484e-a901-f17709f04776 ](../.././input/tests/measure/CMS1017FHIRHHFI/0653f9dc-8461-484e-a901-f17709f04776/MeasureReport-2d7280f0-6a18-4665-861d-0bbb57384e39.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion<br>Numerator Observation<br>Denominator Observation | 0<br>1<br>7 | 1<br>0<br>0 | C-04 — resolution pending | FAIL<br>FAIL<br>FAIL |
-| [ 113d43da-4cad-4907-804e-63afb7652b27 ](../.././input/tests/measure/CMS1017FHIRHHFI/113d43da-4cad-4907-804e-63afb7652b27/MeasureReport-bd009887-fb29-450b-9dfb-3cf01211624f.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion<br>Denominator Observation<br>Numerator Observation | 0<br>7<br>1 | 1<br>0<br>0 | C-04 — resolution pending | FAIL<br>FAIL<br>FAIL |
+| [ 113d43da-4cad-4907-804e-63afb7652b27 ](../.././input/tests/measure/CMS1017FHIRHHFI/113d43da-4cad-4907-804e-63afb7652b27/MeasureReport-bd009887-fb29-450b-9dfb-3cf01211624f.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 1ac96e3e-856c-417a-9c68-0df860ce73c8 ](../.././input/tests/measure/CMS1017FHIRHHFI/1ac96e3e-856c-417a-9c68-0df860ce73c8/MeasureReport-cdca174a-a8d1-4caf-b711-732355c746e9.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 1b700def-98b0-418c-b0a7-80ecb275597f ](../.././input/tests/measure/CMS1017FHIRHHFI/1b700def-98b0-418c-b0a7-80ecb275597f/MeasureReport-73e347c6-4fee-446b-8f5d-f03f3094172d.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 1e2ddc95-76d4-4be7-8273-2b35371a727b ](../.././input/tests/measure/CMS1017FHIRHHFI/1e2ddc95-76d4-4be7-8273-2b35371a727b/MeasureReport-2d7f4331-e5f7-43db-9072-a6921d9993e2.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ 25c753a7-b6b4-4335-bd7c-05b68b0324a4 ](../.././input/tests/measure/CMS1017FHIRHHFI/25c753a7-b6b4-4335-bd7c-05b68b0324a4/MeasureReport-5e77fa9f-873a-42e3-a0a5-76183c60a3a6.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 25c753a7-b6b4-4335-bd7c-05b68b0324a4 ](../.././input/tests/measure/CMS1017FHIRHHFI/25c753a7-b6b4-4335-bd7c-05b68b0324a4/MeasureReport-5e77fa9f-873a-42e3-a0a5-76183c60a3a6.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 28684639-1aa3-429c-9cac-4e8217995b13 ](../.././input/tests/measure/CMS1017FHIRHHFI/28684639-1aa3-429c-9cac-4e8217995b13/MeasureReport-4f50177e-ee99-41d1-ac09-5b8312f5e6fe.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 3279a237-292f-47b1-9039-ba46b57e765a ](../.././input/tests/measure/CMS1017FHIRHHFI/3279a237-292f-47b1-9039-ba46b57e765a/MeasureReport-f5d23a7a-6563-4866-9fed-520eb3083644.json) | Group_1 | Denominator Observation | 4 | 0 | C-04 — resolution pending | FAIL |
 | [ 365ed821-88d1-4459-9d32-dd4fa6426335 ](../.././input/tests/measure/CMS1017FHIRHHFI/365ed821-88d1-4459-9d32-dd4fa6426335/MeasureReport-9e88fbe0-1835-4e9d-ad06-a92252e3efeb.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
@@ -1349,42 +1189,42 @@ Mismatched Test Cases (51 of 65 test cases)
 | [ 3c34a5af-1ef1-4b86-a41f-ac1d44e96ca0 ](../.././input/tests/measure/CMS1017FHIRHHFI/3c34a5af-1ef1-4b86-a41f-ac1d44e96ca0/MeasureReport-1edcc821-5daf-4930-bad1-a323f0437344.json) | Group_1 | Numerator Observation | 1 | 0 | C-04 — resolution pending | FAIL |
 | [ 3ee27450-2fd5-4930-bfbb-e718074e4087 ](../.././input/tests/measure/CMS1017FHIRHHFI/3ee27450-2fd5-4930-bfbb-e718074e4087/MeasureReport-e222355e-0881-49a6-9386-7f28402016f7.json) | Group_1 | Denominator Observation | 1 | 0 | C-04 — resolution pending | FAIL |
 | [ 404570c9-b21f-4fa2-be5d-6d02c910fea6 ](../.././input/tests/measure/CMS1017FHIRHHFI/404570c9-b21f-4fa2-be5d-6d02c910fea6/MeasureReport-be4537a3-fcab-48b3-b04f-fced6ef56cbc.json) | Group_1 | Denominator Observation | 4 | 0 | C-04 — resolution pending | FAIL |
-| [ 4402a9b9-3d48-4472-a000-579b7baa88fa ](../.././input/tests/measure/CMS1017FHIRHHFI/4402a9b9-3d48-4472-a000-579b7baa88fa/MeasureReport-58735c7c-d169-4918-b688-f5a907e09834.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>12 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 55931284-058b-4776-882c-720caddd3366 ](../.././input/tests/measure/CMS1017FHIRHHFI/55931284-058b-4776-882c-720caddd3366/MeasureReport-7a7c74f8-7efb-407b-a39b-012bec4e1038.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 55b18e1a-c949-4d85-b1c5-caa91fc6ac4b ](../.././input/tests/measure/CMS1017FHIRHHFI/55b18e1a-c949-4d85-b1c5-caa91fc6ac4b/MeasureReport-a02d7a51-5000-46ce-992a-344f91edf5d0.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 56d5fe48-53b2-4599-870c-58bfc4ba0145 ](../.././input/tests/measure/CMS1017FHIRHHFI/56d5fe48-53b2-4599-870c-58bfc4ba0145/MeasureReport-b2feea6f-8dcc-47d3-97ed-0b8ce61fdbb7.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>12 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 5d7d44f5-aa75-4889-89d6-e7586ac5de4a ](../.././input/tests/measure/CMS1017FHIRHHFI/5d7d44f5-aa75-4889-89d6-e7586ac5de4a/MeasureReport-f8efe70f-adf2-424e-adbc-4c2d0f393767.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion<br>Numerator Observation<br>Denominator Observation | 0<br>1<br>5 | 1<br>0<br>0 | C-04 — resolution pending | FAIL<br>FAIL<br>FAIL |
+| [ 4402a9b9-3d48-4472-a000-579b7baa88fa ](../.././input/tests/measure/CMS1017FHIRHHFI/4402a9b9-3d48-4472-a000-579b7baa88fa/MeasureReport-58735c7c-d169-4918-b688-f5a907e09834.json) | Group_1 | Denominator Observation<br>Numerator Observation | 12<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 55931284-058b-4776-882c-720caddd3366 ](../.././input/tests/measure/CMS1017FHIRHHFI/55931284-058b-4776-882c-720caddd3366/MeasureReport-7a7c74f8-7efb-407b-a39b-012bec4e1038.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 55b18e1a-c949-4d85-b1c5-caa91fc6ac4b ](../.././input/tests/measure/CMS1017FHIRHHFI/55b18e1a-c949-4d85-b1c5-caa91fc6ac4b/MeasureReport-a02d7a51-5000-46ce-992a-344f91edf5d0.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 56d5fe48-53b2-4599-870c-58bfc4ba0145 ](../.././input/tests/measure/CMS1017FHIRHHFI/56d5fe48-53b2-4599-870c-58bfc4ba0145/MeasureReport-b2feea6f-8dcc-47d3-97ed-0b8ce61fdbb7.json) | Group_1 | Denominator Observation<br>Numerator Observation | 12<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 5d7d44f5-aa75-4889-89d6-e7586ac5de4a ](../.././input/tests/measure/CMS1017FHIRHHFI/5d7d44f5-aa75-4889-89d6-e7586ac5de4a/MeasureReport-f8efe70f-adf2-424e-adbc-4c2d0f393767.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion<br>Denominator Observation<br>Numerator Observation | 0<br>5<br>1 | 1<br>0<br>0 | C-04 — resolution pending | FAIL<br>FAIL<br>FAIL |
 | [ 632475eb-a20a-43d6-baa7-f377ef8c5324 ](../.././input/tests/measure/CMS1017FHIRHHFI/632475eb-a20a-43d6-baa7-f377ef8c5324/MeasureReport-f5be6280-c43b-49e9-9113-e628bc5c7646.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 6442de45-b65d-4bda-8143-0e9c28d19485 ](../.././input/tests/measure/CMS1017FHIRHHFI/6442de45-b65d-4bda-8143-0e9c28d19485/MeasureReport-b81497c1-2782-497e-b242-04fe0f4eb196.json) | Group_1 | Denominator Observation | 2 | 0 | C-04 — resolution pending | FAIL |
-| [ 65163106-0b19-4548-a994-f44b35e162e0 ](../.././input/tests/measure/CMS1017FHIRHHFI/65163106-0b19-4548-a994-f44b35e162e0/MeasureReport-a2537d3f-2d92-4e2d-9a9e-f228af25b987.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 65163106-0b19-4548-a994-f44b35e162e0 ](../.././input/tests/measure/CMS1017FHIRHHFI/65163106-0b19-4548-a994-f44b35e162e0/MeasureReport-a2537d3f-2d92-4e2d-9a9e-f228af25b987.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 66ee842d-d852-42dd-928e-7f9bff5c52cd ](../.././input/tests/measure/CMS1017FHIRHHFI/66ee842d-d852-42dd-928e-7f9bff5c52cd/MeasureReport-1fc4754f-fdf7-4e69-ac2a-f7c4f04418d4.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 6916a60d-ffa4-4d2c-8d96-73a31aa18854 ](../.././input/tests/measure/CMS1017FHIRHHFI/6916a60d-ffa4-4d2c-8d96-73a31aa18854/MeasureReport-b7ea39de-abdd-45a6-ab14-c7c6f13fc0bd.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ 735a7993-89b8-4b21-87c2-d5f57df0f5a8 ](../.././input/tests/measure/CMS1017FHIRHHFI/735a7993-89b8-4b21-87c2-d5f57df0f5a8/MeasureReport-ddadfa0f-ba70-4faa-a0d6-acff5965af5a.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 8045dee0-645e-497b-a5e8-ad659cdcf8c6 ](../.././input/tests/measure/CMS1017FHIRHHFI/8045dee0-645e-497b-a5e8-ad659cdcf8c6/MeasureReport-9418fb72-ca02-4a6f-9a0f-067090c8e5f1.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 735a7993-89b8-4b21-87c2-d5f57df0f5a8 ](../.././input/tests/measure/CMS1017FHIRHHFI/735a7993-89b8-4b21-87c2-d5f57df0f5a8/MeasureReport-ddadfa0f-ba70-4faa-a0d6-acff5965af5a.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 8045dee0-645e-497b-a5e8-ad659cdcf8c6 ](../.././input/tests/measure/CMS1017FHIRHHFI/8045dee0-645e-497b-a5e8-ad659cdcf8c6/MeasureReport-9418fb72-ca02-4a6f-9a0f-067090c8e5f1.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 8552c09f-c2db-4069-9d15-41efafe4711a ](../.././input/tests/measure/CMS1017FHIRHHFI/8552c09f-c2db-4069-9d15-41efafe4711a/MeasureReport-bf211560-ad9c-424f-8a14-0c5339a0a1bf.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 8b607dee-4e17-492d-9949-0c69c10587e3 ](../.././input/tests/measure/CMS1017FHIRHHFI/8b607dee-4e17-492d-9949-0c69c10587e3/MeasureReport-72cfb143-00c9-43a6-b714-665608bec6d4.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ 8b63d691-46a8-4ce6-8dee-60aea7f34f82 ](../.././input/tests/measure/CMS1017FHIRHHFI/8b63d691-46a8-4ce6-8dee-60aea7f34f82/MeasureReport-6c1e7b95-da26-42f0-8128-73f364441235.json) | Group_1 | Denominator Observation | 1 | 0 | C-04 — resolution pending | FAIL |
-| [ 966cc666-8f6e-4d6e-93a9-0c4b6345e966 ](../.././input/tests/measure/CMS1017FHIRHHFI/966cc666-8f6e-4d6e-93a9-0c4b6345e966/MeasureReport-a43ccb17-9884-413b-9d84-b5e095be1599.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ 972573e8-bd51-4b77-a954-39babec1a055 ](../.././input/tests/measure/CMS1017FHIRHHFI/972573e8-bd51-4b77-a954-39babec1a055/MeasureReport-bbd9b46e-e1fe-4003-95fc-1754c130fda3.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>3 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 966cc666-8f6e-4d6e-93a9-0c4b6345e966 ](../.././input/tests/measure/CMS1017FHIRHHFI/966cc666-8f6e-4d6e-93a9-0c4b6345e966/MeasureReport-a43ccb17-9884-413b-9d84-b5e095be1599.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ 972573e8-bd51-4b77-a954-39babec1a055 ](../.././input/tests/measure/CMS1017FHIRHHFI/972573e8-bd51-4b77-a954-39babec1a055/MeasureReport-bbd9b46e-e1fe-4003-95fc-1754c130fda3.json) | Group_1 | Denominator Observation<br>Numerator Observation | 3<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ 9897529f-07ba-42c6-a7b2-5d856a925a6a ](../.././input/tests/measure/CMS1017FHIRHHFI/9897529f-07ba-42c6-a7b2-5d856a925a6a/MeasureReport-e3d20846-af96-45f7-88c8-d85c74a4ba32.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ a0c41f8f-c8d9-4ae5-a07d-e87b16ae1367 ](../.././input/tests/measure/CMS1017FHIRHHFI/a0c41f8f-c8d9-4ae5-a07d-e87b16ae1367/MeasureReport-802900b9-4f29-4203-93aa-a9e085c90c62.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>11 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ a2b51ea0-5a72-4bda-abe5-dd393bfa0545 ](../.././input/tests/measure/CMS1017FHIRHHFI/a2b51ea0-5a72-4bda-abe5-dd393bfa0545/MeasureReport-95ac321c-2b89-4714-996a-50f4e392bce9.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>12 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ a0c41f8f-c8d9-4ae5-a07d-e87b16ae1367 ](../.././input/tests/measure/CMS1017FHIRHHFI/a0c41f8f-c8d9-4ae5-a07d-e87b16ae1367/MeasureReport-802900b9-4f29-4203-93aa-a9e085c90c62.json) | Group_1 | Denominator Observation<br>Numerator Observation | 11<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ a2b51ea0-5a72-4bda-abe5-dd393bfa0545 ](../.././input/tests/measure/CMS1017FHIRHHFI/a2b51ea0-5a72-4bda-abe5-dd393bfa0545/MeasureReport-95ac321c-2b89-4714-996a-50f4e392bce9.json) | Group_1 | Denominator Observation<br>Numerator Observation | 12<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ c9413f99-840f-449d-b4ab-427fb7de6aa0 ](../.././input/tests/measure/CMS1017FHIRHHFI/c9413f99-840f-449d-b4ab-427fb7de6aa0/MeasureReport-bef81bad-92d6-4634-ad90-0290df332c0b.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ ca728a1a-9a25-46b6-80bc-bfffae233f6c ](../.././input/tests/measure/CMS1017FHIRHHFI/ca728a1a-9a25-46b6-80bc-bfffae233f6c/MeasureReport-fa3bd160-6278-475a-9c38-e81af83ebb9d.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>12 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ d305cce9-ad3c-4259-9f9d-6026974fa847 ](../.././input/tests/measure/CMS1017FHIRHHFI/d305cce9-ad3c-4259-9f9d-6026974fa847/MeasureReport-a73c73db-78f6-428b-89ae-9f1907b86dfc.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ ca728a1a-9a25-46b6-80bc-bfffae233f6c ](../.././input/tests/measure/CMS1017FHIRHHFI/ca728a1a-9a25-46b6-80bc-bfffae233f6c/MeasureReport-fa3bd160-6278-475a-9c38-e81af83ebb9d.json) | Group_1 | Denominator Observation<br>Numerator Observation | 12<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ d305cce9-ad3c-4259-9f9d-6026974fa847 ](../.././input/tests/measure/CMS1017FHIRHHFI/d305cce9-ad3c-4259-9f9d-6026974fa847/MeasureReport-a73c73db-78f6-428b-89ae-9f1907b86dfc.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ d62aa527-2547-48a1-aece-d649b05c7d6e ](../.././input/tests/measure/CMS1017FHIRHHFI/d62aa527-2547-48a1-aece-d649b05c7d6e/MeasureReport-3cebbd69-4c88-4eda-9587-9854ed2a85e3.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
 | [ e287cd76-85bd-4f51-9c41-f19551e83c14 ](../.././input/tests/measure/CMS1017FHIRHHFI/e287cd76-85bd-4f51-9c41-f19551e83c14/MeasureReport-0123f66f-22d0-4297-89fe-228eb29f2363.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ e3212bfa-f3a9-4323-8993-9ef74c2f8d89 ](../.././input/tests/measure/CMS1017FHIRHHFI/e3212bfa-f3a9-4323-8993-9ef74c2f8d89/MeasureReport-4556891c-6318-48fc-99f7-646bf5926c0e.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ e6383b7c-aa91-42f7-8dc8-693a8c7dcaf3 ](../.././input/tests/measure/CMS1017FHIRHHFI/e6383b7c-aa91-42f7-8dc8-693a8c7dcaf3/MeasureReport-4f8aa5d5-93df-4ae6-9187-a41f96326284.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ e6d91b78-a66f-4fcc-a9a7-edb3d862803e ](../.././input/tests/measure/CMS1017FHIRHHFI/e6d91b78-a66f-4fcc-a9a7-edb3d862803e/MeasureReport-ccce2151-63ad-4f73-aa29-a3f52cd6ba54.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>3 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ e3212bfa-f3a9-4323-8993-9ef74c2f8d89 ](../.././input/tests/measure/CMS1017FHIRHHFI/e3212bfa-f3a9-4323-8993-9ef74c2f8d89/MeasureReport-4556891c-6318-48fc-99f7-646bf5926c0e.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ e6383b7c-aa91-42f7-8dc8-693a8c7dcaf3 ](../.././input/tests/measure/CMS1017FHIRHHFI/e6383b7c-aa91-42f7-8dc8-693a8c7dcaf3/MeasureReport-4f8aa5d5-93df-4ae6-9187-a41f96326284.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ e6d91b78-a66f-4fcc-a9a7-edb3d862803e ](../.././input/tests/measure/CMS1017FHIRHHFI/e6d91b78-a66f-4fcc-a9a7-edb3d862803e/MeasureReport-ccce2151-63ad-4f73-aa29-a3f52cd6ba54.json) | Group_1 | Denominator Observation<br>Numerator Observation | 3<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ ea6b3f44-c6cd-4417-ae60-e97564bf24f9 ](../.././input/tests/measure/CMS1017FHIRHHFI/ea6b3f44-c6cd-4417-ae60-e97564bf24f9/MeasureReport-1452dcd8-c12d-4d5f-82b8-c3014feff056.json) | Group_1 | Denominator Observation | 5 | 0 | C-04 — resolution pending | FAIL |
-| [ f18417e1-5990-40b7-b927-5b50015380a2 ](../.././input/tests/measure/CMS1017FHIRHHFI/f18417e1-5990-40b7-b927-5b50015380a2/MeasureReport-1819fe1f-72fe-426e-b952-f48eea7162e4.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ f18417e1-5990-40b7-b927-5b50015380a2 ](../.././input/tests/measure/CMS1017FHIRHHFI/f18417e1-5990-40b7-b927-5b50015380a2/MeasureReport-1819fe1f-72fe-426e-b952-f48eea7162e4.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ f4708272-e5d3-4b6a-9431-a3cd2eb6809f ](../.././input/tests/measure/CMS1017FHIRHHFI/f4708272-e5d3-4b6a-9431-a3cd2eb6809f/MeasureReport-959d93a9-fc01-48e7-989b-15b3f2fba3c7.json) | Group_1 | Denominator Observation | 6 | 0 | C-04 — resolution pending | FAIL |
-| [ f771a339-74f0-4651-90f3-1c820edea547 ](../.././input/tests/measure/CMS1017FHIRHHFI/f771a339-74f0-4651-90f3-1c820edea547/MeasureReport-283ac8a7-cd94-455f-af78-066c7397562e.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>12 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ f771a339-74f0-4651-90f3-1c820edea547 ](../.././input/tests/measure/CMS1017FHIRHHFI/f771a339-74f0-4651-90f3-1c820edea547/MeasureReport-283ac8a7-cd94-455f-af78-066c7397562e.json) | Group_1 | Denominator Observation<br>Numerator Observation | 12<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 | [ f90151aa-9bd6-4c0c-bed8-5d43fe7fb8bb ](../.././input/tests/measure/CMS1017FHIRHHFI/f90151aa-9bd6-4c0c-bed8-5d43fe7fb8bb/MeasureReport-f4b4dd8f-02cb-4ed2-9318-79e72ed07d4a.json) | Group_1 | Denominator Observation | 2 | 0 | C-04 — resolution pending | FAIL |
-| [ fbbd3f4a-3e8e-40b9-ac83-0e80b2c129ec ](../.././input/tests/measure/CMS1017FHIRHHFI/fbbd3f4a-3e8e-40b9-ac83-0e80b2c129ec/MeasureReport-66785c4c-992c-404b-b8fb-39d71a2a1f16.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>2 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
-| [ fd4ea84b-cd39-4d03-9641-9ca8d10bbe67 ](../.././input/tests/measure/CMS1017FHIRHHFI/fd4ea84b-cd39-4d03-9641-9ca8d10bbe67/MeasureReport-bed5a065-8af6-4c78-a165-460571622469.json) | Group_1 | Numerator Observation<br>Denominator Observation | 1<br>4 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ fbbd3f4a-3e8e-40b9-ac83-0e80b2c129ec ](../.././input/tests/measure/CMS1017FHIRHHFI/fbbd3f4a-3e8e-40b9-ac83-0e80b2c129ec/MeasureReport-66785c4c-992c-404b-b8fb-39d71a2a1f16.json) | Group_1 | Denominator Observation<br>Numerator Observation | 2<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
+| [ fd4ea84b-cd39-4d03-9641-9ca8d10bbe67 ](../.././input/tests/measure/CMS1017FHIRHHFI/fd4ea84b-cd39-4d03-9641-9ca8d10bbe67/MeasureReport-bed5a065-8af6-4c78-a165-460571622469.json) | Group_1 | Denominator Observation<br>Numerator Observation | 4<br>1 | 0<br>0 | C-04 — resolution pending | FAIL<br>FAIL |
 
 
 #### CMS1028FHIRPCSevereOBComps

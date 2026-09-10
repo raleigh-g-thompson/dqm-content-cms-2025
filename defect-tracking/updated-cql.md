@@ -2,7 +2,7 @@
 
 # Updated CQL
 
-- Generated: 2026-09-10T08:10:15
+- Generated: 2026-09-10T08:49:08
 - Source: `defect-tracking/cql-changes.jsonl` (append-only, one JSON line per CQL change)
 - Entries recorded: 3
 

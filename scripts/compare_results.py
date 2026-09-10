@@ -575,7 +575,7 @@ def generate_comparison_report(file: str, expected_results: Dict[ResultKey, Dict
         f.write('_Note: Measures can have multiple discrepancies, so the Measures with Discrepancies count may not match the summary counts._\n')
 
         # Per-measure comparison table (CMS vs QICore)
-        if qicore_groups is not None:
+        if detailed and qicore_groups is not None:
             all_measures = sort_measure_names(list(set([k.measure_name for k in expected_results.keys()])))
             cms_pass_by_measure = scores_by_measure(expected_rows, actual_rows) if expected_rows and actual_rows else {}
             comparison_rows = []
