@@ -2,9 +2,9 @@
 
 # Improvement Tracking
 
-- Generated: 2026-09-09T23:29:14
+- Generated: 2026-09-10T00:04:39
 - Source: `scripts/comparison/run-history.jsonl` (append-only, one line per full-suite run)
-- Runs recorded: 10
+- Runs recorded: 11
 
 _This file is regenerated from the run-history log; do not hand-edit. Identical numbers across adjacent rows mean a rerun of the same data, not a claim about a plateau._
 
@@ -20,6 +20,7 @@ _This file is regenerated from the run-history log; do not hand-edit. Identical 
 | 8 | 2026-09-09T23:00:15.526381 | 3964 | 3585 | 379 | 379 | 0 | 674 | 0 | 0 |
 | 9 | 2026-09-09T23:24:52.881327 | 3964 | 3598 | 366 | 366 | 0 | 687 | 0 | 0 |
 | 10 | 2026-09-09T23:29:13.465216 | 3964 | 3598 | 366 | 366 | 0 | 674 | 0 | 0 |
+| 11 | 2026-09-10T00:04:38.626293 | 3964 | 3598 | 366 | 366 | 0 | 674 | 0 | 0 |
 
 ## Since the first recorded run
 
@@ -34,4 +35,4 @@ _This file is regenerated from the run-history log; do not hand-edit. Identical 
 | Phantom attributions | 0 | 0 | 0 |
 | Unscored | 0 | 0 | 0 |
 
-_Latest run: 2026-09-09T23:29:13.465216._
+_Latest run: 2026-09-10T00:04:38.626293._

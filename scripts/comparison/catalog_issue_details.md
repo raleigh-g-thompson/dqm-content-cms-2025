@@ -1,6 +1,6 @@
 # Known-Catalog Issue Details
 
-- Generated: 2026-09-09T23:29:13
+- Generated: 2026-09-10T00:04:38
 - Catalog: `scripts/comparison/known_issues.json`
 - Catalog size: 57 issues (38 pending, 19 resolved)
 - Issues rendered: 38
@@ -1791,8 +1791,8 @@ Fixture-side enrichment (doseAndRate/timing)
 - **ID**: M-04
 - **Title**: Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity
 - **Category**: migration
-- **Status**: Resolved — `.recorded()`/`.ext()` applied for CMS108 and CMS190 and verified (CMS68/CMS996 still carry the old field; see E-03)
-- **Defect status**: resolved-with-workaround
+- **Status**: Partial — `.recorded()`/`.ext()` workaround applied and verified for CMS108 and CMS190 (CMS68/CMS996 still carry the old field; E-03 ambiguity still open upstream)
+- **Defect status**: workaround-applied
 - **Affected measures**: CMS190, CMS996, CMS108, CMS68
 
 ### Affected test cases
@@ -1827,8 +1827,9 @@ _None enumerated (0 test cases). This issue is tracked at the measure level only
   regenerated reports. All 13 CMS190 negation cases flip to Numerator **1** — `passing 3585→3598`,
   `failing 379→366`, 0 unattributed. The fix is CQL content (source-level `recorded()` / `.ext()`),
   independent of the engine version. The 13 M-04 rows were removed from `cases.csv` as no longer
-  failing; the issue is tracked as resolved. The E-03 translator ambiguity that motivated the
-  original field swap remains open upstream.
+  failing. The underlying E-03 translator ambiguity that motivated the original field swap remains
+  open upstream, so this stays classified `workaround-applied` (open) per the two-field model —
+  engine E-03 must remain in the handoff register; CMS68/CMS996 still carry the un-fixed field.
 
 ### Workaround
 

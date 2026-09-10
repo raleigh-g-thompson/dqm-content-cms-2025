@@ -40,6 +40,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
         self.known_issues = os.path.join(self.tmp, "known_issues.json")
         self.engine_issues_out = os.path.join(self.tmp, "engine-issues.md")
         self.improvement_tracking_out = os.path.join(self.tmp, "improvement-tracking.md")
+        self.cql_changes = os.path.join(self.tmp, "cql-changes.jsonl")
+        self.updated_cql_out = os.path.join(self.tmp, "updated-cql.md")
 
         _write_csv(self.expected, [
             ("CMS1", "g1", "Group_1:Initial Population", "1"),
@@ -84,6 +86,10 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
             "--skip-catalog-build",
             "--skip-extract",
         ]
@@ -92,12 +98,29 @@ class RunReportsEndToEndTest(unittest.TestCase):
     def test_exits_zero_on_a_clean_run(self):
         self.assertEqual(self._run(), 0)
 
-    def test_writes_all_four_outputs(self):
+    def test_writes_all_five_outputs(self):
         self._run()
         self.assertTrue(os.path.exists(self.output))
         self.assertTrue(os.path.exists(self.report))
         self.assertTrue(os.path.exists(self.engine_issues_out))
         self.assertTrue(os.path.exists(self.improvement_tracking_out))
+        self.assertTrue(os.path.exists(self.updated_cql_out))
+
+    def test_updated_cql_is_generated_from_the_cql_change_log(self):
+        """Step 4 must regenerate updated-cql.md from the cql-changes log the
+        caller pointed at -- not the repo's real cql-changes.jsonl (which is
+        exactly the hermeticity this test would violate if the wiring drifted)."""
+        with open(self.cql_changes, "w", encoding="utf-8") as fh:
+            fh.write(json.dumps({"id": "CQL-001", "date": "2026-09-09",
+                                 "measure": "CMS190FHIRVTEProphylaxisICU",
+                                 "title": "seed entry"}) + "\n")
+        self._run()
+        with open(self.updated_cql_out, encoding="utf-8") as fh:
+            content = fh.read()
+        self.assertTrue(content.startswith(
+            "<!-- GENERATED from defect-tracking/cql-changes.jsonl"))
+        self.assertIn("Entries recorded: 1", content)
+        self.assertIn("CQL-001", content)
 
     def test_improvement_tracking_is_generated_from_the_run_history(self):
         """Step 3 must regenerate improvement-tracking.md from the log that
@@ -137,6 +160,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
             "--skip-catalog-build",
             "--skip-extract",
             "--skip-drift-check",
@@ -185,6 +210,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
             "--issues-dir", issues_dir,
             "--skip-extract",
         ]
@@ -243,6 +270,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
             "--results-dir", results_dir,
             "--skip-catalog-build",
             "--skip-drift-check",
@@ -285,6 +314,8 @@ class RunReportsEndToEndTest(unittest.TestCase):
             "--engine-issues-output", self.engine_issues_out,
             "--improvement-tracking-output", self.improvement_tracking_out,
             "--run-history-path", os.path.join(self.tmp, "run-history.jsonl"),
+            "--cql-changes-path", self.cql_changes,
+            "--updated-cql-output", self.updated_cql_out,
             "--results-dir", empty_results_dir,
             "--skip-catalog-build",
             "--skip-drift-check",

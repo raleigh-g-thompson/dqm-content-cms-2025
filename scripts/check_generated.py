@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Regenerate-and-diff drift detector for files marked GENERATED.
 
-Three files in this repo carry a "do not edit by hand" banner and are supposed to
-be fully reproducible from their declared source:
+Several files in this repo carry a "do not edit by hand" banner and are supposed
+to be fully reproducible from their declared source:
 
 * scripts/comparison/known_issues.json  <- compiled from defect-tracking/issues/
    * defect-tracking/engine-issues.md      <- scripts/comparison/known_issues.json
    * scripts/comparison/catalog_issue_details.md <- known_issues.json + discrepancy_report.md
    * defect-tracking/improvement-tracking.md <- scripts/comparison/run-history.jsonl
+   * defect-tracking/updated-cql.md         <- defect-tracking/cql-changes.jsonl
 
 The first of those forked from its source for months before anyone noticed --
 the banner was on the last line of a 1,150-line file, so nobody scrolled far
@@ -45,6 +46,8 @@ import known_issues as known_issues_lib
 import render_catalog_issue_details as catalog_details_gen
 import generate_improvement_tracking as improvement_tracking_gen
 import run_history as run_history_lib
+import cql_changes as cql_changes_lib
+import generate_updated_cql as updated_cql_gen
 
 REPO_ROOT = os.path.dirname(_SCRIPTS_DIR)
 
@@ -101,6 +104,15 @@ def check_improvement_tracking_md():
     return output_path, expected
 
 
+def check_updated_cql_md():
+    """defect-tracking/updated-cql.md, regenerated from the append-only
+    CQL-change log."""
+    output_path = str(updated_cql_gen.DEFAULT_OUTPUT)
+    entries = cql_changes_lib.read_all(cql_changes_lib.DEFAULT_PATH)
+    expected = updated_cql_gen.render(entries)
+    return output_path, expected
+
+
 def check_known_issues_json():
     """scripts/comparison/known_issues.json, compiled from defect-tracking/issues/."""
     issues_dir = os.path.join(REPO_ROOT, "defect-tracking", "issues")
@@ -116,6 +128,7 @@ CHECKS = [
     ("engine-issues.md", check_engine_issues_md),
     ("catalog_issue_details.md", check_catalog_issue_details_md),
     ("improvement-tracking.md", check_improvement_tracking_md),
+    ("updated-cql.md", check_updated_cql_md),
 ]
 
 

@@ -34,7 +34,12 @@ from scripts.comparison.known_issues import (
 # Floors captured 2026-09-08. Raise when the catalog legitimately grows;
 # lower ONLY alongside a deliberate retirement.
 MIN_ISSUE_COUNT = 56
-MIN_CASE_MAPPINGS = 1228
+MIN_CASE_MAPPINGS = 1206
+# 2026-09-09 deliberate retirement: 22 stale/retired attributions removed from
+# cases.csv -- 9 rows from E-17 (8 CMS108 negation cases resolved by the
+# recorded()/.ext() fix + CMS190 39215b49) and 13 M-04 CMS190 rows whose Numerator
+# flip was verified. Floor lowered 1228 -> 1206 in the same session, reviewable
+# in that diff.
 
 AUTHORED_ISSUES_DIR = (
     __import__("pathlib").Path(__file__).resolve().parents[2]
