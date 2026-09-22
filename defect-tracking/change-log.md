@@ -926,3 +926,28 @@ define "Follow up with Rescreen Within 6 Months":
   [USQualityCore.ServiceRequest: "Follow Up Within 6 Months"] FollowUp
     where FollowUp.intent ~ 'order'
 ```
+## Fix CMS190 `.recorded()` ambiguous-overload regression (I-37)
+
+**Problem:** commit `f0e8eb172` ("fixes for debugged measures", 2026-09-18) applied the I-18
+`.ext()` bypass for the ambiguous `recorded(Procedure)`/`recorded(ProcedureNotDone)` overload
+(engine issue I-37) correctly to CMS108's `DeviceNotApplied.recorded()` call, but for the
+identical `ProcedureNotDone`-derived construct in `"No Mechanical VTE Prophylaxis Performed Or
+Ordered"`, pasted the explanatory comment while leaving the buggy `.recorded()` line in place.
+This threw the uncaught `"Ambiguous call to operator 'recorded(...)'"` engine error for all 10
+`CMS190FHIRVTEProphylaxisICU` Group_1 test cases, producing Missing Results across all 4
+population cells for each — these had gone unattributed in the discrepancy report.
+
+**Fix:** applied the same `.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime`
+bypass already verified on CMS108.
+
+**Example** (`input/cql/CMS190FHIRVTEProphylaxisICU.cql`):
+
+```
+-- before
+authoredOn: DeviceNotApplied.recorded()
+
+-- after
+authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
+```
+
+**Measures Affected:** CMS190
