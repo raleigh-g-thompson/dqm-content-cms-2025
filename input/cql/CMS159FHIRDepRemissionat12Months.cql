@@ -150,7 +150,7 @@ define "Has Hospice Services prior to or during the Measure Assessment Period":
           and HospiceAssessment.effective.toInterval ( ) overlaps day of Interval[start of "Denominator Identification Period", end of "Measure Assessment Period"]
           and HospiceAssessment.status in { 'final', 'amended', 'corrected' }
     )
-    or exists ( [ServiceRequest: "Hospice Care Ambulatory"] HospiceOrder
+    or exists ( [USQualityCore.ServiceRequest: "Hospice Care Ambulatory"] HospiceOrder
         where HospiceOrder.authoredOn during day of Interval[start of "Denominator Identification Period", end of "Measure Assessment Period"]
           and HospiceOrder.status in { 'active', 'completed' }
           and HospiceOrder.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }

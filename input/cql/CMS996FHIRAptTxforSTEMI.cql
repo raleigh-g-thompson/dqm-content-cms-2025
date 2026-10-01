@@ -231,7 +231,7 @@ define "ED Encounter with Hospice Services":
               and HospiceAssessment.effective.toInterval ( ) starts before or on start of ( EDwSTEMI.period )
               and ( HospiceAssessment.effective.toInterval ( ) overlaps day of SixMonthsBeforeToEndOfSTEMI )
         )
-        or exists ( ( ( [ServiceRequest: "Hospice Care Ambulatory"] ).isInterventionOrder ( ) ) HospiceOrder
+        or exists ( ( ( [USQualityCore.ServiceRequest: "Hospice Care Ambulatory"] ).isInterventionOrder ( ) ) HospiceOrder
             where HospiceOrder.authoredOn 6 months or less before start of ( EDwSTEMI.period )
         )
         or exists ( ( ( [Procedure: "Hospice Care Ambulatory"] ).isInterventionPerformed ( ) ) HospicePerformed

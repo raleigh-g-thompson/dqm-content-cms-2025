@@ -119,7 +119,7 @@ define "Encounter With Principal Procedure Of Selected Surgery":
       or QualifyingEncounter.hasPrincipalProcedureOf ( "Urological Surgery" )
 
 define "Intervention Comfort Measures":
-  ( ["ServiceRequest": "Comfort Measures"] InterventionRequest
+  ( [USQualityCore.ServiceRequest: "Comfort Measures"] InterventionRequest
       where InterventionRequest.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
         and InterventionRequest.status in { 'active', 'completed' }
   )
@@ -397,9 +397,9 @@ define "No Mechanical VTE Prophylaxis Performed Or Ordered":
       }
   )
     union ( from
-        ( [ServiceRequest: "Venous foot pumps"]
-          union [ServiceRequest: "Intermittent pneumatic compression devices"]
-          union [ServiceRequest: "Graduated compression stockings"] ) DeviceOrderReject,
+        ( [USQualityCore.ServiceRequest: "Venous foot pumps"]
+          union [USQualityCore.ServiceRequest: "Intermittent pneumatic compression devices"]
+          union [USQualityCore.ServiceRequest: "Graduated compression stockings"] ) DeviceOrderReject,
         [TaskRejected] T
         where DeviceOrderReject.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
           and DeviceOrderReject.status = 'active'

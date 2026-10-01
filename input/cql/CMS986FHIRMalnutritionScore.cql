@@ -67,7 +67,7 @@ define "Encounters with Discharge for Hospice Care":
     where QualifyingEncounter.hospitalization.dischargeDisposition in "Hospice Care Referral or Admission"
 
 /*define "Intervention Hospice Care":
-    ( ["ServiceRequest": "Hospice Status"] HospiceStatusOrder
+    ( [USQualityCore.ServiceRequest: "Hospice Status"] HospiceStatusOrder
     where HospiceStatusOrder.status in { 'active', 'completed', 'on-hold' }
         and HospiceStatusOrder.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
   )
@@ -85,7 +85,7 @@ define "Encounters with Hospice during Eligible Encounter":
 
 
 define "Intervention Hospice Care":
-  ( ["ServiceRequest": "Hospice Status"] HospiceStatusOrder
+  ( [USQualityCore.ServiceRequest: "Hospice Status"] HospiceStatusOrder
       where HospiceStatusOrder.status in { 'active', 'completed', 'on-hold' }
         and HospiceStatusOrder.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
       return HospiceStatusOrder.authoredOn.ToDateTime()  // I-61: do not remove as "redundant" — raw FHIR.dateTime unioned with an already-converted System.DateTime branch silently nulls in "during"/"such that" without this
@@ -101,7 +101,7 @@ define "Encounters with Hospice during Eligible Encounter":
       such that HospiceStatusDate during day of QualifyingEncounter.hospitalizationWithObservation ( )
 
 /*define "Intervention Dietitian Referral":
-( ["ServiceRequest": "Dietitian Referral"] DietitianReferralOrder
+( [USQualityCore.ServiceRequest: "Dietitian Referral"] DietitianReferralOrder
     where DietitianReferralOrder.status in { 'active', 'completed', 'on-hold' }
         and DietitianReferralOrder.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
   
@@ -120,7 +120,7 @@ define "Encounters with Dietitian Referral":
 
 
 define "Intervention Dietitian Referral":
-  ( ["ServiceRequest": "Dietitian Referral"] DietitianReferralOrder
+  ( [USQualityCore.ServiceRequest: "Dietitian Referral"] DietitianReferralOrder
       where DietitianReferralOrder.status in { 'active', 'completed', 'on-hold' }
         and DietitianReferralOrder.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
       return DietitianReferralOrder.authoredOn.ToDateTime()  // I-61: do not remove as "redundant" — see "Intervention Hospice Care" above

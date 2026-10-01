@@ -34,7 +34,7 @@ define "Comfort Measures Care":
   ( ["Procedure": "Comfort Measures"] ProcedureCM
       where ProcedureCM.status = 'completed'
   )
-    union ( ["ServiceRequest": "Comfort Measures"] ServiceReq
+    union ( [USQualityCore.ServiceRequest: "Comfort Measures"] ServiceReq
         where ServiceReq.status in { 'active', 'completed' }
     )
 

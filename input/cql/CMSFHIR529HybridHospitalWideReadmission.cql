@@ -238,8 +238,8 @@ define "SDE Encounter With First Weight Recorded":
 
 define "SDE Encounter With Oxygen 60 Minutes Or Less Prior To ED Admission Or During ED":
   "Initial Population" EncounterInpatient
-    where exists ( ( [ServiceRequest: "Non Invasive Oxygen Therapy by Nasal Cannula or Mask"]
-        union [ServiceRequest: "Non Invasive Oxygen Therapy Device Codes"] ) OxygenTherapyOrder
+    where exists ( ( [USQualityCore.ServiceRequest: "Non Invasive Oxygen Therapy by Nasal Cannula or Mask"]
+        union [USQualityCore.ServiceRequest: "Non Invasive Oxygen Therapy Device Codes"] ) OxygenTherapyOrder
         where ( OxygenTherapyOrder.authoredOn during EncounterInpatient.edVisit ( ).period
             or OxygenTherapyOrder.authoredOn 60 minutes or less before or on start of EncounterInpatient.edVisit ( ).period
         )

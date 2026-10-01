@@ -181,7 +181,7 @@ define "SDE Minimal Patient":
     return { MinPt.id, MinPt.meta, MinPt.extension, MinPt.identifier, MinPt.active, MinPt.name, MinPt.telecom, MinPt.gender, MinPt.birthDate, MinPt.deceased, MinPt.address, MinPt.maritalStatus, MinPt.multipleBirth, MinPt.photo, MinPt.contact, MinPt.communication, MinPt.generalPractitioner, MinPt.managingOrganization, MinPt.link }
 
 define "SDE Service Request":
-  [ServiceRequest] ServiceRequests
+  [FHIR.ServiceRequest] ServiceRequests
     where exists ( "Initial Population" InitialPopulation
         where ServiceRequests.authoredOn during InitialPopulation.period
     )
