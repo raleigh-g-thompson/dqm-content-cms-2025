@@ -94,8 +94,8 @@ define "High BMI And Follow Up Provided":
       such that Coalesce(HighBMIInterventions.performed.toInterval(), HighBMIInterventions.authoredOn.toInterval()) starts during day of "Measurement Period"
 
 define "High BMI Interventions Ordered":
-  ( ( [ServiceRequest: "Follow Up for Above Normal BMI"]
-      union [ServiceRequest: "Referrals Where Weight Assessment May Occur"]
+  ( ( [USQualityCore.ServiceRequest: "Follow Up for Above Normal BMI"]
+      union [USQualityCore.ServiceRequest: "Referrals Where Weight Assessment May Occur"]
       union [MedicationRequest: "Medications for Above Normal BMI"] ) HighInterventionsOrdered
       where HighInterventionsOrdered.reasonCode in "Overweight or Obese"
         or ( // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
@@ -125,8 +125,8 @@ define "Medical Reason Or Patient Reason For Not Performing BMI Exam":
     )
 
 define "Low BMI Interventions Ordered":
-  ( ( [ServiceRequest: "Follow Up for Below Normal BMI"]
-      union [ServiceRequest: "Referrals Where Weight Assessment May Occur"]
+  ( ( [USQualityCore.ServiceRequest: "Follow Up for Below Normal BMI"]
+      union [USQualityCore.ServiceRequest: "Referrals Where Weight Assessment May Occur"]
       union [MedicationRequest: "Medications for Below Normal BMI"] ) LowInterventionsOrdered
       where LowInterventionsOrdered.reasonCode in "Underweight"
         or ( // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)

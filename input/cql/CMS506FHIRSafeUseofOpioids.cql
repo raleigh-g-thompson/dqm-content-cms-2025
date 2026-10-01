@@ -147,7 +147,7 @@ define "Medications For Opioid Use Disorder":
       and DischargeMedication.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
 
 define "Intervention Palliative Or Hospice Care":
-  ( ["ServiceRequest": "Palliative or Hospice Care"] PalliativeOrHospiceCareOrder
+  ( [USQualityCore.ServiceRequest: "Palliative or Hospice Care"] PalliativeOrHospiceCareOrder
       where PalliativeOrHospiceCareOrder.status in { 'active', 'completed', 'on-hold' }
   )
     union ( ["Procedure": "Palliative or Hospice Care"] PalliativeOrHospiceCarePerformed

@@ -147,7 +147,7 @@ define "Qualified VTE Encounter With Hospice Services Within Previous 90 Days":
           where HospiceAssessment.value ~ "Yes (qualifier value)"
             and HospiceAssessment.effective.toInterval ( ) overlaps day of NinetyDaysBeforeVTEEncounter
       )
-      or exists ( ( [ServiceRequest: "Hospice Care Ambulatory"] ) HospiceOrder
+      or exists ( ( [USQualityCore.ServiceRequest: "Hospice Care Ambulatory"] ) HospiceOrder
           where HospiceOrder.authoredOn during day of NinetyDaysBeforeVTEEncounter
             and HospiceOrder.status in { 'active', 'completed' }
       )

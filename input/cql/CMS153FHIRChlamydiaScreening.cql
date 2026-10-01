@@ -117,20 +117,20 @@ define "Has Ordered Contraceptive Medications":
     where OrderedContraceptives.authoredOn.toInterval ( ) during day of "Measurement Period"
 
 define "Has Laboratory Tests Identifying Sexual Activity But Not Pregnancy":
-  exists ( ( [ServiceRequest: "Pap Test"]
-      union [ServiceRequest: "Lab Tests During Pregnancy"]
-      union [ServiceRequest: "Lab Tests for Sexually Transmitted Infections"]
+  exists ( ( [USQualityCore.ServiceRequest: "Pap Test"]
+      union [USQualityCore.ServiceRequest: "Lab Tests During Pregnancy"]
+      union [USQualityCore.ServiceRequest: "Lab Tests for Sexually Transmitted Infections"]
   ).isLaboratoryTestOrder ( ) ) LabOrders
     where LabOrders.authoredOn.toInterval ( ) during day of "Measurement Period"
 
 define "Has Laboratory Tests Identifying Sexual Activity":
-  exists ( ( ( [ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTest
+  exists ( ( ( [USQualityCore.ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTest
       where PregnancyTest.authoredOn.toInterval ( ) during day of "Measurement Period"
   )
     or "Has Laboratory Tests Identifying Sexual Activity But Not Pregnancy"
 
 define "Has Diagnostic Studies Identifying Sexual Activity":
-  exists ( ( [ServiceRequest: "Diagnostic Studies During Pregnancy"] ).isDiagnosticStudyOrder ( ) ) SexualActivityDiagnostics
+  exists ( ( [USQualityCore.ServiceRequest: "Diagnostic Studies During Pregnancy"] ).isDiagnosticStudyOrder ( ) ) SexualActivityDiagnostics
     where SexualActivityDiagnostics.authoredOn.toInterval ( ) during day of "Measurement Period"
 
 define "Has Procedures Identifying Sexual Activity":
@@ -153,12 +153,12 @@ define "Denominator Exclusions":
     )
 
 define "Has Pregnancy Test Exclusion":
-  exists ( ( ( ( [ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTest
-        with ( ( [ServiceRequest: "XRay Study"] ).isDiagnosticStudyOrder ( ) ) XrayOrder
+  exists ( ( ( ( [USQualityCore.ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTest
+        with ( ( [USQualityCore.ServiceRequest: "XRay Study"] ).isDiagnosticStudyOrder ( ) ) XrayOrder
           such that XrayOrder.authoredOn.toInterval ( ) occurs 6 days or less on or after day of PregnancyTest.authoredOn.toInterval ( )
         where PregnancyTest.authoredOn.toInterval ( ) during "Measurement Period"
     )
-      union ( ( [ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTestOrder
+      union ( ( [USQualityCore.ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTestOrder
         with ( ( [MedicationRequest: "Isotretinoin"] ).isMedicationOrder ( ) ) AccutaneOrder
           such that AccutaneOrder.authoredOn.toInterval ( ) occurs 6 days or less on or after day of PregnancyTestOrder.authoredOn.toInterval ( )
         where PregnancyTestOrder.authoredOn.toInterval ( ) during "Measurement Period"

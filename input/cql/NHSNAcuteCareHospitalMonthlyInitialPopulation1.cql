@@ -729,7 +729,7 @@ define "SDE Procedure":
 
 
 define "SDE Service Request Base":
-  [ServiceRequest] ServiceRequests
+  [USQualityCore.ServiceRequest] ServiceRequests
     where exists ( "Initial Population" IP
         where ServiceRequests.authoredOn during IP.period
     )

@@ -59,7 +59,7 @@ define "SDE Sex":
   SDE."SDE Sex"
 
 define "Has Baseline DEXA Scan Two Years Prior to the Start of or Less than Three Months After the Start of ADT":
-  exists ( ( [ServiceRequest: "DEXA Bone Density for Urology Care"] DEXAOrdered
+  exists ( ( [USQualityCore.ServiceRequest: "DEXA Bone Density for Urology Care"] DEXAOrdered
         with "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of Measurement Period" OrderTwelveMonthsADT
           such that DEXAOrdered.authoredOn 3 months or less on or after day of OrderTwelveMonthsADT.authoredOn
             or DEXAOrdered.authoredOn 2 years or less before day of OrderTwelveMonthsADT.authoredOn
@@ -96,7 +96,7 @@ define "First ADT in 3 Months Before to 9 Months After Start of Measurement Peri
   )
 
 define "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of Measurement Period":
-  [ServiceRequest: "Injection of leuprolide acetate for twelve month period (regime/therapy)"] OrderTwelveMonthADT
+  [USQualityCore.ServiceRequest: "Injection of leuprolide acetate for twelve month period (regime/therapy)"] OrderTwelveMonthADT
     with "First ADT in 3 Months Before to 9 Months After Start of Measurement Period" FirstADTMP
       such that OrderTwelveMonthADT.authoredOn on or after day of FirstADTMP
         and OrderTwelveMonthADT.authoredOn during day of Interval[start of "Measurement Period" - 3 months, start of "Measurement Period" + 9 months]
