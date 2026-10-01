@@ -171,17 +171,17 @@ define "Has Allergy or Intolerance to Beta Blocker Therapy Ingredient with Quali
   )
 
 define "Has Beta Blocker Therapy for LVSD Ordered":
-  exists ( [MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] BetaBlockerForLVSDOrdered
+  exists ( [USQualityCore.MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] BetaBlockerForLVSDOrdered
       where BetaBlockerForLVSDOrdered.authoredDuringDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Beta Blocker Therapy Ordered":
-  exists ( [MedicationRequest: medication in "Beta Blocker Therapy"] BetaBlockerOrdered
+  exists ( [USQualityCore.MedicationRequest: medication in "Beta Blocker Therapy"] BetaBlockerOrdered
       where BetaBlockerOrdered.authoredDuringDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Is Currently Taking Beta Blocker Therapy":
-  exists ( [MedicationRequest: medication in "Beta Blocker Therapy"] ActiveBetaBlocker
+  exists ( [USQualityCore.MedicationRequest: medication in "Beta Blocker Therapy"] ActiveBetaBlocker
       with "Qualifying CAD Encounter and Prior MI" CADEncounterMI
         such that First((collapse(ActiveBetaBlocker.dosageInstruction.timing.repeat.bounds DoseTime
               return DoseTime.toInterval()
@@ -193,7 +193,7 @@ define "Is Currently Taking Beta Blocker Therapy":
   )
 
 define "Is Currently Taking Beta Blocker Therapy for LVSD":
-  exists ( [MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] ActiveBetaBlockerForLVSD
+  exists ( [USQualityCore.MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] ActiveBetaBlockerForLVSD
       with "Qualifying CAD Encounter and History of Moderate or Severe LVSD" CADEncounterModerateOrSevereLVSD
         such that First((collapse(ActiveBetaBlockerForLVSD.dosageInstruction.timing.repeat.bounds DoseTime
               return DoseTime.toInterval()

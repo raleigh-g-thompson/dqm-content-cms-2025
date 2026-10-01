@@ -144,7 +144,7 @@ define "Reason For Not Ordering Antithrombotic":
         authoredOn: NoAntithromboticOrder.authoredOn
       }
   )
-    union ( ["MedicationRequest": "Antithrombotic Therapy for Ischemic Stroke"] MedReqAntithrombotic
+    union ( [USQualityCore.MedicationRequest: "Antithrombotic Therapy for Ischemic Stroke"] MedReqAntithrombotic
         with ["TaskRejected"] TaskReject
           such that TaskReject.focus.references ( MedReqAntithrombotic )
             and ( TaskReject.statusReason in "Medical Reason for Not Providing Treatment"

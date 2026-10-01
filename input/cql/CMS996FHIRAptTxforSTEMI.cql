@@ -138,7 +138,7 @@ define "Active Exclusion Diagnosis Within 90 Days Before or At the Start of ED E
 
 define "Active Oral Anticoagulant Medication at the Start of ED Encounter":
   "ED Encounter with STEMI Diagnosis" EDwithSTEMI
-    with ["MedicationRequest": "Oral Anticoagulant Medications"] OralAnticoagulant
+    with [USQualityCore.MedicationRequest: "Oral Anticoagulant Medications"] OralAnticoagulant
       such that OralAnticoagulant.status in { 'active', 'completed' }
         and OralAnticoagulant.intent = 'order'
         and OralAnticoagulant.authoredOn 90 days or less before or on start of EDwithSTEMI.period

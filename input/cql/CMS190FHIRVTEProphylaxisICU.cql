@@ -327,11 +327,11 @@ define "No VTE Prophylaxis Medication Administered Or Ordered":
         }
     )
     union ( from
-        ( ["MedicationRequest": "Low Dose Unfractionated Heparin for VTE Prophylaxis"]
-          union ["MedicationRequest": "Low Molecular Weight Heparin for VTE Prophylaxis"]
-          union ["MedicationRequest": "Injectable Factor Xa Inhibitor for VTE Prophylaxis"]
-          union ["MedicationRequest": "Warfarin"]
-          union ["MedicationRequest": "Rivaroxaban for VTE Prophylaxis"] ) MedicationOrderReject,
+        ( [USQualityCore.MedicationRequest: "Low Dose Unfractionated Heparin for VTE Prophylaxis"]
+          union [USQualityCore.MedicationRequest: "Low Molecular Weight Heparin for VTE Prophylaxis"]
+          union [USQualityCore.MedicationRequest: "Injectable Factor Xa Inhibitor for VTE Prophylaxis"]
+          union [USQualityCore.MedicationRequest: "Warfarin"]
+          union [USQualityCore.MedicationRequest: "Rivaroxaban for VTE Prophylaxis"] ) MedicationOrderReject,
         [TaskRejected] T
         where T.focus.references ( MedicationOrderReject )
           and T.code ~ USQualityCoreCommon."Fulfill"

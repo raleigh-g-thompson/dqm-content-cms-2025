@@ -199,9 +199,9 @@ define "LDL Result Greater Than or Equal To 190":
       and LDL190.status in { 'final', 'amended', 'corrected', 'appended' }
 
 define "Medication Active during the Measurement Period":
-  ( [MedicationRequest: "Low Intensity Statin Therapy"]
-    union [MedicationRequest: "Moderate Intensity Statin Therapy"]
-    union [MedicationRequest: "High Intensity Statin Therapy"] ) ActiveStatin
+  ( [USQualityCore.MedicationRequest: "Low Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "Moderate Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "High Intensity Statin Therapy"] ) ActiveStatin
     where ActiveStatin.medicationRequestPeriod ( ) overlaps day of "Measurement Period"
       and ActiveStatin.status in { 'active', 'completed' }
 
@@ -246,9 +246,9 @@ define "Qualifying Encounter During Day of Measurement Period":
       and QualifyingEncounter.status = 'finished'
 
 define "Statin Therapy Ordered during Measurement Period":
-  ( [MedicationRequest: "Low Intensity Statin Therapy"]
-    union [MedicationRequest: "Moderate Intensity Statin Therapy"]
-    union [MedicationRequest: "High Intensity Statin Therapy"] ) StatinRequest
+  ( [USQualityCore.MedicationRequest: "Low Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "Moderate Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "High Intensity Statin Therapy"] ) StatinRequest
     where StatinRequest.authoredOn during day of "Measurement Period"
       and StatinRequest.status in { 'active', 'completed' }
       and StatinRequest.intent in { 'order', 'original-order', 'reflex-order', 'filter-order', 'instance-order' }

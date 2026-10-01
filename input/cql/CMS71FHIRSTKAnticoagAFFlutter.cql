@@ -102,7 +102,7 @@ define "Encounter With Comfort Measures During Hospitalization For Patients With
 
 define "Numerator":
   "Denominator" Encounter
-    with ["MedicationRequest": "Anticoagulant Therapy"] DischargeAnticoagulant
+    with [USQualityCore.MedicationRequest: "Anticoagulant Therapy"] DischargeAnticoagulant
       such that DischargeAnticoagulant.status in { 'active', 'completed' }
         and DischargeAnticoagulant.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
         and ( DischargeAnticoagulant.isCommunity ( )
@@ -130,7 +130,7 @@ define "Documented Reason For Not Giving Anticoagulant At Discharge":
         and NoAnticoagulant.status in { 'active', 'completed' }
         and NoAnticoagulant.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
   )
-    union ( ["MedicationRequest": "Anticoagulant Therapy"] MedReqAntiCoagulant
+    union ( [USQualityCore.MedicationRequest: "Anticoagulant Therapy"] MedReqAntiCoagulant
         with ["TaskRejected"] TaskReject
           such that TaskReject.focus.references ( MedReqAntiCoagulant )
             and ( TaskReject.statusReason in "Medical Reason For Not Providing Treatment"

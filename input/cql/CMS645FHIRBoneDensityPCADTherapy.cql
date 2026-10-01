@@ -104,7 +104,7 @@ define "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of
         and OrderTwelveMonthADT.intent = 'order'
 
 define "Androgen Deprivation Therapy for Urology Care Medication Active Start Dates":
-  [MedicationRequest: "Androgen Deprivation Therapy for Urology Care"] ADTActive
+  [USQualityCore.MedicationRequest: "Androgen Deprivation Therapy for Urology Care"] ADTActive
     let firstMedicationPeriod: First((collapse(ADTActive.dosageInstruction.timing.repeat.bounds DoseTime
           return DoseTime.toInterval()
       )) DrugPeriods
@@ -129,7 +129,7 @@ define "Androgen Deprivation Therapy for Urology Care Medication Active Start Da
     return medicationDateTime
 
 define "Androgen Deprivation Therapy for Urology Care Medication Order Start Dates":
-  [MedicationRequest: "Androgen Deprivation Therapy for Urology Care"] ADTOrder
+  [USQualityCore.MedicationRequest: "Androgen Deprivation Therapy for Urology Care"] ADTOrder
     let firstMedicationPeriod: First((collapse(ADTOrder.dosageInstruction.timing.repeat.bounds DoseTime
           return DoseTime.toInterval()
       )) DrugPeriods

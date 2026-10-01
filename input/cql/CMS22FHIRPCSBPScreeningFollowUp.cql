@@ -138,7 +138,7 @@ define "Second Hypertensive Reading SBP Greater than or Equal to 140 OR DBP Grea
           and ECGLabTest.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
       with "NonPharmacological Interventions" HTNInterventions
         such that HTNInterventions.authoredOn during day of "Measurement Period"
-      with ["MedicationRequest": "Pharmacologic Therapy for Hypertension"] Medications
+      with [USQualityCore.MedicationRequest: "Pharmacologic Therapy for Hypertension"] Medications
         such that Medications.authoredOn during day of "Measurement Period"
           and Medications.status in { 'active', 'completed' }
   )
