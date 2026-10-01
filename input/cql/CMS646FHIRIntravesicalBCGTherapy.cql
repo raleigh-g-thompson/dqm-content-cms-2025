@@ -177,7 +177,7 @@ define "Bladder Cancer Diagnosis":
       and BladderCancer.isVerified ( )
 
 define "BCG Not Available Within 6 Months After Bladder Cancer Staging":
-  [MedicationAdministrationNotDone: "Bacillus Calmette Guerin for Urology Care"] BCGNotGiven
+  [USQualityCore.MedicationAdministrationNotDone: "Bacillus Calmette Guerin for Urology Care"] BCGNotGiven
     with "First Bladder Cancer Staging Procedure" FirstBladderCancerStaging
       such that BCGNotGiven.effective 6 months or less after day of start of FirstBladderCancerStaging.performed.toInterval ( )
     where BCGNotGiven.statusReason in "Unavailability of Bacillus Calmette Guerin for Urology Care"
@@ -199,7 +199,7 @@ define "First BCG Administered":
 
 
 define "Has Most Recent Bladder Cancer Tumor Staging is T1, Tis, Ta HG":
-  exists ( [LaboratoryResultObservation] StagingObservation
+  exists ( [USQualityCore.LaboratoryResultObservation] StagingObservation
       where StagingObservation.getStagingProcedure ( ) is not null
         and ( StagingObservation.value as CodeableConcept ~ "American Joint Committee on Cancer cT1 (qualifier value)"
             or StagingObservation.value as CodeableConcept ~ "American Joint Committee on Cancer cTis (qualifier value)"

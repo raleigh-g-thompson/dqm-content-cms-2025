@@ -187,8 +187,8 @@ define "Time to Treatment Room Greater Than 60 Minutes":
     where EDEvalManagementInMP.edArrivalTime ( ) 61 minutes or more before EDEvalManagementInMP.edTreatmentRoomTimeArrivalTime ( )
 
 define "Assessment In ED":
-  ["ObservationClinicalResult": "Emergency Department Evaluation"]
-    union ["SimpleObservation": "Emergency Department Evaluation"] ObsInED
+  [USQualityCore.ObservationClinicalResult: "Emergency Department Evaluation"]
+    union [USQualityCore.SimpleObservation: "Emergency Department Evaluation"] ObsInED
       where ObsInED.value as CodeableConcept in "Admit Inpatient"
 
 define fluent function "admitDecisionUsingAssessment"(EncounterInpatient Encounter):

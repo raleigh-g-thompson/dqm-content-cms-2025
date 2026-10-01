@@ -187,8 +187,8 @@ define "More than One Benzodiazepine Order":
   exists ( [USQualityCore.MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"] ).moreThanOneOrder ( )
 
 define "Bipolar Disorder Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Bipolar Disorder"]
-      union [ConditionEncounterDiagnosis: "Bipolar Disorder"]
+  ( [USQualityCore.ConditionProblemsHealthConcerns: "Bipolar Disorder"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Bipolar Disorder"]
   ).verified ( )
 
 define "Schizophrenia Diagnosis":
@@ -208,23 +208,23 @@ define "Seizure Disorder Diagnosis":
   ).verified ( )
 
 define "REM Sleep Behavior Disorder Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "REM Sleep Behavior Disorder"]
-      union [ConditionEncounterDiagnosis: "REM Sleep Behavior Disorder"]
+  ( [USQualityCore.ConditionProblemsHealthConcerns: "REM Sleep Behavior Disorder"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "REM Sleep Behavior Disorder"]
   ).verified ( )
 
 define "Benzodiazepine Withdrawal Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Benzodiazepine Withdrawal"]
-      union [ConditionEncounterDiagnosis: "Benzodiazepine Withdrawal"]
+  ( [USQualityCore.ConditionProblemsHealthConcerns: "Benzodiazepine Withdrawal"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Benzodiazepine Withdrawal"]
   ).verified ( )
 
 define "Alcohol Withdrawal Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Alcohol Withdrawal"]
-      union [ConditionEncounterDiagnosis: "Alcohol Withdrawal"]
+  ( [USQualityCore.ConditionProblemsHealthConcerns: "Alcohol Withdrawal"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Alcohol Withdrawal"]
   ).verified ( )
 
 define "Generalized Anxiety Disorder Diagnosis":
-  ( [ConditionProblemsHealthConcerns: "Generalized Anxiety Disorder"]
-      union [ConditionEncounterDiagnosis: "Generalized Anxiety Disorder"]
+  ( [USQualityCore.ConditionProblemsHealthConcerns: "Generalized Anxiety Disorder"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Generalized Anxiety Disorder"]
   ).verified ( )
 
 define "Antipsychotic Index Prescription Start Date":

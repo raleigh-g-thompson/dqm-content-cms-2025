@@ -66,7 +66,7 @@ define "Has Baseline DEXA Scan Two Years Prior to the Start of or Less than Thre
         where DEXAOrdered.status in { 'active', 'completed' }
           and DEXAOrdered.intent = 'order'
     )
-      union ( [ObservationClinicalResult: "DEXA Bone Density for Urology Care"] DEXAPerformed
+      union ( [USQualityCore.ObservationClinicalResult: "DEXA Bone Density for Urology Care"] DEXAPerformed
           with "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of Measurement Period" OrderTwelveMonthsADT
             such that DEXAPerformed.effective.toInterval ( ) 3 months or less on or after day of OrderTwelveMonthsADT.authoredOn
               or DEXAPerformed.effective.toInterval ( ) 2 years or less before day of OrderTwelveMonthsADT.authoredOn
@@ -75,13 +75,13 @@ define "Has Baseline DEXA Scan Two Years Prior to the Start of or Less than Thre
   )
 
 define "No Bone Density Scan Ordered Due to Patient Refusal":
-  [ServiceNotRequested: "DEXA Bone Density for Urology Care"] DEXANotOrdered
+  [USQualityCore.ServiceNotRequested: "DEXA Bone Density for Urology Care"] DEXANotOrdered
     with "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of Measurement Period" OrderTwelveMonthsADT
       such that DEXANotOrdered.authoredOn 3 months or less on or after day of OrderTwelveMonthsADT.authoredOn
         and DEXANotOrdered.reasonRefused ( ) in "Patient Declined"
 
 define "No Bone Density Scan Performed Due to Patient Refusal":
-  [ObservationCancelled: "DEXA Bone Density for Urology Care"] DEXANotPerformed
+  [USQualityCore.ObservationCancelled: "DEXA Bone Density for Urology Care"] DEXANotPerformed
     with "Order for 12 Months of ADT in 3 Months Before to 9 Months After Start of Measurement Period" OrderTwelveMonthsADT
       such that DEXANotPerformed.issued 3 months or less on or after day of OrderTwelveMonthsADT.authoredOn
         and DEXANotPerformed.notDoneReason ( ) in "Patient Declined"

@@ -110,14 +110,14 @@ define "High BMI Interventions Ordered":
 define "High BMI Interventions Performed":
   ( [Procedure: "Follow Up for Above Normal BMI"] HighInterventionsPerformed
       where HighInterventionsPerformed.reasonCode in "Overweight or Obese"
-        or ( exists [ConditionProblemsHealthConcerns: "Overweight or Obese"] OverweightObese
+        or ( exists [USQualityCore.ConditionProblemsHealthConcerns: "Overweight or Obese"] OverweightObese
             where OverweightObese.prevalenceInterval ( ) starts before or on day of start of HighInterventionsPerformed.performed.toInterval ( )
               and not ( OverweightObese.prevalenceInterval ( ) ends before day of start of HighInterventionsPerformed.performed.toInterval ( ) )
         )
   )
 
 define "Medical Reason Or Patient Reason For Not Performing BMI Exam":
-  [ObservationCancelled: "Body mass index (BMI) [Ratio]"] NoBMI
+  [USQualityCore.ObservationCancelled: "Body mass index (BMI) [Ratio]"] NoBMI
     with "Qualifying Encounter During Day Of Measurement Period" QualifyingEncounter
       such that NoBMI.effective.toInterval ( ) ends same day as start of QualifyingEncounter.period
     where ( NoBMI.notDoneReason ( ) in "Patient Declined"
@@ -143,7 +143,7 @@ define "Low BMI Interventions Performed":
   ( [Procedure: "Follow Up for Below Normal BMI"] LowInterventionsPerformed
       where LowInterventionsPerformed.reasonCode in "Underweight"
         and LowInterventionsPerformed.status = 'completed'
-        or ( exists [ConditionProblemsHealthConcerns: "Underweight"] UnderweightDiagnosis
+        or ( exists [USQualityCore.ConditionProblemsHealthConcerns: "Underweight"] UnderweightDiagnosis
             where ( UnderweightDiagnosis.isHealthConcern ( ) )
               and UnderweightDiagnosis.prevalenceInterval ( ) starts before or on day of start of LowInterventionsPerformed.performed.toInterval ( )
               and LowInterventionsPerformed.performed.toInterval ( ) during day of "Measurement Period"
@@ -159,16 +159,16 @@ define "Low BMI And Follow Up Provided":
   )
 
 define "Medical Reason For Not Documenting A Follow Up Plan For Low Or High BMI":
-  ( ( [ServiceNotRequested: "Referrals Where Weight Assessment May Occur"]
-      union [ServiceNotRequested: "Follow Up for Above Normal BMI"]
-      union [ServiceNotRequested: "Follow Up for Below Normal BMI"] ) NoBMIFollowUp
+  ( ( [USQualityCore.ServiceNotRequested: "Referrals Where Weight Assessment May Occur"]
+      union [USQualityCore.ServiceNotRequested: "Follow Up for Above Normal BMI"]
+      union [USQualityCore.ServiceNotRequested: "Follow Up for Below Normal BMI"] ) NoBMIFollowUp
       with "Qualifying Encounter During Day Of Measurement Period" QualifyingEncounter
         such that NoBMIFollowUp.authoredOn same day as start of QualifyingEncounter.period
       where NoBMIFollowUp.status ~ 'completed'
         and NoBMIFollowUp.reasonRefused ( ) in "Medical Reason"
   )
-    union ( ( [MedicationNotRequested: "Medications for Above Normal BMI"]
-        union [MedicationNotRequested: "Medications for Below Normal BMI"] ) NoBMIFollowUp
+    union ( ( [USQualityCore.MedicationNotRequested: "Medications for Above Normal BMI"]
+        union [USQualityCore.MedicationNotRequested: "Medications for Below Normal BMI"] ) NoBMIFollowUp
         with "Qualifying Encounter During Day Of Measurement Period" QualifyingEncounter
           such that NoBMIFollowUp.authoredOn same day as start of QualifyingEncounter.period
         where NoBMIFollowUp.status ~ 'completed'

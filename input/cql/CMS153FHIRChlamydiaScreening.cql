@@ -165,7 +165,7 @@ define "Has Pregnancy Test Exclusion":
   )
 
 define "Numerator":
-  exists ( ( ( [LaboratoryResultObservation: "Chlamydia Screening"] ).isLaboratoryTestPerformed ( ) ) ChlamydiaTest
+  exists ( ( ( [USQualityCore.LaboratoryResultObservation: "Chlamydia Screening"] ).isLaboratoryTestPerformed ( ) ) ChlamydiaTest
       where ChlamydiaTest.effective.latest ( ) during day of "Measurement Period"
         and ChlamydiaTest.value is not null
   )
@@ -181,7 +181,7 @@ define "Stratification 2":
   ) in Interval[21, 24]
 
 define "Has Assessments Identifying Sexual Activity":
-  exists ( ( ( [ObservationScreeningAssessment: "Have you ever had vaginal intercourse [PhenX]"] ).isAssessmentPerformed ( ) ) SexualActivityAssessment
+  exists ( ( ( [USQualityCore.ObservationScreeningAssessment: "Have you ever had vaginal intercourse [PhenX]"] ).isAssessmentPerformed ( ) ) SexualActivityAssessment
       where SexualActivityAssessment.value ~ "Yes (qualifier value)"
         and SexualActivityAssessment.effective.toInterval ( ) on or before end of "Measurement Period"
   )

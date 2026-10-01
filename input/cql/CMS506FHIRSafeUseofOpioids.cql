@@ -103,12 +103,12 @@ define "Inpatient Encounter With Encounter Diagnosis Of Cancer Pain":
 
 define "Denominator Exclusion":
   "Denominator" InpatientEncounter
-    where exists ( ["ConditionProblemsHealthConcerns": "Cancer Related Pain"] CancerPain
+    where exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Cancer Related Pain"] CancerPain
         where CancerPain.prevalenceInterval ( ) overlaps day of InpatientEncounter.period
           and CancerPain.isVerified ( )
     )
       or exists ( "Inpatient Encounter With Encounter Diagnosis Of Cancer Pain" )
-      or exists ( ["ConditionProblemsHealthConcerns": "Sickle Cell Disease with and without Crisis"] SickleCellDisease
+      or exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Sickle Cell Disease with and without Crisis"] SickleCellDisease
           where SickleCellDisease.prevalenceInterval ( ) overlaps day of InpatientEncounter.period
             and SickleCellDisease.isVerified ( )
       )
@@ -132,7 +132,7 @@ define "Treatment For Opioid Use Disorders":
           and MAT.status in { 'completed', 'in-progress' }
   )
     union ( "Medications For Opioid Use Disorder" MedicationTreatment
-        with ["ConditionProblemsHealthConcerns": "Opioid Use Disorder"] OUD
+        with [USQualityCore.ConditionProblemsHealthConcerns: "Opioid Use Disorder"] OUD
           such that MedicationTreatment.authoredOn during day of OUD.prevalenceInterval ( )
             and OUD.prevalenceInterval ( ) overlaps day of "Measurement Period"
             and OUD.isVerified ( )

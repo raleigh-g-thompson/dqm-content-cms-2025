@@ -145,7 +145,7 @@ define "Encounters with Malnutrition Risk Screening or with Dietitian Referral":
 
 define "Encounters with Malnutrition Risk Screening Not At Risk":
   "Measure Population" QualifyingEncounter
-    with ["ObservationScreeningAssessment": "Malnutrition Risk Screening"] MalnutritionRiskScreening
+    with [USQualityCore.ObservationScreeningAssessment: "Malnutrition Risk Screening"] MalnutritionRiskScreening
       such that MalnutritionRiskScreening.status in { 'final', 'amended', 'corrected' }
         and MalnutritionRiskScreening.effective.toInterval ( ) during QualifyingEncounter.hospitalizationWithObservation ( )
         and ( MalnutritionRiskScreening.value as FHIR.CodeableConcept in "Malnutrition Screening Finding of Not At Risk Result" )
@@ -156,7 +156,7 @@ define "Encounters with Malnutrition Not At Risk Screening and without Dietitian
 
 define "Encounters with Malnutrition Risk Screening At Risk":
   "Measure Population" QualifyingEncounter
-    with ["ObservationScreeningAssessment": "Malnutrition Risk Screening"] MalnutritionRiskScreening
+    with [USQualityCore.ObservationScreeningAssessment: "Malnutrition Risk Screening"] MalnutritionRiskScreening
       such that MalnutritionRiskScreening.status in { 'final', 'amended', 'corrected' }
         and MalnutritionRiskScreening.effective.toInterval ( ) during QualifyingEncounter.hospitalizationWithObservation ( )
         and ( MalnutritionRiskScreening.value as FHIR.CodeableConcept in "Malnutrition Screening Finding of At Risk Result" )
@@ -189,7 +189,7 @@ define "Nutrition Assessment Performed":
 
 
 define function "Last Nutrition Assessment Day During Encounter"(QualifyingEncounter Encounter):
-  Max(["ObservationScreeningAssessment": "Nutrition Assessment"] NutritionAssessment
+  Max([USQualityCore.ObservationScreeningAssessment: "Nutrition Assessment"] NutritionAssessment
       where NutritionAssessment.status in { 'final', 'amended', 'corrected' }
         and NutritionAssessment.effective.toInterval() during QualifyingEncounter.hospitalizationWithObservation()
         and NutritionAssessment.value is not null
@@ -198,7 +198,7 @@ define function "Last Nutrition Assessment Day During Encounter"(QualifyingEncou
 
 define "Encounter With Most Recent Nutrition Assessment And Identified Status":
   "Encounters with Malnutrition Risk Screening At Risk or with Dietitian Referral" QualifyingEncounter
-    with ["ObservationScreeningAssessment": "Nutrition Assessment"] NutritionAssessment
+    with [USQualityCore.ObservationScreeningAssessment: "Nutrition Assessment"] NutritionAssessment
       such that ( NutritionAssessment.status in { 'final', 'amended', 'corrected' }
           and NutritionAssessment.effective.toInterval ( ) during QualifyingEncounter.hospitalizationWithObservation ( )
           and ( NutritionAssessment.value as FHIR.CodeableConcept in "Nutrition Assessment Status Finding of Well Nourished or Not Malnourished or Mildly Malnourished"
@@ -210,7 +210,7 @@ define "Encounter With Most Recent Nutrition Assessment And Identified Status":
 
 define "Encounter With Most Recent Nutrition Assessment Status of Moderately Or Severely Malnourished":
   "Measure Population" QualifyingEncounter
-    with ["ObservationScreeningAssessment": "Nutrition Assessment"] NutritionAssessment
+    with [USQualityCore.ObservationScreeningAssessment: "Nutrition Assessment"] NutritionAssessment
       such that NutritionAssessment.status in { 'final', 'amended', 'corrected' }
         and NutritionAssessment.effective.toInterval ( ) during QualifyingEncounter.hospitalizationWithObservation ( )
         and ( NutritionAssessment.value as FHIR.CodeableConcept in "Nutrition Assessment Status Finding of Moderately Malnourished"
@@ -220,7 +220,7 @@ define "Encounter With Most Recent Nutrition Assessment Status of Moderately Or 
 
 define "Encounter With Most Recent Nutrition Assessment Status of Not or Mildly Malnourished":
   "Measure Population" QualifyingEncounter
-    with ["ObservationScreeningAssessment": "Nutrition Assessment"] NutritionAssessment
+    with [USQualityCore.ObservationScreeningAssessment: "Nutrition Assessment"] NutritionAssessment
       such that ( NutritionAssessment.status in { 'final', 'amended', 'corrected' }
           and NutritionAssessment.effective.toInterval ( ) during QualifyingEncounter.hospitalizationWithObservation ( )
           and ( NutritionAssessment.value as FHIR.CodeableConcept in "Nutrition Assessment Status Finding of Well Nourished or Not Malnourished or Mildly Malnourished" )
@@ -236,7 +236,7 @@ define "Encounters with Malnutrition Diagnosis":
     union "Encounters With Encounter Diagnosis Of Malnutrition Diagnosis"
 
 define "Has Malnutrition Diagnosis":
-  [ConditionProblemsHealthConcerns: "Malnutrition Diagnosis"] MalnutritionDiagnosis
+  [USQualityCore.ConditionProblemsHealthConcerns: "Malnutrition Diagnosis"] MalnutritionDiagnosis
     where MalnutritionDiagnosis.prevalenceInterval ( ) overlaps "Measurement Period"
       and MalnutritionDiagnosis.isVerified ( )
 
