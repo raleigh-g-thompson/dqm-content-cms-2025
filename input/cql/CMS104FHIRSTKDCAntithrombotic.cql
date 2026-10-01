@@ -48,7 +48,7 @@ define "Numerator":
             or DischargeAntithrombotic.isDischarge ( )
         )
         and DischargeAntithrombotic.authoredOn during IschemicStrokeEncounter.period
-        and not exists ( ["TaskRejected"] TaskReject
+        and not exists ( [USQualityCore.TaskRejected] TaskReject
             where TaskReject.focus.references ( DischargeAntithrombotic )
               and TaskReject.code ~ USQualityCoreCommon."Fulfill"
         )
@@ -63,7 +63,7 @@ define "Encounter With Documented Reason For No Antithrombotic At Discharge":
       such that NoDischargeAntithrombotic.authoredOn during IschemicStrokeEncounter.period
 
 define "Reason For Not Giving Antithrombotic At Discharge":
-  ( ["MedicationNotRequested": "Antithrombotic Therapy for Ischemic Stroke"] NoAntithromboticDischarge
+  ( [USQualityCore.MedicationNotRequested: "Antithrombotic Therapy for Ischemic Stroke"] NoAntithromboticDischarge
       where ( NoAntithromboticDischarge.reasonCode in "Medical Reason For Not Providing Treatment"
           or NoAntithromboticDischarge.reasonCode in "Patient Refusal"
       )
@@ -74,7 +74,7 @@ define "Reason For Not Giving Antithrombotic At Discharge":
         and NoAntithromboticDischarge.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
   )
     union ( [USQualityCore.MedicationRequest: "Antithrombotic Therapy for Ischemic Stroke"] MedReqAntithrombotic
-        with ["TaskRejected"] TaskReject
+        with [USQualityCore.TaskRejected] TaskReject
           such that TaskReject.focus.references ( MedReqAntithrombotic )
             and ( TaskReject.statusReason in "Medical Reason For Not Providing Treatment"
                 or TaskReject.statusReason in "Patient Refusal"

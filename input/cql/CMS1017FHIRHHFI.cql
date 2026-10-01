@@ -325,7 +325,7 @@ define fluent function hasDiagnosisNotPresentOnAdmissionOrNull(encounter Encount
 
 define fluent function encountersDiagnosis(Encounter Encounter):
   Encounter.reasonReference EncDiag
-    return singleton from ( ( [ConditionEncounterDiagnosis] ConditionED
-        union [ConditionProblemsHealthConcerns] ConditionPHC ) Cond
+    return singleton from ( ( [USQualityCore.ConditionEncounterDiagnosis] ConditionED
+        union [USQualityCore.ConditionProblemsHealthConcerns] ConditionPHC ) Cond
         where EncDiag.references ( Cond.id )
     )

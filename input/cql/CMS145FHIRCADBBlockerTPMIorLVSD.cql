@@ -155,12 +155,12 @@ define "Has Cardiac Pacer Device Implanted with Qualifying CAD Encounter and His
   )
 
 define "Has Diagnosis of Cardiac Pacer in Situ with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Cardiac Pacer in Situ"] CardiacPacerDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Cardiac Pacer in Situ"] CardiacPacerDiagnosis
       where CardiacPacerDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Diagnosis of Cardiac Pacer in Situ with Qualifying CAD Encounter and Prior MI":
-  exists ( [ConditionProblemsHealthConcerns: "Cardiac Pacer in Situ"] CardiacPacerDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Cardiac Pacer in Situ"] CardiacPacerDiagnosis
       where CardiacPacerDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
@@ -225,70 +225,70 @@ define "Qualifying Encounter During Measurement Period":
 
 define "Coronary Artery Disease Encounter":
   "Outpatient Encounter During Measurement Period" ValidQualifyingEncounter
-    with ( [ConditionProblemsHealthConcerns: "Coronary Artery Disease No MI"]
-      union [ConditionEncounterDiagnosis: "Coronary Artery Disease No MI"] ) CoronaryArteryDisease
+    with ( [USQualityCore.ConditionProblemsHealthConcerns: "Coronary Artery Disease No MI"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Coronary Artery Disease No MI"] ) CoronaryArteryDisease
       such that CoronaryArteryDisease.overlapsDayOfEncounter ( ValidQualifyingEncounter )
 
 define "Has Arrhythmia with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Arrhythmia"] ArrhythmiaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Arrhythmia"] ArrhythmiaDiagnosis
       where ArrhythmiaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Arrhythmia with Qualifying CAD Encounter and Prior MI":
-  exists ( [ConditionProblemsHealthConcerns: "Arrhythmia"] ArrhythmiaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Arrhythmia"] ArrhythmiaDiagnosis
       where ArrhythmiaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Has Asthma with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Asthma"] AsthmaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Asthma"] AsthmaDiagnosis
       where AsthmaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Asthma with Qualifying CAD Encounter and Prior MI":
-  exists ( [ConditionProblemsHealthConcerns: "Asthma"] AsthmaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Asthma"] AsthmaDiagnosis
       where AsthmaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Has Atrioventricular Block with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Atrioventricular Block"] AtrioventricularBlock
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Atrioventricular Block"] AtrioventricularBlock
       where AtrioventricularBlock.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Atrioventricular Block with Qualifying CAD Encounter and Prior MI":
-  exists ( [ConditionProblemsHealthConcerns: "Atrioventricular Block"] AtrioventricularBlockDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Atrioventricular Block"] AtrioventricularBlockDiagnosis
       where AtrioventricularBlockDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Has Bradycardia with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Bradycardia"] BradycardiaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Bradycardia"] BradycardiaDiagnosis
       where BradycardiaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Bradycardia with Qualifying CAD Encounter and Prior MI":
-  exists ( [ConditionProblemsHealthConcerns: "Bradycardia"] BradycardiaDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Bradycardia"] BradycardiaDiagnosis
       where BradycardiaDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Has Diagnosis of Allergy or Intolerance to Beta Blocker Therapy with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( ( [ConditionProblemsHealthConcerns: "Allergy to Beta Blocker Therapy"]
-      union [ConditionProblemsHealthConcerns: "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
+  exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Allergy to Beta Blocker Therapy"]
+      union [USQualityCore.ConditionProblemsHealthConcerns: "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
       where BetaBlockerAllergyOrIntoleranceDiagnosis.overlapsAfterDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Diagnosis of Allergy or Intolerance to Beta Blocker Therapy with Qualifying CAD Encounter and Prior MI":
-  exists ( ( [ConditionProblemsHealthConcerns: "Allergy to Beta Blocker Therapy"]
-      union [ConditionProblemsHealthConcerns: "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
+  exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Allergy to Beta Blocker Therapy"]
+      union [USQualityCore.ConditionProblemsHealthConcerns: "Intolerance to Beta Blocker Therapy"] ) BetaBlockerAllergyOrIntoleranceDiagnosis
       where BetaBlockerAllergyOrIntoleranceDiagnosis.overlapsAfterDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
 define "Has Hypotension with Qualifying CAD Encounter and History of Moderate or Severe LVSD":
-  exists ( [ConditionProblemsHealthConcerns: "Hypotension"] HypotensionDiagnosis
+  exists ( [USQualityCore.ConditionProblemsHealthConcerns: "Hypotension"] HypotensionDiagnosis
       where HypotensionDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and History of Moderate or Severe LVSD" )
   )
 
 define "Has Hypotension with Qualifying CAD Encounter and Prior MI":
-  exists ( ( [ConditionProblemsHealthConcerns: "Hypotension"]
-      union [ConditionEncounterDiagnosis: "Hypotension"] ) HypotensionDiagnosis
+  exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Hypotension"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Hypotension"] ) HypotensionDiagnosis
       where HypotensionDiagnosis.overlapsDayOfEncounter ( "Qualifying CAD Encounter and Prior MI" )
   )
 
@@ -321,7 +321,7 @@ define "Has Allergy or Intolerance to Beta Blocker Therapy Ingredient with Quali
   )
 
 define "Has Medical or Patient Reason for Not Ordering Beta Blocker for LVSD":
-  exists ( [MedicationNotRequested: medication in "Beta Blocker Therapy for LVSD"] NoBetaBlockerForLVSDOrdered
+  exists ( [USQualityCore.MedicationNotRequested: medication in "Beta Blocker Therapy for LVSD"] NoBetaBlockerForLVSDOrdered
       with "Qualifying CAD Encounter and History of Moderate or Severe LVSD" LVSDVisit
         such that NoBetaBlockerForLVSDOrdered.authoredOn during day of LVSDVisit.period
       where NoBetaBlockerForLVSDOrdered.status in { 'active', 'completed' }
@@ -332,7 +332,7 @@ define "Has Medical or Patient Reason for Not Ordering Beta Blocker for LVSD":
   )
 
 define "Has Medical or Patient Reason for Not Ordering Beta Blocker Therapy":
-  exists ( [MedicationNotRequested: medication in "Beta Blocker Therapy for LVSD"] NoBetaBlockerForLVSDOrdered
+  exists ( [USQualityCore.MedicationNotRequested: medication in "Beta Blocker Therapy for LVSD"] NoBetaBlockerForLVSDOrdered
       with "Qualifying CAD Encounter and Prior MI" PriorMIVisit
         such that NoBetaBlockerForLVSDOrdered.authoredOn during day of PriorMIVisit.period
       where NoBetaBlockerForLVSDOrdered.status in { 'active', 'completed' }

@@ -88,8 +88,8 @@ define "Has Allergy or Intolerance to ACEI or ARB or ARNI Ingredient":
 
 define "Has Diagnosis of Allergy or Intolerance to ACEI or ARB":
   exists ( (
-    ["ConditionEncounterDiagnosis": "Allergy to ACE Inhibitor or ARB"]
-      union ["ConditionEncounterDiagnosis": "Intolerance to ACE Inhibitor or ARB"]
+    [USQualityCore.ConditionEncounterDiagnosis: "Allergy to ACE Inhibitor or ARB"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Intolerance to ACE Inhibitor or ARB"]
    ) ACEIOrARBAllergyOrIntoleranceDiagnosis
       where ACEIOrARBAllergyOrIntoleranceDiagnosis.overlapsAfterHeartFailureOutpatientEncounter ( )
   )
@@ -109,12 +109,12 @@ define "Has Diagnosis of Pregnancy":
     )
 
 define "Has Diagnosis of Renal Failure Due to ACEI":
-  exists ( ( [ConditionEncounterDiagnosis: "Acute renal failure caused by angiotensin-converting-enzyme inhibitor (disorder)"] ) RenalFailureDueToACEI
+  exists ( ( [USQualityCore.ConditionEncounterDiagnosis: "Acute renal failure caused by angiotensin-converting-enzyme inhibitor (disorder)"] ) RenalFailureDueToACEI
       where RenalFailureDueToACEI.overlapsHeartFailureOutpatientEncounter ( )
   )
 
 define "Has Medical or Patient Reason for Not Ordering ACEI or ARB or ARNI":
-  exists ( [MedicationNotRequested: medication in "ACE Inhibitor or ARB or ARNI"] NoACEIOrARBOrARNIOrdered
+  exists ( [USQualityCore.MedicationNotRequested: medication in "ACE Inhibitor or ARB or ARNI"] NoACEIOrARBOrARNIOrdered
       where NoACEIOrARBOrARNIOrdered.isMedicationNotRequestedOrderedDuringHeartFailureOutpatientEncounter ( )
         and ( NoACEIOrARBOrARNIOrdered.reasonCode in "Medical Reason"
             or NoACEIOrARBOrARNIOrdered.reasonCode in "Patient Reason"

@@ -115,7 +115,7 @@ define "Most Recent Tobacco Use Screening Indicates Tobacco User":
 define "Tobacco Cessation Pharmacotherapy Ordered":
   ( ( [USQualityCore.MedicationRequest: "Tobacco Use Cessation Pharmacotherapy"] ).isMedicationOrder ( ) ) CessationPharmacotherapyOrdered
     where CessationPharmacotherapyOrdered.authoredOn during day of Interval[start of "Measurement Period" - 6 months, end of "Measurement Period"]
-      and not exists ( [TaskRejected] TaskReject
+      and not exists ( [USQualityCore.TaskRejected] TaskReject
           where TaskReject.focus.references ( CessationPharmacotherapyOrdered )
             and TaskReject.code ~ "fulfill"
       )

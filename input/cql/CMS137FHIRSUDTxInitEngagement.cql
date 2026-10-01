@@ -47,7 +47,7 @@ define "Initial Population":
 
 define "First SUD Episode During Measurement Period":
   First(("Qualifying Encounters") ValidEncounters
-      with(([ConditionEncounterDiagnosis: "Substance Use Disorder"]).verified()) SUDDiagnosis
+      with(([USQualityCore.ConditionEncounterDiagnosis: "Substance Use Disorder"]).verified()) SUDDiagnosis
         such that ValidEncounters.period during "Measurement Period"
           and SUDDiagnosis.prevalenceInterval ( ) starts during ValidEncounters.period
           and SUDDiagnosis.prevalenceInterval ( ) starts 47 days or more before day of 
