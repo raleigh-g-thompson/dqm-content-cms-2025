@@ -94,7 +94,7 @@ define "Has Cardiac Pacer Device Implanted":
   )
 
 define "Is Currently Taking Beta Blocker Therapy for LVSD":
-  exists ( ["MedicationRequest": "Beta Blocker Therapy for LVSD"] ActiveBetaBlocker
+  exists ( [USQualityCore.MedicationRequest: "Beta Blocker Therapy for LVSD"] ActiveBetaBlocker
       where ActiveBetaBlocker.overlapsAfterHeartFailureOutpatientEncounter ( )
   )
 
@@ -174,7 +174,7 @@ define "Has Atrioventricular Block Diagnosis":
   )
 
 define "Has Beta Blocker Therapy for LVSD Ordered":
-  exists ( [MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] BetaBlockerOrdered
+  exists ( [USQualityCore.MedicationRequest: medication in "Beta Blocker Therapy for LVSD"] BetaBlockerOrdered
       where BetaBlockerOrdered.isOrderedDuringHeartFailureOutpatientEncounter ( )
   )
 

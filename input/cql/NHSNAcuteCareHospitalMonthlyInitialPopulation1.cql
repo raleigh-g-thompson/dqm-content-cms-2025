@@ -472,7 +472,7 @@ define "SDE Medication Administration Not Done":
 
 
 define "SDE Medication Request Base":
-  [MedicationRequest] MedRequests
+  [USQualityCore.MedicationRequest] MedRequests
     where exists ( "Initial Population" IP
         where MedRequests.authoredOn during IP.period
     )
@@ -546,7 +546,7 @@ define function "GetMedication"(reference Reference):
   )
 
 define "SDE Medication":
-  ( [MedicationRequest]
+  ( [FHIR.MedicationRequest]
     union [MedicationAdministration] ) MedReqOrAdmin
     let medication: GetMedication(MedReqOrAdmin.medication as Reference)
     where medication is not null

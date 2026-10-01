@@ -57,7 +57,7 @@ define "Inpatient Encounters With An Opioid Or Benzodiazepine At Discharge":
       such that OpioidOrBenzodiazepineAtDischarge.authoredOn during day of InpatientEncounter.period
 
 define "Benzodiazepine At Discharge":
-  ["MedicationRequest": "Schedule IV Benzodiazepines"] BenzoMedications
+  [USQualityCore.MedicationRequest: "Schedule IV Benzodiazepines"] BenzoMedications
     where ( BenzoMedications.isCommunity ( )
         or BenzoMedications.isDischarge ( )
     )
@@ -65,7 +65,7 @@ define "Benzodiazepine At Discharge":
       and BenzoMedications.intent in { 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order' }
 
 define "Opioid At Discharge":
-  ["MedicationRequest": "Schedule II, III and IV Opioid Medications"] OpioidMedications
+  [USQualityCore.MedicationRequest: "Schedule II, III and IV Opioid Medications"] OpioidMedications
     where ( OpioidMedications.isCommunity ( )
         or OpioidMedications.isDischarge ( )
     )
@@ -139,7 +139,7 @@ define "Treatment For Opioid Use Disorders":
     )
 
 define "Medications For Opioid Use Disorder":
-  ["MedicationRequest": "Medications for Opioid Use Disorder (MOUD)"] DischargeMedication
+  [USQualityCore.MedicationRequest: "Medications for Opioid Use Disorder (MOUD)"] DischargeMedication
     where ( DischargeMedication.isCommunity ( )
         or DischargeMedication.isDischarge ( )
     )

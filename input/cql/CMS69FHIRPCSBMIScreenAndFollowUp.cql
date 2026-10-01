@@ -96,7 +96,7 @@ define "High BMI And Follow Up Provided":
 define "High BMI Interventions Ordered":
   ( ( [USQualityCore.ServiceRequest: "Follow Up for Above Normal BMI"]
       union [USQualityCore.ServiceRequest: "Referrals Where Weight Assessment May Occur"]
-      union [MedicationRequest: "Medications for Above Normal BMI"] ) HighInterventionsOrdered
+      union [USQualityCore.MedicationRequest: "Medications for Above Normal BMI"] ) HighInterventionsOrdered
       where HighInterventionsOrdered.reasonCode in "Overweight or Obese"
         or ( // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
             // Original:
@@ -127,7 +127,7 @@ define "Medical Reason Or Patient Reason For Not Performing BMI Exam":
 define "Low BMI Interventions Ordered":
   ( ( [USQualityCore.ServiceRequest: "Follow Up for Below Normal BMI"]
       union [USQualityCore.ServiceRequest: "Referrals Where Weight Assessment May Occur"]
-      union [MedicationRequest: "Medications for Below Normal BMI"] ) LowInterventionsOrdered
+      union [USQualityCore.MedicationRequest: "Medications for Below Normal BMI"] ) LowInterventionsOrdered
       where LowInterventionsOrdered.reasonCode in "Underweight"
         or ( // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
             // Original:

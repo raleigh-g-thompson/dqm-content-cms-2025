@@ -132,7 +132,7 @@ define "Has Excluding HIV, Immunocompromised Conditions or Mixed Histology Befor
   )
 
 define "Has Excluding Chemotherapy or Radiotherapy Procedure Before Staging":
-  exists ( ( [MedicationRequest: "Chemotherapy Agents for Advanced Cancer"] ExclusionMed
+  exists ( ( [USQualityCore.MedicationRequest: "Chemotherapy Agents for Advanced Cancer"] ExclusionMed
         let firstMedicationPeriod: First((collapse(ExclusionMed.dosageInstruction.timing.repeat.bounds DoseTime
               return DoseTime.toInterval()
           )) DrugPeriods
@@ -215,7 +215,7 @@ define fluent function getStagingProcedure(StagingObservation LaboratoryResultOb
       where FirstBladderCancerStagingMP.id = StagingReference.reference.getId ( )
 
 define "Immunosuppressive Drugs":
-  [MedicationRequest: "Immunosuppressive Drugs for Urology Care"] ImmunosuppressiveDrugs
+  [USQualityCore.MedicationRequest: "Immunosuppressive Drugs for Urology Care"] ImmunosuppressiveDrugs
     let firstMedicationPeriod: First((collapse(ImmunosuppressiveDrugs.dosageInstruction.timing.repeat.bounds DoseTime
           return DoseTime.toInterval()
       )) DrugPeriods

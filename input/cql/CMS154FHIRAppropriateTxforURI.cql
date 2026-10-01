@@ -75,7 +75,7 @@ define "Denominator":
 define "Denominator Exclusions":
   "Encounters and Assessments with Hospice Patient"
     union Antibiotic."Encounter with Comorbid Condition History" ( "Encounter with Upper Respiratory Infection", ( [ConditionEncounterDiagnosis: "Comorbid Conditions for Respiratory Conditions"] ).verified ( ) )
-    union Antibiotic."Encounter with Antibiotic Medication History" ( "Encounter with Upper Respiratory Infection", ( [MedicationRequest: "Antibiotic Medications for Upper Respiratory Infection"] ).isMedicationActive ( ) )
+    union Antibiotic."Encounter with Antibiotic Medication History" ( "Encounter with Upper Respiratory Infection", ( [USQualityCore.MedicationRequest: "Antibiotic Medications for Upper Respiratory Infection"] ).isMedicationActive ( ) )
     union Antibiotic."Encounter with Competing Diagnosis History" ( "Encounter with Upper Respiratory Infection", ( [ConditionEncounterDiagnosis: "Competing Conditions for Respiratory Conditions"]
         union [ConditionEncounterDiagnosis: "Acute Pharyngitis"]
         union [ConditionEncounterDiagnosis: "Acute Tonsillitis"]
@@ -113,7 +113,7 @@ define "Qualifying Encounters":
 
 define "Numerator":
   "Encounter with Upper Respiratory Infection" EncounterWithURI
-    without ( ( [MedicationRequest: "Antibiotic Medications for Upper Respiratory Infection"] ).isMedicationOrder ( ) ) OrderedAntibiotic
+    without ( ( [USQualityCore.MedicationRequest: "Antibiotic Medications for Upper Respiratory Infection"] ).isMedicationOrder ( ) ) OrderedAntibiotic
       such that OrderedAntibiotic.authoredOn 3 days or less on or after start of EncounterWithURI.period
     return EncounterWithURI
 

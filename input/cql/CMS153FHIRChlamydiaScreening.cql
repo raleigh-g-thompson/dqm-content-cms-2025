@@ -109,11 +109,11 @@ define "Has Diagnoses Identifying Sexual Activity":
   )
 
 define "Has Active Contraceptive Medications":
-  exists ( ( [MedicationRequest: "Contraceptive Medications"] ).isMedicationActive ( ) ) ActiveContraceptives
+  exists ( ( [USQualityCore.MedicationRequest: "Contraceptive Medications"] ).isMedicationActive ( ) ) ActiveContraceptives
     where ActiveContraceptives.medicationRequestPeriod ( ) overlaps "Measurement Period"
 
 define "Has Ordered Contraceptive Medications":
-  exists ( ( [MedicationRequest: "Contraceptive Medications"] ).isMedicationOrder ( ) ) OrderedContraceptives
+  exists ( ( [USQualityCore.MedicationRequest: "Contraceptive Medications"] ).isMedicationOrder ( ) ) OrderedContraceptives
     where OrderedContraceptives.authoredOn.toInterval ( ) during day of "Measurement Period"
 
 define "Has Laboratory Tests Identifying Sexual Activity But Not Pregnancy":
@@ -159,7 +159,7 @@ define "Has Pregnancy Test Exclusion":
         where PregnancyTest.authoredOn.toInterval ( ) during "Measurement Period"
     )
       union ( ( [USQualityCore.ServiceRequest: "Pregnancy Test"] ).isLaboratoryTestOrder ( ) ) PregnancyTestOrder
-        with ( ( [MedicationRequest: "Isotretinoin"] ).isMedicationOrder ( ) ) AccutaneOrder
+        with ( ( [USQualityCore.MedicationRequest: "Isotretinoin"] ).isMedicationOrder ( ) ) AccutaneOrder
           such that AccutaneOrder.authoredOn.toInterval ( ) occurs 6 days or less on or after day of PregnancyTestOrder.authoredOn.toInterval ( )
         where PregnancyTestOrder.authoredOn.toInterval ( ) during "Measurement Period"
   )

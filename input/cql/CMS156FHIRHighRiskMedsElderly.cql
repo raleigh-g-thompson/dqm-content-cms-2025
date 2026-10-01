@@ -126,37 +126,37 @@ define "Numerator 1":
     or "High Risk Medications with Average Daily Dose Criteria"
 
 define "Same High Risk Medications Ordered on Different Days":
-  ( [MedicationRequest: "Potentially Harmful Antihistamines for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Antiparkinsonian Agents for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Gastrointestinal Antispasmodics for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Dipyridamole Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Guanfacine Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Nifedipine Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Antidepressants for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Barbiturates for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "ergoloid mesylates, USP 1 MG Oral Tablet"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Meprobamate Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Estrogens for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Sulfonylureas for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Desiccated Thyroid Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Nonbenzodiazepine Hypnotics for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Skeletal Muscle Relaxants for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Potentially Harmful Pain Medications for Older Adults"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Megestrol Medications"] ).moreThanOneOrder ( )
-    union ( [MedicationRequest: "Meperidine Medications"] ).moreThanOneOrder ( )
+  ( [USQualityCore.MedicationRequest: "Potentially Harmful Antihistamines for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Antiparkinsonian Agents for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Gastrointestinal Antispasmodics for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Dipyridamole Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Guanfacine Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Nifedipine Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Antidepressants for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Barbiturates for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "ergoloid mesylates, USP 1 MG Oral Tablet"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Meprobamate Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Estrogens for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Sulfonylureas for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Desiccated Thyroid Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Nonbenzodiazepine Hypnotics for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Skeletal Muscle Relaxants for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Potentially Harmful Pain Medications for Older Adults"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Megestrol Medications"] ).moreThanOneOrder ( )
+    union ( [USQualityCore.MedicationRequest: "Meperidine Medications"] ).moreThanOneOrder ( )
 
 define "Two High Risk Medications with Prolonged Duration":
-  Sum((([MedicationRequest: "Potentially Harmful Antiinfectives for Older Adults"]).moreThanOneOrder()) AntiInfectives
+  Sum((([USQualityCore.MedicationRequest: "Potentially Harmful Antiinfectives for Older Adults"]).moreThanOneOrder()) AntiInfectives
       let DaysSupply: AntiInfectives.medicationRequestPeriodInDays()
       return all DaysSupply
   ) > 90
 
 define "High Risk Medications with Average Daily Dose Criteria":
-  exists ( ( [MedicationRequest: "Digoxin Medications"] DigoxinOrdered
+  exists ( ( [USQualityCore.MedicationRequest: "Digoxin Medications"] DigoxinOrdered
         where DigoxinOrdered.averageDailyDose ( ) > 0.125 'mg/d'
     ).moreThanOneOrder ( )
   )
-    or exists ( ( [MedicationRequest: "Doxepin Medications"] DoxepinOrdered
+    or exists ( ( [USQualityCore.MedicationRequest: "Doxepin Medications"] DoxepinOrdered
           where DoxepinOrdered.averageDailyDose ( ) > 6 'mg/d'
       ).moreThanOneOrder ( )
     )
@@ -181,10 +181,10 @@ define "Numerator 2":
     )
 
 define "More than One Antipsychotic Order":
-  exists ( [MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"] ).moreThanOneOrder ( )
+  exists ( [USQualityCore.MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"] ).moreThanOneOrder ( )
 
 define "More than One Benzodiazepine Order":
-  exists ( [MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"] ).moreThanOneOrder ( )
+  exists ( [USQualityCore.MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"] ).moreThanOneOrder ( )
 
 define "Bipolar Disorder Diagnosis":
   ( [ConditionProblemsHealthConcerns: "Bipolar Disorder"]
@@ -228,14 +228,14 @@ define "Generalized Anxiety Disorder Diagnosis":
   ).verified ( )
 
 define "Antipsychotic Index Prescription Start Date":
-  First((([MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"]).isMedicationOrder()) AntipsychoticMedication
+  First((([USQualityCore.MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"]).isMedicationOrder()) AntipsychoticMedication
       where AntipsychoticMedication.authoredOn during "Measurement Period"
       return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)
       sort asc
   )
 
 define "Benzodiazepine Index Prescription Start Date":
-  First((([MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"]).isMedicationOrder()) BenzodiazepineMedication
+  First((([USQualityCore.MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"]).isMedicationOrder()) BenzodiazepineMedication
       where BenzodiazepineMedication.authoredOn during "Measurement Period"
       return FHIRHelpers.ToDateTime(BenzodiazepineMedication.authoredOn)
       sort asc

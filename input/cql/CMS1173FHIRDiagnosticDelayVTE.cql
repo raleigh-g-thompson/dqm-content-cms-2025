@@ -103,7 +103,7 @@ define "Qualifying VTE Imaging Diagnostic Report":
     where VTEDiagnosticReport.status in { 'final', 'amended', 'corrected' }
 
 define "AntiCoagulant Therapy Ordered":
-  ["MedicationRequest": "Anticoagulant Medications"] AntiCoagulant
+  [USQualityCore.MedicationRequest: "Anticoagulant Medications"] AntiCoagulant
     where AntiCoagulant.status in { 'active', 'completed' }
       and AntiCoagulant.intent = 'order'
 

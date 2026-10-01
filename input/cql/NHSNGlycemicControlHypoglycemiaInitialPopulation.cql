@@ -166,7 +166,7 @@ define "SDE Medication Administration":
     return { MedAdministrations.id, MedAdministrations.meta, MedAdministrations.instantiates, MedAdministrations.partOf, MedAdministrations.status, MedAdministrations.statusReason, MedAdministrations.category, MedAdministrations.medication, MedAdministrations.subject, MedAdministrations.context, MedAdministrations.supportingInformation, MedAdministrations.effective, MedAdministrations.performer, MedAdministrations.reasonCode, MedAdministrations.reasonReference, MedAdministrations.request, MedAdministrations.device, MedAdministrations.note, MedAdministrations.dosage }
 
 define "MedicationRequests":
-  [MedicationRequest]
+  [FHIR.MedicationRequest]
 
 define "SDE Medication Request":
   "MedicationRequests" MedRequests
