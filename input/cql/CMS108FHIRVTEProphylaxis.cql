@@ -417,12 +417,11 @@ define "No Mechanical VTE Prophylaxis Performed Or Ordered":
         return {
           id: DeviceNotApplied.id,
           requestStatusReason: DeviceNotApplied.statusReason,
-          // [I-18 / I-55] .performed is null on a ProcedureNotDone (data-absent-reason: not-performed);
-          // read the us-quality-core-recorded extension directly instead of .recorded() (ambiguous overload).
           // Original: authoredOn: DeviceNotApplied.performed
-          // 2026-09-10
-          //  The preferred fix is to use the recorded() fluent function from USQualityCoreCommon but dispatching isn't working
-          // authoredOn: DeviceNotApplied.recorded()
+          // Proposed: authoredOn: DeviceNotApplied.recorded()
+          // ** Proposed solution won't work because of an ambiguous call at runtime between the 2 Procedure recorded **
+          // ** fluent functions in USQualityCoreCommon.cql library. See the library file for more details            **
+          // Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
           authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
         }
     )

@@ -61,8 +61,15 @@ define "Numerator":
 define "Denominator Exceptions":
   "Qualifying Encounter During Day of Measurement Period" QualifyingEncounter
     with [USQualityCore.ProcedureNotDone: code ~ "Documentation of current medications (procedure)"] MedicationsNotDocumented
-      such that MedicationsNotDocumented.recorded ( ) during day of QualifyingEncounter.period
+      // original: such that MedicationsNotDocumented.recorded ( ) during day of QualifyingEncounter.period
+      // ** This solution won't work because of an ambiguous call at runtime between the 2 Procedure recorded **
+      // ** fluent functions in USQualityCoreCommon.cql library. See the library file for more details        **
+      // Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
+      such that MedicationsNotDocumented.recordedProcedureNotDone() during day of QualifyingEncounter.period
         and MedicationsNotDocumented.status = 'not-done'
         and exists ( MedicationsNotDocumented.reasonCode reasonItem
             where reasonItem ~ "Acute health crisis (finding)"
         )
+
+define fluent function recordedProcedureNotDone(procedureNotDone ProcedureNotDone):
+  procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
