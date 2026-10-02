@@ -317,14 +317,31 @@ define fluent function medicationRequestPeriodInDays(Request MedicationRequest):
     totalDaysSupplied: Coalesce(daysSupply, quantity.value /(dose.value * dosesPerDay)) * ( 1 + refills )
     return totalDaysSupplied
 
+// 2026-10-02
+// - the function returns grams/second
+// - the resultant is so small the value gets truncated and 0.00000000 is returned
+// original
+// define fluent function averageDailyDose(MedicationRequest MedicationRequest):
+//   MedicationRequest Order
+//     let MedicationStrength: Order.getMedicationCode ( ).medicationStrengthPerUnit ( ),
+//     DaysSupplied: Order.medicationRequestPeriodInDays ( )
+//     return if DaysSupplied is not null
+//       and ( MedicationStrength.unit = 'mg'
+//           or ( MedicationStrength.unit = 'mg/mL'
+//               and Order.dispenseRequest.quantity.unit = 'mL'
+//           )
+//       ) then ( ( Order.dispenseRequest.quantity * MedicationStrength ) / System.Quantity { value: DaysSupplied, unit: 'd' } )
+//       else null
+
 define fluent function averageDailyDose(MedicationRequest MedicationRequest):
   MedicationRequest Order
     let MedicationStrength: Order.getMedicationCode ( ).medicationStrengthPerUnit ( ),
-    DaysSupplied: Order.medicationRequestPeriodInDays ( )
-    return if DaysSupplied is not null
+    DaysSupplied: Order.medicationRequestPeriodInDays ( ),
+    TotalDose: Order.dispenseRequest.quantity * MedicationStrength
+    return if DaysSupplied is not null and DaysSupplied > 0
       and ( MedicationStrength.unit = 'mg'
           or ( MedicationStrength.unit = 'mg/mL'
               and Order.dispenseRequest.quantity.unit = 'mL'
           )
-      ) then ( ( Order.dispenseRequest.quantity * MedicationStrength ) / System.Quantity { value: DaysSupplied, unit: 'd' } )
+      ) then System.Quantity { value: TotalDose.value / DaysSupplied, unit: 'mg/d' }
       else null

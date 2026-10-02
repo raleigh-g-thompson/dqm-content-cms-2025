@@ -673,3 +673,42 @@ came back clean — 0 findings — so this is not universal.)
 ```
 
 **Measures Affected:** CMS816
+
+## Build CMS156 `averageDailyDose()` in `mg/d` directly instead of dividing Quantities (I-24)
+
+**Problem:** test case `4aa75d19` has two `MedicationRequest`s that should satisfy
+`"Same High Risk Medications Ordered on Different Days"`, but the Group 1 and Group 3 Numerators
+came out `0` against an expected `1`. `averageDailyDose()` divided a total-dose Quantity by a
+`System.Quantity { value: DaysSupplied, unit: 'd' }`. The engine normalizes a cross-dimension
+Quantity division to SI base units (g/s), and the result is so small that it rounds to `0E-8` at
+8 decimal places. The `> 0.125 'mg/d'` (digoxin) and `> 6 'mg/d'` (doxepin) comparisons can then
+never be true. This is engine issue I-24. The case had been misattributed to I-15 (fixture
+authoring mismatch).
+
+**Fix:** compute the total dose as a `let`, then build the result as a Quantity in `mg/d` from
+plain decimal division, which avoids the engine's unit normalization. Also added a
+`DaysSupplied > 0` guard so the decimal division can't divide by zero. The original function is
+kept as a comment above the new one.
+
+**Example:**
+
+```cql
+// before
+DaysSupplied: Order.medicationRequestPeriodInDays ( )
+return if DaysSupplied is not null
+  and ( ... ) then ( ( Order.dispenseRequest.quantity * MedicationStrength ) / System.Quantity { value: DaysSupplied, unit: 'd' } )
+  else null
+
+// after
+DaysSupplied: Order.medicationRequestPeriodInDays ( ),
+TotalDose: Order.dispenseRequest.quantity * MedicationStrength
+return if DaysSupplied is not null and DaysSupplied > 0
+  and ( ... ) then System.Quantity { value: TotalDose.value / DaysSupplied, unit: 'mg/d' }
+  else null
+```
+
+**Verified 2026-10-02** against the harness output on this branch
+(`scripts/comparison/output_results.csv`), compared with `main`: `4aa75d19` Group 1 and Group 3
+Numerators now **PASS** (`1`/`1`). CMS156 goes from 2 failing cells to **0** (all 708 cells pass).
+
+**Measures Affected:** CMS156

@@ -63,7 +63,7 @@ while the valueset it needed had never been committed.
 | I-12 | CMS0334 Cesarean Birth fixture MR authoring mismatch | `content` | Open — confirmed | CMS0334 |
 | I-13 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch | `content` | Open — confirmed | CMS1218 |
 | I-14 | CMSFHIR844 fixture MR hand-authors Initial Population; both engines compute 0/1 against an expected 1/2 | `content` | Open — confirmed | CMSFHIR844 |
-| I-15 | CMS72 / CMS104 / CMS646 / CMS71 fixture MRs author Denominator-Exception / Denominator / Numerator / IP counts that neither engine can compute from the resources present | `content` | Open — confirmed | CMS1028, CMS104, CMS145 +5 more |
+| I-15 | CMS72 / CMS104 / CMS646 / CMS71 fixture MRs author Denominator-Exception / Denominator / Numerator / IP counts that neither engine can compute from the resources present | `content` | Open — confirmed | CMS1028, CMS104, CMS145 +4 more |
 | I-16 | `Min()` over DateTime throws | `engine` | Worked around | CMS1173, CMS871 |
 | I-17 | Raw `FHIR.dateTime` / choice-typed `X.effective` in temporal operators fails | `engine` | Worked around | CMS1173 |
 | I-18 | Fluent overload ambiguity (sibling profiles, same Java class) | `engine` | Worked around | CMS104, CMS108, CMS144 +3 more |
@@ -72,7 +72,7 @@ while the valueset it needed had never been committed.
 | I-21 | `as` cannot widen Choice to ancestor type | `engine` | Worked around | — |
 | I-22 | `convert Duration to days` returns null | `engine` | Worked around | CMS128, CMS156 |
 | I-23 | `ConvertQuantity` rejects calendar-word units from `ToQuantity` | `engine` | Worked around | CMS156 |
-| I-24 | Quantity division across dimensions rounds to zero | `engine` | Worked around | CMS156 |
+| I-24 | Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`). Workaround applied to CMS156 `averageDailyDose()` 2026-10-02 (see `change-log.md`) | `engine` | Worked around | CMS156 |
 | I-25 | `singleton from empty list` throws instead of returning null | `engine` | Worked around | CMS156 |
 | I-26 | `Unable to extract codes from fhirType Reference` | `engine` | Open — confirmed | CMS135, CMS165 |
 | I-27 | Union branch evaluates empty despite correct data | `engine` | Open — confirmed | CMS104, CMS108, CMS190 |
