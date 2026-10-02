@@ -673,3 +673,51 @@ came back clean — 0 findings — so this is not universal.)
 ```
 
 **Measures Affected:** CMS816
+
+## Remove the ambiguous `recorded(ProcedureNotDone)` overload; bypass it in CMS68 / CMS108 / CMS190 (I-37, I-18)
+
+**Problem:** `USQualityCoreCommon.cql` declared two fluent overloads, `recorded(procedure Procedure)`
+and `recorded(procedureNotDone ProcedureNotDone)`. The two profiles are distinct CQL types, so the
+translator accepts both, but it compiles them to the same ELM signature (`{http://hl7.org/fhir}Procedure`).
+At runtime the engine finds two identical candidates and throws
+`Ambiguous call to operator 'recorded(...)' in library 'USQualityCoreCommon'`. The throw is uncaught,
+so the whole library evaluates nothing (CMS68 `f2e2e1c0`: Missing Results across all 4 populations;
+CMS190: every case reaching `DeviceNotApplied.recorded()`). This is a translator defect, reported
+upstream as
+[cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855)
+(same mechanism as the older, still-open #1435).
+
+**Fix:** a content-side bypass until the translator is fixed. Each call site cites #1855 in a comment.
+
+- **`USQualityCoreCommon.cql`** (shared library): commented out the `recorded(ProcedureNotDone)`
+  overload, leaving only `recorded(Procedure)`, with a dated note explaining why. Also corrected two
+  copy-pasted `@description` comments (the `recorded` and `reasonRefused` functions both claimed to
+  read the recorded extension of a Medication Administration Not Done).
+- **`CMS68FHIRDocumentationCurrentMeds.cql`**: `"Denominator Exceptions"` now calls a new
+  measure-local fluent function with a unique name, `recordedProcedureNotDone()`, so there is no
+  overload to resolve.
+- **`CMS108FHIRVTEProphylaxis.cql`** and **`CMS190FHIRVTEProphylaxisICU.cql`**:
+  `"No Mechanical VTE Prophylaxis Performed Or Ordered"` reads the `us-quality-core-recorded`
+  extension directly via `.ext()`. CMS108 already did this; CMS190 was calling `.recorded()`.
+
+**Example** (CMS68 `"Denominator Exceptions"`):
+
+```cql
+// before
+such that MedicationsNotDocumented.recorded ( ) during day of QualifyingEncounter.period
+
+// after
+such that MedicationsNotDocumented.recordedProcedureNotDone() during day of QualifyingEncounter.period
+
+define fluent function recordedProcedureNotDone(procedureNotDone ProcedureNotDone):
+  procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
+```
+
+**Verified 2026-10-02** against the harness output committed on this branch
+(`scripts/comparison/output_results.csv`), compared with `main`. Failing test cases:
+CMS68 1 → **0** (`f2e2e1c0` passes all 4 populations), CMS190 11 → **1**, CMS108 4 → **3**.
+No `TestCaseResult-*.json` under `input/tests/results/` still carries an `Ambiguous call` error,
+so the remaining CMS108 / CMS190 failures are a different cause. I-37 moves to `Worked around` (not
+`Fixed`: the translator defect is still live upstream).
+
+**Measures Affected:** CMS68, CMS108, CMS190 (plus the shared library `USQualityCoreCommon.cql`)
