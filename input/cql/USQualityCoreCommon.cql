@@ -172,10 +172,16 @@ define fluent function recorded(procedure Procedure):
   procedure.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
 
 /*
-@description: Returns the value of the recorded extension for a Medication Administration Not Done
+@description: Returns the value of the recorded extension for a Procedure Not Done
 */
-define fluent function recorded(procedureNotDone ProcedureNotDone):
-  procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
+// 2026-10-02: 
+// - Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
+// - This won't work because it is ambiguous with the recorded(procedure Procedure) fluent function.
+// - The engine dispatches on model types not profiles. So recorded(procedure Procedure) and recorded(procedureNotDone ProcedureNotDone)
+//   have the same parameter signature, FHIR.Procedure types. At runtime the engine doesn't know which function to call.
+// - There should be a warning/error letting the library author know that this is not allowed.  
+// define fluent function recorded(procedureNotDone ProcedureNotDone):
+//   procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
 
 /*
 @description: Returns the negated activity extent for a Procedure Not Done
@@ -185,7 +191,7 @@ define fluent function code(procedureNotDone ProcedureNotDone):
   procedureNotDone.code.toActivityExtent()
 
 /*
-@description: Returns the value of the recorded extension for a Medication Administration Not Done
+@description: Returns the value of the reasonRefused extension for a Service Not Requested
 */
 define fluent function reasonRefused(serviceNotRequested ServiceNotRequested):
   serviceNotRequested.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-doNotPerformReason').value as FHIR.CodeableConcept
