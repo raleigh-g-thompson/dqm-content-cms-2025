@@ -72,7 +72,7 @@ while the valueset it needed had never been committed.
 | I-21 | `as` cannot widen Choice to ancestor type | `engine` | Worked around | — |
 | I-22 | `convert Duration to days` returns null | `engine` | Worked around | CMS128, CMS156 |
 | I-23 | `ConvertQuantity` rejects calendar-word units from `ToQuantity` | `engine` | Worked around | CMS156 |
-| I-24 | Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`). Workaround applied to CMS156 `averageDailyDose()` 2026-10-02 (see `change-log.md`) | `engine` | Worked around | CMS156 |
+| I-24 | Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`). Workaround applied to CMS156 `averageDailyDose()` 2026-10-02 (see `change-log.md`); upstream [cqframework/clinical_quality_language#1690](https://github.com/cqframework/clinical_quality_language/issues/1690) (engine returns UCUM canonical base units; spec question HL7 Jira FHIR-58137) | `engine` | Worked around | CMS156 |
 | I-25 | `singleton from empty list` throws instead of returning null | `engine` | Worked around | CMS156 |
 | I-26 | `Unable to extract codes from fhirType Reference` | `engine` | Open — confirmed | CMS135, CMS165 |
 | I-27 | Union branch evaluates empty despite correct data | `engine` | Open — confirmed | CMS104, CMS108, CMS190 |
