@@ -320,6 +320,7 @@ define fluent function medicationRequestPeriodInDays(Request MedicationRequest):
 // 2026-10-02
 // - the function returns grams/second
 // - the resultant is so small the value gets truncated and 0.00000000 is returned
+// - Issue is related to https://github.com/cqframework/clinical_quality_language/issues/1690
 // original
 // define fluent function averageDailyDose(MedicationRequest MedicationRequest):
 //   MedicationRequest Order
