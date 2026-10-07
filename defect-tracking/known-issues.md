@@ -50,7 +50,7 @@ Do not promote anything to `Fixed` without confirming the fix is actually
 present in the repo and that the engine agrees — I-44 sat at `Fixed` for weeks
 while the valueset it needed had never been committed.
 
-## Open issues (42)
+## Open issues (41)
 
 | ID | Issue | Class | Status | Measures |
 |---|---|---|---|---|
@@ -87,12 +87,11 @@ while the valueset it needed had never been committed.
 | I-38 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run | `engine` | Open — confirmed | CMS1028, CMS108, CMS129 +10 more |
 | I-39 | `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing resource has `subject: null` | `engine` | Open — suspected | CMS142 |
 | I-45 | Sparse `MedicationRequest` dosage fixtures trip `singleton from empty list` | `fixture` | Worked around | CMS156 |
-| I-52 | `doNotPerform` not excluded from MedicationRequest/ServiceRequest retrieves | `migration` | Worked around | CMS104, CMS135, CMS144 +4 more |
+| I-52 | `doNotPerform` not excluded from MedicationRequest/ServiceRequest retrieves | `migration` | Worked around | CMS104, CMS135, CMS144 +3 more |
 | I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | CMS108, CMS190, CMS68, CMS996 |
 | I-56 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | `migration` | Open — confirmed | CMS144 |
 | I-57 | Vendored `CMD.cql` `convert…to days` null / calendar-unit bug (medication dispense side) | `vendored` | Worked around | CMS128 |
 | I-58 | Vendored `CumulativeMedicationDuration` 6.0.000 model adaptation (CMS156) | `vendored` | Worked around | CMS156 |
-| I-60 | CMS2: depression-screening negation logic (`ObservationCancelled`) commented out entirely | `content` | Open — confirmed | CMS2 |
 | I-61 | Translator's ChoiceType compatibility check bypasses a registered FHIRHelpers conversion when a union produces divergent tuple-element types, leaving raw `FHIR.instant` `INRLabTest.issued` unconverted (CMS108/CMS190 INR Low Risk Indicator); corroborated on CMS986's bare-value `union` of raw `authoredOn` with an already-converted `System.DateTime` branch (Hospice/Dietitian Referral defines) | `translator` | Worked around | CMS108, CMS190, CMS986 |
 | I-62 | Comparison harness cannot invoke per-member `cqfm-aggregateMethod` measure-observations for ratio / continuous-variable measures, so those cells are excluded from automated scoring | `harness` | Worked around | CMS1017, CMS871, CMS986 |
 | I-63 | `Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).` aborts CMS871 cases `98533ccd` and `fd579f44`, 10 cells (both, all 5 populations MISSING). An integer `[1, 0]` interval, suggesting a range built over an empty list; root cause not yet traced and the error appears nowhere else in `input/tests/results/`. `fd579f44` only surfaced once I-44 was fixed — the ValueSet error had been masking it | `engine` | Open — confirmed | CMS871 |
@@ -224,9 +223,15 @@ the whole library.
   carries the decline reason in the `us-quality-core-doNotPerformReason`
   extension, so the Denominator Exception under-fired. Fixed by switching to
   the `.reasonRefused()` accessor.
-  - 2 CMS22 cases (`f9417a57`, `c41f9946`) remain open under I-52 — a
-    positive-retrieve over-fire needing a `doNotPerform is not true` filter.
-    See `CONNECTATHON-BREADCRUMBS.md`.
+  - The 2 remaining CMS22 cases (`f9417a57`, `c41f9946`, filed under I-52) were
+    a positive-retrieve over-fire. Fixed 2026-10-07 by qualifying the
+    unqualified `[ServiceRequest: …]` retrieves as
+    `[USQualityCore.ServiceRequest: …]`; no `doNotPerform` filter was needed.
+- **I-60** `content` — CMS2's `"Denominator Exceptions"` was hardcoded to
+  `false`, with its two `ObservationCancelled` negation defines commented out.
+  Fixed by restoring them and reading the reason with the `notDoneReason()`
+  fluent function instead of the `.notDoneReason` element. All 8 cases
+  (`Group_1:Denominator Exception` 1→0) now pass and match QI-Core.
 
 ### Measurement-period / date-window mismatch
 

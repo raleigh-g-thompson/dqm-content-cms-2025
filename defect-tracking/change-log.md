@@ -848,3 +848,81 @@ define "PASSING CodeableConcept Medication":
 define "Rivastigmine MedicationRequests":
   [FHIR.MedicationRequest: "Rivastigmine"]
 ```
+
+## Use the `notDoneReason()` fluent function for CMS2's depression-screening exceptions (I-60)
+
+**Problem:** CMS2's negation defines read `.notDoneReason` as an element of
+`ObservationCancelled`, the way the QI-Core version does. US Quality Core has no such element: it
+carries the reason in the `us-quality-core-notDoneReason` extension. The two defines,
+`"Medical or Patient Reason for Not Screening Adolescent for Depression"` and
+`"… Adult for Depression"`, had been commented out behind TODOs, and `"Denominator Exceptions"` was
+hardcoded to `false`. All 8 cases expecting a Denominator Exception came back 0
+(`Group_1:Denominator Exception` 1→0), while QI-Core passed them.
+
+**Fix:** read the reason through the `notDoneReason()` fluent function
+(`USQualityCoreCommon.cql:158`, which returns the `us-quality-core-notDoneReason` extension value
+as a `CodeableConcept`) instead of the `.notDoneReason` element, and restore the three defines on
+`[USQualityCore.ObservationCancelled: …]`. Committed as `e2813a63`. CMS2 now has 0 failing cells on
+the 2026-10-07 grid and matches QI-Core on all 8 cases.
+
+**Measures Affected:** CMS2
+
+**Example** (`input/cql/CMS2FHIRPCSDepScreenAndFollowUp.cql`):
+
+```cql
+-- before
+define "Denominator Exceptions":
+  false
+/*
+TODO: Need to reassess how we are representing given no ObservationCancelled profile
+  ( exists "Medical or Patient Reason for Not Screening Adolescent for Depression"
+  ...
+*/
+
+    where ( NoAdolescentScreen.notDoneReason ~ "Depression screening declined (situation)"
+        or NoAdolescentScreen.notDoneReason in "Medical Reason"
+    )
+
+-- after
+define "Denominator Exceptions":
+  ( exists "Medical or Patient Reason for Not Screening Adolescent for Depression"
+      and not "Has Adolescent Depression Screening"
+  )
+    or ( exists "Medical or Patient Reason for Not Screening Adult for Depression"
+        and not "Has Adult Depression Screening"
+    )
+
+    where ( NoAdolescentScreen.notDoneReason() ~ "Depression screening declined (situation)"
+        or NoAdolescentScreen.notDoneReason() in "Medical Reason"
+    )
+```
+
+The same `notDoneReason` → `notDoneReason()` change applies in the Adult define.
+
+## Qualify CMS22's `ServiceRequest` retrieves as `USQualityCore.ServiceRequest` (I-52)
+
+**Problem:** CMS22's positive intervention retrieves used the unqualified `[ServiceRequest: …]` type.
+Cases `f9417a57` and `c41f9946` over-fired the Numerator (1→0 expected) because a declined order's code
+also matched a positive intervention valueset; QI-Core passed both. These were the last 2 open CMS22
+cases, filed under I-52.
+
+**Fix:** qualified every `ServiceRequest` retrieve in the measure as `[USQualityCore.ServiceRequest: …]`,
+12 retrieve sites across 6 defines. No `doNotPerform` filter was needed. CMS22 now has 0 failing cells on
+the 2026-10-07 grid and matches QI-Core.
+
+**Measures Affected:** CMS22
+
+**Example** (`input/cql/CMS22FHIRPCSBPScreeningFollowUp.cql`; the same change at every
+`ServiceRequest` retrieve):
+
+```cql
+-- before
+define "Follow up with Rescreen Within 6 Months":
+  [ServiceRequest: "Follow Up Within 6 Months"] FollowUp
+    where FollowUp.intent ~ 'order'
+
+-- after
+define "Follow up with Rescreen Within 6 Months":
+  [USQualityCore.ServiceRequest: "Follow Up Within 6 Months"] FollowUp
+    where FollowUp.intent ~ 'order'
+```
