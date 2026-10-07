@@ -18188,9 +18188,9 @@ CMS71FHIRSTKAnticoagAFFlutter,02ee41e8-26d8-4575-a999-32ee2204d745,Group_1:Denom
 CMS71FHIRSTKAnticoagAFFlutter,02ee41e8-26d8-4575-a999-32ee2204d745,Group_1:Numerator,0
 CMS71FHIRSTKAnticoagAFFlutter,02ee41e8-26d8-4575-a999-32ee2204d745,Group_1:Denominator Exception,0
 CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Initial Population,1
-CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Denominator,0
+CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Denominator,1
 CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Denominator Exclusion,0
-CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Numerator,0
+CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Numerator,1
 CMS71FHIRSTKAnticoagAFFlutter,0587a75d-0dcc-4c6b-bfc0-f5727342ec1f,Group_1:Denominator Exception,0
 CMS71FHIRSTKAnticoagAFFlutter,0c90d2ea-5034-4465-8e4a-4d0d4e17cd5a,Group_1:Initial Population,1
 CMS71FHIRSTKAnticoagAFFlutter,0c90d2ea-5034-4465-8e4a-4d0d4e17cd5a,Group_1:Denominator,1
@@ -18318,9 +18318,9 @@ CMS71FHIRSTKAnticoagAFFlutter,541c6790-5a21-41ca-8e4e-49da54a28b9b,Group_1:Denom
 CMS71FHIRSTKAnticoagAFFlutter,541c6790-5a21-41ca-8e4e-49da54a28b9b,Group_1:Numerator,0
 CMS71FHIRSTKAnticoagAFFlutter,541c6790-5a21-41ca-8e4e-49da54a28b9b,Group_1:Denominator Exception,0
 CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Initial Population,1
-CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Denominator,0
+CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Denominator,1
 CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Denominator Exclusion,0
-CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Numerator,0
+CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Numerator,1
 CMS71FHIRSTKAnticoagAFFlutter,56ae006d-ab1b-428d-8614-2ccd5d962650,Group_1:Denominator Exception,0
 CMS71FHIRSTKAnticoagAFFlutter,5704cb0f-a88b-4df3-b3d3-5438d3de4f6d,Group_1:Initial Population,1
 CMS71FHIRSTKAnticoagAFFlutter,5704cb0f-a88b-4df3-b3d3-5438d3de4f6d,Group_1:Denominator,1

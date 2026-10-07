@@ -55,7 +55,7 @@ define "Encounter With A History Of Atrial Ablation":
           such that AtrialAblationDiagnosis.verificationStatus is not null implies ( AtrialAblationDiagnosis.verificationStatus !~ Status."refuted"
               and AtrialAblationDiagnosis.verificationStatus !~ Status."entered-in-error"
           )
-            and AtrialAblationDiagnosis.prevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
+            and AtrialAblationDiagnosis.localPrevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
     )
     union ( TJC."Ischemic Stroke Encounter" IschemicStrokeEncounter
         with [USQualityCore.SimpleObservation: "History of Atrial Ablation"] AtrialAblationObservation
@@ -67,7 +67,7 @@ define "Encounter With A History Of Atrial Ablation":
           such that AtrialAblationEncDiagnosis.verificationStatus is not null implies ( AtrialAblationEncDiagnosis.verificationStatus !~ Status."refuted"
               and AtrialAblationEncDiagnosis.verificationStatus !~ Status."entered-in-error"
           )
-            and AtrialAblationEncDiagnosis.prevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
+            and AtrialAblationEncDiagnosis.localPrevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
     )
 
 define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Flutter":
@@ -76,7 +76,7 @@ define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Flut
         such that AtrialFibrillationFlutter.verificationStatus is not null implies ( AtrialFibrillationFlutter.verificationStatus !~ Status."refuted"
             and AtrialFibrillationFlutter.verificationStatus !~ Status."entered-in-error"
         )
-          and AtrialFibrillationFlutter.prevalenceInterval ( ) starts on or before end of IschemicStrokeEncounter.period
+          and AtrialFibrillationFlutter.localPrevalenceInterval ( ) starts on or before end of IschemicStrokeEncounter.period
   )
     union TJC."Ischemic Stroke Encounter" IschemicStrokeEncounter
       where exists ( ( IschemicStrokeEncounter.encounterDiagnosis ( ) ) EncounterDiagnosis
@@ -151,3 +151,13 @@ define "SDE Race":
 
 define "SDE Sex":
   SDE."SDE Sex"
+
+define fluent function localPrevalenceInterval(condition Condition):
+  if condition.clinicalStatus ~ FHIRCommon."active"
+    or condition.clinicalStatus ~ FHIRCommon."recurrence"
+    or condition.clinicalStatus ~ FHIRCommon."relapse" then
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+  else if end of condition.abatementInterval() is null then
+    Interval[start of condition.onset.toInterval(), null)
+  else
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]

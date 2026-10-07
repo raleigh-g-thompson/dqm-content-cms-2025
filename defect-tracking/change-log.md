@@ -759,7 +759,7 @@ return if DaysSupplied is not null and DaysSupplied > 0
 Numerators now **PASS** (`1`/`1`). CMS156 goes from 2 failing cells to **0** (all 708 cells pass).
 
 **Measures Affected:** CMS156
-## Replace FHIRCommon `prevalenceInterval()` with a local closed-interval form in CMS108's prior-VTE branch
+## Replace FHIRCommon `prevalenceInterval()` with a local `if/else` form in CMS108's prior-VTE branch
 
 **Problem:** `FHIRCommon.prevalenceInterval()` (FHIRCommon 2.0.0, `:400-405`) computes its
 non-active branch as a single-value query —
@@ -775,7 +775,8 @@ been right either: a null *open* high bound means the end is unknown (so `end of
 `defect-tracking/tickets/T-prevalence-interval-null-singleton-return.md` (tooling repo).
 
 **Fix:** added a measure-local `localPrevalenceInterval(Condition)` fluent function that uses
-`if/else` instead of the singleton query and a **closed** null high bound (`null]`), and switched
+`if/else` instead of the singleton query and an open null high bound (`null)`; the consumers
+only read the start, so the open bound is sufficient), and switched
 the prior-VTE call site to it with `starts before start of QualifyingEncounter.period` (previously
 `prevalenceInterval() before start of …`). The AF branch (`:221`) still uses
 `FHIRCommon.prevalenceInterval()`. Re-ran cases `d9b7ffa9`, `dd5a1e46`, `33d162ce` via
@@ -805,7 +806,7 @@ define fluent function localPrevalenceInterval(condition Condition):
     or condition.clinicalStatus ~ FHIRCommon."relapse" then
     Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
   else if end of condition.abatementInterval() is null then
-    Interval[start of condition.onset.toInterval(), null]
+    Interval[start of condition.onset.toInterval(), null)
   else
     Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
 ```
@@ -951,3 +952,43 @@ authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/St
 ```
 
 **Measures Affected:** CMS190
+
+## Use a measure-local `localPrevalenceInterval` in CMS71, as in CMS108 (I-31)
+
+**Problem:** CMS71 had the same `FHIRCommon.prevalenceInterval()` failure as CMS108. Its
+"History of Atrial Ablation" Conditions have no `clinicalStatus` and no abatement, so they take the
+non-active branch. There the singleton query `(end of abatementInterval()) abatementDate return …`
+evaluates to `null` without running `return`, and `prevalenceInterval() starts before start of
+IschemicStrokeEncounter.period` is never true. `"Encounter With A History Of Atrial Ablation"` was
+`[]`, so cases `0587a75d` and `56ae006d` lost `Denominator` and `Numerator` (1→0) while QI-Core
+passed them. Confirmed with `input/cql/testPrevalenceIntervalNullPath.cql`: the profile retrieves
+return the Condition, and only the interval is null.
+
+**Fix:** added the same measure-local `localPrevalenceInterval(Condition)` fluent function used in
+CMS108 and switched all three CMS71 call sites to it: the two "History of Atrial Ablation" joins
+(`ConditionProblemsHealthConcerns` and `ConditionEncounterDiagnosis`) and the AF/Flutter join. The
+function returns an open `null)` high bound when there is no abatement end; every CMS71 consumer only
+reads the start (`starts before`, `starts on or before`), so that is sufficient. CMS71 has 0 failing
+cells on the 2026-10-07 consolidated grid and matches QI-Core.
+
+**Measures Affected:** CMS71
+
+**Example** (`input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql`, same change at all three call sites):
+
+```cql
+-- before
+            and AtrialAblationDiagnosis.prevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
+
+-- after
+            and AtrialAblationDiagnosis.localPrevalenceInterval ( ) starts before start of IschemicStrokeEncounter.period
+
+define fluent function localPrevalenceInterval(condition Condition):
+  if condition.clinicalStatus ~ FHIRCommon."active"
+    or condition.clinicalStatus ~ FHIRCommon."recurrence"
+    or condition.clinicalStatus ~ FHIRCommon."relapse" then
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+  else if end of condition.abatementInterval() is null then
+    Interval[start of condition.onset.toInterval(), null)
+  else
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+```
