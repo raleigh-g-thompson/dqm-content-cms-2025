@@ -978,8 +978,7 @@ def generate_comparison_report(file: str,
                     f.write('\n')
 
         f.write('\n_Known issues are tracked by hand in '
-                '`defect-tracking/known-issues.md`; open judgment calls are in '
-                '`defect-tracking/CONNECTATHON-BREADCRUMBS.md`._\n')
+                '`defect-tracking/known-issues.md`._\n')
 
 
 def main(expected_file: str, actual_file: str, output_file: str,

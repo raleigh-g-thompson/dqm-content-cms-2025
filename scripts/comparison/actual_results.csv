@@ -11715,8 +11715,8 @@ CMS177FHIRChildMDDSuicideAssmt,70955eff-a715-4012-8212-dd03468cb783,Group_1:Nume
 CMS177FHIRChildMDDSuicideAssmt,818006bc-0d1c-4b40-8668-61011a74f7ec,Group_1:Initial Population,1
 CMS177FHIRChildMDDSuicideAssmt,818006bc-0d1c-4b40-8668-61011a74f7ec,Group_1:Denominator,1
 CMS177FHIRChildMDDSuicideAssmt,818006bc-0d1c-4b40-8668-61011a74f7ec,Group_1:Numerator,0
-CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,1
-CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Denominator,1
+CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,0
+CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Denominator,0
 CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Numerator,0
 CMS177FHIRChildMDDSuicideAssmt,87807ec9-f348-4c7c-8ee2-281e8c4ce03c,Group_1:Initial Population,0
 CMS177FHIRChildMDDSuicideAssmt,87807ec9-f348-4c7c-8ee2-281e8c4ce03c,Group_1:Denominator,0

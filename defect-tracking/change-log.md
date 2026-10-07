@@ -992,3 +992,42 @@ define fluent function localPrevalenceInterval(condition Condition):
   else
     Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
 ```
+
+## Fix CMS177 `85e6225c` fixture Encounter date and profile (I-66)
+
+**Problem:** test case `85e6225c` ("Patient with psychotherapy encounter before MP") had its Encounter
+dated 2026-02-11, inside the 2026 measurement period, and no `meta.profile`. Every other inclusion
+criterion is met, so CMS counted it (`Initial Population` / `Denominator` 0→1). The MADiE source has
+the encounter on 2025-02-11 with a `qicore-encounter` profile. QI-Core returned the expected 0 only
+because its Encounter retrieve requires that profile.
+
+**Fix:** restored the encounter date to 2025-02-11 and set `meta.profile` to `us-quality-core-encounter`.
+Verified with `cql_execute`: Initial Population, Denominator and Numerator are all 0, matching the
+MeasureReport and QI-Core.
+
+**Measures Affected:** CMS177
+
+**Example** (`input/tests/measure/CMS177FHIRChildMDDSuicideAssmt/85e6225c-a9bb-4338-a228-297564e38c4d/Encounter-3f0ce31f-7c94-4e7d-bf1f-31d40a7defb7.json`):
+
+```json
+-- before
+  "id": "3f0ce31f-7c94-4e7d-bf1f-31d40a7defb7",
+  "status": "finished",
+  ...
+  "period": {
+    "start": "2026-02-11T08:00:00.000+00:00",
+    "end": "2026-02-11T08:15:00.000+00:00"
+  },
+
+-- after
+  "id": "3f0ce31f-7c94-4e7d-bf1f-31d40a7defb7",
+  "meta": {
+    "profile": [ "http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-encounter" ]
+  },
+  "status": "finished",
+  ...
+  "period": {
+    "start": "2025-02-11T08:00:00.000+00:00",
+    "end": "2025-02-11T08:15:00.000+00:00"
+  },
+```

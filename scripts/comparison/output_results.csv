@@ -21462,8 +21462,8 @@ PASS,CMS177FHIRChildMDDSuicideAssmt,96926d5c-5103-41f5-87d5-33ffb8924cf1,Group_1
 PASS,CMS177FHIRChildMDDSuicideAssmt,a4f7a37c-6c3e-499f-b474-56598165dee8,Group_1:Initial Population,0,0
 PASS,CMS177FHIRChildMDDSuicideAssmt,a4f7a37c-6c3e-499f-b474-56598165dee8,Group_1:Denominator,0,0
 PASS,CMS177FHIRChildMDDSuicideAssmt,a4f7a37c-6c3e-499f-b474-56598165dee8,Group_1:Numerator,0,0
-FAIL,CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,0,1
-FAIL,CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Denominator,0,1
+PASS,CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Initial Population,0,0
+PASS,CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Denominator,0,0
 PASS,CMS177FHIRChildMDDSuicideAssmt,85e6225c-a9bb-4338-a228-297564e38c4d,Group_1:Numerator,0,0
 PASS,CMS177FHIRChildMDDSuicideAssmt,687a47c1-978c-4774-ba5d-2a585d1e78be,Group_1:Initial Population,1,1
 PASS,CMS177FHIRChildMDDSuicideAssmt,687a47c1-978c-4774-ba5d-2a585d1e78be,Group_1:Denominator,1,1

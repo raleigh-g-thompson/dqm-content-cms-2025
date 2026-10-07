@@ -17,10 +17,6 @@ to **Open issues** with the next free `I-` id.
 Issue ids also appear in CQL comments next to the affected logic, e.g.
 `// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)`.
 
-Three issues have a confirmed root cause and a verified candidate fix that was
-deliberately **not** applied, because choosing the fix is a modelling decision
-rather than a bug fix — see `CONNECTATHON-BREADCRUMBS.md`.
-
 ## Root-cause classes
 
 | Class | Means |
@@ -82,7 +78,7 @@ while the valueset it needed had never been committed.
 | I-32 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment alone) | `engine` | Open — confirmed | CMS108, CMS131, CMS190, CMS56 |
 | I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; the post-I-28 reappearance of the I-16/I-17 family) | `engine` | Worked around | CMS156 |
 | I-34 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's statin logic | `engine` | Open — confirmed | CMS347 |
-| I-36 | `us-quality-core-*` profile retrieves return empty across the screening-assessment, observation, medication and procedure profile families (I-32 extended; corroborated on CMS135 ACEI/ARB HF, CMS144 HFrEF beta-blocker, CMS771 urinary-symptom, CMS177 MDD-screening, CMS645 CAD-bone-density) | `engine` | Open — confirmed | CMS135, CMS144, CMS145 +5 more |
+| I-36 | `us-quality-core-*` profile retrieves return empty across the screening-assessment, observation, medication and procedure profile families (I-32 extended; corroborated on CMS135 ACEI/ARB HF, CMS144 HFrEF beta-blocker, CMS771 urinary-symptom, CMS645 CAD-bone-density) | `engine` | Open — confirmed | CMS135, CMS144, CMS145 +4 more |
 | I-37 | Ambiguous `recorded(...)` overload in `USQualityCoreCommon` throws, aborting CMS68 test case `f2e2e1c0` across all 4 populations (Missing Results). Overload removed and call sites bypassed 2026-10-02 (see `change-log.md`); upstream [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | `translator` | Worked around | CMS68, CMS190 |
 | I-38 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run | `engine` | Open — confirmed | CMS1028, CMS108, CMS129 +10 more |
 | I-39 | `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing resource has `subject: null` | `engine` | Open — suspected | CMS142 |
@@ -235,6 +231,13 @@ the whole library.
 
 ### Measurement-period / date-window mismatch
 
+- **I-66** `fixture` — CMS177 `85e6225c` ("psychotherapy encounter before MP")
+  had its Encounter dated 2026-02-11, inside the 2026 measurement period, and no
+  `meta.profile`. The MADiE source has 2025-02-11 and `qicore-encounter`. CMS
+  over-included it (Initial Population 0→1). QI-Core returned 0 only because its
+  Encounter retrieve requires the profile. Fixed by restoring the 2025 date and
+  setting `us-quality-core-encounter`. Not a CQL, translator or engine issue;
+  the earlier I-36 attribution was wrong.
 - **I-49** `fixture` — every CMS1264 fixture date sat in 2027/2028 while the
   measurement-period override was `@2026-01-01 .. @2027-01-01`, so 57 of 58
   cases evaluated 0. Note case `9bac5045` inverted instead (`exp=0, act=1`) —
