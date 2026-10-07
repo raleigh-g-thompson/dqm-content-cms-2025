@@ -59,6 +59,62 @@ _NOTES_
 - Outputs `./scripts/comparison/output_results.csv` with PASS/FAIL/MISSING for each population cell, and `./scripts/comparison/discrepancy_report.md` grouping the differences per measure.
 - Prints the number and percentage of passing and failing test cases to the terminal.
 
+#### QI-Core parity columns (optional)
+
+Knowing a test case fails is not enough to act on it, because there are two very different reasons: the measure is genuinely wrong (QI-Core gets it wrong too — a parity gap), or the QI-Core → USQualityCore migration broke it (QI-Core passes it — a regression). The report cannot tell those apart on its own, so `compare_results.py` takes an optional third input:
+
+- `scripts/comparison/qicore_actual_results.csv` — a copy of the QI-Core project's `scripts/comparison/actual_results.csv`, same `measure_name,guid,population,count` schema. Override the location with `--qicore-actual <path>`.
+- **If the file is absent, nothing else changes.** The report renders exactly as it does without it, so a checkout with no QI-Core copy still works. The script prints which file it used, or that none was found.
+
+When it is present, only the *failing* measures and test cases gain QI-Core detail:
+
+| Where | Column | Meaning |
+|---|---|---|
+| Header `Details` table | `CMS Fail / QI-Core OK` | The one actionable parity count: the migration-regression bucket, in cases and measures |
+| "Measures with Discrepancies" | `QI-Core Also Failing` | `n of m` — failing test cases QI-Core does not also pass, of all failing cases on that measure |
+| "Measures with Discrepancies" | `CMS Fail / QI-Core OK` | `n of m` — the same denominator read the other way. `0 of m` marks a measure as fully actionable in this repo |
+| Missing Results / Missing Populations | `QI-Core` | Status of that test case on QI-Core |
+| Mismatched Test Cases | `QI-Core`, `QI-Core Actual` | Status, plus QI-Core's own values, position-aligned with the Population/Expected/Actual lists |
+
+Status is scored against the **same fixture MeasureReport expectations** the UQC columns use, not against the UQC engine's output:
+
+- **PASS** — QI-Core reproduced every expected population. Where the UQC engine fails such a case, the failure is a **migration regression**, not a parity gap.
+- **FAIL** — QI-Core disagrees with the fixture, i.e. **parity**: both engines are wrong the same way.
+- **MISSING** — QI-Core produced no result for that test case at all. Absence of evidence, not a pass. `QI-Core Actual` shows `MISSING` in that case rather than a blank.
+
+Two things to know before reading the numbers:
+
+- **`MISSING` counts toward `QI-Core Also Failing`.** Read the column as "not reproduced on QI-Core", not "confirmed broken on QI-Core".
+- **Its denominator will not match `Fail Count`.** The column counts failing *(test case, group)* pairs, matching the per-measure tables; `Fail Count` counts each test case once across groups. A measure with four groups failing for one patient can read `4 of 4` while contributing 1 to `Fail Count`.
+
+`output_results.csv` is unaffected — QI-Core is a reporting dimension, not a fourth scoring input.
+
+##### The `## QI-Core Parity` section
+
+Every column above is scoped to test cases UQC *already fails*, which is the right scope for triaging a failing measure but the wrong one for asking "how far apart are these two engines, really?". That question needs the passing cases too, so the report adds a `## QI-Core Parity` section between the CQFM exclusions and "Measures with No Discrepancies". It contains:
+
+- **A 3×3 verdict cross-tab** — CMS verdict × QI-Core verdict, over every test case in the expected results. Both verdicts come from one function (`side_status`), so the parity view can never contradict the UQC columns.
+- **Total disagreement** — test cases and authored population cells where the two engines' values actually differ.
+- **The one actionable bucket** — CMS fails, QI-Core reproduces the fixture — as a per-measure table (cases and cells) plus the test case GUIDs grouped under each measure.
+
+The reverse bucket, cases CMS passes and QI-Core does not, is **counted but not listed**, and gets no header row either. It is not CMS work — on every such case in this corpus the two repositories' fixture expectations agree and only the engine output differs, so it is QI-Core-side staleness (catalogued as I-01) and a reason to refresh the QI-Core snapshot. Listing ~740 test cases of it cost far more report than the information was worth. Its size stays visible in the cross-tab as the `PASS`/`FAIL` and `PASS`/`MISSING` cells, and the total disagreement stays visible in the section's opening line; `qicore_only_failures` is still computed so the parity record stays symmetric, but nothing prints it.
+
+Two properties worth relying on:
+
+- **Disagreement is scored cell-by-cell over the populations the fixture authored**, not by comparing the two population maps for equality. CMS and QI-Core emit different *extra* populations on some measures, and counting those would inflate the total with cells nobody wrote an expectation for.
+- **The disagreement total is larger than the two buckets summed.** Two engines can disagree about a case both of them get wrong the same way, so a case in `FAIL`/`FAIL` still counts as a disagreement. Do not expect the buckets to reconcile to the headline number.
+
+**Unit of account.** A test case in this section is one `(measure, GUID, group)` triple — the same unit the per-measure tables use — so the cross-tab totals more than the header's `Total Test Cases`, which counts each patient once per measure. The section states both figures so they can be reconciled by group rather than compared as totals. This is the same `(test case, group)` vs. test case distinction already noted for `QI-Core Also Failing` vs. `Fail Count`; it is not new arithmetic, just a new place it shows up.
+
+Measure names in the bucket table are linked only when the measure also has its own `####` section further down, so the table never emits a dead anchor.
+
+To refresh the copy after a QI-Core re-run:
+
+```sh
+cp ../dqm-content-qicore-2025/scripts/comparison/actual_results.csv \
+   scripts/comparison/qicore_actual_results.csv
+```
+
 ### `comparison/populations.py`
 
 Support module for the above. It does two things that exist to stop the report inventing differences that are not really there, so it's worth knowing about before you interpret a result:
@@ -119,3 +175,6 @@ python3 scripts/compare_results.py
   - run them from the root directory: `python3 -m pytest`
   - or individually, e.g. `python3 -m pytest scripts/tests/test_populations.py`
   - or `python3 -m pytest scripts/tests/test_validate_test_fixtures.py`
+  - `test_compare_results_qicore.py` covers the QI-Core parity columns, the
+    whole-corpus `qi_core_parity` cross-tab, and asserts that a run without the
+    QI-Core file produces no QI-Core content.
