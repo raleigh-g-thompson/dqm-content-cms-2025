@@ -232,9 +232,9 @@ define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Prio
             and VTEDiagnosis.verificationStatus is not null implies ( VTEDiagnosis.verificationStatus !~ FHIRCommon."refuted"
               and VTEDiagnosis.verificationStatus !~ FHIRCommon."entered-in-error"
           )
-            and VTEDiagnosis.prevalenceInterval ( ) before start of QualifyingEncounter.period
+            and VTEDiagnosis.localPrevalenceInterval() starts before start of QualifyingEncounter.period
     )
-
+        
 define "Encounter With Prior Or Present Procedure Of Hip Or Knee Replacement Surgery":
   VTE."Encounter With Age Range And Without VTE Diagnosis Or Obstetrical Conditions" QualifyingEncounter
     with ( ["Procedure": "Hip Replacement Surgery"]
@@ -458,3 +458,14 @@ define "No VTE Prophylaxis Due To Patient Refusal On Day Of Or Day After Procedu
 
 define fluent function "fromDayOfStartOfHospitalizationToDayAfterAdmission"(Encounter Encounter):
   Interval[date from ( start of Encounter.hospitalizationWithObservation ( ) ), date from ( start of Encounter.period ) + 1 days]
+
+define fluent function localPrevalenceInterval(condition Condition):
+  if condition.clinicalStatus ~ FHIRCommon."active"
+    or condition.clinicalStatus ~ FHIRCommon."recurrence"
+    or condition.clinicalStatus ~ FHIRCommon."relapse" then
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+  else if end of condition.abatementInterval() is null then
+    Interval[start of condition.onset.toInterval(), null)
+  else
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+  

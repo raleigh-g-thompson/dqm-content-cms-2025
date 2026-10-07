@@ -673,3 +673,93 @@ came back clean — 0 findings — so this is not universal.)
 ```
 
 **Measures Affected:** CMS816
+
+## Replace FHIRCommon `prevalenceInterval()` with a local closed-interval form in CMS108's prior-VTE branch
+
+**Problem:** `FHIRCommon.prevalenceInterval()` (FHIRCommon 2.0.0, `:400-405`) computes its
+non-active branch as a single-value query —
+`(end of condition.abatementInterval()) abatementDate return if abatementDate is null then … else …`.
+The engine evaluates a single-value query whose source is null to `null` without running its
+`return` clause (I-31), so when a Condition has no `abatement[x]` the function returns `null`
+instead of an open-ended interval. Every inactive/remission/resolved VTE Condition in the CMS108 fixtures has no
+abatement, so `"Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Prior Diagnosis
+Of VTE"`'s prior-VTE branch could never match. The intended `Interval[onset, null)` would not have
+been right either: a null *open* high bound means the end is unknown (so `end of` is null and
+`overlaps` is null), while a null *closed* high bound means no end (the end is the maximum DateTime). Confirmed with the
+`testProbeSingletonNullReturn` scaffold probe (translator/engine 5.4.0). Upstream ticket:
+`defect-tracking/tickets/T-prevalence-interval-null-singleton-return.md` (tooling repo).
+
+**Fix:** added a measure-local `localPrevalenceInterval(Condition)` fluent function that uses
+`if/else` instead of the singleton query and a **closed** null high bound (`null]`), and switched
+the prior-VTE call site to it with `starts before start of QualifyingEncounter.period` (previously
+`prevalenceInterval() before start of …`). The AF branch (`:221`) still uses
+`FHIRCommon.prevalenceInterval()`. Re-ran cases `d9b7ffa9`, `dd5a1e46`, `33d162ce` via
+`cql_execute`: Initial Population / Denominator / Numerator = 1, Denominator Exclusion = 0, matching
+their MeasureReports.
+
+Also added the scaffold probe library `input/cql/testProbeSingletonNullReturn.cql` (System types
+only, no includes, no fixtures) as the reproducer for the upstream ticket, and
+`input/cql/testPrevalenceIntervalNullPath.cql` (CMS71 "History of Atrial Ablation" isolation:
+profile retrieve vs `FHIRCommon.prevalenceInterval()` vs the local closed form). Neither is
+registered as a Library resource.
+
+**Measures Affected:** CMS108
+
+**Example** (`input/cql/CMS108FHIRVTEProphylaxis.cql`):
+
+```cql
+-- before
+            and VTEDiagnosis.prevalenceInterval ( ) before start of QualifyingEncounter.period
+
+-- after
+            and VTEDiagnosis.localPrevalenceInterval() starts before start of QualifyingEncounter.period
+
+define fluent function localPrevalenceInterval(condition Condition):
+  if condition.clinicalStatus ~ FHIRCommon."active"
+    or condition.clinicalStatus ~ FHIRCommon."recurrence"
+    or condition.clinicalStatus ~ FHIRCommon."relapse" then
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+  else if end of condition.abatementInterval() is null then
+    Interval[start of condition.onset.toInterval(), null]
+  else
+    Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
+```
+
+## Add a patient-level control to the `testE11MedicationReference` scaffold probe (I-26)
+
+**Problem:** the probe's FAILING and PASSING defines were the same retrieve,
+`[FHIR.MedicationRequest: "Rivastigmine"]`, run over one patient that carries both a
+`medicationReference` and a `medicationCodeableConcept` MedicationRequest. The
+`Unable to extract codes from fhirType Reference` crash aborts the whole library, so the PASSING
+define never produced a result and the probe had no working control.
+
+**Fix:** added a control patient whose only MedicationRequest uses `medicationCodeableConcept`, and
+collapsed the two identical defines into one, `"Rivastigmine MedicationRequests"`. Run with
+`cql_execute`, each patient with its data path scoped to its own folder:
+
+- `62577993` (repro): `Unable to extract codes from fhirType Reference`
+- `7998aa53` (control): `[MedicationRequest(id=d8716091-…)]`
+
+With the data path at the measure folder, the control also crashes; the CQL comment records this.
+Scaffold probe only (`test*`), so no `CMS*` measure is affected.
+
+New fixture files (`input/tests/measure/testE11MedicationReference/7998aa53-f2dc-4cb6-b0f7-8dc726506601/`):
+`Patient-7998aa53-f2dc-4cb6-b0f7-8dc726506601.json`,
+`MedicationRequest-d8716091-48d1-43fe-942d-8535ef8c0b75.json`.
+
+**Measures Affected:** none (scaffold probe `testE11MedicationReference`)
+
+**Example** (`input/cql/testE11MedicationReference.cql`):
+
+```cql
+-- before
+define "FAILING Reference-Only Medication":
+  [FHIR.MedicationRequest: "Rivastigmine"]
+
+define "PASSING CodeableConcept Medication":
+  [FHIR.MedicationRequest: "Rivastigmine"]
+
+-- after
+define "Rivastigmine MedicationRequests":
+  [FHIR.MedicationRequest: "Rivastigmine"]
+```
