@@ -27,6 +27,7 @@ Issue ids also appear in CQL comments next to the affected logic, e.g.
 | `migration` | a bug introduced converting QI-Core → US Quality Core |
 | `fixture` | bad or incomplete test data |
 | `vendored` | a bug in an upstream-authored CQL library vendored here |
+| `implementation` | the measure steward's test data or content misuses FHIR/CQL semantics; present in both QI-Core and CMS, not a parity defect, fixed by the steward |
 | `harness` | a limitation of the comparison harness, not of the content |
 | `baseline` | the QI-Core baseline `qicore-2025-actual-results.csv` disagrees with the fixture MeasureReports while the CMS engine matches |
 
@@ -46,7 +47,7 @@ Do not promote anything to `Fixed` without confirming the fix is actually
 present in the repo and that the engine agrees — I-44 sat at `Fixed` for weeks
 while the valueset it needed had never been committed.
 
-## Open issues (41)
+## Open issues (44)
 
 | ID | Issue | Class | Status | Measures |
 |---|---|---|---|---|
@@ -74,7 +75,7 @@ while the valueset it needed had never been committed.
 | I-27 | Union branch evaluates empty despite correct data | `engine` | Open — confirmed | CMS104, CMS108, CMS190 |
 | I-28 | Sibling-profile Condition union fed to `prevalenceInterval(Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>)` will not resolve — `FHIRCommon.cql` declares only the base `FHIR.Condition` overload and the translator cannot widen a Choice | `engine` | Worked around | CMS1154, CMS1157, CMS117 +29 more |
 | I-29 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | `engine` | Open — suspected | CMS0334, CMS1028 |
-| I-31 | Singleton-source query skips `return` when its source is null, so `FHIRCommon.prevalenceInterval()` returns null for a non-active or no-status Condition with no abatement end | `engine` | Worked around (CMS108, CMS71) | CMS108, CMS1154, CMS347, CMS71 |
+| I-31 | Singleton-source query skips `return` when its source is null, so `FHIRCommon.prevalenceInterval()` returns null for a non-active or no-status Condition with no abatement end | `engine` | Worked around (CMS108, CMS71) | CMS108, CMS1154, CMS71 |
 | I-32 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment alone) | `engine` | Open — confirmed | CMS108, CMS131, CMS190, CMS56 |
 | I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; the post-I-28 reappearance of the I-16/I-17 family) | `engine` | Worked around | CMS156 |
 | I-34 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's statin logic | `engine` | Open — confirmed | CMS347 |
@@ -91,6 +92,9 @@ while the valueset it needed had never been committed.
 | I-61 | Translator's ChoiceType compatibility check bypasses a registered FHIRHelpers conversion when a union produces divergent tuple-element types, leaving raw `FHIR.instant` `INRLabTest.issued` unconverted (CMS108/CMS190 INR Low Risk Indicator); corroborated on CMS986's bare-value `union` of raw `authoredOn` with an already-converted `System.DateTime` branch (Hospice/Dietitian Referral defines) | `translator` | Worked around | CMS108, CMS190, CMS986 |
 | I-62 | Comparison harness cannot invoke per-member `cqfm-aggregateMethod` measure-observations for ratio / continuous-variable measures, so those cells are excluded from automated scoring | `harness` | Worked around | CMS1017, CMS871, CMS986 |
 | I-63 | `Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).` aborts CMS871 cases `98533ccd` and `fd579f44`, 10 cells (both, all 5 populations MISSING). An integer `[1, 0]` interval, suggesting a range built over an empty list; root cause not yet traced and the error appears nowhere else in `input/tests/results/`. `fd579f44` only surfaced once I-44 was fixed — the ValueSet error had been masking it | `engine` | Open — confirmed | CMS871 |
+| I-67 | CMS347 `1ba7b147`: the steward's test case uses a start-only `abatementPeriod` to mean "resolved 2025-12-31". FHIRCommon correctly reads the missing `end` as open-ended, so `prevalenceInterval()` runs to end of time and `"Has ESRD Diagnosis"` fires (`Group_4:Denominator Exception` 0→1). QI-Core returns 0 only by accident (I-69, plus I-68). Malformed resource, confirmed with SME 2026-10-08: **not a parity defect**. The steward should use `abatementDateTime` or add an `end`. No CQL change | `implementation` | Open — confirmed | CMS347 |
+| I-68 | Interval selector returns `null` when both bounds evaluate to null (`Interval[null, null)`), instead of an interval with unknown bounds (`IntervalEvaluator.kt`, acknowledged by a TODO); upstream [cqframework/clinical_quality_language#1850](https://github.com/cqframework/clinical_quality_language/issues/1850) (open). No result difference for `overlaps`. A start-sensitive consumer (`starts before`) loses rows the spec would keep. No affected case found yet | `engine` | Open — confirmed | CMS347 |
+| I-69 | `is Interval<T>` returns `false` when the interval has a null boundary (engine v5 `IsEvaluator`), so QICoreCommon's `abatementInterval()` / `toInterval()` return `null` for open-ended Periods. QI-Core side only; FHIRCommon tests `is FHIR.Period` and isn't affected. Fixed upstream in [cqframework/clinical_quality_language#1857](https://github.com/cqframework/clinical_quality_language/pull/1857) (`fb8055df`, merged 2026-10-08, not yet released); details in the outer repo's `defect-tracking/tickets/T-is-interval-null-bound.md` | `engine` | Open — confirmed | CMS347 |
 
 ## Resolved — reference patterns
 

@@ -18,11 +18,16 @@ import tempfile
 import unittest
 
 from scripts.compare_results import (
+    DEFAULT_IMPLEMENTATION_ISSUES_FILE,
     DEFAULT_QICORE_ACTUAL_FILE,
+    ImplementationIssue,
     ResultKey,
     capture_results,
     generate_comparison_report,
     generate_output,
+    implementation_issue_for,
+    load_implementation_issues,
+    main,
     qi_core_parity,
     qicore_status,
     parse_args,
@@ -720,6 +725,241 @@ class NoDiscrepancyGridTest(unittest.TestCase):
 
     def test_no_measures_renders_no_section(self):
         self.assertEqual(render_no_discrepancy_section([], 74), [])
+
+
+def _issue(guid, group="", issue_id="I-99", note="Malformed resource."):
+    return ImplementationIssue(issue_id, MEASURE, guid, group, note)
+
+
+class LoadImplementationIssuesTest(unittest.TestCase):
+    """`implementation_issues.csv` lists cases owed to the steward, not to either engine."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def test_absent_file_means_no_issues(self):
+        self.assertEqual(
+            load_implementation_issues(os.path.join(self.tmp, "nope.csv")), [])
+        self.assertEqual(load_implementation_issues(None), [])
+
+    def test_reads_rows_strips_values_and_skips_blank_rows(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      "issue_id,measure_name,guid,group,note\n"
+                      f" I-67 , {MEASURE} , {GUID_A} ,,\" Has, a comma \"\n"
+                      ",,,,\n"
+                      f"I-68,{MEASURE},{GUID_B},Group_2,\n")
+        self.assertEqual(load_implementation_issues(path), [
+            ImplementationIssue("I-67", MEASURE, GUID_A, "", "Has, a comma"),
+            ImplementationIssue("I-68", MEASURE, GUID_B, "Group_2", ""),
+        ])
+
+    def test_group_and_note_columns_are_optional(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      f"issue_id,measure_name,guid\nI-67,{MEASURE},{GUID_A}\n")
+        self.assertEqual(load_implementation_issues(path),
+                         [ImplementationIssue("I-67", MEASURE, GUID_A, "", "")])
+
+    def test_unquoted_comma_in_note_raises(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      "issue_id,measure_name,guid,group,note\n"
+                      f"I-67,{MEASURE},{GUID_A},,Has, a comma\n")
+        with self.assertRaisesRegex(ValueError, "line 2: more fields than columns"):
+            load_implementation_issues(path)
+
+    def test_missing_required_column_raises(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      f"issue_id,guid\nI-67,{GUID_A}\n")
+        with self.assertRaisesRegex(ValueError, "measure_name"):
+            load_implementation_issues(path)
+
+    def test_shipped_file_parses(self):
+        # The committed file must stay loadable; it is read on every run.
+        repo_root = os.path.dirname(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))))
+        path = os.path.join(repo_root, DEFAULT_IMPLEMENTATION_ISSUES_FILE)
+        for issue in load_implementation_issues(path):
+            self.assertTrue(issue.issue_id and issue.measure_name and issue.guid)
+
+
+class ImplementationIssueMatchTest(unittest.TestCase):
+
+    def test_blank_group_matches_every_group(self):
+        issues = [_issue(GUID_A)]
+        self.assertEqual(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_3"), issues), issues[0])
+
+    def test_group_specific_issue_matches_only_that_group(self):
+        issues = [_issue(GUID_A, "Group_2")]
+        self.assertIsNotNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_2"), issues))
+        self.assertIsNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_1"), issues))
+
+    def test_other_guid_or_measure_does_not_match(self):
+        issues = [_issue(GUID_A)]
+        self.assertIsNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_B, "Group_1"), issues))
+        self.assertIsNone(implementation_issue_for(
+            ResultKey("CMS998FHIROther", GUID_A, "Group_1"), issues))
+
+
+class ImplementationIssueParityTest(unittest.TestCase):
+    """Implementation issues leave the parity buckets but stay in the cross-tab."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def _groups(self, name, *rows):
+        return capture_results(
+            _write(os.path.join(self.tmp, name), _csv(*rows))).groups
+
+    def _parity(self, expected_rows, actual_rows, qicore_rows, issues):
+        return qi_core_parity(self._groups("e.csv", *expected_rows),
+                              self._groups("a.csv", *actual_rows),
+                              self._groups("q.csv", *qicore_rows), issues)
+
+    def test_cms_only_failure_moves_to_implementation_bucket(self):
+        # GUID_A: CMS fails, QI-Core passes, steward data is wrong.
+        # GUID_B: same verdicts, no issue -> still a migration regression.
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,0"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
+            [_issue(GUID_A)])
+        self.assertEqual(parity.cms_only_failures,
+                         {MEASURE: [ResultKey(MEASURE, GUID_B, "Group_1")]})
+        self.assertEqual(parity.implementation_case_count, 1)
+        case = parity.implementation_cases[MEASURE][0]
+        self.assertEqual(case.key, ResultKey(MEASURE, GUID_A, "Group_1"))
+        self.assertEqual((case.cms_verdict, case.qicore_verdict), ("FAIL", "PASS"))
+        self.assertEqual(parity.implementation_cells, {MEASURE: 1})
+        # The cross-tab and raw disagreement still count both cases.
+        self.assertEqual(parity.cross_tab[("FAIL", "PASS")], 2)
+        self.assertEqual(parity.disagreeing_case_count, 2)
+
+    def test_qicore_only_failure_moves_too(self):
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+            [_issue(GUID_A)])
+        self.assertEqual(parity.qicore_only_failures, {})
+        self.assertEqual(
+            parity.implementation_cases[MEASURE][0].qicore_verdict, "FAIL")
+
+    def test_case_both_engines_score_alike_is_not_reattributed(self):
+        # Both fail the same way: that is parity, issue or not.
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+            [_issue(GUID_A)])
+        self.assertEqual(parity.implementation_cases, {})
+        self.assertEqual(parity.cross_tab[("FAIL", "FAIL")], 1)
+
+    def test_group_specific_issue_leaves_other_groups_in_their_bucket(self):
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_A},Group_2:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0",
+             f"{MEASURE},{GUID_A},Group_2:Denominator,0"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_A},Group_2:Denominator,1"],
+            [_issue(GUID_A, "Group_2")])
+        self.assertEqual(parity.cms_only_failures,
+                         {MEASURE: [ResultKey(MEASURE, GUID_A, "Group_1")]})
+        self.assertEqual([c.key.group for c in parity.implementation_cases[MEASURE]],
+                         ["Group_2"])
+
+    def test_no_issues_behaves_as_before(self):
+        rows = ([f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+                [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+                [f"{MEASURE},{GUID_A},Group_1:Denominator,1"])
+        parity = self._parity(*rows, [])
+        self.assertEqual(parity.implementation_cases, {})
+        self.assertEqual(parity.cms_only_failure_case_count, 1)
+
+    def test_section_lists_issue_and_reconciles_cross_tab(self):
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [_issue(GUID_A, issue_id="I-67", note="Start-only abatementPeriod.")])
+        text = "".join(render_qi_core_parity_section(
+            parity, "q.csv", 1, implementation_file="impl.csv"))
+        self.assertIn("### CMS Fails, QI-Core Reproduces (0 test cases, 0 measures)", text)
+        self.assertIn("_No test case falls in this bucket._", text)
+        self.assertIn("### Implementation Issues, Not Parity Defects "
+                      "(1 test case, 1 measure)", text)
+        self.assertIn("Listed in `impl.csv`.", text)
+        self.assertIn(f"| {MEASURE} | 1 | 1 |", text)
+        self.assertIn(f"- **{MEASURE}** (1)\n"
+                      f"  - {GUID_A} (Group_1: CMS FAIL / QI-Core PASS): "
+                      f"**I-67**. Start-only abatementPeriod.\n", text)
+        self.assertIn("The cross-tab also counts 1 case", text)
+
+    def test_section_absent_without_implementation_cases(self):
+        parity = self._parity(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"], [])
+        text = "".join(render_qi_core_parity_section(parity, "q.csv", 1))
+        self.assertNotIn("Implementation Issues", text)
+        self.assertNotIn("The cross-tab also counts", text)
+
+
+class ImplementationIssueReportTest(unittest.TestCase):
+    """End to end through main(): header row and summary column exclude the case."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def _run(self, issues_text):
+        # GUID_A: CMS fails, QI-Core passes, covered by an issue.
+        # GUID_B: CMS fails, QI-Core passes, not covered -> regression.
+        e = _write(os.path.join(self.tmp, "e.csv"), _csv(
+            f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+            f"{MEASURE},{GUID_B},Group_1:Denominator,1"))
+        a = _write(os.path.join(self.tmp, "a.csv"), _csv(
+            f"{MEASURE},{GUID_A},Group_1:Denominator,0",
+            f"{MEASURE},{GUID_B},Group_1:Denominator,0"))
+        q = _write(os.path.join(self.tmp, "q.csv"), _csv(
+            f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+            f"{MEASURE},{GUID_B},Group_1:Denominator,1"))
+        impl = os.path.join(self.tmp, "impl.csv")
+        if issues_text is not None:
+            _write(impl, issues_text)
+        report = os.path.join(self.tmp, "r.md")
+        main(e, a, os.path.join(self.tmp, "o.csv"), report,
+             measure_resource_dir=self.tmp, qicore_file=q,
+             implementation_file=impl)
+        with open(report) as f:
+            return f.read()
+
+    def test_issue_excluded_from_header_and_summary_column(self):
+        text = self._run("issue_id,measure_name,guid,group,note\n"
+                         f"I-67,{MEASURE},{GUID_A},,Malformed.\n")
+        self.assertIn("| CMS Fail / QI-Core OK | 1 test case (1 measure) |", text)
+        self.assertIn("| Implementation Issues (not parity) | 1 test case (1 measure) |", text)
+        # Summary table: QI-Core Also Failing 0 of 2; CMS Fail / QI-Core OK 1 of 2.
+        self.assertRegex(text, r"\| 0 of 2 \| 1 of 2 \|")
+        # PASS/FAIL scoring is untouched: both cases still fail.
+        self.assertIn("| Fail Count | 2 (100.00%) |", text)
+        self.assertIn("_1 failing case is an implementation issue "
+                      "(see `## QI-Core Parity`) and counts in neither column", text)
+
+    def test_missing_issues_file_renders_as_before(self):
+        text = self._run(None)
+        self.assertIn("| CMS Fail / QI-Core OK | 2 test cases (1 measure) |", text)
+        self.assertNotIn("Implementation Issues", text)
+        self.assertRegex(text, r"\| 0 of 2 \| 2 of 2 \|")
+        self.assertNotIn("in neither column", text)
 
 
 if __name__ == "__main__":

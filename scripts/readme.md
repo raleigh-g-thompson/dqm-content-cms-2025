@@ -108,6 +108,17 @@ Two properties worth relying on:
 
 Measure names in the bucket table are linked only when the measure also has its own `####` section further down, so the table never emits a dead anchor.
 
+##### Implementation issues (optional)
+
+Some test cases score differently on CMS and QI-Core only because the measure steward's test data misuses FHIR or CQL semantics. These are class `implementation` in `defect-tracking/known-issues.md`; I-67 is an example (a start-only `abatementPeriod` used to mean a resolution date). Neither engine side owes a fix, so these cases shouldn't show up as migration regressions. They are listed by hand in:
+
+- `scripts/comparison/implementation_issues.csv`, with columns `issue_id,measure_name,guid,group,note`. Leave `group` blank to cover every group of the test case. Quote any `note` that contains a comma. The script stops with an error on a missing required column or an unquoted comma.
+- **If the file is absent or empty, nothing changes.**
+
+A listed case that the two engines score differently (one `PASS`, the other not) is taken out of both asymmetric buckets and reported in its own subsection, `### Implementation Issues, Not Parity Defects`, with its issue ID, the verdict pair per group, and the note. It is also left out of the header's `CMS Fail / QI-Core OK` row and the per-measure `CMS Fail / QI-Core OK` column. When there are any, the header gains an `Implementation Issues (not parity)` row, and notes in the section and under the summary table explain why the cross-tab and the two columns no longer reconcile. Listed cases that both engines score the same way are left alone.
+
+PASS/FAIL scoring, `output_results.csv`, the cross-tab and the disagreement counts are unchanged: an implementation-issue case that fails still counts as a failure.
+
 To refresh the copy after a QI-Core re-run:
 
 ```sh

@@ -1,0 +1,2 @@
+issue_id,measure_name,guid,group,note
+I-67,CMS347FHIRStatinPreventionTxCVD,1ba7b147-b701-424c-bade-4e8270547030,,"ESRD Condition uses a start-only abatementPeriod to mean resolved 2025-12-31; the steward should use abatementDateTime or add an end. QI-Core passes only by accident (I-69, I-68)."

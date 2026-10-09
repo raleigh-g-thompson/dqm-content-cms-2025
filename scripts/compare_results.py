@@ -33,6 +33,13 @@ inventing discrepancies that are not there:
     parameterized CQL function invoked once per member and then aggregated.
     This harness cannot perform that computation, so those cells are reported
     separately instead of scored. See `defect-tracking/known-issues.md`, I-62.
+  * **Implementation issues are kept out of the parity buckets.** Some test
+    cases differ between CMS and QI-Core only because the measure steward's test
+    data misuses FHIR or CQL semantics (class `implementation` in
+    `defect-tracking/known-issues.md`; e.g. I-67). They are listed by hand in
+    ``scripts/comparison/implementation_issues.csv`` and reported in their own
+    subsection of `## QI-Core Parity`, not as migration regressions. Their
+    PASS/FAIL scoring is unchanged.
 """
 import csv
 import glob
@@ -42,7 +49,7 @@ import sys
 from collections import namedtuple
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, FrozenSet, List, NamedTuple, Optional, Set, Tuple, TypedDict
+from typing import Dict, FrozenSet, List, NamedTuple, Optional, Sequence, Set, Tuple, TypedDict
 
 _SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_SCRIPTS_DIR, "comparison"))
@@ -61,6 +68,11 @@ measure_id_pattern = r"(?:CMS|CMSFHIR)(?P<measure_id>\d+)"
 # Optional third input: a copy of the QI-Core project's actual_results.csv. See
 # the module docstring for what it adds. Absent is fine -- see main().
 DEFAULT_QICORE_ACTUAL_FILE = "./scripts/comparison/qicore_actual_results.csv"
+
+# Optional fourth input: test cases whose CMS-vs-QI-Core difference comes from
+# malformed steward test data rather than the migration. See the module
+# docstring. Absent is fine -- no case is treated as an implementation issue.
+DEFAULT_IMPLEMENTATION_ISSUES_FILE = "./scripts/comparison/implementation_issues.csv"
 
 MeasureDifference = namedtuple('MeasureDifference', ['measure', 'total_test_cases', 'test_cases_with_differences', 'result_deltas'])
 ResultKey = namedtuple('ResultKey', ['measure_name', 'patient_guid', 'group'])
@@ -221,6 +233,76 @@ def qicore_status(expected_pops: Dict[str, str],
 VERDICTS = ("PASS", "FAIL", "MISSING")
 
 
+class ImplementationIssue(NamedTuple):
+    """One row of ``implementation_issues.csv``.
+
+    ``group`` is optional: blank means the issue applies to every group of the
+    test case, which is the usual case because a malformed resource belongs to
+    the patient, not to a group.
+    """
+    issue_id: str
+    measure_name: str
+    guid: str
+    group: str
+    note: str
+
+
+IMPLEMENTATION_ISSUE_COLUMNS = ("issue_id", "measure_name", "guid", "group", "note")
+
+
+def load_implementation_issues(file: Optional[str]) -> List[ImplementationIssue]:
+    """Read ``implementation_issues.csv``; an absent file means no issues.
+
+    Columns: ``issue_id,measure_name,guid,group,note``. Values are stripped and
+    blank rows are skipped. A file missing a required column, or a row with
+    more fields than columns (an unquoted comma), raises ValueError rather than
+    silently matching nothing.
+    """
+    if not file or not os.path.exists(file):
+        return []
+    issues: List[ImplementationIssue] = []
+    with open(file, newline="") as f:
+        reader = csv.DictReader(f)
+        header = [h.strip() for h in (reader.fieldnames or [])]
+        missing = [c for c in ("issue_id", "measure_name", "guid") if c not in header]
+        if missing:
+            raise ValueError(
+                f"{file}: missing column(s) {', '.join(missing)}; expected "
+                f"{','.join(IMPLEMENTATION_ISSUE_COLUMNS)}")
+        for raw in reader:
+            if None in raw:
+                # csv.DictReader files surplus fields under the None key.
+                raise ValueError(
+                    f"{file}, line {reader.line_num}: more fields than columns; "
+                    "quote any value that contains a comma")
+            row = {(k or "").strip(): (v or "").strip() for k, v in raw.items()}
+            if not any(row.values()):
+                continue
+            issues.append(ImplementationIssue(
+                row["issue_id"], row["measure_name"], row["guid"],
+                row.get("group", ""), row.get("note", "")))
+    return issues
+
+
+def implementation_issue_for(key: ResultKey,
+                             issues: Sequence[ImplementationIssue]) -> Optional[ImplementationIssue]:
+    """The implementation issue covering this (measure, guid, group), if any."""
+    for issue in issues:
+        if (issue.measure_name == key.measure_name
+                and issue.guid == key.patient_guid
+                and issue.group in ("", key.group)):
+            return issue
+    return None
+
+
+class ImplementationCase(NamedTuple):
+    """A parity-bucket case reattributed to an implementation issue."""
+    key: ResultKey
+    issue: ImplementationIssue
+    cms_verdict: str
+    qicore_verdict: str
+
+
 def plural(count: int, singular: str, suffix: str = "s") -> str:
     """`1 test case` / `2 test cases` -- the report states these counts as prose."""
     return f"{count} {singular}{'' if count == 1 else suffix}"
@@ -255,6 +337,12 @@ class QiCoreParity(NamedTuple):
 
     ``*_cells`` counts just those buckets' disagreeing population cells.
 
+    ``implementation_cases`` holds the cases that would have landed in either
+    asymmetric bucket but are covered by an implementation issue (malformed
+    steward test data, see ``load_implementation_issues``). They are kept out of
+    both buckets because neither engine side owes a fix; the cross-tab and the
+    disagreement counts still include them.
+
     ``disagreeing_cases`` / ``disagreeing_cells`` / ``total_cells`` count the raw
     engine-to-engine disagreement, which is a *different and larger* number than
     either asymmetric bucket: two engines can disagree about a case both of them
@@ -268,6 +356,8 @@ class QiCoreParity(NamedTuple):
     disagreeing_cases: Set[ResultKey]
     disagreeing_cells: int
     total_cells: int
+    implementation_cases: Dict[str, List[ImplementationCase]]
+    implementation_cells: Dict[str, int]
 
     @property
     def disagreeing_case_count(self) -> int:
@@ -289,10 +379,24 @@ class QiCoreParity(NamedTuple):
     def qicore_only_failure_measure_count(self) -> int:
         return len(self.qicore_only_failures)
 
+    @property
+    def implementation_case_count(self) -> int:
+        return sum(len(cases) for cases in self.implementation_cases.values())
+
+    @property
+    def implementation_measure_count(self) -> int:
+        return len(self.implementation_cases)
+
+    @property
+    def implementation_keys(self) -> Set[ResultKey]:
+        return {case.key for cases in self.implementation_cases.values()
+                for case in cases}
+
 
 def qi_core_parity(expected_results: Dict[ResultKey, Dict[str, str]],
                    actual_results: Dict[ResultKey, Dict[str, str]],
-                   qicore_results: Dict[ResultKey, Dict[str, str]]) -> QiCoreParity:
+                   qicore_results: Dict[ResultKey, Dict[str, str]],
+                   implementation_issues: Sequence[ImplementationIssue] = ()) -> QiCoreParity:
     """Compare the two engines against the expectations and against each other.
 
     Both verdicts come from ``side_status``, so they are decided by the same rule
@@ -301,6 +405,10 @@ def qi_core_parity(expected_results: Dict[ResultKey, Dict[str, str]],
     -- deliberately not a dict-equality test, because CMS and QI-Core emit
     different *extra* populations on some measures, and scoring those would
     inflate the count with cells nobody wrote an expectation for.
+
+    A case covered by ``implementation_issues`` that would otherwise land in an
+    asymmetric bucket goes to ``implementation_cases`` instead. Cases the two
+    engines score the same way are unaffected, issue or not.
     """
     cross_tab: Dict[Tuple[str, str], int] = {}
     cms_only: Dict[str, List[ResultKey]] = {}
@@ -310,6 +418,8 @@ def qi_core_parity(expected_results: Dict[ResultKey, Dict[str, str]],
     disagreeing_cases: Set[ResultKey] = set()
     disagreeing_cells = 0
     total_cells = 0
+    implementation: Dict[str, List[ImplementationCase]] = {}
+    implementation_cells: Dict[str, int] = {}
 
     for key, expected_pops in expected_results.items():
         cms_pops = actual_results.get(key)
@@ -327,7 +437,14 @@ def qi_core_parity(expected_results: Dict[ResultKey, Dict[str, str]],
 
         # PASS is a strict verdict, so `!= "PASS"` folds MISSING in: an engine
         # that emitted nothing has not reproduced the fixture either.
-        if cms != "PASS" and qicore == "PASS":
+        asymmetric = (cms == "PASS") != (qicore == "PASS")
+        issue = implementation_issue_for(key, implementation_issues) if asymmetric else None
+        if issue is not None:
+            implementation.setdefault(key.measure_name, []).append(
+                ImplementationCase(key, issue, cms, qicore))
+            implementation_cells[key.measure_name] = \
+                implementation_cells.get(key.measure_name, 0) + len(differing)
+        elif cms != "PASS" and qicore == "PASS":
             cms_only.setdefault(key.measure_name, []).append(key)
             cms_only_cells[key.measure_name] = \
                 cms_only_cells.get(key.measure_name, 0) + len(differing)
@@ -338,13 +455,15 @@ def qi_core_parity(expected_results: Dict[ResultKey, Dict[str, str]],
 
     return QiCoreParity(cross_tab, cms_only, cms_only_cells,
                         qicore_only, qicore_only_cells,
-                        disagreeing_cases, disagreeing_cells, total_cells)
+                        disagreeing_cases, disagreeing_cells, total_cells,
+                        implementation, implementation_cells)
 
 
 def render_qi_core_parity_section(parity: QiCoreParity,
                                   qicore_file: str,
                                   patient_case_count: int,
-                                  anchorable_measures: Set[str] = frozenset()) -> List[str]:
+                                  anchorable_measures: Set[str] = frozenset(),
+                                  implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE) -> List[str]:
     """`## QI-Core Parity`: the whole-corpus UQC-vs-QI-Core view.
 
     The per-failing-case QI-Core columns cannot answer "how far apart are these
@@ -372,6 +491,11 @@ def render_qi_core_parity_section(parity: QiCoreParity,
     ``patient_case_count`` is the header's ``Total Test Cases``, which counts in
     the other unit (see ``QiCoreParity``). Passed in rather than recomputed
     because the header owns that count and the two are easy to conflate.
+
+    Cases reattributed to an implementation issue get their own subsection,
+    rendered only when there are any, so a run without
+    ``implementation_issues.csv`` looks exactly as it did before.
+    ``implementation_file`` is named in that subsection as the source.
     """
     def measure_ref(measure: str) -> str:
         return (f'[{measure}](#{measure.lower()})'
@@ -430,6 +554,14 @@ def render_qi_core_parity_section(parity: QiCoreParity,
         '`MISSING` means that engine emitted no result for the case at all and '
         'counts as non-PASS in both directions._\n')
     lines.append('\n')
+    if parity.implementation_cases:
+        lines.append(
+            '_The cross-tab also counts '
+            f'{plural(parity.implementation_case_count, "case")} that the two '
+            'buckets above leave out, because the difference comes from the '
+            'measure steward\'s test data, not either engine. They are listed '
+            'under Implementation Issues below._\n')
+        lines.append('\n')
 
     lines.append(
         f'### CMS Fails, QI-Core Reproduces '
@@ -467,19 +599,81 @@ def render_qi_core_parity_section(parity: QiCoreParity,
                 lines.append(f'  - {measure_report_file_link(measure, guid)} '
                              f'({", ".join(groups)})\n')
     lines.append('\n')
+
+    if parity.implementation_cases:
+        lines.extend(render_implementation_issues(parity, implementation_file,
+                                                  measure_ref))
     return lines
 
 
-def render_qicore_note(qicore_results: Optional[Results], qicore_file: str) -> List[str]:
+def render_implementation_issues(parity: QiCoreParity, implementation_file: str,
+                                 measure_ref) -> List[str]:
+    """`### Implementation Issues`: parity-bucket cases owed to the steward.
+
+    One bullet per GUID, like the regression bucket, followed by the issue ID,
+    each group's verdict pair, and the note from ``implementation_issues.csv``.
+    """
+    lines = [
+        f'### Implementation Issues, Not Parity Defects '
+        f'({plural(parity.implementation_case_count, "test case")}, '
+        f'{plural(parity.implementation_measure_count, "measure")})\n',
+        '\n',
+        '_The engines score these cases differently only because the measure '
+        'steward\'s test data misuses FHIR or CQL semantics (class '
+        '`implementation` in `defect-tracking/known-issues.md`). Neither side '
+        'owes a fix, so they are left out of the two asymmetric buckets and the '
+        '`CMS Fail / QI-Core OK` counts. PASS/FAIL scoring is unchanged: a case '
+        f'that fails here still counts as a failure above. Listed in `{implementation_file}`._\n',
+        '\n',
+    ]
+    measures = sort_measure_names(list(parity.implementation_cases))
+    lines.extend(create_markdown_table(
+        ['Measure', 'Test Cases', 'Population Cells'],
+        [[measure_ref(measure), len(parity.implementation_cases[measure]),
+          parity.implementation_cells.get(measure, 0)] for measure in measures],
+        '|---|:---:|:---:|\n'))
+    for measure in measures:
+        cases = parity.implementation_cases[measure]
+        order = {key: i for i, key in enumerate(sort_result_keys([c.key for c in cases]))}
+        by_guid: Dict[str, List[ImplementationCase]] = {}
+        for case in sorted(cases, key=lambda c: order[c.key]):
+            by_guid.setdefault(case.key.patient_guid, []).append(case)
+        count = (f'{len(cases)}' if len(cases) == len(by_guid) else
+                 f'{len(cases)} test cases across {len(by_guid)} GUIDs')
+        lines.append(f'- **{measure}** ({count})\n')
+        for guid, guid_cases in by_guid.items():
+            groups = ', '.join(f'{c.key.group}: CMS {c.cms_verdict} / '
+                               f'QI-Core {c.qicore_verdict}' for c in guid_cases)
+            issue = guid_cases[0].issue
+            note = f' {issue.note}' if issue.note else ''
+            lines.append(f'  - {measure_report_file_link(measure, guid)} '
+                         f'({groups}): **{issue.issue_id}**.{note}\n')
+    lines.append('\n')
+    return lines
+
+
+def render_qicore_note(qicore_results: Optional[Results], qicore_file: str,
+                       implementation_case_count: int = 0) -> List[str]:
     """Provenance note printed once, under the discrepancy-measure summary.
 
     Stated up front because the QI-Core columns are easy to misread: the status
     is scored against this report's fixture expectations, not against the UQC
-    engine's output, and MISSING counts toward "also failing".
+    engine's output, and MISSING counts toward "also failing". When some failing
+    cases are implementation issues, a sentence explains why that measure's two
+    columns no longer add up to its failing total.
     """
     if qicore_results is None:
         return []
-    return [
+    implementation_note = (
+        [f"_{plural(implementation_case_count, 'failing case')} "
+         f"{'is an implementation issue' if implementation_case_count == 1 else 'are implementation issues'} "
+         "(see `## QI-Core Parity`) and "
+         f"{'counts' if implementation_case_count == 1 else 'count'} in neither "
+         "column, so on "
+         "those measures the two columns can add up to less than the failing "
+         "total._\n", "\n"]
+        if implementation_case_count else [])
+    return implementation_note + [
         "_QI-Core columns compare against "
         f"`{qicore_file}` (a copy of the QI-Core project's `actual_results.csv`). "
         "Status is scored against the same fixture MeasureReport expectations used "
@@ -798,12 +992,16 @@ def generate_comparison_report(file: str,
                                unscored_cells: List[UnscoredCell] = None,
                                cqfm_exclusions: Dict[str, FrozenSet[str]] = None,
                                qicore_results: Optional[Results] = None,
-                               qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE):
+                               qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE,
+                               implementation_issues: Sequence[ImplementationIssue] = (),
+                               implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE):
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
     total_cases = pass_count + fail_count
     qicore_groups = qicore_results.groups if qicore_results is not None else None
-    parity = qi_core_parity(expected_results, actual_results, qicore_groups) \
+    parity = qi_core_parity(expected_results, actual_results, qicore_groups,
+                            implementation_issues) \
         if qicore_groups is not None else None
+    implementation_keys = parity.implementation_keys if parity is not None else set()
 
     with open(file, "w", newline="") as f:
         f.write('# Discrepancy Report\n')
@@ -826,6 +1024,11 @@ def generate_comparison_report(file: str,
                 'CMS Fail / QI-Core OK',
                 f'{plural(parity.cms_only_failure_case_count, "test case")} '
                 f'({plural(parity.cms_only_failure_measure_count, "measure")})'])
+            if parity.implementation_cases:
+                detail_rows.append([
+                    'Implementation Issues (not parity)',
+                    f'{plural(parity.implementation_case_count, "test case")} '
+                    f'({plural(parity.implementation_measure_count, "measure")})'])
         f.writelines(create_markdown_table(['Details', 'Value'], detail_rows))
         f.writelines(create_markdown_table(
             ['Discrepancy Summary', 'Measure Count', 'Test Case Count'],
@@ -857,7 +1060,8 @@ def generate_comparison_report(file: str,
 
         if parity is not None:
             f.writelines(render_qi_core_parity_section(
-                parity, qicore_file, total_cases, set(discrepancies)))
+                parity, qicore_file, total_cases, set(discrepancies),
+                implementation_file))
 
         non_discrepancy_measures = [
             m for m in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()])))
@@ -892,17 +1096,24 @@ def generate_comparison_report(file: str,
                     row.append(f'{also_failing} of {failing_total}')
                     # The other direction: of this measure's failures, how many
                     # QI-Core reproduces? Reading 0 of m here is what marks a
-                    # measure as fully actionable in this repo.
+                    # measure as fully actionable in this repo. Implementation
+                    # issues are left out, matching the parity buckets.
                     regressions = sum(
                         1 for key in failing_keys
-                        if side_status(expected_results.get(key, {}),
-                                       qicore_groups.get(key)) == "PASS")
+                        if key not in implementation_keys
+                        and side_status(expected_results.get(key, {}),
+                                        qicore_groups.get(key)) == "PASS")
                     row.append(f'{regressions} of {failing_total}')
                 summary_rows.append(row)
             f.writelines(create_markdown_table(summary_headers, summary_rows,
                                                summary_separator))
             f.write('\n')
-            f.writelines(render_qicore_note(qicore_results, qicore_file))
+            failing_implementation = sum(
+                1 for measure, discrepancy in discrepancies.items()
+                for key in measure_discrepancy_keys(discrepancy, measure)
+                if key in implementation_keys)
+            f.writelines(render_qicore_note(qicore_results, qicore_file,
+                                            failing_implementation))
 
             for measure, discrepancy in discrepancies.items():
                 f.write(f'#### {measure}\n')
@@ -983,7 +1194,8 @@ def generate_comparison_report(file: str,
 
 def main(expected_file: str, actual_file: str, output_file: str,
          comparison_report: str, measure_resource_dir: str = None,
-         qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE):
+         qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE,
+         implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE):
     # Exclusions are computed once and applied symmetrically to expected,
     # actual, and QI-Core, so a cell is either scored on every side or none.
     cqfm_exclusions = load_cqfm_aggregation_exclusions(
@@ -1002,6 +1214,13 @@ def main(expected_file: str, actual_file: str, output_file: str,
         print(f"QI-Core actual results: none found at {qicore_file!r} "
               "(QI-Core columns omitted)")
 
+    # Only consulted for the QI-Core parity section, so it has no effect
+    # without a QI-Core file.
+    implementation_issues = load_implementation_issues(implementation_file)
+    if qicore_results is not None:
+        print(f"Implementation issues: {len(implementation_issues)} "
+              f"from {implementation_file!r}")
+
     pass_count, fail_count = generate_output(output_file, expected_results.rows,
                                              actual_results.rows)
     total = pass_count + fail_count
@@ -1018,7 +1237,9 @@ def main(expected_file: str, actual_file: str, output_file: str,
                                unscored_cells=unscored,
                                cqfm_exclusions=cqfm_exclusions,
                                qicore_results=qicore_results,
-                               qicore_file=qicore_file)
+                               qicore_file=qicore_file,
+                               implementation_issues=implementation_issues,
+                               implementation_file=implementation_file)
 
 
 def parse_args(argv: List[str]) -> Tuple[str, str, str, str, str, str]:
