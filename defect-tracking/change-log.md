@@ -1031,3 +1031,53 @@ MeasureReport and QI-Core.
     "end": "2025-02-11T08:15:00.000+00:00"
   },
 ```
+
+## Add `testI69IsIntervalNullBound` scaffold probe; attribute CMS646 `ab48e0c0` to I-70
+
+**Problem:** CMS646 `ab48e0c0` showed as a regression against the QI-Core baseline
+(`Group_1:Numerator` QI-Core 0 → CMS 1). Stepping through the QI-Core side showed
+`condition.onset.toInterval()` returning null for the Condition's start-only `onsetPeriod`, with
+`choice` null inside `toInterval`.
+
+**Change:** added the engine-only `testI69IsIntervalNullBound` scaffold probe (System types only, no
+model or data). On translator/engine 5.4.0 it confirms I-69 (`is Interval<T>` is false for an
+interval with a null bound). It also shows a second entry point: an open-ended interval passed to a
+`Choice<DateTime, Interval<DateTime>>` parameter arrives as null, because the call-site `As` uses
+the same type test. The CMS result (1) is what the logic produces; QI-Core on engine 4.9.0 also
+gives 1. The fixture's expected 0 can't be produced by the measure logic, so the case is
+attributed to the new I-70 (`implementation`, steward to fix). No measure CQL or fixture change.
+
+**Measures Affected:** none (scaffold probe only; CMS646 attribution change)
+
+## Restore `recorded` timing on CMS996 negation Denominator Exceptions
+
+**Problem:** CMS996 cases `7edab122`, `ccc7deaf`, `60823d79`, and `8bb7c40b` returned
+`Group_1:Denominator Exception` 0 where QI-Core and the fixture give 1. QI-Core times both negation
+defines with `.recorded`. The 2026-04-07 refactor (`355d04f5`) used `.performed` and `.effective`
+instead (I-55):
+
+- `ProcedureNotDone.performed` never has a value. The fixtures carry only a
+  `data-absent-reason = not-performed` extension, so `performed during` is null.
+- `MedicationAdministrationNotDone.effective` is a start-only `effectivePeriod`. FHIRHelpers turns a
+  null `end` into a closed null boundary, so the interval runs to the end of time and is never
+  `during` the ED encounter.
+
+**Change:** both defines now compare the `us-quality-core-recorded` extension, as QI-Core does.
+The PCI define reads it with `.ext()`, because `recorded(ProcedureNotDone)` is ambiguous with
+`recorded(Procedure)` (I-18). The fibrinolytic define uses `USQualityCoreCommon.recorded()`. Ran
+the 4 cases with `cql_execute` (translator/engine 5.4.0): each now returns its ED encounter in
+`Denominator Exceptions`, with no diagnostics.
+
+### Example
+
+```cql
+-- before
+        and PCINotDone.performed during EDwSTEMI.period
+        and FibrinolyticNoMed.effective during EDwSTEMI.period
+
+-- after
+        and ( PCINotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime ) during EDwSTEMI.period
+        and FibrinolyticNoMed.recorded() during EDwSTEMI.period
+```
+
+**Measures Affected:** CMS996

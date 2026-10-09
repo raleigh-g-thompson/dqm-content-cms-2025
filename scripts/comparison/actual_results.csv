@@ -24252,7 +24252,7 @@ CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Initial Pop
 CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Denominator Exclusion,0
 CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Numerator,0
-CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Denominator Exception,0
+CMS996FHIRAptTxforSTEMI,60823d79-b37f-4358-819f-f39b4e885c6d,Group_1:Denominator Exception,1
 CMS996FHIRAptTxforSTEMI,6484a0f5-3f9c-4df9-94b3-2f5c9b95638a,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,6484a0f5-3f9c-4df9-94b3-2f5c9b95638a,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,6484a0f5-3f9c-4df9-94b3-2f5c9b95638a,Group_1:Denominator Exclusion,0
@@ -24302,7 +24302,7 @@ CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Initial Pop
 CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Denominator Exclusion,0
 CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Numerator,0
-CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Denominator Exception,0
+CMS996FHIRAptTxforSTEMI,7edab122-3af3-4172-9231-7c1470ecc1e0,Group_1:Denominator Exception,1
 CMS996FHIRAptTxforSTEMI,816296ad-a84a-48a9-89e4-38817c7e0c8b,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,816296ad-a84a-48a9-89e4-38817c7e0c8b,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,816296ad-a84a-48a9-89e4-38817c7e0c8b,Group_1:Denominator Exclusion,1
@@ -24337,7 +24337,7 @@ CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Initial Pop
 CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Denominator Exclusion,0
 CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Numerator,0
-CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Denominator Exception,0
+CMS996FHIRAptTxforSTEMI,8bb7c40b-7447-42ca-b662-161a7026ed8f,Group_1:Denominator Exception,1
 CMS996FHIRAptTxforSTEMI,8fd4eb55-cb9d-435c-869b-c49e3d7bf8ac,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,8fd4eb55-cb9d-435c-869b-c49e3d7bf8ac,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,8fd4eb55-cb9d-435c-869b-c49e3d7bf8ac,Group_1:Denominator Exclusion,0
@@ -24492,7 +24492,7 @@ CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Initial Pop
 CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Denominator Exclusion,0
 CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Numerator,0
-CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Denominator Exception,0
+CMS996FHIRAptTxforSTEMI,ccc7deaf-98b7-4dad-b190-8fee10f2cf77,Group_1:Denominator Exception,1
 CMS996FHIRAptTxforSTEMI,cffad22d-5ac8-40a2-a677-a746687b0744,Group_1:Initial Population,1
 CMS996FHIRAptTxforSTEMI,cffad22d-5ac8-40a2-a677-a746687b0744,Group_1:Denominator,1
 CMS996FHIRAptTxforSTEMI,cffad22d-5ac8-40a2-a677-a746687b0744,Group_1:Denominator Exclusion,0
