@@ -79,13 +79,13 @@ while the valueset it needed had never been committed.
 | I-32 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment alone) | `engine` | Open — confirmed | CMS108, CMS131, CMS190, CMS56 |
 | I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; the post-I-28 reappearance of the I-16/I-17 family) | `engine` | Worked around | CMS156 |
 | I-34 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's statin logic | `engine` | Open — confirmed | CMS347 |
-| I-36 | `us-quality-core-*` profile retrieves return empty across the screening-assessment, observation, medication and procedure profile families (I-32 extended; corroborated on CMS135 ACEI/ARB HF, CMS144 HFrEF beta-blocker, CMS771 urinary-symptom, CMS645 CAD-bone-density) | `engine` | Open — confirmed | CMS135, CMS144, CMS145 +3 more |
+| I-36 | `us-quality-core-*` profile retrieves return empty across the screening-assessment, observation, medication and procedure profile families (I-32 extended; corroborated on CMS135 ACEI/ARB HF, CMS144 HFrEF beta-blocker, CMS771 urinary-symptom, CMS645 CAD-bone-density) | `engine` | Open — confirmed | CMS135, CMS144, CMS145 +2 more |
 | I-37 | Ambiguous `recorded(...)` overload in `USQualityCoreCommon` throws, aborting CMS68 test case `f2e2e1c0` across all 4 populations (Missing Results). Overload removed and call sites bypassed 2026-10-02 (see `change-log.md`); upstream [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | `translator` | Worked around | CMS68, CMS190 |
 | I-38 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run | `engine` | Open — confirmed | CMS1028, CMS108, CMS129 +10 more |
 | I-39 | `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing resource has `subject: null` | `engine` | Open — suspected | CMS142 |
 | I-45 | Sparse `MedicationRequest` dosage fixtures trip `singleton from empty list` | `fixture` | Worked around | CMS156 |
 | I-52 | `doNotPerform` not excluded from MedicationRequest/ServiceRequest retrieves | `migration` | Worked around | CMS104, CMS135, CMS144 +3 more |
-| I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | CMS108, CMS190, CMS68, CMS996 |
+| I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | CMS108, CMS190, CMS68, CMS996, CMS646 |
 | I-56 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | `migration` | Open — confirmed | CMS144 |
 | I-57 | Vendored `CMD.cql` `convert…to days` null / calendar-unit bug (medication dispense side) | `vendored` | Worked around | CMS128 |
 | I-58 | Vendored `CumulativeMedicationDuration` 6.0.000 model adaptation (CMS156) | `vendored` | Worked around | CMS156 |

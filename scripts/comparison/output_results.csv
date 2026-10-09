@@ -6598,7 +6598,7 @@ PASS,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group
 PASS,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Denominator,1,1
 PASS,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Denominator Exclusion,0,0
 PASS,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Numerator,0,0
-FAIL,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Denominator Exception,1,0
+PASS,CMS646FHIRIntravesicalBCGTherapy,e648fa70-0532-49b0-92f6-dfb5a6d28d94,Group_1:Denominator Exception,1,1
 PASS,CMS646FHIRIntravesicalBCGTherapy,767d95ff-7723-4059-aed9-410c57143fa9,Group_1:Initial Population,0,0
 PASS,CMS646FHIRIntravesicalBCGTherapy,767d95ff-7723-4059-aed9-410c57143fa9,Group_1:Denominator,0,0
 PASS,CMS646FHIRIntravesicalBCGTherapy,767d95ff-7723-4059-aed9-410c57143fa9,Group_1:Denominator Exclusion,0,0

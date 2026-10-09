@@ -1,13 +1,13 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-09 08:49:44.068872 |
+| Generated | 2026-10-09 09:15:27.920072 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 18 |
-| Pass Count | 3910 (98.64%) |
-| Fail Count | 54 (1.36%) |
-| CMS Fail / QI-Core OK | 1 test case (1 measure) |
+| Pass Count | 3911 (98.66%) |
+| Fail Count | 53 (1.34%) |
+| CMS Fail / QI-Core OK | 0 test cases (0 measures) |
 | Implementation Issues (not parity) | 3 test cases (3 measures) |
 
 
@@ -15,7 +15,7 @@
 |---|:---:|:---:|
 | Missing Results | 4 | 7 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 16 | 48 |
+| Mismatched Test Cases | 16 | 47 |
 
 
 
@@ -38,32 +38,25 @@ _Every test case scored below, including the ones UQC passes. QI-Core results co
 
 _**Unit of account.** A test case here is one (measure, GUID, group) triple, the same unit the per-measure tables use, so these counts total 5933 rather than the header's 3964 test cases -- that one counts each patient once per measure. On measures with several groups per patient the two differ; reconcile by group, not by totals._
 
-CMS and QI-Core disagree on 765 test cases (1598 of 23722 population cells).
+CMS and QI-Core disagree on 764 test cases (1597 of 23722 population cells).
 
 ### Verdicts by Engine
 
 | CMS verdict \ QI-Core verdict | PASS | FAIL | MISSING |
 |---|:---:|:---:|:---:|
-| PASS | 5140 | 732 | 6 |
-| FAIL | 4 | 44 | 0 |
+| PASS | 5141 | 732 | 6 |
+| FAIL | 3 | 44 | 0 |
 | MISSING | 0 | 1 | 6 |
 
 
-_The two asymmetric buckets point in opposite directions, and only one of them is work for this repo. `FAIL`/`PASS` (1 case, 1 measure) is a migration regression to fix here; it is broken out per measure and per test case below, and per measure by the `CMS Fail / QI-Core OK` column further down. `PASS`/`FAIL` (732 cases) plus `PASS`/`MISSING` (6 cases) is the reverse: those cases match their fixture expectations here and not on QI-Core. Both repositories agree on the expected values for them, so the difference is engine output rather than content and QI-Core's copy of the results is the stale side -- catalogued as I-01. Counted, not listed: it is a refresh signal for the QI-Core baseline, not CMS work. `MISSING` means that engine emitted no result for the case at all and counts as non-PASS in both directions._
+_The two asymmetric buckets point in opposite directions, and only one of them is work for this repo. `FAIL`/`PASS` (0 cases, 0 measures) is a migration regression to fix here; it is broken out per measure and per test case below, and per measure by the `CMS Fail / QI-Core OK` column further down. `PASS`/`FAIL` (732 cases) plus `PASS`/`MISSING` (6 cases) is the reverse: those cases match their fixture expectations here and not on QI-Core. Both repositories agree on the expected values for them, so the difference is engine output rather than content and QI-Core's copy of the results is the stale side -- catalogued as I-01. Counted, not listed: it is a refresh signal for the QI-Core baseline, not CMS work. `MISSING` means that engine emitted no result for the case at all and counts as non-PASS in both directions._
 
 _The cross-tab also counts 3 cases that the two buckets above leave out, because the difference comes from the measure steward's test data, not either engine. They are listed under Implementation Issues below._
 
-### CMS Fails, QI-Core Reproduces (1 test case, 1 measure)
+### CMS Fails, QI-Core Reproduces (0 test cases, 0 measures)
 
-_These are the actionable cases: the fixture expectations are reproduced on QI-Core and not here, so the QI-Core -> USQualityCore migration is implicated. Per test case:_
+_No test case falls in this bucket._
 
-| Measure | Test Cases | Population Cells |
-|---|:---:|:---:|
-| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 1 | 1 |
-
-
-- **CMS646FHIRIntravesicalBCGTherapy** (1)
-  - [ e648fa70-0532-49b0-92f6-dfb5a6d28d94 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/e648fa70-0532-49b0-92f6-dfb5a6d28d94/MeasureReport-57107c42-23df-40d4-92fe-5f7fdd475629.json) (Group_1)
 
 ### Implementation Issues, Not Parity Defects (3 test cases, 3 measures)
 
@@ -120,7 +113,7 @@ _The engines score these cases differently only because the measure steward's te
 | [CMS165FHIRControllingHighBP](#cms165fhircontrollinghighbp) | 68 | 1 | 0 | 0.00%   (0) | 1 of 1 | 0 of 1 |
 | [CMS0334FHIRPCCesareanBirth](#cms0334fhirpccesareanbirth) | 138 | 0 | 0 | 0.72%   (1) | 1 of 1 | 0 of 1 |
 | [CMS347FHIRStatinPreventionTxCVD](#cms347fhirstatinpreventiontxcvd) | 752 | 0 | 0 | 0.13%   (1) | 0 of 1 | 0 of 1 |
-| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 7.89%   (3) | 2 of 4 | 1 of 4 |
+| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 5.26%   (2) | 2 of 3 | 0 of 3 |
 | [CMS771FHIRUrinarySymptomScoreBPH](#cms771fhirurinarysymptomscorebph) | 31 | 0 | 0 | 22.58%   (7) | 7 of 7 | 0 of 7 |
 | [CMS819FHIRHHORAE](#cms819fhirhhorae) | 28 | 0 | 0 | 7.14%   (2) | 2 of 2 | 0 of 2 |
 | [CMSFHIR844HybridHospitalWideMortality](#cmsfhir844hybridhospitalwidemortality) | 10 | 0 | 0 | 20.00%   (2) | 2 of 2 | 0 of 2 |
@@ -264,12 +257,11 @@ Missing Results (1 of 38 test cases)
 | [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | FAIL |
 
 
-Mismatched Test Cases (3 of 38)
+Mismatched Test Cases (2 of 38)
 | Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
 |---|---|---|:---:|:---:|:---:|:---:|
 | [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) | Group_1 | Denominator Exclusion | 0 | 1 | FAIL | 1 |
 | [ ab48e0c0-6543-4537-8f00-bfcdcba7a81b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/ab48e0c0-6543-4537-8f00-bfcdcba7a81b/MeasureReport-ea6cfef5-54d2-4d6d-a7aa-48cf8e749eaf.json) | Group_1 | Numerator | 0 | 1 | PASS | 0 |
-| [ e648fa70-0532-49b0-92f6-dfb5a6d28d94 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/e648fa70-0532-49b0-92f6-dfb5a6d28d94/MeasureReport-57107c42-23df-40d4-92fe-5f7fdd475629.json) | Group_1 | Denominator Exception | 1 | 0 | PASS | 1 |
 
 
 

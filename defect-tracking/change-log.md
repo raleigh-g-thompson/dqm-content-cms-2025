@@ -1081,3 +1081,30 @@ the 4 cases with `cql_execute` (translator/engine 5.4.0): each now returns its E
 ```
 
 **Measures Affected:** CMS996
+
+## Restore `recorded` timing on the CMS646 BCG-not-available Denominator Exception
+
+**Problem:** CMS646 case `e648fa70` returned `Group_1:Denominator Exception` 0 where QI-Core and the
+fixture give 1. QI-Core times `"BCG Not Available Within 6 Months After Bladder Cancer Staging"` with
+`BCGNotGiven.recorded`. The 2026-04-07 refactor (`355d04f5`) used `BCGNotGiven.effective` instead
+(I-55). The timing phrase `6 months or less after day of` needs a point, so the translator compiles
+the `Choice<dateTime, Period>` as `FHIRHelpers.ToDateTime(effective as FHIR.dateTime)`. The fixture
+carries an `effectivePeriod`, so the cast is null and the `such that` evaluates null.
+
+**Change:** the define now compares `BCGNotGiven.recorded()` (the `us-quality-core-recorded`
+extension), as QI-Core does. `recorded(MedicationAdministrationNotDone)` has no sibling-profile
+overload, so I-18 doesn't apply. Ran `e648fa70` and the two other CMS646 not-done BCG cases with
+`cql_execute` (translator/engine 5.4.0): `e648fa70` now returns Denominator Exception true;
+`40ac7a7f` and `e2117038` stay false (expected 0), with no diagnostics.
+
+### Example
+
+```cql
+-- before
+      such that BCGNotGiven.effective 6 months or less after day of start of FirstBladderCancerStaging.performed.toInterval ( )
+
+-- after
+      such that BCGNotGiven.recorded() 6 months or less after day of start of FirstBladderCancerStaging.performed.toInterval ( )
+```
+
+**Measures Affected:** CMS646
