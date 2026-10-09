@@ -1147,3 +1147,27 @@ seven multi-encounter cases with the same Claim template are I-73 and were not c
 ```
 
 **Measures Affected:** CMS72, CMS104
+
+## Score implementation issues as resolved in `compare_results.py`; attribute I-73 and I-75
+
+**Problem:** a test case listed in `scripts/comparison/implementation_issues.csv` (class
+`implementation`: the steward's test data or expectation can't produce the fixture result) was kept
+out of the QI-Core parity buckets but still scored `FAIL`. An implementation note explains the
+failure as well as a match does, so those cases should count as resolved.
+
+**Change:**
+
+- `scripts/compare_results.py`: a mismatching cell in a group covered by an implementation issue is
+  written as `IMPLEMENTATION` in `output_results.csv`. A test case is `IMPLEMENTATION` when every
+  mismatching cell is covered; one uncovered mismatch keeps it `FAIL`. The report header gains
+  `Implementation Issue Count` and `Resolved (Pass + Implementation)`, a new
+  `## Implementation Issues` section lists each case with `expected → actual`, its issue ID and note,
+  and covered groups leave the per-measure discrepancy tables. Documented in `scripts/readme.md`;
+  tests in `scripts/tests/test_compare_results_implementation.py`.
+- `scripts/comparison/implementation_issues.csv`: added the 7 I-73 cases (CMS72 `5a329008`,
+  `cb7c95fc`, `febd4b3e`; CMS104 `348471db`, `451b6853`, `a2b8327c`, `c15bee15`) and CMS72
+  `be5c4068` (I-75, **pending SME confirmation**). No CQL, fixture or MeasureReport change.
+
+**Result:** 3914 pass, 12 implementation, 38 fail of 3964 test cases; 3926 resolved (99.04%).
+
+**Measures Affected:** CMS72, CMS104 (reporting only)

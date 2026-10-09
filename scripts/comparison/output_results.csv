@@ -3382,7 +3382,7 @@ PASS,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1
 PASS,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator,1,1
 PASS,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator Exclusion,0,0
 PASS,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Numerator,0,0
-FAIL,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator Exception,1,0
+IMPLEMENTATION,CMS72FHIRSTKAntithromboticDay2,be5c4068-2639-4b0c-bea3-5b7c80a6fe3b,Group_1:Denominator Exception,1,0
 PASS,CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Initial Population,1,1
 PASS,CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator,1,1
 PASS,CMS72FHIRSTKAntithromboticDay2,7ce35cc8-ed8f-46f0-9ba1-8421a760bdc8,Group_1:Denominator Exclusion,0,0
