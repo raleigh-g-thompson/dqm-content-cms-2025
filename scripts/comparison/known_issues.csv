@@ -1,0 +1,39 @@
+issue_id,class,ticket,measure_name,guid,group,note
+I-05,content,,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,,"Numerator Exclusion 0 → 1 on both engines. I-05's original diagnosis was retracted (the observation cells are I-62), so this attribution needs re-triage."
+I-05,content,,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,,"Numerator Exclusion 0 → 1 on both engines. I-05's original diagnosis was retracted (the observation cells are I-62), so this attribution needs re-triage."
+I-10,content,,CMS819FHIRHHORAE,31b40acc-ca5f-4d1d-bd83-4b1a14eb822e,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-10,content,,CMS819FHIRHHORAE,73b0c1fe-874b-4982-8cb2-3c30520441de,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-11,content,,CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-11,content,,CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-12,content,,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-14,content,,CMSFHIR844HybridHospitalWideMortality,6f22a06f-7186-4db1-9310-4f907dc49ff3,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-14,content,,CMSFHIR844HybridHospitalWideMortality,af1b9448-3e7a-4b7f-8934-15bb63258b75,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+I-15,content,,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,,Fixture MeasureReport expects a value neither engine can compute from the resources present.
+I-15,content,,CMS646FHIRIntravesicalBCGTherapy,10cec7db-41ae-49ad-b883-022f19d92a8b,,Fixture MeasureReport expects a value neither engine can compute from the resources present.
+I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,c095195c-8893-4bf1-aa7d-ad2bfd9bafa5,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,cba5a449-1c45-4e11-ae0b-ba3974b410f7,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,ec508dbb-76f6-4878-b8a2-114ea8e82297,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+I-26,engine,,CMS165FHIRControllingHighBP,45e01fed-56bb-483d-a860-af3d566bda11,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+I-31,engine,,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,,"FHIRCommon prevalenceInterval() returns null for a non-active or no-status Condition with no abatement end. Worked around in CMS108 and CMS71, not yet here."
+I-33,engine,,CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,,"""Values FHIR.dateTime and FHIR.dateTime are not comparable"" aborts the case; QI-Core computes it. The FHIRHelpers.ToDateTime() workaround is applied to CMS156 only."
+I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,05f1e2a6-b317-42bb-827f-993ca3995f5b,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
+I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,41ae0086-ac99-4a31-9546-21b054bbf7d8,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
+I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,6aef5a18-59bd-4a47-80bc-2bd44636e41f,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
+I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,b85440e4-b902-49cd-b3d6-363ba7a99bce,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
+I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,d9840e8c-3359-42c2-b354-4b236c3c1b15,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
+I-63,engine,,CMS871FHIRHHHyper,98533ccd-24ee-41b3-aab2-ef6cbf89e00d,,"""Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)."" aborts the case on both engines; root cause not yet traced."
+I-63,engine,,CMS871FHIRHHHyper,fd579f44-757b-4c98-9b09-27b17b935650,,"""Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)."" aborts the case on both engines; root cause not yet traced."
+I-65,content,,CMS135FHIRACEIorARBorARNIforHF,5b7e720f-e2fc-4779-9b1c-3f34a0241482,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS135FHIRACEIorARBorARNIforHF,d18e37a6-7b66-4e7c-b305-692872c13f8d,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,,Denominator Exception define returns 0 on both engines; root cause not yet localised.
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."
+I-65,content,,CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,,"Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage."

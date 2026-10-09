@@ -1171,3 +1171,33 @@ failure as well as a match does, so those cases should count as resolved.
 **Result:** 3914 pass, 12 implementation, 38 fail of 3964 test cases; 3926 resolved (99.04%).
 
 **Measures Affected:** CMS72, CMS104 (reporting only)
+
+## Label known-issue failures in the discrepancy report; resolve them once ticketed
+
+**Problem:** a failing test case explained by a catalogued `engine`, `translator`, `content` or
+`fixture` issue looked the same in `discrepancy_report.md` as an untriaged failure. Such a case
+should be shown as known, and should count as resolved only once its issue is tied to a GitHub
+ticket.
+
+**Change:**
+
+- `scripts/compare_results.py`: reads a new `scripts/comparison/known_issues.csv`
+  (`issue_id,class,ticket,measure_name,guid,group,note`). A mismatching cell covered by an issue
+  with a `ticket` is written as `KNOWN_ISSUE` and the case counts as resolved. With no ticket the
+  case stays `FAIL`, and a `Known Issue` column in the per-measure tables names the issue. The
+  header gains `Known Issue Count (ticketed)` and `— known issue, needs ticket`, and a new
+  `## Known Issues` section lists each issue with its class, ticket and status. A ticket must be a
+  GitHub issue or pull request URL. The QI-Core parity section is unchanged. Documented in
+  `scripts/readme.md`; tests in `scripts/tests/test_compare_results_known_issues.py`.
+- `scripts/comparison/known_issues.csv`: the 38 currently failing cases, copied from the
+  internal tooling repo's case attributions (I-05, I-10, I-11, I-12, I-14, I-15, I-26, I-31, I-33,
+  I-39, I-63, I-65). No issue has a ticket yet. The I-05 rows and the 7 CMS771 I-65 rows are
+  flagged in their notes as needing re-triage.
+- `known-issues.md`: added the missing I-65 row, and moved I-39 from `engine` / suspected to
+  `fixture` / confirmed, matching the internal tooling repo's 2026-09-29 reclassification. No CQL,
+  fixture or MeasureReport change.
+
+**Result:** 3914 pass, 12 implementation, 0 known issue, 38 fail (all 38 known, needing a ticket)
+of 3964 test cases.
+
+**Measures Affected:** reporting only

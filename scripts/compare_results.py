@@ -44,6 +44,14 @@ inventing discrepancies that are not there:
     `## Implementation Issues` with their issue ID and note. They are also kept
     out of the QI-Core parity buckets, in their own subsection of
     `## QI-Core Parity`, rather than reported as migration regressions.
+  * **A ticketed known issue resolves a failing test case.** A case whose
+    failure is explained by a catalogued engine, translator, content, ... issue
+    is listed in ``scripts/comparison/known_issues.csv`` with the issue's GitHub
+    ticket. Once the ticket is recorded, a covered failing cell scores
+    ``KNOWN_ISSUE`` and the case counts as resolved. Without a ticket the case
+    still fails, and the report labels it as awaiting one. Both kinds are listed
+    in `## Known Issues`. The QI-Core parity buckets are unaffected: a ticketed
+    engine bug that only the UQC side hits is still a parity gap.
 """
 import csv
 import glob
@@ -81,6 +89,15 @@ DEFAULT_IMPLEMENTATION_ISSUES_FILE = "./scripts/comparison/implementation_issues
 # The per-cell and per-test-case verdict for a failure covered by an
 # implementation issue. Counts as resolved, not as a failure.
 IMPLEMENTATION = "IMPLEMENTATION"
+
+# Optional fifth input: failing test cases tied to a catalogued engine,
+# translator, content, ... issue (`defect-tracking/known-issues.md`). A case
+# resolves only once its issue has a GitHub ticket. Absent is fine.
+DEFAULT_KNOWN_ISSUES_FILE = "./scripts/comparison/known_issues.csv"
+
+# The per-cell and per-test-case verdict for a failure covered by a known issue
+# that has a ticket. Counts as resolved. Without a ticket the cell stays FAIL.
+KNOWN_ISSUE = "KNOWN_ISSUE"
 
 MeasureDifference = namedtuple('MeasureDifference', ['measure', 'total_test_cases', 'test_cases_with_differences', 'result_deltas'])
 ResultKey = namedtuple('ResultKey', ['measure_name', 'patient_guid', 'group'])
@@ -292,9 +309,12 @@ def load_implementation_issues(file: Optional[str]) -> List[ImplementationIssue]
     return issues
 
 
-def implementation_issue_for(key: ResultKey,
-                             issues: Sequence[ImplementationIssue]) -> Optional[ImplementationIssue]:
-    """The implementation issue covering this (measure, guid, group), if any."""
+def implementation_issue_for(key: ResultKey, issues: Sequence):
+    """The issue covering this (measure, guid, group), if any.
+
+    Works on any rows with ``measure_name``, ``guid`` and ``group``, so it
+    serves ``KnownIssue`` lists as well as ``ImplementationIssue`` ones.
+    """
     for issue in issues:
         if (issue.measure_name == key.measure_name
                 and issue.guid == key.patient_guid
@@ -322,6 +342,110 @@ def failing_implementation_keys(expected_results: Dict[ResultKey, Dict[str, str]
     return {key for key, expected_pops in expected_results.items()
             if side_status(expected_pops, actual_results.get(key)) != "PASS"
             and implementation_issue_for(key, issues) is not None}
+
+
+class KnownIssue(NamedTuple):
+    """One row of ``known_issues.csv``: a failing test case tied to a catalogued issue.
+
+    ``ticket`` is the GitHub issue (or pull request) URL tracking the fix. A
+    known issue resolves a failing case only once it has one; until then the
+    case stays FAIL and is reported as awaiting a ticket. ``group`` is optional,
+    as in ``ImplementationIssue``.
+    """
+    issue_id: str
+    issue_class: str
+    ticket: str
+    measure_name: str
+    guid: str
+    group: str
+    note: str
+
+    @property
+    def ticketed(self) -> bool:
+        return bool(self.ticket)
+
+
+KNOWN_ISSUE_COLUMNS = ("issue_id", "class", "ticket", "measure_name", "guid", "group", "note")
+
+# Root-cause classes from `defect-tracking/known-issues.md`, less `implementation`,
+# which has its own file because it resolves a case without a ticket.
+KNOWN_ISSUE_CLASSES = ("engine", "translator", "content", "migration", "fixture",
+                       "vendored", "harness", "baseline")
+
+GITHUB_TICKET_PATTERN = re.compile(r"^https://github\.com/[^/\s]+/[^/\s]+/(?:issues|pull)/\d+$")
+
+
+def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
+    """Read ``known_issues.csv``; an absent file means no known issues.
+
+    Columns: ``issue_id,class,ticket,measure_name,guid,group,note``. Raises
+    ValueError on a missing column, an unquoted comma, a class outside
+    ``KNOWN_ISSUE_CLASSES``, a ``ticket`` that isn't a GitHub issue/PR URL (so a
+    placeholder like ``TBD`` can't resolve a case), or rows of one issue that
+    disagree on class or ticket (a ticket belongs to the issue, not the case).
+    """
+    if not file or not os.path.exists(file):
+        return []
+    issues: List[KnownIssue] = []
+    seen: Dict[str, Tuple[str, str]] = {}
+    with open(file, newline="") as f:
+        reader = csv.DictReader(f)
+        header = [h.strip() for h in (reader.fieldnames or [])]
+        missing = [c for c in ("issue_id", "class", "ticket", "measure_name", "guid")
+                   if c not in header]
+        if missing:
+            raise ValueError(
+                f"{file}: missing column(s) {', '.join(missing)}; expected "
+                f"{','.join(KNOWN_ISSUE_COLUMNS)}")
+        for raw in reader:
+            if None in raw:
+                raise ValueError(
+                    f"{file}, line {reader.line_num}: more fields than columns; "
+                    "quote any value that contains a comma")
+            row = {(k or "").strip(): (v or "").strip() for k, v in raw.items()}
+            if not any(row.values()):
+                continue
+            where = f"{file}, line {reader.line_num}"
+            if row["class"] not in KNOWN_ISSUE_CLASSES:
+                hint = (" (list implementation issues in implementation_issues.csv)"
+                        if row["class"] == "implementation" else "")
+                raise ValueError(f"{where}: class {row['class']!r} is not one of "
+                                 f"{', '.join(KNOWN_ISSUE_CLASSES)}{hint}")
+            if row["ticket"] and not GITHUB_TICKET_PATTERN.match(row["ticket"]):
+                raise ValueError(f"{where}: ticket {row['ticket']!r} is not a GitHub "
+                                 "issue or pull request URL; leave it blank until one exists")
+            identity = (row["class"], row["ticket"])
+            if seen.setdefault(row["issue_id"], identity) != identity:
+                raise ValueError(f"{where}: {row['issue_id']} rows disagree on class or "
+                                 "ticket; every row of an issue must carry the same values")
+            issues.append(KnownIssue(
+                row["issue_id"], row["class"], row["ticket"], row["measure_name"],
+                row["guid"], row.get("group", ""), row.get("note", "")))
+    return issues
+
+
+def failing_known_issue_keys(expected_results: Dict[ResultKey, Dict[str, str]],
+                             actual_results: Dict[ResultKey, Dict[str, str]],
+                             known_issues: Sequence[KnownIssue],
+                             implementation_issues: Sequence[ImplementationIssue] = (),
+                             ticketed: bool = True) -> Set[ResultKey]:
+    """Failing (test case, group)s covered by a known issue with (or without) a ticket.
+
+    A group an implementation issue already covers is left out: that
+    explanation takes precedence, so no group is counted twice.
+    """
+    if not known_issues:
+        return set()
+    keys = set()
+    for key, expected_pops in expected_results.items():
+        if side_status(expected_pops, actual_results.get(key)) == "PASS":
+            continue
+        if implementation_issue_for(key, implementation_issues) is not None:
+            continue
+        issue = implementation_issue_for(key, known_issues)
+        if issue is not None and issue.ticketed == ticketed:
+            keys.add(key)
+    return keys
 
 
 class ImplementationCase(NamedTuple):
@@ -769,18 +893,29 @@ def row_outcome(expected_result: str, actual_result: str) -> Tuple[str, str]:
 
 
 def cell_outcome(key: Tuple[str, str, str], expected_result: str, actual_result: str,
-                 implementation_issues: Sequence[ImplementationIssue] = ()) -> Tuple[str, str]:
-    """``row_outcome``, with a FAIL covered by an implementation issue scored IMPLEMENTATION."""
+                 implementation_issues: Sequence[ImplementationIssue] = (),
+                 known_issues: Sequence[KnownIssue] = ()) -> Tuple[str, str]:
+    """``row_outcome``, with a covered FAIL scored IMPLEMENTATION or KNOWN_ISSUE.
+
+    An implementation issue wins over a known issue. A known issue without a
+    ticket leaves the cell FAIL.
+    """
     result, actual_display = row_outcome(expected_result, actual_result)
-    if result == "FAIL" and implementation_issue_for(cell_result_key(key),
-                                                     implementation_issues):
-        result = IMPLEMENTATION
+    if result == "FAIL":
+        result_key = cell_result_key(key)
+        if implementation_issue_for(result_key, implementation_issues):
+            result = IMPLEMENTATION
+        else:
+            issue = implementation_issue_for(result_key, known_issues)
+            if issue is not None and issue.ticketed:
+                result = KNOWN_ISSUE
     return result, actual_display
 
 
 def test_case_outcomes(expected_rows: Dict, actual_rows: Dict,
-                       implementation_issues: Sequence[ImplementationIssue] = ()) -> Dict[Tuple[str, str], str]:
-    """Map (measure_name, patient_guid) -> 'PASS', 'IMPLEMENTATION' or 'FAIL'.
+                       implementation_issues: Sequence[ImplementationIssue] = (),
+                       known_issues: Sequence[KnownIssue] = ()) -> Dict[Tuple[str, str], str]:
+    """Map (measure_name, patient_guid) -> 'PASS', 'IMPLEMENTATION', 'KNOWN_ISSUE' or 'FAIL'.
 
     A test case passes iff every expected valid population cell for that case
     matches the actual value; it fails once if any expected cell is wrong or
@@ -790,16 +925,18 @@ def test_case_outcomes(expected_rows: Dict, actual_rows: Dict,
 
     A case is IMPLEMENTATION when it has a mismatching cell and every
     mismatching cell is covered by an implementation issue. One uncovered
-    mismatch, e.g. in a group the issue doesn't name, makes it FAIL.
+    mismatch, e.g. in a group the issue doesn't name, makes it FAIL. KNOWN_ISSUE
+    is the same, for cells covered by a ticketed known issue; a case with both
+    kinds of cell is KNOWN_ISSUE. Every verdict but FAIL counts as resolved.
     """
-    rank = {"PASS": 0, IMPLEMENTATION: 1, "FAIL": 2}
+    rank = {"PASS": 0, IMPLEMENTATION: 1, KNOWN_ISSUE: 2, "FAIL": 3}
     outcomes: Dict[Tuple[str, str], str] = {}
     for key, expected_result in expected_rows.items():
         # key fields: [ 'measure_name', 'patient_guid', 'group:population' ]
         if not is_scored(key[2].split(':', 1)[1]):
             continue
         result, _ = cell_outcome(key, expected_result, actual_rows.get(key),
-                                 implementation_issues)
+                                 implementation_issues, known_issues)
         case_key = (key[0], key[1])
         if rank[result] >= rank[outcomes.get(case_key, "PASS")]:
             outcomes[case_key] = result
@@ -807,14 +944,16 @@ def test_case_outcomes(expected_rows: Dict, actual_rows: Dict,
 
 
 def generate_output(file: str, expected_rows: Dict, actual_rows: Dict,
-                    implementation_issues: Sequence[ImplementationIssue] = ()) -> Tuple[int, int]:
+                    implementation_issues: Sequence[ImplementationIssue] = (),
+                    known_issues: Sequence[KnownIssue] = ()) -> Tuple[int, int]:
     """Write one row per expected population cell to ``file``.
 
     The CSV keeps per-population detail; the returned (pass, fail) counts are
     at test-case granularity (a case counts once even if several of its
     population cells mismatch — they usually share a root cause). A mismatching
-    cell covered by an implementation issue is written as IMPLEMENTATION, and
-    such cases are in neither count; see ``implementation_case_count``.
+    cell covered by an implementation issue is written as IMPLEMENTATION, one
+    covered by a ticketed known issue as KNOWN_ISSUE, and such cases are in
+    neither count; see ``implementation_case_count``/``known_issue_case_count``.
     """
     header = ["result", "measure_name", "guid", "population", "expected_result", "actual_result"]
     output = []
@@ -828,7 +967,7 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict,
             continue
 
         result, actual_display = cell_outcome(key, expected_result, actual_rows.get(key),
-                                              implementation_issues)
+                                              implementation_issues, known_issues)
         output.append([result, key[0], key[1], key[2], expected_result, actual_display])
 
     with open(file, "w", newline="") as f:
@@ -836,26 +975,40 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict,
         writer.writerow(header)
         writer.writerows(output)
 
-    return scores(expected_rows, actual_rows, implementation_issues)
+    return scores(expected_rows, actual_rows, implementation_issues, known_issues)
 
 
 def scores(expected_rows: Dict[str, str], actual_rows: Dict[str, str],
-           implementation_issues: Sequence[ImplementationIssue] = ()) -> Tuple[int, int]:
+           implementation_issues: Sequence[ImplementationIssue] = (),
+           known_issues: Sequence[KnownIssue] = ()) -> Tuple[int, int]:
     """Compute (pass, fail) counting distinct test cases (not population cells).
 
-    IMPLEMENTATION cases are in neither count; see ``implementation_case_count``.
+    IMPLEMENTATION and KNOWN_ISSUE cases are in neither count; see
+    ``implementation_case_count`` and ``known_issue_case_count``.
     """
-    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues)
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
     pass_count = sum(1 for o in outcomes.values() if o == "PASS")
     fail_count = sum(1 for o in outcomes.values() if o == "FAIL")
     return (pass_count, fail_count)
 
 
 def implementation_case_count(expected_rows: Dict[str, str], actual_rows: Dict[str, str],
-                              implementation_issues: Sequence[ImplementationIssue]) -> int:
+                              implementation_issues: Sequence[ImplementationIssue],
+                              known_issues: Sequence[KnownIssue] = ()) -> int:
     """Test cases resolved by an implementation issue rather than by a match."""
-    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues)
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
     return sum(1 for o in outcomes.values() if o == IMPLEMENTATION)
+
+
+def known_issue_case_count(expected_rows: Dict[str, str], actual_rows: Dict[str, str],
+                           implementation_issues: Sequence[ImplementationIssue],
+                           known_issues: Sequence[KnownIssue]) -> int:
+    """Test cases resolved by a ticketed known issue rather than by a match."""
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
+    return sum(1 for o in outcomes.values() if o == KNOWN_ISSUE)
 
 
 def create_markdown_table(headers: List[str], data: List[str], custom_separator_row: str=None) -> List[str]:
@@ -1089,19 +1242,120 @@ def render_implementation_section(resolved_keys: Set[ResultKey],
             by_guid.setdefault(key.patient_guid, []).append(key)
         lines.append(f'- **{measure}** ({len(by_guid)})\n')
         for guid, guid_keys in by_guid.items():
-            groups = []
-            for key in guid_keys:
-                expected_pops = expected_results[key]
-                actual_pops = actual_results.get(key) or {}
-                cells = ', '.join(
-                    f'{p} {expected_pops[p]} → {actual_pops.get(p, "MISSING")}'
-                    for p in sort_populations(list(expected_pops))
-                    if str(actual_pops.get(p)) != str(expected_pops[p]))
-                groups.append(f'{key.group}: {cells}')
+            groups = [mismatch_summary(key, expected_results, actual_results)
+                      for key in guid_keys]
             issue = implementation_issue_for(guid_keys[0], implementation_issues)
             note = f' {issue.note}' if issue.note else ''
             lines.append(f'  - {measure_report_file_link(measure, guid)} '
                          f'({"; ".join(groups)}): **{issue.issue_id}**.{note}\n')
+    lines.append('\n')
+    return lines
+
+
+def mismatch_summary(key: ResultKey,
+                     expected_results: Dict[ResultKey, Dict[str, str]],
+                     actual_results: Dict[ResultKey, Dict[str, str]]) -> str:
+    """`Group_1: Denominator 1 → 0, Numerator 1 → MISSING` for one failing group."""
+    expected_pops = expected_results[key]
+    actual_pops = actual_results.get(key) or {}
+    cells = ', '.join(
+        f'{p} {expected_pops[p]} → {actual_pops.get(p, "MISSING")}'
+        for p in sort_populations(list(expected_pops))
+        if str(actual_pops.get(p)) != str(expected_pops[p]))
+    return f'{key.group}: {cells}'
+
+
+def ticket_link(ticket: str) -> str:
+    """`[owner/repo#123](url)` for a GitHub ticket URL; blank stays blank."""
+    if not ticket:
+        return ''
+    owner, repo, _, number = ticket.split('/')[3:7]
+    return f'[{owner}/{repo}#{number}]({ticket})'
+
+
+def sort_issue_ids(issue_ids) -> List[str]:
+    """`I-9` before `I-26`: numeric order, not string order."""
+    def key(issue_id: str):
+        match = re.search(r'\d+', issue_id)
+        return (int(match.group()) if match else float('inf'), issue_id)
+    return sorted(issue_ids, key=key)
+
+
+def render_known_issues_section(ticketed_keys: Set[ResultKey],
+                                awaiting_keys: Set[ResultKey],
+                                expected_results: Dict[ResultKey, Dict[str, str]],
+                                actual_results: Dict[ResultKey, Dict[str, str]],
+                                known_issues: Sequence[KnownIssue],
+                                known_issues_file: str) -> List[str]:
+    """`## Known Issues`: failing test cases tied to a catalogued issue.
+
+    A summary table, one row per issue, with its class, ticket and status,
+    then one bullet per issue listing its failing GUIDs. A ticketed issue
+    resolves its cases (scored `KNOWN_ISSUE`, left out of the discrepancy
+    tables); an unticketed one doesn't, and its cases stay in those tables with
+    a `Known Issue` column. Rendered only when there are any, so a run without
+    ``known_issues.csv`` looks exactly as it did before.
+    """
+    keys = ticketed_keys | awaiting_keys
+    if not keys:
+        return []
+    by_issue: Dict[str, List[ResultKey]] = {}
+    issue_rows: Dict[str, KnownIssue] = {}
+    for key in keys:
+        issue = implementation_issue_for(key, known_issues)
+        by_issue.setdefault(issue.issue_id, []).append(key)
+        issue_rows[issue.issue_id] = issue
+    issue_ids = sort_issue_ids(by_issue)
+
+    def case_count(issue_keys) -> int:
+        return len({(k.measure_name, k.patient_guid) for k in issue_keys})
+
+    awaiting_ids = [i for i in issue_ids if not issue_rows[i].ticketed]
+    lines = [
+        f'## Known Issues '
+        f'({plural(case_count(keys), "test case")}, {plural(len(issue_ids), "issue")})\n',
+        '\n',
+        '_These test cases fail because of an issue already catalogued in '
+        '`defect-tracking/known-issues.md`. A test case is resolved, the same as '
+        'a pass, only once its issue has a GitHub ticket: its cells are then '
+        'scored `KNOWN_ISSUE` in `output_results.csv` and it leaves the '
+        'per-measure discrepancy tables. Without a ticket it still counts as a '
+        f'failure. Listed in `{known_issues_file}`; add the ticket URL there '
+        'when one is filed._\n',
+        '\n',
+    ]
+    lines.extend(create_markdown_table(
+        ['Issue', 'Class', 'Ticket', 'Test Cases', 'Status'],
+        [[issue_id, f'`{issue_rows[issue_id].issue_class}`',
+          ticket_link(issue_rows[issue_id].ticket) or '—',
+          case_count(by_issue[issue_id]),
+          'Resolved (ticketed)' if issue_rows[issue_id].ticketed
+          else '**Needs ticket**']
+         for issue_id in issue_ids],
+        '|---|---|---|:---:|---|\n'))
+    if awaiting_ids:
+        lines.append(
+            f'_{plural(len(awaiting_ids), "issue")} '
+            f'({", ".join(awaiting_ids)}) {"needs" if len(awaiting_ids) == 1 else "need"} '
+            'a ticket before '
+            f'{"its" if len(awaiting_ids) == 1 else "their"} test cases count as '
+            'resolved._\n')
+        lines.append('\n')
+    for issue_id in issue_ids:
+        issue_keys = sort_result_keys(by_issue[issue_id])
+        lines.append(f'- **{issue_id}** ({case_count(issue_keys)})\n')
+        by_case: Dict[Tuple[str, str], List[ResultKey]] = {}
+        for key in issue_keys:
+            by_case.setdefault((key.measure_name, key.patient_guid), []).append(key)
+        measure_order = sort_measure_names(list({m for m, _ in by_case}))
+        for (measure, guid) in sorted(by_case, key=lambda c: (
+                measure_order.index(c[0]), c[1].casefold())):
+            case_keys = by_case[(measure, guid)]
+            groups = [mismatch_summary(key, expected_results, actual_results)
+                      for key in case_keys]
+            note = implementation_issue_for(case_keys[0], known_issues).note
+            lines.append(f'  - {measure} {measure_report_file_link(measure, guid)} '
+                         f'({"; ".join(groups)}){"." if not note else ": " + note}\n')
     lines.append('\n')
     return lines
 
@@ -1117,18 +1371,36 @@ def generate_comparison_report(file: str,
                                qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE,
                                implementation_issues: Sequence[ImplementationIssue] = (),
                                implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE,
-                               implementation_count: int = 0):
+                               implementation_count: int = 0,
+                               known_issues: Sequence[KnownIssue] = (),
+                               known_issues_file: str = DEFAULT_KNOWN_ISSUES_FILE,
+                               known_issue_count: int = 0):
     """Write ``discrepancy_report.md``.
 
-    ``pass_count`` / ``fail_count`` / ``implementation_count`` are test-case
-    counts from ``scores`` and ``implementation_case_count``; the three together
-    are the total.
+    ``pass_count`` / ``fail_count`` / ``implementation_count`` /
+    ``known_issue_count`` are test-case counts from ``scores``,
+    ``implementation_case_count`` and ``known_issue_case_count``; the four
+    together are the total.
     """
     resolved_keys = failing_implementation_keys(expected_results, actual_results,
                                                 implementation_issues)
+    ticketed_keys = failing_known_issue_keys(expected_results, actual_results,
+                                             known_issues, implementation_issues)
+    awaiting_keys = failing_known_issue_keys(expected_results, actual_results,
+                                             known_issues, implementation_issues,
+                                             ticketed=False)
     discrepancies = capture_discrepancies_by_measure(expected_results, actual_results,
-                                                     resolved_keys)
-    total_cases = pass_count + fail_count + implementation_count
+                                                     resolved_keys | ticketed_keys)
+    awaiting_case_count = len({(k.measure_name, k.patient_guid) for k in awaiting_keys})
+    awaiting_measures = {k.measure_name for k in awaiting_keys}
+
+    def known_issue_cell(key: ResultKey) -> str:
+        """`I-26 (needs ticket)` for an unticketed known issue, else blank."""
+        if key not in awaiting_keys:
+            return ''
+        return f'{implementation_issue_for(key, known_issues).issue_id} (needs ticket)'
+
+    total_cases = pass_count + fail_count + implementation_count + known_issue_count
     qicore_groups = qicore_results.groups if qicore_results is not None else None
     parity = qi_core_parity(expected_results, actual_results, qicore_groups,
                             implementation_issues) \
@@ -1150,10 +1422,19 @@ def generate_comparison_report(file: str,
         ]
         if implementation_count:
             detail_rows.append(['Implementation Issue Count', count_with_pct(implementation_count)])
+        if known_issue_count:
+            detail_rows.append(['Known Issue Count (ticketed)', count_with_pct(known_issue_count)])
         detail_rows.append(['Fail Count', count_with_pct(fail_count)])
-        if implementation_count:
-            detail_rows.append(['Resolved (Pass + Implementation)',
-                                count_with_pct(pass_count + implementation_count)])
+        if awaiting_case_count:
+            detail_rows.append(['&nbsp;&nbsp;— known issue, needs ticket',
+                                count_with_pct(awaiting_case_count)])
+        resolved_parts = [name for name, count in (('Implementation', implementation_count),
+                                                    ('Known Issue', known_issue_count))
+                          if count]
+        if resolved_parts:
+            detail_rows.append([f'Resolved (Pass + {" + ".join(resolved_parts)})',
+                                count_with_pct(pass_count + implementation_count
+                                               + known_issue_count)])
         if parity is not None:
             # One QI-Core row only. The total disagreement and the reverse
             # bucket are both reported inside `## QI-Core Parity` -- the first in
@@ -1196,6 +1477,10 @@ def generate_comparison_report(file: str,
         f.writelines(render_implementation_section(
             resolved_keys, expected_results, actual_results, implementation_issues,
             implementation_file))
+
+        f.writelines(render_known_issues_section(
+            ticketed_keys, awaiting_keys, expected_results, actual_results,
+            known_issues, known_issues_file))
 
         if parity is not None:
             f.writelines(render_qi_core_parity_section(
@@ -1253,6 +1538,9 @@ def generate_comparison_report(file: str,
                 f.write(f'#### {measure}\n')
                 f.write(f'{cql_file_link(measure, "[cql]")} '
                         f'{test_results_file_link(measure, "[test results]")}\n\n')
+                # The column appears only on measures with an unticketed known
+                # issue, so every other table renders as it did before.
+                show_known_issue = measure in awaiting_measures
 
                 if discrepancy.missing_results:
                     f.write(f'Missing Results ({len(discrepancy.missing_results)} of '
@@ -1260,6 +1548,8 @@ def generate_comparison_report(file: str,
                     missing_results_headers = ['Test Case', 'Group']
                     if qicore_groups is not None:
                         missing_results_headers.append('QI-Core')
+                    if show_known_issue:
+                        missing_results_headers.append('Known Issue')
                     missing_results_rows = []
                     for missing_key in sort_result_keys(list(discrepancy.missing_results)):
                         row = [measure_report_file_link(missing_key.measure_name,
@@ -1269,6 +1559,8 @@ def generate_comparison_report(file: str,
                             row.append(qicore_status(
                                 expected_results.get(missing_key, {}),
                                 qicore_groups.get(missing_key)))
+                        if show_known_issue:
+                            row.append(known_issue_cell(missing_key))
                         missing_results_rows.append(row)
                     f.writelines(create_markdown_table(
                         missing_results_headers, missing_results_rows))
@@ -1277,12 +1569,14 @@ def generate_comparison_report(file: str,
                     f.write(f'Missing Populations ({len(discrepancy.missing_populations)} of '
                             f'{len(discrepancy.all_test_cases)} test cases)\n')
                     f.writelines(create_markdown_table(
-                        ['Test Case', 'Group', 'Population'],
+                        ['Test Case', 'Group', 'Population']
+                        + (['Known Issue'] if show_known_issue else []),
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
                             missing_id.group,
                             ','.join(populations)
-                        ] for (missing_id, populations) in sort_missing_populations(
+                        ] + ([known_issue_cell(missing_id)] if show_known_issue else [])
+                            for (missing_id, populations) in sort_missing_populations(
                             list(discrepancy.missing_populations))]))
 
                 if discrepancy.mismatched_test_cases:
@@ -1293,6 +1587,9 @@ def generate_comparison_report(file: str,
                     if qicore_groups is not None:
                         mismatched_headers += ['QI-Core', 'QI-Core Actual']
                         mismatched_separator = '|---|---|---|:---:|:---:|:---:|:---:|\n'
+                    if show_known_issue:
+                        mismatched_headers.append('Known Issue')
+                        mismatched_separator = mismatched_separator[:-1] + '---|\n'
                     mismatched_rows = []
                     for test_group_id, populations in sort_mismatched_test_cases(
                             discrepancy.mismatched_test_cases):
@@ -1317,19 +1614,24 @@ def generate_comparison_report(file: str,
                                 [str(qicore_pops.get(p, 'MISSING')) if qicore_pops is not None
                                  else 'MISSING'
                                  for p in ordered]))
+                        if show_known_issue:
+                            row.append(known_issue_cell(ResultKey(
+                                measure, test_group_id.patient_guid, test_group_id.group)))
                         mismatched_rows.append(row)
                     f.writelines(create_markdown_table(
                         mismatched_headers, mismatched_rows, mismatched_separator))
                     f.write('\n')
 
         f.write('\n_Known issues are tracked by hand in '
-                '`defect-tracking/known-issues.md`._\n')
+                '`defect-tracking/known-issues.md`; the test cases they explain, '
+                f'and their tickets, in `{known_issues_file}`._\n')
 
 
 def main(expected_file: str, actual_file: str, output_file: str,
          comparison_report: str, measure_resource_dir: str = None,
          qicore_file: str = DEFAULT_QICORE_ACTUAL_FILE,
-         implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE):
+         implementation_file: str = DEFAULT_IMPLEMENTATION_ISSUES_FILE,
+         known_issues_file: str = DEFAULT_KNOWN_ISSUES_FILE):
     # Exclusions are computed once and applied symmetrically to expected,
     # actual, and QI-Core, so a cell is either scored on every side or none.
     cqfm_exclusions = load_cqfm_aggregation_exclusions(
@@ -1352,11 +1654,19 @@ def main(expected_file: str, actual_file: str, output_file: str,
     print(f"Implementation issues: {len(implementation_issues)} "
           f"from {implementation_file!r}")
 
+    known_issues = load_known_issues(known_issues_file)
+    print(f"Known issues: {len(known_issues)} case rows "
+          f"({sum(1 for i in known_issues if i.ticketed)} ticketed) "
+          f"from {known_issues_file!r}")
+
     pass_count, fail_count = generate_output(output_file, expected_results.rows,
-                                             actual_results.rows, implementation_issues)
+                                             actual_results.rows, implementation_issues,
+                                             known_issues)
     implementation_count = implementation_case_count(
-        expected_results.rows, actual_results.rows, implementation_issues)
-    total = pass_count + fail_count + implementation_count
+        expected_results.rows, actual_results.rows, implementation_issues, known_issues)
+    known_count = known_issue_case_count(
+        expected_results.rows, actual_results.rows, implementation_issues, known_issues)
+    total = pass_count + fail_count + implementation_count + known_count
 
     def pct(count: int) -> str:
         return f"{(count / total * 100) if total else 0.0:.2f}%"
@@ -1364,6 +1674,8 @@ def main(expected_file: str, actual_file: str, output_file: str,
     print(f"PASS (test cases): {pass_count} ({pct(pass_count)})")
     if implementation_count:
         print(f"IMPLEMENTATION (test cases): {implementation_count} ({pct(implementation_count)})")
+    if known_count:
+        print(f"KNOWN_ISSUE (test cases): {known_count} ({pct(known_count)})")
     print(f"FAIL (test cases): {fail_count} ({pct(fail_count)})")
 
     unscored = list(expected_results.unscored) + list(actual_results.unscored)
@@ -1378,7 +1690,10 @@ def main(expected_file: str, actual_file: str, output_file: str,
                                qicore_file=qicore_file,
                                implementation_issues=implementation_issues,
                                implementation_file=implementation_file,
-                               implementation_count=implementation_count)
+                               implementation_count=implementation_count,
+                               known_issues=known_issues,
+                               known_issues_file=known_issues_file,
+                               known_issue_count=known_count)
 
 
 def parse_args(argv: List[str]) -> Tuple[str, str, str, str, str, str]:

@@ -78,6 +78,25 @@ How a listed case is scored:
 
 A listed case that passes needs no explanation and is scored `PASS` as usual.
 
+#### Known issues with a ticket (optional)
+
+Other failing test cases are explained by an issue in `defect-tracking/known-issues.md` of another class, typically an `engine` or `translator` bug such as I-26. Such a case counts as resolved only once its issue has a GitHub ticket. They are listed by hand in:
+
+- `scripts/comparison/known_issues.csv`, with columns `issue_id,class,ticket,measure_name,guid,group,note`.
+- `class` is one of the classes in `known-issues.md`, except `implementation`, which belongs in `implementation_issues.csv`.
+- `ticket` is the GitHub issue or pull request URL, e.g. `https://github.com/cqframework/clinical_quality_language/issues/1855`. Leave it blank until one is filed. Any other value, such as `TBD`, stops the script with an error.
+- Every row of one issue must carry the same `class` and `ticket`. When a ticket is filed, add its URL to every row of that issue.
+- `group` and quoting work as in `implementation_issues.csv`. **If the file is absent or empty, nothing changes.**
+
+How a listed case is scored:
+
+| Ticket | `output_results.csv` | Test-case verdict | Report |
+|---|---|---|---|
+| Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; left out of the per-measure tables |
+| Blank | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; a `Known Issue` column in the per-measure tables names the issue |
+
+Both kinds are listed in `## Known Issues`, one row per issue with its class, ticket and status, then each failing GUID. An implementation issue takes precedence over a known issue on the same cells. The QI-Core parity section doesn't change: an engine bug that only the UQC side hits is still a parity gap, ticket or not.
+
 #### QI-Core parity columns (optional)
 
 Knowing a test case fails is not enough to act on it, because there are two very different reasons: the measure is genuinely wrong (QI-Core gets it wrong too — a parity gap), or the QI-Core → USQualityCore migration broke it (QI-Core passes it — a regression). The report cannot tell those apart on its own, so `compare_results.py` takes an optional third input:

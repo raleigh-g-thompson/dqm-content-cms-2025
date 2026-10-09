@@ -1,13 +1,14 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-09 13:17:24.304997 |
+| Generated | 2026-10-09 14:49:11.490753 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 14 |
 | Pass Count | 3914 (98.74%) |
 | Implementation Issue Count | 12 (0.30%) |
 | Fail Count | 38 (0.96%) |
+| &nbsp;&nbsp;— known issue, needs ticket | 38 (0.96%) |
 | Resolved (Pass + Implementation) | 3926 (99.04%) |
 | CMS Fail / QI-Core OK | 0 test cases (0 measures) |
 
@@ -66,6 +67,79 @@ _These test cases fail their fixture MeasureReport because of the measure stewar
   - [ ab48e0c0-6543-4537-8f00-bfcdcba7a81b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/ab48e0c0-6543-4537-8f00-bfcdcba7a81b/MeasureReport-ea6cfef5-54d2-4d6d-a7aa-48cf8e749eaf.json) (Group_1: Numerator 0 → 1): **I-70**. Test expects Numerator 0 because BCG was given before staging results came back, but the CQL measures from the start of the staging Procedure and the BCG dose starts at the same moment (2026-04-02T08:00), so the case can't fail the Numerator. QI-Core passes only by accident (I-69: its start-only onsetPeriod nulls onset.toInterval()).
 - **CMS996FHIRAptTxforSTEMI** (1)
   - [ f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847/MeasureReport-f2a63299-25e1-4d91-8e5c-1bdf3b60e9cb.json) (Group_1: Denominator Exclusion 0 → 1): **I-71**. Active thrombolytic allergy uses onsetPeriod.end to mean it ended before the ED visit; with no abatement, prevalenceInterval() correctly runs to end of time and overlaps the encounter. The steward should mark it resolved with an allergyintolerance-abatement extension, or expect Denominator Exclusion 1. QI-Core differs only because its CQL reads onset.toInterval() (CMS changed upstream in 6cccf5ce).
+
+## Known Issues (38 test cases, 12 issues)
+
+_These test cases fail because of an issue already catalogued in `defect-tracking/known-issues.md`. A test case is resolved, the same as a pass, only once its issue has a GitHub ticket: its cells are then scored `KNOWN_ISSUE` in `output_results.csv` and it leaves the per-measure discrepancy tables. Without a ticket it still counts as a failure. Listed in `./scripts/comparison/known_issues.csv`; add the ticket URL there when one is filed._
+
+| Issue | Class | Ticket | Test Cases | Status |
+|---|---|---|:---:|---|
+| I-05 | `content` | — | 2 | **Needs ticket** |
+| I-10 | `content` | — | 2 | **Needs ticket** |
+| I-11 | `content` | — | 2 | **Needs ticket** |
+| I-12 | `content` | — | 1 | **Needs ticket** |
+| I-14 | `content` | — | 2 | **Needs ticket** |
+| I-15 | `content` | — | 2 | **Needs ticket** |
+| I-26 | `engine` | — | 4 | **Needs ticket** |
+| I-31 | `engine` | — | 1 | **Needs ticket** |
+| I-33 | `engine` | — | 1 | **Needs ticket** |
+| I-39 | `fixture` | — | 5 | **Needs ticket** |
+| I-63 | `engine` | — | 2 | **Needs ticket** |
+| I-65 | `content` | — | 14 | **Needs ticket** |
+
+
+_12 issues (I-05, I-10, I-11, I-12, I-14, I-15, I-26, I-31, I-33, I-39, I-63, I-65) need a ticket before their test cases count as resolved._
+
+- **I-05** (2)
+  - CMS1017FHIRHHFI [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) (Group_1: Numerator Exclusion 0 → 1): Numerator Exclusion 0 → 1 on both engines. I-05's original diagnosis was retracted (the observation cells are I-62), so this attribution needs re-triage.
+  - CMS1017FHIRHHFI [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) (Group_1: Numerator Exclusion 0 → 1): Numerator Exclusion 0 → 1 on both engines. I-05's original diagnosis was retracted (the observation cells are I-62), so this attribution needs re-triage.
+- **I-10** (2)
+  - CMS819FHIRHHORAE [ 31b40acc-ca5f-4d1d-bd83-4b1a14eb822e ](../.././input/tests/measure/CMS819FHIRHHORAE/31b40acc-ca5f-4d1d-bd83-4b1a14eb822e/MeasureReport-c93e2b69-18fd-425e-8c71-b52eb967eda0.json) (Group_1: Initial Population 2 → 1, Denominator 2 → 1): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+  - CMS819FHIRHHORAE [ 73b0c1fe-874b-4982-8cb2-3c30520441de ](../.././input/tests/measure/CMS819FHIRHHORAE/73b0c1fe-874b-4982-8cb2-3c30520441de/MeasureReport-15d9e04f-4116-4856-b61a-f7c7b38e3325.json) (Group_1: Numerator 1 → 0): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+- **I-11** (2)
+  - CMS159FHIRDepRemissionat12Months [ 491f554e-e897-40c5-ad2b-0983923df4e8 ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-e897-40c5-ad2b-0983923df4e8/MeasureReport-580087e1-b59e-43eb-b110-692c35a82dca.json) (Group_1: Denominator Exclusion 1 → 0, Numerator 0 → 1): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+  - CMS159FHIRDepRemissionat12Months [ 96b6579c-1cee-423f-9433-a72db6fb8a0a ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-1cee-423f-9433-a72db6fb8a0a/MeasureReport-e3ec1311-05ed-4a6f-b13f-a4d290865bb3.json) (Group_1: Denominator Exclusion 1 → 0, Numerator 0 → 1): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+- **I-12** (1)
+  - CMS0334FHIRPCCesareanBirth [ c58acff5-248b-49c9-b18d-69e4a84a08d9 ](../.././input/tests/measure/CMS0334FHIRPCCesareanBirth/c58acff5-248b-49c9-b18d-69e4a84a08d9/MeasureReport-920b0c2e-1f1f-42d3-ab1f-1d7b12fa4bd0.json) (Group_1: Denominator 1 → 0, Denominator Exclusion 1 → 0): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+- **I-14** (2)
+  - CMSFHIR844HybridHospitalWideMortality [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) (Group_1: Initial Population 1 → 0): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+  - CMSFHIR844HybridHospitalWideMortality [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) (Group_1: Initial Population 2 → 1): Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
+- **I-15** (2)
+  - CMS646FHIRIntravesicalBCGTherapy [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) (Group_1: Denominator Exclusion 0 → 1): Fixture MeasureReport expects a value neither engine can compute from the resources present.
+  - CMS1028FHIRPCSevereOBComps [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) (Group_1: Numerator 2 → 1; Group_2: Numerator 2 → 1): Fixture MeasureReport expects a value neither engine can compute from the resources present.
+- **I-26** (4)
+  - CMS135FHIRACEIorARBorARNIforHF [ c095195c-8893-4bf1-aa7d-ad2bfd9bafa5 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/c095195c-8893-4bf1-aa7d-ad2bfd9bafa5/MeasureReport-f2d033da-6f32-46dc-86bc-69fdf82b1cfd.json) (Group_1: Initial Population 1 → MISSING, Denominator 0 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+  - CMS135FHIRACEIorARBorARNIforHF [ cba5a449-1c45-4e11-ae0b-ba3974b410f7 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/cba5a449-1c45-4e11-ae0b-ba3974b410f7/MeasureReport-ae8c4b99-af76-4577-b66d-b1230ac09aa3.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+  - CMS135FHIRACEIorARBorARNIforHF [ ec508dbb-76f6-4878-b8a2-114ea8e82297 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/ec508dbb-76f6-4878-b8a2-114ea8e82297/MeasureReport-d1b704c8-7e95-4cd9-89e7-a8b90f925ce2.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+  - CMS165FHIRControllingHighBP [ 45e01fed-56bb-483d-a860-af3d566bda11 ](../.././input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/MeasureReport-02991ca7-859d-422d-8849-655760f8e10a.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
+- **I-31** (1)
+  - CMS1154ScreeningPrediabetesFHIR [ bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d ](../.././input/tests/measure/CMS1154ScreeningPrediabetesFHIR/bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d/MeasureReport-466dec57-6ceb-4f37-8daa-40f26f14a191.json) (Group_1: Denominator Exclusion 1 → 0): FHIRCommon prevalenceInterval() returns null for a non-active or no-status Condition with no abatement end. Worked around in CMS108 and CMS71, not yet here.
+- **I-33** (1)
+  - CMS646FHIRIntravesicalBCGTherapy [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): "Values FHIR.dateTime and FHIR.dateTime are not comparable" aborts the case; QI-Core computes it. The FHIRHelpers.ToDateTime() workaround is applied to CMS156 only.
+- **I-39** (5)
+  - CMS142FHIRCommWithDrManagingDiab [ 05f1e2a6-b317-42bb-827f-993ca3995f5b ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-b317-42bb-827f-993ca3995f5b/MeasureReport-84bcf708-71bb-4169-8067-18fd354f3c37.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same.
+  - CMS142FHIRCommWithDrManagingDiab [ 41ae0086-ac99-4a31-9546-21b054bbf7d8 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/41ae0086-ac99-4a31-9546-21b054bbf7d8/MeasureReport-b77a6309-214c-4fc2-a9bc-18d81c740da6.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same.
+  - CMS142FHIRCommWithDrManagingDiab [ 6aef5a18-59bd-4a47-80bc-2bd44636e41f ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/6aef5a18-59bd-4a47-80bc-2bd44636e41f/MeasureReport-e5735d61-0444-4958-8f47-165a59e91dc0.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same.
+  - CMS142FHIRCommWithDrManagingDiab [ b85440e4-b902-49cd-b3d6-363ba7a99bce ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/b85440e4-b902-49cd-b3d6-363ba7a99bce/MeasureReport-9d61df39-18a0-451f-a795-988388d58778.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same.
+  - CMS142FHIRCommWithDrManagingDiab [ d9840e8c-3359-42c2-b354-4b236c3c1b15 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/d9840e8c-3359-42c2-b354-4b236c3c1b15/MeasureReport-1fbf56ab-6e60-4ce6-a1d5-b520382164bd.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same.
+- **I-63** (2)
+  - CMS871FHIRHHHyper [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Numerator 0 → MISSING, Numerator Exclusion 0 → MISSING): "Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)." aborts the case on both engines; root cause not yet traced.
+  - CMS871FHIRHHHyper [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Numerator 0 → MISSING, Numerator Exclusion 0 → MISSING): "Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)." aborts the case on both engines; root cause not yet traced.
+- **I-65** (14)
+  - CMS135FHIRACEIorARBorARNIforHF [ 5b7e720f-e2fc-4779-9b1c-3f34a0241482 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/5b7e720f-e2fc-4779-9b1c-3f34a0241482/MeasureReport-01fb5443-0f43-487e-ac44-f7cc6e163ca0.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS135FHIRACEIorARBorARNIforHF [ d18e37a6-7b66-4e7c-b305-692872c13f8d ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/d18e37a6-7b66-4e7c-b305-692872c13f8d/MeasureReport-ecbb5067-dcb1-48ce-8e78-6dfd556ac43d.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS145FHIRCADBBlockerTPMIorLVSD [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) (Group_2: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS145FHIRCADBBlockerTPMIorLVSD [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS145FHIRCADBBlockerTPMIorLVSD [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS145FHIRCADBBlockerTPMIorLVSD [ b65680a0-9768-4ce4-b08d-972fcd84e28e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/b65680a0-9768-4ce4-b08d-972fcd84e28e/MeasureReport-b5ebd0a9-a2de-4b31-b0d9-588888e95872.json) (Group_2: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS145FHIRCADBBlockerTPMIorLVSD [ fd5fb311-a466-4c59-966d-48fa7aa88931 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/fd5fb311-a466-4c59-966d-48fa7aa88931/MeasureReport-05ffed3e-5604-40eb-bcf8-99cacecc26c0.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0 on both engines; root cause not yet localised.
+  - CMS771FHIRUrinarySymptomScoreBPH [ 051c5977-9f2c-4e8b-8e02-ac3ec0c718d6 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/051c5977-9f2c-4e8b-8e02-ac3ec0c718d6/MeasureReport-13a299d2-1f32-41d7-b226-7380902e41b7.json) (Group_1: Denominator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ 3ab3ac1d-9b5e-4087-8862-dcb2562fb90f ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/3ab3ac1d-9b5e-4087-8862-dcb2562fb90f/MeasureReport-47dae27e-89cf-4ee5-8c8b-bf1e44997d07.json) (Group_1: Denominator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ 4c234ec0-3f89-4d55-b767-219d1130f634 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/4c234ec0-3f89-4d55-b767-219d1130f634/MeasureReport-47a91ced-cb5f-44c0-9417-e8efa33a4b08.json) (Group_1: Numerator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ 9be591a0-517b-4be2-b652-a29be0c75c15 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/9be591a0-517b-4be2-b652-a29be0c75c15/MeasureReport-004d2ae6-6c2e-49f8-bf07-26cada3bbaf3.json) (Group_1: Numerator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ bc79e5bc-237e-44be-b5fc-c5c4efb50286 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bc79e5bc-237e-44be-b5fc-c5c4efb50286/MeasureReport-621196a7-ca5f-4408-8508-851332413956.json) (Group_1: Numerator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ bf0f8968-c2c0-4416-88db-11ea3e3da968 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bf0f8968-c2c0-4416-88db-11ea3e3da968/MeasureReport-bcce208a-3ff4-4c82-9d49-c0b64ccb9138.json) (Group_1: Numerator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
+  - CMS771FHIRUrinarySymptomScoreBPH [ e90d90a7-3071-44de-8089-ad7b6f5f3e5d ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/e90d90a7-3071-44de-8089-ad7b6f5f3e5d/MeasureReport-9ef2db11-d78a-49af-a2ac-6536fac264a1.json) (Group_1: Numerator 1 → 0): Attributed to I-65, but the failing cell is Denominator or Numerator, not Denominator Exception; QI-Core returns the same. Attribution needs re-triage.
 
 ## QI-Core Parity
 _Every test case scored below, including the ones UQC passes. QI-Core results come from `./scripts/comparison/qicore_actual_results.csv`; verdicts are scored against the same fixture MeasureReport expectations used for the UQC columns. A case where the two engines disagree is not by itself evidence that either is wrong -- read the cross-tab first, then the two asymmetric buckets._
@@ -167,18 +241,18 @@ _These columns only cover cases UQC already fails, so they cannot answer "how fa
 [ [cql] ](../../input/cql/CMS135FHIRACEIorARBorARNIforHF.cql) [ [test results] ](../../input/tests/results/CMS135FHIRACEIorARBorARNIforHF.txt)
 
 Missing Results (3 of 40 test cases)
-| Test Case | Group | QI-Core |
-| --- | --- | --- |
-| [ c095195c-8893-4bf1-aa7d-ad2bfd9bafa5 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/c095195c-8893-4bf1-aa7d-ad2bfd9bafa5/MeasureReport-f2d033da-6f32-46dc-86bc-69fdf82b1cfd.json) | Group_1 | MISSING |
-| [ cba5a449-1c45-4e11-ae0b-ba3974b410f7 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/cba5a449-1c45-4e11-ae0b-ba3974b410f7/MeasureReport-ae8c4b99-af76-4577-b66d-b1230ac09aa3.json) | Group_1 | MISSING |
-| [ ec508dbb-76f6-4878-b8a2-114ea8e82297 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/ec508dbb-76f6-4878-b8a2-114ea8e82297/MeasureReport-d1b704c8-7e95-4cd9-89e7-a8b90f925ce2.json) | Group_1 | MISSING |
+| Test Case | Group | QI-Core | Known Issue |
+| --- | --- | --- | --- |
+| [ c095195c-8893-4bf1-aa7d-ad2bfd9bafa5 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/c095195c-8893-4bf1-aa7d-ad2bfd9bafa5/MeasureReport-f2d033da-6f32-46dc-86bc-69fdf82b1cfd.json) | Group_1 | MISSING | I-26 (needs ticket) |
+| [ cba5a449-1c45-4e11-ae0b-ba3974b410f7 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/cba5a449-1c45-4e11-ae0b-ba3974b410f7/MeasureReport-ae8c4b99-af76-4577-b66d-b1230ac09aa3.json) | Group_1 | MISSING | I-26 (needs ticket) |
+| [ ec508dbb-76f6-4878-b8a2-114ea8e82297 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/ec508dbb-76f6-4878-b8a2-114ea8e82297/MeasureReport-d1b704c8-7e95-4cd9-89e7-a8b90f925ce2.json) | Group_1 | MISSING | I-26 (needs ticket) |
 
 
 Mismatched Test Cases (2 of 40)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 5b7e720f-e2fc-4779-9b1c-3f34a0241482 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/5b7e720f-e2fc-4779-9b1c-3f34a0241482/MeasureReport-01fb5443-0f43-487e-ac44-f7cc6e163ca0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ d18e37a6-7b66-4e7c-b305-692872c13f8d ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/d18e37a6-7b66-4e7c-b305-692872c13f8d/MeasureReport-ecbb5067-dcb1-48ce-8e78-6dfd556ac43d.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 5b7e720f-e2fc-4779-9b1c-3f34a0241482 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/5b7e720f-e2fc-4779-9b1c-3f34a0241482/MeasureReport-01fb5443-0f43-487e-ac44-f7cc6e163ca0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ d18e37a6-7b66-4e7c-b305-692872c13f8d ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/d18e37a6-7b66-4e7c-b305-692872c13f8d/MeasureReport-ecbb5067-dcb1-48ce-8e78-6dfd556ac43d.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
 
 
 
@@ -186,13 +260,13 @@ Mismatched Test Cases (2 of 40)
 [ [cql] ](../../input/cql/CMS142FHIRCommWithDrManagingDiab.cql) [ [test results] ](../../input/tests/results/CMS142FHIRCommWithDrManagingDiab.txt)
 
 Mismatched Test Cases (5 of 32)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 05f1e2a6-b317-42bb-827f-993ca3995f5b ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-b317-42bb-827f-993ca3995f5b/MeasureReport-84bcf708-71bb-4169-8067-18fd354f3c37.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ 41ae0086-ac99-4a31-9546-21b054bbf7d8 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/41ae0086-ac99-4a31-9546-21b054bbf7d8/MeasureReport-b77a6309-214c-4fc2-a9bc-18d81c740da6.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ 6aef5a18-59bd-4a47-80bc-2bd44636e41f ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/6aef5a18-59bd-4a47-80bc-2bd44636e41f/MeasureReport-e5735d61-0444-4958-8f47-165a59e91dc0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ b85440e4-b902-49cd-b3d6-363ba7a99bce ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/b85440e4-b902-49cd-b3d6-363ba7a99bce/MeasureReport-9d61df39-18a0-451f-a795-988388d58778.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ d9840e8c-3359-42c2-b354-4b236c3c1b15 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/d9840e8c-3359-42c2-b354-4b236c3c1b15/MeasureReport-1fbf56ab-6e60-4ce6-a1d5-b520382164bd.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 05f1e2a6-b317-42bb-827f-993ca3995f5b ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-b317-42bb-827f-993ca3995f5b/MeasureReport-84bcf708-71bb-4169-8067-18fd354f3c37.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-39 (needs ticket) |
+| [ 41ae0086-ac99-4a31-9546-21b054bbf7d8 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/41ae0086-ac99-4a31-9546-21b054bbf7d8/MeasureReport-b77a6309-214c-4fc2-a9bc-18d81c740da6.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-39 (needs ticket) |
+| [ 6aef5a18-59bd-4a47-80bc-2bd44636e41f ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/6aef5a18-59bd-4a47-80bc-2bd44636e41f/MeasureReport-e5735d61-0444-4958-8f47-165a59e91dc0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-39 (needs ticket) |
+| [ b85440e4-b902-49cd-b3d6-363ba7a99bce ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/b85440e4-b902-49cd-b3d6-363ba7a99bce/MeasureReport-9d61df39-18a0-451f-a795-988388d58778.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-39 (needs ticket) |
+| [ d9840e8c-3359-42c2-b354-4b236c3c1b15 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/d9840e8c-3359-42c2-b354-4b236c3c1b15/MeasureReport-1fbf56ab-6e60-4ce6-a1d5-b520382164bd.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-39 (needs ticket) |
 
 
 
@@ -200,13 +274,13 @@ Mismatched Test Cases (5 of 32)
 [ [cql] ](../../input/cql/CMS145FHIRCADBBlockerTPMIorLVSD.cql) [ [test results] ](../../input/tests/results/CMS145FHIRCADBBlockerTPMIorLVSD.txt)
 
 Mismatched Test Cases (5 of 106)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) | Group_2 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ b65680a0-9768-4ce4-b08d-972fcd84e28e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/b65680a0-9768-4ce4-b08d-972fcd84e28e/MeasureReport-b5ebd0a9-a2de-4b31-b0d9-588888e95872.json) | Group_2 | Denominator Exception | 1 | 0 | FAIL | 0 |
-| [ fd5fb311-a466-4c59-966d-48fa7aa88931 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/fd5fb311-a466-4c59-966d-48fa7aa88931/MeasureReport-05ffed3e-5604-40eb-bcf8-99cacecc26c0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) | Group_2 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ b65680a0-9768-4ce4-b08d-972fcd84e28e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/b65680a0-9768-4ce4-b08d-972fcd84e28e/MeasureReport-b5ebd0a9-a2de-4b31-b0d9-588888e95872.json) | Group_2 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ fd5fb311-a466-4c59-966d-48fa7aa88931 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/fd5fb311-a466-4c59-966d-48fa7aa88931/MeasureReport-05ffed3e-5604-40eb-bcf8-99cacecc26c0.json) | Group_1 | Denominator Exception | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
 
 
 
@@ -214,10 +288,10 @@ Mismatched Test Cases (5 of 106)
 [ [cql] ](../../input/cql/CMS159FHIRDepRemissionat12Months.cql) [ [test results] ](../../input/tests/results/CMS159FHIRDepRemissionat12Months.txt)
 
 Mismatched Test Cases (2 of 67)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 491f554e-e897-40c5-ad2b-0983923df4e8 ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-e897-40c5-ad2b-0983923df4e8/MeasureReport-580087e1-b59e-43eb-b110-692c35a82dca.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | FAIL | 0<br>1 |
-| [ 96b6579c-1cee-423f-9433-a72db6fb8a0a ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-1cee-423f-9433-a72db6fb8a0a/MeasureReport-e3ec1311-05ed-4a6f-b13f-a4d290865bb3.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | FAIL | 0<br>1 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 491f554e-e897-40c5-ad2b-0983923df4e8 ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-e897-40c5-ad2b-0983923df4e8/MeasureReport-580087e1-b59e-43eb-b110-692c35a82dca.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | FAIL | 0<br>1 | I-11 (needs ticket) |
+| [ 96b6579c-1cee-423f-9433-a72db6fb8a0a ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-1cee-423f-9433-a72db6fb8a0a/MeasureReport-e3ec1311-05ed-4a6f-b13f-a4d290865bb3.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | FAIL | 0<br>1 | I-11 (needs ticket) |
 
 
 
@@ -225,18 +299,18 @@ Mismatched Test Cases (2 of 67)
 [ [cql] ](../../input/cql/CMS165FHIRControllingHighBP.cql) [ [test results] ](../../input/tests/results/CMS165FHIRControllingHighBP.txt)
 
 Missing Results (1 of 68 test cases)
-| Test Case | Group | QI-Core |
-| --- | --- | --- |
-| [ 45e01fed-56bb-483d-a860-af3d566bda11 ](../.././input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/MeasureReport-02991ca7-859d-422d-8849-655760f8e10a.json) | Group_1 | MISSING |
+| Test Case | Group | QI-Core | Known Issue |
+| --- | --- | --- | --- |
+| [ 45e01fed-56bb-483d-a860-af3d566bda11 ](../.././input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/MeasureReport-02991ca7-859d-422d-8849-655760f8e10a.json) | Group_1 | MISSING | I-26 (needs ticket) |
 
 
 #### CMS0334FHIRPCCesareanBirth
 [ [cql] ](../../input/cql/CMS0334FHIRPCCesareanBirth.cql) [ [test results] ](../../input/tests/results/CMS0334FHIRPCCesareanBirth.txt)
 
 Mismatched Test Cases (1 of 138)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ c58acff5-248b-49c9-b18d-69e4a84a08d9 ](../.././input/tests/measure/CMS0334FHIRPCCesareanBirth/c58acff5-248b-49c9-b18d-69e4a84a08d9/MeasureReport-920b0c2e-1f1f-42d3-ab1f-1d7b12fa4bd0.json) | Group_1 | Denominator<br>Denominator Exclusion | 1<br>1 | 0<br>0 | FAIL | 0<br>0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ c58acff5-248b-49c9-b18d-69e4a84a08d9 ](../.././input/tests/measure/CMS0334FHIRPCCesareanBirth/c58acff5-248b-49c9-b18d-69e4a84a08d9/MeasureReport-920b0c2e-1f1f-42d3-ab1f-1d7b12fa4bd0.json) | Group_1 | Denominator<br>Denominator Exclusion | 1<br>1 | 0<br>0 | FAIL | 0<br>0 | I-12 (needs ticket) |
 
 
 
@@ -244,15 +318,15 @@ Mismatched Test Cases (1 of 138)
 [ [cql] ](../../input/cql/CMS646FHIRIntravesicalBCGTherapy.cql) [ [test results] ](../../input/tests/results/CMS646FHIRIntravesicalBCGTherapy.txt)
 
 Missing Results (1 of 38 test cases)
-| Test Case | Group | QI-Core |
-| --- | --- | --- |
-| [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | FAIL |
+| Test Case | Group | QI-Core | Known Issue |
+| --- | --- | --- | --- |
+| [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | FAIL | I-33 (needs ticket) |
 
 
 Mismatched Test Cases (1 of 38)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) | Group_1 | Denominator Exclusion | 0 | 1 | FAIL | 1 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) | Group_1 | Denominator Exclusion | 0 | 1 | FAIL | 1 | I-15 (needs ticket) |
 
 
 
@@ -260,15 +334,15 @@ Mismatched Test Cases (1 of 38)
 [ [cql] ](../../input/cql/CMS771FHIRUrinarySymptomScoreBPH.cql) [ [test results] ](../../input/tests/results/CMS771FHIRUrinarySymptomScoreBPH.txt)
 
 Mismatched Test Cases (7 of 31)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 051c5977-9f2c-4e8b-8e02-ac3ec0c718d6 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/051c5977-9f2c-4e8b-8e02-ac3ec0c718d6/MeasureReport-13a299d2-1f32-41d7-b226-7380902e41b7.json) | Group_1 | Denominator | 1 | 0 | FAIL | 0 |
-| [ 3ab3ac1d-9b5e-4087-8862-dcb2562fb90f ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/3ab3ac1d-9b5e-4087-8862-dcb2562fb90f/MeasureReport-47dae27e-89cf-4ee5-8c8b-bf1e44997d07.json) | Group_1 | Denominator | 1 | 0 | FAIL | 0 |
-| [ 4c234ec0-3f89-4d55-b767-219d1130f634 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/4c234ec0-3f89-4d55-b767-219d1130f634/MeasureReport-47a91ced-cb5f-44c0-9417-e8efa33a4b08.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
-| [ 9be591a0-517b-4be2-b652-a29be0c75c15 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/9be591a0-517b-4be2-b652-a29be0c75c15/MeasureReport-004d2ae6-6c2e-49f8-bf07-26cada3bbaf3.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
-| [ bc79e5bc-237e-44be-b5fc-c5c4efb50286 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bc79e5bc-237e-44be-b5fc-c5c4efb50286/MeasureReport-621196a7-ca5f-4408-8508-851332413956.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
-| [ bf0f8968-c2c0-4416-88db-11ea3e3da968 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bf0f8968-c2c0-4416-88db-11ea3e3da968/MeasureReport-bcce208a-3ff4-4c82-9d49-c0b64ccb9138.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
-| [ e90d90a7-3071-44de-8089-ad7b6f5f3e5d ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/e90d90a7-3071-44de-8089-ad7b6f5f3e5d/MeasureReport-9ef2db11-d78a-49af-a2ac-6536fac264a1.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 051c5977-9f2c-4e8b-8e02-ac3ec0c718d6 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/051c5977-9f2c-4e8b-8e02-ac3ec0c718d6/MeasureReport-13a299d2-1f32-41d7-b226-7380902e41b7.json) | Group_1 | Denominator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ 3ab3ac1d-9b5e-4087-8862-dcb2562fb90f ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/3ab3ac1d-9b5e-4087-8862-dcb2562fb90f/MeasureReport-47dae27e-89cf-4ee5-8c8b-bf1e44997d07.json) | Group_1 | Denominator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ 4c234ec0-3f89-4d55-b767-219d1130f634 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/4c234ec0-3f89-4d55-b767-219d1130f634/MeasureReport-47a91ced-cb5f-44c0-9417-e8efa33a4b08.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ 9be591a0-517b-4be2-b652-a29be0c75c15 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/9be591a0-517b-4be2-b652-a29be0c75c15/MeasureReport-004d2ae6-6c2e-49f8-bf07-26cada3bbaf3.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ bc79e5bc-237e-44be-b5fc-c5c4efb50286 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bc79e5bc-237e-44be-b5fc-c5c4efb50286/MeasureReport-621196a7-ca5f-4408-8508-851332413956.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ bf0f8968-c2c0-4416-88db-11ea3e3da968 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bf0f8968-c2c0-4416-88db-11ea3e3da968/MeasureReport-bcce208a-3ff4-4c82-9d49-c0b64ccb9138.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
+| [ e90d90a7-3071-44de-8089-ad7b6f5f3e5d ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/e90d90a7-3071-44de-8089-ad7b6f5f3e5d/MeasureReport-9ef2db11-d78a-49af-a2ac-6536fac264a1.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-65 (needs ticket) |
 
 
 
@@ -276,10 +350,10 @@ Mismatched Test Cases (7 of 31)
 [ [cql] ](../../input/cql/CMS819FHIRHHORAE.cql) [ [test results] ](../../input/tests/results/CMS819FHIRHHORAE.txt)
 
 Mismatched Test Cases (2 of 28)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 31b40acc-ca5f-4d1d-bd83-4b1a14eb822e ](../.././input/tests/measure/CMS819FHIRHHORAE/31b40acc-ca5f-4d1d-bd83-4b1a14eb822e/MeasureReport-c93e2b69-18fd-425e-8c71-b52eb967eda0.json) | Group_1 | Initial Population<br>Denominator | 2<br>2 | 1<br>1 | FAIL | 1<br>1 |
-| [ 73b0c1fe-874b-4982-8cb2-3c30520441de ](../.././input/tests/measure/CMS819FHIRHHORAE/73b0c1fe-874b-4982-8cb2-3c30520441de/MeasureReport-15d9e04f-4116-4856-b61a-f7c7b38e3325.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 31b40acc-ca5f-4d1d-bd83-4b1a14eb822e ](../.././input/tests/measure/CMS819FHIRHHORAE/31b40acc-ca5f-4d1d-bd83-4b1a14eb822e/MeasureReport-c93e2b69-18fd-425e-8c71-b52eb967eda0.json) | Group_1 | Initial Population<br>Denominator | 2<br>2 | 1<br>1 | FAIL | 1<br>1 | I-10 (needs ticket) |
+| [ 73b0c1fe-874b-4982-8cb2-3c30520441de ](../.././input/tests/measure/CMS819FHIRHHORAE/73b0c1fe-874b-4982-8cb2-3c30520441de/MeasureReport-15d9e04f-4116-4856-b61a-f7c7b38e3325.json) | Group_1 | Numerator | 1 | 0 | FAIL | 0 | I-10 (needs ticket) |
 
 
 
@@ -287,10 +361,10 @@ Mismatched Test Cases (2 of 28)
 [ [cql] ](../../input/cql/CMSFHIR844HybridHospitalWideMortality.cql) [ [test results] ](../../input/tests/results/CMSFHIR844HybridHospitalWideMortality.txt)
 
 Mismatched Test Cases (2 of 10)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) | Group_1 | Initial Population | 1 | 0 | FAIL | 0 |
-| [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) | Group_1 | Initial Population | 2 | 1 | FAIL | 1 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) | Group_1 | Initial Population | 1 | 0 | FAIL | 0 | I-14 (needs ticket) |
+| [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) | Group_1 | Initial Population | 2 | 1 | FAIL | 1 | I-14 (needs ticket) |
 
 
 
@@ -298,20 +372,20 @@ Mismatched Test Cases (2 of 10)
 [ [cql] ](../../input/cql/CMS871FHIRHHHyper.cql) [ [test results] ](../../input/tests/results/CMS871FHIRHHHyper.txt)
 
 Missing Results (2 of 26 test cases)
-| Test Case | Group | QI-Core |
-| --- | --- | --- |
-| [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) | Group_1 | MISSING |
-| [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) | Group_1 | MISSING |
+| Test Case | Group | QI-Core | Known Issue |
+| --- | --- | --- | --- |
+| [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) | Group_1 | MISSING | I-63 (needs ticket) |
+| [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) | Group_1 | MISSING | I-63 (needs ticket) |
 
 
 #### CMS1017FHIRHHFI
 [ [cql] ](../../input/cql/CMS1017FHIRHHFI.cql) [ [test results] ](../../input/tests/results/CMS1017FHIRHHFI.txt)
 
 Mismatched Test Cases (2 of 65)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion | 0 | 1 | FAIL | 1 |
-| [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion | 0 | 1 | FAIL | 1 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion | 0 | 1 | FAIL | 1 | I-05 (needs ticket) |
+| [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion | 0 | 1 | FAIL | 1 | I-05 (needs ticket) |
 
 
 
@@ -319,10 +393,10 @@ Mismatched Test Cases (2 of 65)
 [ [cql] ](../../input/cql/CMS1028FHIRPCSevereOBComps.cql) [ [test results] ](../../input/tests/results/CMS1028FHIRPCSevereOBComps.txt)
 
 Mismatched Test Cases (2 of 282)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_1 | Numerator | 2 | 1 | FAIL | 1 |
-| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_2 | Numerator | 2 | 1 | FAIL | 1 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_1 | Numerator | 2 | 1 | FAIL | 1 | I-15 (needs ticket) |
+| [ 763d86f9-d93f-4873-8b64-8439566b242e ](../.././input/tests/measure/CMS1028FHIRPCSevereOBComps/763d86f9-d93f-4873-8b64-8439566b242e/MeasureReport-7ca90ad8-935e-4d56-80d9-5470c8a98481.json) | Group_2 | Numerator | 2 | 1 | FAIL | 1 | I-15 (needs ticket) |
 
 
 
@@ -330,11 +404,11 @@ Mismatched Test Cases (2 of 282)
 [ [cql] ](../../input/cql/CMS1154ScreeningPrediabetesFHIR.cql) [ [test results] ](../../input/tests/results/CMS1154ScreeningPrediabetesFHIR.txt)
 
 Mismatched Test Cases (1 of 10)
-| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual |
-|---|---|---|:---:|:---:|:---:|:---:|
-| [ bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d ](../.././input/tests/measure/CMS1154ScreeningPrediabetesFHIR/bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d/MeasureReport-466dec57-6ceb-4f37-8daa-40f26f14a191.json) | Group_1 | Denominator Exclusion | 1 | 0 | FAIL | 0 |
+| Test Case | Group | Population | Expected | Actual | QI-Core | QI-Core Actual | Known Issue |
+|---|---|---|:---:|:---:|:---:|:---:|---|
+| [ bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d ](../.././input/tests/measure/CMS1154ScreeningPrediabetesFHIR/bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d/MeasureReport-466dec57-6ceb-4f37-8daa-40f26f14a191.json) | Group_1 | Denominator Exclusion | 1 | 0 | FAIL | 0 | I-31 (needs ticket) |
 
 
 
 
-_Known issues are tracked by hand in `defect-tracking/known-issues.md`._
+_Known issues are tracked by hand in `defect-tracking/known-issues.md`; the test cases they explain, and their tickets, in `./scripts/comparison/known_issues.csv`._
