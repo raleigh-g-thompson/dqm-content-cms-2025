@@ -1,14 +1,14 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-09 09:15:27.920072 |
+| Generated | 2026-10-09 09:37:33.317930 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 18 |
 | Pass Count | 3911 (98.66%) |
 | Fail Count | 53 (1.34%) |
 | CMS Fail / QI-Core OK | 0 test cases (0 measures) |
-| Implementation Issues (not parity) | 3 test cases (3 measures) |
+| Implementation Issues (not parity) | 4 test cases (4 measures) |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
@@ -51,24 +51,27 @@ CMS and QI-Core disagree on 764 test cases (1597 of 23722 population cells).
 
 _The two asymmetric buckets point in opposite directions, and only one of them is work for this repo. `FAIL`/`PASS` (0 cases, 0 measures) is a migration regression to fix here; it is broken out per measure and per test case below, and per measure by the `CMS Fail / QI-Core OK` column further down. `PASS`/`FAIL` (732 cases) plus `PASS`/`MISSING` (6 cases) is the reverse: those cases match their fixture expectations here and not on QI-Core. Both repositories agree on the expected values for them, so the difference is engine output rather than content and QI-Core's copy of the results is the stale side -- catalogued as I-01. Counted, not listed: it is a refresh signal for the QI-Core baseline, not CMS work. `MISSING` means that engine emitted no result for the case at all and counts as non-PASS in both directions._
 
-_The cross-tab also counts 3 cases that the two buckets above leave out, because the difference comes from the measure steward's test data, not either engine. They are listed under Implementation Issues below._
+_The cross-tab also counts 4 cases that the two buckets above leave out, because the difference comes from the measure steward's test data, not either engine. They are listed under Implementation Issues below._
 
 ### CMS Fails, QI-Core Reproduces (0 test cases, 0 measures)
 
 _No test case falls in this bucket._
 
 
-### Implementation Issues, Not Parity Defects (3 test cases, 3 measures)
+### Implementation Issues, Not Parity Defects (4 test cases, 4 measures)
 
 _The engines score these cases differently only because the measure steward's test data misuses FHIR or CQL semantics (class `implementation` in `defect-tracking/known-issues.md`). Neither side owes a fix, so they are left out of the two asymmetric buckets and the `CMS Fail / QI-Core OK` counts. PASS/FAIL scoring is unchanged: a case that fails here still counts as a failure above. Listed in `./scripts/comparison/implementation_issues.csv`._
 
 | Measure | Test Cases | Population Cells |
 |---|:---:|:---:|
+| [CMS145FHIRCADBBlockerTPMIorLVSD](#cms145fhircadbblockertpmiorlvsd) | 1 | 1 |
 | [CMS347FHIRStatinPreventionTxCVD](#cms347fhirstatinpreventiontxcvd) | 1 | 1 |
 | [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 1 | 1 |
 | [CMS996FHIRAptTxforSTEMI](#cms996fhirapttxforstemi) | 1 | 1 |
 
 
+- **CMS145FHIRCADBBlockerTPMIorLVSD** (1)
+  - [ 1f70822b-c513-4c3a-8162-49f0bb9c914b ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/1f70822b-c513-4c3a-8162-49f0bb9c914b/MeasureReport-9b3577fa-355c-409d-8d3f-21e9720fb889.json) (Group_1: CMS PASS / QI-Core FAIL): **I-72**. Test expects no Group_2 Denominator Exception because the patient-reason beta-blocker not-ordered falls on the first visit, but the CQL accepts the reason at any qualifying visit, and both visits qualify. Twin case b19af44d (reason at the last visit) expects 1. The steward must change the expectation or the CQL in both versions. QI-Core passes only by accident (I-38: it scores the patient out of every population).
 - **CMS347FHIRStatinPreventionTxCVD** (1)
   - [ 1ba7b147-b701-424c-bade-4e8270547030 ](../.././input/tests/measure/CMS347FHIRStatinPreventionTxCVD/1ba7b147-b701-424c-bade-4e8270547030/MeasureReport-2278c703-994b-4b13-8e3b-c726ba6b8530.json) (Group_4: CMS FAIL / QI-Core PASS): **I-67**. ESRD Condition uses a start-only abatementPeriod to mean resolved 2025-12-31; the steward should use abatementDateTime or add an end. QI-Core passes only by accident (I-69, I-68).
 - **CMS646FHIRIntravesicalBCGTherapy** (1)
