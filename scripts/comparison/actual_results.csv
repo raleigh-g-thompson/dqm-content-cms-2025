@@ -2144,9 +2144,9 @@ CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,0852e05c-94f3-4467-ad2c-255ffc5050e9,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator,0
-CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator Exclusion,0
+CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator,1
+CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,0b1aa8ee-e8bf-49f5-b968-48c5a9702843,Group_1:Denominator Exception,0
 CMS104FHIRSTKDCAntithrombotic,0edb029c-ae5a-492a-ad4c-79ea0f8059d4,Group_1:Initial Population,1
@@ -2504,11 +2504,11 @@ CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denom
 CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator Exclusion,1
 CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Numerator,0
 CMS104FHIRSTKDCAntithrombotic,e6f270ed-ddb3-43cf-a2f7-ef26df352d4d,Group_1:Denominator Exception,0
-CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Initial Population,0
-CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator,0
+CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Initial Population,1
+CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator Exclusion,0
 CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Numerator,0
-CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator Exception,0
+CMS104FHIRSTKDCAntithrombotic,e84c89f7-3c9e-4ee9-b71a-5025aadb5990,Group_1:Denominator Exception,1
 CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Initial Population,1
 CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator,1
 CMS104FHIRSTKDCAntithrombotic,e8e62dbf-ce54-4f04-b2d9-f574b8ded2c4,Group_1:Denominator Exclusion,1
@@ -19277,9 +19277,9 @@ CMS72FHIRSTKAntithromboticDay2,e0bae301-79a4-48b0-a174-5eb1bd6cf19e,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,e0bae301-79a4-48b0-a174-5eb1bd6cf19e,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,e0bae301-79a4-48b0-a174-5eb1bd6cf19e,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,e0bae301-79a4-48b0-a174-5eb1bd6cf19e,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Initial Population,0
-CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator,0
-CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator Exclusion,0
+CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Initial Population,1
+CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,e126cdec-dbc8-4ee8-964f-e88e46c04f88,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,e89c4eae-404c-44b9-8be5-c8a8b481813a,Group_1:Initial Population,1

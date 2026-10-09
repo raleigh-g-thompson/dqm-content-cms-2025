@@ -47,7 +47,7 @@ Do not promote anything to `Fixed` without confirming the fix is actually
 present in the repo and that the engine agrees — I-44 sat at `Fixed` for weeks
 while the valueset it needed had never been committed.
 
-## Open issues (44)
+## Open issues (48)
 
 | ID | Issue | Class | Status | Measures |
 |---|---|---|---|---|
@@ -98,6 +98,7 @@ while the valueset it needed had never been committed.
 | I-70 | CMS646 `ab48e0c0`: the test expects Numerator 0 because "BCG [was] given before staging results back", but the CQL measures from the start of the staging Procedure, and the BCG dose and staging Procedure both start 2026-04-02T08:00, so `"First BCG Administered"` qualifies (`Group_1:Numerator` expected 0, CMS 1). QI-Core returns 0 only by accident (I-69: the start-only `onsetPeriod` nulls `onset.toInterval()`, so `"Bladder Cancer Diagnosis"` is empty); QI-Core on engine 4.9.0 also returns 1. Test expectation the logic cannot produce: **not a parity defect**. The steward should move the BCG before the staging start or expect Numerator 1. No CQL change | `implementation` | Open — confirmed | CMS646 |
 | I-71 | CMS996 `f6c7dbc1`: the test expects Denominator Exclusion 0 because the thrombolytic allergy "starts before and ends before ED", but it marks the end with `onsetPeriod.end` on an allergy that is still `active` with no `allergyintolerance-abatement`. `onset[x]` only says when the allergy began, so FHIRCommon `prevalenceInterval()` correctly runs to end of time and overlaps the ED encounter (`Group_1:Denominator Exclusion` expected 0, CMS 1). QI-Core returns 0 because its CQL still reads `onset.toInterval()`; CMS uses `prevalenceInterval()` by deliberate upstream change `6cccf5ce`. Test data that doesn't express its intent: **not a parity defect**. The steward should mark the allergy resolved with an abatement, or expect Denominator Exclusion 1. No CQL change | `implementation` | Open — confirmed | CMS996 |
 | I-72 | CMS145 `1f70822b`: the test expects no `Group_2:Denominator Exception` because the patient-reason beta-blocker not-ordered falls on the first visit, but `"Has Medical or Patient Reason for Not Ordering Beta Blocker Therapy"` accepts the reason at any `"Qualifying CAD Encounter and Prior MI"`, and both visits qualify (expected 0, CMS 1). Twin case `b19af44d`, with the reason at the last visit, expects 1. QI-Core returns 0 only by accident (I-38: it scores the patient out of every population); the CQL is the same in both versions. Test case and logic disagree: **not a parity defect**. The steward should change the expectation, or the CQL in both versions. No CQL change | `implementation` | Open — confirmed | CMS145 |
+| I-73 | CMS72 / CMS104 multi-encounter stroke cases (`5a329008`, `cb7c95fc`, `febd4b3e`; `348471db`, `451b6853`, `a2b8327c`, `c15bee15`): each fixture has one Claim (the same template id `5ca62962b8484628b8de1ec5` in all 7), and its `item.encounter` references only one of the patient's inpatient encounters. `TJC."Ischemic Stroke Encounter"` takes the principal diagnosis from `CQMCommon.claimDiagnosis()`, which ignores `reasonReference`, so the other encounters drop out (IP / Denominator 1 where 2–4 are expected). QI-Core returns 0 only by accident (I-38); the CQL and fixtures are the same in both versions. **Not a parity defect**. The steward should add one Claim per stroke encounter, or expect the single-encounter values. No CQL change | `implementation` | Open — confirmed | CMS72, CMS104 |
 
 ## Resolved — reference patterns
 
@@ -163,6 +164,14 @@ resource simply never attaches to the patient.
   the GUID) on Encounter `9d311cdd` (CPT `99385`) and FACIT-Pal Observation
   `ea2c69a6` (LOINC `71007-9`), zeroing IP / Denominator / Denominator
   Exception.
+- **I-74** `fixture` — the stroke Claim in CMS72 `e126cdec` had
+  `item.encounter` `Encounter//5c954893b848462de0ae623a` (matches no encounter),
+  and in CMS104 `0b1aa8ee` / `e84c89f7` had no `item.encounter` or
+  `item.diagnosisSequence`. `CQMCommon.claimDiagnosis()` needs both, so
+  `principalDiagnosis()` was null and `TJC."Ischemic Stroke Encounter"` was
+  empty, zeroing IP / Denominator and the exclusion or exception (both engines).
+  Fixed by linking each Claim to the inpatient encounter. **Verified
+  2026-10-09**: all 9 cells recover, no other cell moves.
 
 ### Non-canonical UCUM `system`
 

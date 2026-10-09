@@ -56,8 +56,27 @@ _NOTES_
 ### `compare_results.py`
 
 - Compares expected and actual results by measure name, guid, and population.
-- Outputs `./scripts/comparison/output_results.csv` with PASS/FAIL/MISSING for each population cell, and `./scripts/comparison/discrepancy_report.md` grouping the differences per measure.
-- Prints the number and percentage of passing and failing test cases to the terminal.
+- Outputs `./scripts/comparison/output_results.csv` with PASS/FAIL/IMPLEMENTATION for each population cell (a missing actual value shows as `MISSING` in the `actual_result` column), and `./scripts/comparison/discrepancy_report.md` grouping the differences per measure.
+- Prints the number and percentage of passing, implementation-issue and failing test cases to the terminal.
+
+#### Implementation issues (optional)
+
+Some test cases can't match their fixture MeasureReport because the measure steward's test data or expectation misuses FHIR or CQL semantics, not because of the CQL or either engine. These are class `implementation` in `defect-tracking/known-issues.md`; I-67 is an example (a start-only `abatementPeriod` used to mean a resolution date). An issue that explains the failure is as good as a match, so these cases count as resolved. They are listed by hand in:
+
+- `scripts/comparison/implementation_issues.csv`, with columns `issue_id,measure_name,guid,group,note`. Leave `group` blank to cover every group of the test case. Quote any `note` that contains a comma. The script stops with an error on a missing required column or an unquoted comma.
+- **If the file is absent or empty, nothing changes.**
+
+How a listed case is scored:
+
+| Where | Effect |
+|---|---|
+| `output_results.csv` | A mismatching cell in a covered group has `result` `IMPLEMENTATION` instead of `FAIL`. Matching cells stay `PASS` |
+| Test-case verdict | `IMPLEMENTATION` when every mismatching cell is covered. One mismatch in a group the issue doesn't cover keeps the case `FAIL` |
+| Header `Details` table | `Implementation Issue Count` sits between `Pass Count` and `Fail Count`, and `Resolved (Pass + Implementation)` gives the combined rate. The three counts add up to `Total Test Cases`. Neither row appears when no case is resolved this way |
+| `## Implementation Issues` | One bullet per test case: its mismatching populations as `expected → actual`, the issue ID and the note |
+| Per-measure tables | Covered groups are left out of Missing Results, Missing Populations and Mismatched Test Cases. A measure whose only failures are covered is listed under "Measures with No Discrepancies" |
+
+A listed case that passes needs no explanation and is scored `PASS` as usual.
 
 #### QI-Core parity columns (optional)
 
@@ -108,16 +127,9 @@ Two properties worth relying on:
 
 Measure names in the bucket table are linked only when the measure also has its own `####` section further down, so the table never emits a dead anchor.
 
-##### Implementation issues (optional)
+##### Implementation issues in the parity section
 
-Some test cases score differently on CMS and QI-Core only because the measure steward's test data misuses FHIR or CQL semantics. These are class `implementation` in `defect-tracking/known-issues.md`; I-67 is an example (a start-only `abatementPeriod` used to mean a resolution date). Neither engine side owes a fix, so these cases shouldn't show up as migration regressions. They are listed by hand in:
-
-- `scripts/comparison/implementation_issues.csv`, with columns `issue_id,measure_name,guid,group,note`. Leave `group` blank to cover every group of the test case. Quote any `note` that contains a comma. The script stops with an error on a missing required column or an unquoted comma.
-- **If the file is absent or empty, nothing changes.**
-
-A listed case that the two engines score differently (one `PASS`, the other not) is taken out of both asymmetric buckets and reported in its own subsection, `### Implementation Issues, Not Parity Defects`, with its issue ID, the verdict pair per group, and the note. It is also left out of the header's `CMS Fail / QI-Core OK` row and the per-measure `CMS Fail / QI-Core OK` column. When there are any, the header gains an `Implementation Issues (not parity)` row, and notes in the section and under the summary table explain why the cross-tab and the two columns no longer reconcile. Listed cases that both engines score the same way are left alone.
-
-PASS/FAIL scoring, `output_results.csv`, the cross-tab and the disagreement counts are unchanged: an implementation-issue case that fails still counts as a failure.
+A case listed in `implementation_issues.csv` (see [Implementation issues](#implementation-issues-optional)) that the two engines score differently (one `PASS`, the other not) is taken out of both asymmetric buckets and reported in its own subsection, `### Implementation Issues, Not Parity Defects`, with its issue ID, the verdict pair per group, and the note. It is also left out of the header's `CMS Fail / QI-Core OK` row. The cross-tab and the disagreement counts still include it. Listed cases that both engines score the same way are left alone.
 
 To refresh the copy after a QI-Core re-run:
 

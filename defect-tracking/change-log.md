@@ -1108,3 +1108,42 @@ overload, so I-18 doesn't apply. Ran `e648fa70` and the two other CMS646 not-don
 ```
 
 **Measures Affected:** CMS646
+
+## Link the stroke Claims to their inpatient encounter in three CMS72 / CMS104 fixtures
+
+**Problem:** `TJC."Ischemic Stroke Encounter"` requires a principal diagnosis, which
+`CQMCommon.claimDiagnosis()` reads only from a Claim whose `item.encounter` references the encounter
+and whose `item.diagnosisSequence` includes the diagnosis sequence. Three fixtures had a Claim that
+couldn't match, so the patient never reached the Initial Population (CMS and QI-Core both 0, expected
+1):
+
+- CMS72 `e126cdec`: `item.encounter` was `Encounter//5c954893b848462de0ae623a`, which matches no
+  encounter in the fixture.
+- CMS104 `0b1aa8ee` and `e84c89f7`: `item` had no `encounter` and no `diagnosisSequence`.
+
+**Change:** pointed each Claim's `item.encounter` at the fixture's inpatient encounter
+(`dec37c2b`, `2be30658`, `78fdcacc`) and added `diagnosisSequence: [1]` to the two CMS104 Claims. The
+diagnosis codes are unchanged (`I63.00`, and SNOMED `111297002`, which is in "Ischemic Stroke"). Ran
+the three cases with `cql_execute` (translator/engine 5.4.0): every population now matches the
+fixture MeasureReport (`e126cdec` 1/1/1/0/0, `0b1aa8ee` 1/1/1/0/0, `e84c89f7` 1/1/0/0/1 for
+IP/Denom/DenExcl/Numer/DenExcep), with no diagnostics. The QI-Core fixtures were deliberately left
+unchanged.
+
+**Verified 2026-10-09** after re-running CMS72 and CMS104 in the CQL plugin and regenerating the
+grid: exactly these 9 cells changed (0 → 1, now equal to expected), no other cell in the 23,722-cell
+grid moved, and the three `TestCaseResult` files carry no errors. Overall pass rate 3911 → 3914 of
+3964 test cases (98.66% → 98.74%). The cells now differ from the QI-Core baseline, which stays 0
+(I-38), so they count as CMS-better, not as a regression. Tracked as I-74 (`fixture`, Fixed); the
+seven multi-encounter cases with the same Claim template are I-73 and were not changed.
+
+### Example
+
+```jsonc
+// before (CMS72 e126cdec)
+"encounter": [ { "reference": "Encounter//5c954893b848462de0ae623a" } ]
+
+// after
+"encounter": [ { "reference": "Encounter/dec37c2b-06f6-4871-818c-99accd7f863e" } ]
+```
+
+**Measures Affected:** CMS72, CMS104

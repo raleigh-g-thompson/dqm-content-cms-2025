@@ -946,20 +946,21 @@ class ImplementationIssueReportTest(unittest.TestCase):
         text = self._run("issue_id,measure_name,guid,group,note\n"
                          f"I-67,{MEASURE},{GUID_A},,Malformed.\n")
         self.assertIn("| CMS Fail / QI-Core OK | 1 test case (1 measure) |", text)
-        self.assertIn("| Implementation Issues (not parity) | 1 test case (1 measure) |", text)
-        # Summary table: QI-Core Also Failing 0 of 2; CMS Fail / QI-Core OK 1 of 2.
-        self.assertRegex(text, r"\| 0 of 2 \| 1 of 2 \|")
-        # PASS/FAIL scoring is untouched: both cases still fail.
-        self.assertIn("| Fail Count | 2 (100.00%) |", text)
-        self.assertIn("_1 failing case is an implementation issue "
-                      "(see `## QI-Core Parity`) and counts in neither column", text)
+        # The covered case is resolved, not failing: only GUID_B is left.
+        self.assertIn("| Implementation Issue Count | 1 (50.00%) |", text)
+        self.assertIn("| Fail Count | 1 (50.00%) |", text)
+        self.assertIn("| Resolved (Pass + Implementation) | 1 (50.00%) |", text)
+        # Summary table: QI-Core Also Failing 0 of 1; CMS Fail / QI-Core OK 1 of 1.
+        self.assertRegex(text, r"\| 0 of 1 \| 1 of 1 \|")
+        self.assertIn("### Implementation Issues, Not Parity Defects (1 test case, 1 measure)", text)
 
     def test_missing_issues_file_renders_as_before(self):
         text = self._run(None)
         self.assertIn("| CMS Fail / QI-Core OK | 2 test cases (1 measure) |", text)
-        self.assertNotIn("Implementation Issues", text)
+        self.assertNotIn("Implementation Issue", text)
+        self.assertNotIn("Resolved (Pass + Implementation)", text)
+        self.assertIn("| Fail Count | 2 (100.00%) |", text)
         self.assertRegex(text, r"\| 0 of 2 \| 2 of 2 \|")
-        self.assertNotIn("in neither column", text)
 
 
 if __name__ == "__main__":
