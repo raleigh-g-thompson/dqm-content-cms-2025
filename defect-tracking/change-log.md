@@ -1201,3 +1201,49 @@ ticket.
 of 3964 test cases.
 
 **Measures Affected:** reporting only
+
+## Restore the two MedicationAdministrations lost from CMS819 `73b0c1fe`
+
+**Problem:** CMS819 `73b0c1fe` expects Numerator 1, but both engines returned 0. The MADiE source
+bundle (`627a80a15a0d870123c7253e`) gave the id `MedicationAdministration/5f32d03297c3b600003f7cd9` to
+three different administrations. MADiE accepted that at the time; it now rejects duplicate ids.
+Splitting the bundle into one file per id kept only the last entry, so two were lost:
+
+- naloxone 1659929, subcutaneous, 02-01 10:00 (in the OR)
+- opioid 1010600, 02-07 08:00-08:15 (outside the OR)
+
+The surviving naloxone (02-07 20:00, `6a7ab547`) could pair only with the 02-01 09:00 opioid. That
+pair is about 6.5 days apart, so `ends 12 hours or less before` was correctly false. The
+MeasureReport's `evaluatedResource` listed `6a7ab547` three times, once for each collapsed entry.
+
+**Change:** added the two lost resources as
+`MedicationAdministration-a3ebcb6c-50f4-4b1b-9705-4aeeb3cc0535.json` (naloxone) and
+`MedicationAdministration-18cc43f1-4c96-4d17-9cce-eb25ed09b465.json` (opioid). Their content comes
+from the source bundle, with dates shifted 2028 → 2026 like the existing files, new unique ids, and
+the US Quality Core profile. In the MeasureReport, the two repeated `evaluatedResource` references
+now point at the new ids, in bundle order. The QI-Core fixtures were deliberately left unchanged.
+
+**Verified 2026-10-13** with `cql_execute` (translator/engine 5.4.0): IP 1, Denominator 1,
+Numerator 1, no diagnostics. The opioid ending 02-07 08:15 and the naloxone at 20:00 are 11 h 45 m
+apart. `scripts/validate_test_fixtures.py --measure CMS819FHIRHHORAE` no longer reports
+`EVALUATED-REF-REPEATED` for this case. The QI-Core baseline stays 0, so the cell counts as
+CMS-better. The grid has not been regenerated. I-10's other case, `31b40acc`, shows the same
+signature and is still open, pending its source bundle. The case still has no
+`Location/HSLOC-1096-7`, so the "Operating Room Suite" exclusion is not exercised; the 02-01 OR pair
+also qualifies.
+
+### Example
+
+```jsonc
+// before (MeasureReport-15d9e04f evaluatedResource)
+{ "reference": "MedicationAdministration/6a7ab547-7f79-4bd1-a4c9-269dca8fd8e3" },
+{ "reference": "MedicationAdministration/6a7ab547-7f79-4bd1-a4c9-269dca8fd8e3" },
+{ "reference": "MedicationAdministration/6a7ab547-7f79-4bd1-a4c9-269dca8fd8e3" }
+
+// after
+{ "reference": "MedicationAdministration/a3ebcb6c-50f4-4b1b-9705-4aeeb3cc0535" },
+{ "reference": "MedicationAdministration/18cc43f1-4c96-4d17-9cce-eb25ed09b465" },
+{ "reference": "MedicationAdministration/6a7ab547-7f79-4bd1-a4c9-269dca8fd8e3" }
+```
+
+**Measures Affected:** CMS819
