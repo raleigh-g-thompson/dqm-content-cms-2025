@@ -67,12 +67,45 @@ implies dry-run unless ``--apply`` is given, rewrites only ``*.json`` files
 under ``input/tests/measure``, is anchored to the ``us-quality-core`` token (so
 unrelated ``onc/*`` strings like the ``onc/not108`` DOI are untouched), and
 never commits anything - ``--apply`` leaves the change unstaged for review.
+
+Resource-ID checks (report-only, never auto-fixed) catch the residue of
+duplicate resource ids in the MADiE source bundle.  MADiE used to accept a
+bundle in which several entries shared one ``resourceType/id``; splitting it
+into ``<resourceType>-<id>.json`` files kept only the last entry, silently
+dropping the rest (I-10: CMS819's qualifying opioid / antagonist pair was lost
+this way).  Once split, the duplicate itself is gone, so the tree checks look
+for what it leaves behind:
+
+* ``ID-FILENAME-MISMATCH`` - basename is not ``<resourceType>-<id>.json`` (or
+  ``id`` is missing).  Patient files are covered by the anomaly checks above.
+* ``ID-DUPLICATE`` - two files in one folder share a ``resourceType/id``.
+* ``EVALUATED-REF-REPEATED`` (warning) - the fixture MeasureReport lists the
+  same ``evaluatedResource`` more than once: the usual fingerprint of entries
+  collapsed onto one id.  ``expected`` carries the repeat count.
+* ``EVALUATED-REF-DANGLING`` - an ``evaluatedResource`` with no file in the
+  folder.
+* ``REF-UNRESOLVED-CLINICAL`` / ``REF-UNRESOLVED-ACTOR`` (warnings, opt-in via
+  ``--check-references``) - a relative reference between fixture resources
+  (e.g. ``Encounter.location.location`` -> ``Location/...``) with no file in the
+  folder.  CLINICAL targets (``CLINICAL_REF_TYPES``) are ones measure logic can
+  dereference; ACTOR covers Practitioner / Organization / Coverage etc.
+
+``--bundle PATH [PATH ...]`` checks MADiE export Bundles *before* they are
+split: every ``resourceType/id`` and ``fullUrl`` that occurs more than once is
+reported as identical (harmless) or divergent (data lost on split).  The
+process exits 1 if any divergent duplicate is found:
+
+    python ./scripts/validate_test_fixtures.py --check-references
+    python ./scripts/validate_test_fixtures.py --bundle path/to/madie-export.json
 """
 
 import argparse
 import json
+import ntpath
 import os
 import re
+import sys
+from collections import Counter
 from datetime import datetime
 from typing import Dict, List, Optional, Set, Tuple
 
@@ -102,6 +135,24 @@ REQUIRED_PATIENT_FIELDS = {
 }
 
 Finding = Tuple[str, str, str, str, str, str, str]  # (measure, patient, file, field, referenced, expected, category)
+
+# A relative literal reference (``Type/id``, optionally versioned).  Absolute
+# URLs, ``urn:`` and ``#contained`` references deliberately do not match.
+RELATIVE_REF_RE = re.compile(
+    r"^(?P<type>[A-Z][A-Za-z]+)/(?P<id>[A-Za-z0-9\-.]{1,64})(?:/_history/[^/]+)?$")
+
+# Reference targets that measure logic dereferences (e.g. CMS819's
+# ``EncounterLocation.location.getLocation()``), so an unresolved one can change
+# a population.  Every other target type is reported as an ACTOR reference.
+CLINICAL_REF_TYPES = (
+    "Condition", "Device", "DiagnosticReport", "Encounter", "Location",
+    "Medication", "MedicationRequest", "Observation", "Procedure",
+    "QuestionnaireResponse", "ServiceRequest", "Specimen",
+)
+
+# Categories that are informational rather than definite defects.
+WARNING_CATEGORIES = ("EVALUATED-REF-REPEATED", "REF-UNRESOLVED-CLINICAL",
+                      "REF-UNRESOLVED-ACTOR")
 
 # Universal profile namespace: the US Quality Core IG base.  Fixtures generated
 # under the older `onc` publisher namespace carry `http://fhir.org/guides/onc/
@@ -257,8 +308,166 @@ def patient_ids_from_cases(test_cases) -> Set[str]:
     return ids
 
 
+def resource_key(data) -> Optional[str]:
+    """Return ``"<resourceType>/<id>"`` for a resource dict, or None if either
+    part is missing."""
+    if not isinstance(data, dict):
+        return None
+    rtype, rid = data.get("resourceType"), data.get("id")
+    if not isinstance(rtype, str) or not isinstance(rid, str):
+        return None
+    return f"{rtype}/{rid}"
+
+
+def _basename(path: str) -> str:
+    """Basename that splits on both ``/`` and ``\\`` (and drops a ``C:`` drive),
+    so ``/a/b.json``, ``C:\\a\\b.json`` and ``C:/a/b.json`` all yield ``b.json``
+    whatever platform the script runs on."""
+    return ntpath.basename(path)
+
+
+def check_resource_ids(measure: str, guid: str, resources: List[str]) -> List[Finding]:
+    """Flag files whose name disagrees with their ``resourceType``/``id``
+    (``ID-FILENAME-MISMATCH``) and ``resourceType/id`` values shared by several
+    files in one folder (``ID-DUPLICATE``).  Patient files are left to the
+    misnamed-Patient anomaly check."""
+    findings: List[Finding] = []
+    seen: Dict[str, List[str]] = {}
+    for path in resources:
+        data = load_json(path)
+        if not data or not isinstance(data.get("resourceType"), str):
+            continue
+        base = _basename(path)
+        key = resource_key(data)
+        if key is not None:
+            seen.setdefault(key, []).append(base)
+        if data["resourceType"] == "Patient":
+            continue
+        expected_name = f"{data['resourceType']}-{data['id']}.json" if key else "(no id)"
+        if base != expected_name:
+            findings.append((measure, guid, base, "id", key or "(missing)",
+                             expected_name, "ID-FILENAME-MISMATCH"))
+    for key, files in sorted(seen.items()):
+        if len(files) > 1:
+            for base in files:
+                findings.append((measure, guid, base, "id", key,
+                                 f"{len(files)} files", "ID-DUPLICATE"))
+    return findings
+
+
+def folder_resource_keys(resources: List[str]) -> Set[str]:
+    """Every ``resourceType/id`` present as a file in a test-case folder."""
+    keys: Set[str] = set()
+    for path in resources:
+        key = resource_key(load_json(path))
+        if key is not None:
+            keys.add(key)
+    return keys
+
+
+def check_evaluated_resources(measure: str, guid: str, resources: List[str],
+                              keys: Set[str]) -> List[Finding]:
+    """Check each MeasureReport's ``evaluatedResource`` list: repeated
+    references (``EVALUATED-REF-REPEATED``, the trace of ids collapsed on split)
+    and references with no file in the folder (``EVALUATED-REF-DANGLING``)."""
+    findings: List[Finding] = []
+    for path in resources:
+        data = load_json(path)
+        if not data or data.get("resourceType") != "MeasureReport":
+            continue
+        refs = [e.get("reference") for e in data.get("evaluatedResource", [])
+                if isinstance(e, dict) and isinstance(e.get("reference"), str)]
+        counts = Counter(r for r in refs if not r.startswith("#"))
+        base = _basename(path)
+        for ref in sorted(counts):
+            if counts[ref] > 1:
+                findings.append((measure, guid, base, "evaluatedResource", ref,
+                                 f"{counts[ref]}x", "EVALUATED-REF-REPEATED"))
+            match = RELATIVE_REF_RE.match(ref)
+            if match and f"{match.group('type')}/{match.group('id')}" not in keys:
+                findings.append((measure, guid, base, "evaluatedResource", ref,
+                                 "(no file)", "EVALUATED-REF-DANGLING"))
+    return findings
+
+
+def _iter_references(value, path: str):
+    """Yield ``(dotted_path, reference)`` for every ``{"reference": str}`` dict
+    nested anywhere in ``value``.  List indices are omitted from the path."""
+    if isinstance(value, dict):
+        ref = value.get("reference")
+        if isinstance(ref, str):
+            yield path, ref
+        for key, child in value.items():
+            yield from _iter_references(child, f"{path}.{key}")
+    elif isinstance(value, list):
+        for child in value:
+            yield from _iter_references(child, path)
+
+
+def check_internal_references(measure: str, guid: str, resources: List[str],
+                              keys: Set[str]) -> List[Finding]:
+    """Flag relative references between a folder's resources that resolve to no
+    file in the folder.  ``Patient/`` references are left to the patient checks;
+    MeasureReports are left to ``check_evaluated_resources``."""
+    findings: List[Finding] = []
+    for path in resources:
+        data = load_json(path)
+        if not data or data.get("resourceType") in (None, "MeasureReport"):
+            continue
+        base = _basename(path)
+        for field, ref in _iter_references(data, data["resourceType"]):
+            match = RELATIVE_REF_RE.match(ref)
+            if not match or match.group("type") == "Patient":
+                continue
+            if f"{match.group('type')}/{match.group('id')}" in keys:
+                continue
+            category = ("REF-UNRESOLVED-CLINICAL" if match.group("type") in CLINICAL_REF_TYPES
+                        else "REF-UNRESOLVED-ACTOR")
+            findings.append((measure, guid, base, field, ref, "(no file)", category))
+    return findings
+
+
+def check_bundle(bundle) -> List[Dict]:
+    """Report every ``resourceType/id`` and ``fullUrl`` that occurs on more than
+    one entry of a source Bundle.  Each result is ``{"kind", "key", "indices",
+    "identical"}``; ``identical`` is False when the colliding resources differ,
+    i.e. splitting the bundle into one file per id would lose data."""
+    results: List[Dict] = []
+    if not isinstance(bundle, dict):
+        return results
+    entries = [e for e in bundle.get("entry", []) if isinstance(e, dict)]
+    for kind in ("resource", "fullUrl"):
+        groups: Dict[str, List[int]] = {}
+        for index, entry in enumerate(entries):
+            key = resource_key(entry.get("resource")) if kind == "resource" else entry.get("fullUrl")
+            if isinstance(key, str):
+                groups.setdefault(key, []).append(index)
+        for key, indices in groups.items():
+            if len(indices) < 2:
+                continue
+            bodies = {json.dumps(entries[i].get("resource"), sort_keys=True) for i in indices}
+            results.append({"kind": kind, "key": key, "indices": indices,
+                            "identical": len(bodies) == 1})
+    return results
+
+
+def render_bundle_report(results_by_path: Dict[str, List[Dict]]) -> str:
+    """Render a markdown table of the duplicate keys found by ``check_bundle``."""
+    lines = ["| Bundle | Kind | Key | Entries | Duplicate |",
+             "| --- | --- | --- | --- | --- |"]
+    for path, results in results_by_path.items():
+        for r in results:
+            lines.append(f"| {path} | {r['kind']} | {r['key']} | "
+                         f"{', '.join(str(i) for i in r['indices'])} | "
+                         f"{'identical' if r['identical'] else 'DIVERGENT'} |")
+    if len(lines) == 2:
+        return "No duplicate resource ids or fullUrls found."
+    return "\n".join(lines)
+
+
 def validate(test_cases, verbose: bool = False,
-             all_patient_ids: Optional[Set[str]] = None) -> Tuple[List[Finding], List[str]]:
+             all_patient_ids: Optional[Set[str]] = None,
+             check_references: bool = False) -> Tuple[List[Finding], List[str]]:
     """Run validation over all test cases.
 
     Returns (findings, structural_anomalies).  ``structural_anomalies`` captures
@@ -266,7 +475,10 @@ def validate(test_cases, verbose: bool = False,
 
     ``all_patient_ids`` is the universe of real patient GUIDs used to
     distinguish "wrong but real patient" from "placeholder/non-existent"; if not
-    supplied it is derived from the given ``test_cases`` themselves."""
+    supplied it is derived from the given ``test_cases`` themselves.
+
+    The resource-ID checks run on every folder; ``check_references`` also adds
+    the (noisy) unresolved intra-folder reference check."""
     findings: List[Finding] = []
     anomalies: List[str] = []
 
@@ -274,6 +486,16 @@ def validate(test_cases, verbose: bool = False,
         all_patient_ids = patient_ids_from_cases(test_cases)
 
     for measure, guid, resources in test_cases:
+        keys = folder_resource_keys(resources)
+        id_findings = check_resource_ids(measure, guid, resources)
+        id_findings += check_evaluated_resources(measure, guid, resources, keys)
+        if check_references:
+            id_findings += check_internal_references(measure, guid, resources, keys)
+        findings.extend(id_findings)
+        if verbose:
+            for f in id_findings:
+                print(f"  [{f[6]}] {measure}/{guid} {f[2]} .{f[3]} -> {f[4]} ({f[5]})")
+
         patient_files = patient_resource_files(resources)
         if not patient_files:
             anomalies.append(f"{measure}/{guid}: cannot determine patient (found "
@@ -654,15 +876,17 @@ def render_report(findings: List[Finding], anomalies: List[str]) -> str:
         "",
         f"Generated {datetime.now().strftime('%Y-%m-%d %H:%M')}",
         "",
-        f"- **Findings**: {len(findings)} patient-reference mismatch(es)",
+        f"- **Findings**: {len(findings)} finding(s)",
         f"- **Structural anomalies**: {len(anomalies)}",
+        "",
+        f"Warning categories (informational, not definite defects): "
+        f"{', '.join(WARNING_CATEGORIES)}.",
         "",
         "## Mismatch categories",
         "",
         "| Category | Count |",
         "| --- | --- |",
     ]
-    from collections import Counter
     counts = Counter(f[6] for f in findings)
     for cat in sorted(counts):
         lines.append(f"| {cat} | {counts[cat]} |")
@@ -675,7 +899,7 @@ def render_report(findings: List[Finding], anomalies: List[str]) -> str:
     lines.append("")
     lines.append("## Details")
     lines.append("")
-    lines.append("| Measure | Patient | Resource file | Field | Referenced patient | Expected patient | Category |")
+    lines.append("| Measure | Patient | Resource file | Field | Referenced | Expected | Category |")
     lines.append("| --- | --- | --- | --- | --- | --- | --- |")
     for (measure, guid, filename, field, referenced, expected, cat) in findings:
         lines.append(f"| {measure} | {guid} | {filename} | {field} | {referenced} | {expected} | {cat} |")
@@ -712,7 +936,29 @@ def main():
     parser.add_argument("--fix-profile-ns", action="store_true",
                         help="Migrate fixtures' universal-profile base from onc to astp; "
                              "implies dry-run unless --apply is given")
+    parser.add_argument("--check-references", action="store_true",
+                        help="Also report relative references between a folder's resources "
+                             "that resolve to no file (REF-UNRESOLVED-CLINICAL / -ACTOR)")
+    parser.add_argument("--bundle", nargs="+", metavar="PATH",
+                        help="Check source Bundle file(s) for duplicate resourceType/id and "
+                             "fullUrl instead of the fixture tree; exits 1 on a divergent duplicate")
     args = parser.parse_args()
+
+    if args.bundle:
+        results_by_path = {}
+        for path in args.bundle:
+            bundle = load_json(path)
+            if bundle is None:
+                print(f"Cannot read {path} as JSON", file=sys.stderr)
+                sys.exit(2)
+            results_by_path[path] = check_bundle(bundle)
+        if args.as_json:
+            print(json.dumps(results_by_path, indent=2))
+        else:
+            print(render_bundle_report(results_by_path))
+        if any(not r["identical"] for results in results_by_path.values() for r in results):
+            sys.exit(1)
+        return
 
     if args.fix_profile_ns:
         result = migrate_profile_namespace_tree(dry_run=not args.apply)
@@ -733,7 +979,8 @@ def main():
         test_cases = [tc for tc in test_cases if tc[0] == args.measure]
 
     findings, anomalies = validate(test_cases, verbose=args.verbose,
-                                   all_patient_ids=all_patient_ids)
+                                   all_patient_ids=all_patient_ids,
+                                   check_references=args.check_references)
 
     if args.as_json:
         records = [
@@ -764,10 +1011,12 @@ def main():
                        f"file(s). Review with `git diff` (no commit made).")
         # Re-run validation after any apply so the report reflects final state.
         findings, anomalies = validate(collect_test_cases(),
-                                       all_patient_ids=all_patient_ids)
+                                       all_patient_ids=all_patient_ids,
+                                       check_references=args.check_references)
         if args.measure:
             test_cases = [tc for tc in collect_test_cases() if tc[0] == args.measure]
-            findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids)
+            findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids,
+                                           check_references=args.check_references)
         print(summary)
 
     # --- required-field injection (Task.for, Encounter/Observation/
@@ -786,10 +1035,12 @@ def main():
                        f"Review with `git diff` (no commit made).")
             # Re-run validation after apply so the report reflects final state.
             findings, anomalies = validate(collect_test_cases(),
-                                           all_patient_ids=all_patient_ids)
+                                           all_patient_ids=all_patient_ids,
+                                           check_references=args.check_references)
             if args.measure:
                 test_cases = [tc for tc in collect_test_cases() if tc[0] == args.measure]
-                findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids)
+                findings, anomalies = validate(test_cases, all_patient_ids=all_patient_ids,
+                                               check_references=args.check_references)
         else:
             summary = (f"REQUIRED-FIELDS DRY-RUN: {len(required_field_findings)} "
                        f"resource(s) missing a required patient reference would be "

@@ -17,7 +17,14 @@ from scripts.validate_test_fixtures import (
 )
 
 
-def write_json(directory, filename, data):
+def write_json(directory, filename, data, derive_id=True):
+    # Default a missing ``id`` from a ``<resourceType>-<id>.json`` filename so
+    # fixtures stay well-formed for the resource-ID checks; pass
+    # ``derive_id=False`` to write the resource exactly as given.
+    prefix = f"{data.get('resourceType')}-" if isinstance(data, dict) else None
+    if (derive_id and prefix and "id" not in data
+            and filename.startswith(prefix) and filename.endswith(".json")):
+        data = {**data, "id": filename[len(prefix):-len(".json")]}
     path = os.path.join(directory, filename)
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(data, fh)
@@ -583,6 +590,186 @@ class ProfileNamespaceMigrationTest(unittest.TestCase):
         result = migrate_profile_namespace_tree(self.tests_root)
         self.assertEqual(result["tokens"], 2)
         self.assertEqual(still_uses_old_namespace(self.tests_root), [])
+
+
+GUID = "11111111-1111-1111-1111-111111111111"
+
+
+class ResourceIdChecksTest(unittest.TestCase):
+    """ID-FILENAME-MISMATCH / ID-DUPLICATE / EVALUATED-REF-* (I-10 residue)."""
+
+    def setUp(self):
+        self._tmp = tempfile.mkdtemp()
+        self.case = os.path.join(self._tmp, "CMS819X", GUID)
+        os.makedirs(self.case)
+        make_patient(self.case, GUID)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self._tmp, ignore_errors=True)
+
+    def files(self):
+        return [os.path.join(self.case, f) for f in sorted(os.listdir(self.case))]
+
+    def categories(self, check_references=False):
+        findings, _ = validate([("CMS819X", GUID, self.files())],
+                               check_references=check_references)
+        return [(f[2], f[4], f[5], f[6]) for f in findings]
+
+    def test_clean_folder_has_no_id_findings(self):
+        write_json(self.case, "Encounter-e.json", {
+            "resourceType": "Encounter", "subject": {"reference": f"Patient/{GUID}"}})
+        self.assertEqual(self.categories(), [])
+
+    def test_filename_id_mismatch_flagged(self):
+        write_json(self.case, "Encounter-e.json", {
+            "resourceType": "Encounter", "id": "other",
+            "subject": {"reference": f"Patient/{GUID}"}})
+        self.assertEqual(self.categories(), [
+            ("Encounter-e.json", "Encounter/other", "Encounter-other.json",
+             "ID-FILENAME-MISMATCH")])
+
+    def test_missing_id_flagged(self):
+        write_json(self.case, "Encounter-e.json", {
+            "resourceType": "Encounter", "subject": {"reference": f"Patient/{GUID}"}},
+            derive_id=False)
+        self.assertEqual(self.categories(), [
+            ("Encounter-e.json", "(missing)", "(no id)", "ID-FILENAME-MISMATCH")])
+
+    def test_duplicate_id_across_files_flagged(self):
+        for name in ("MedicationAdministration-m.json", "MedicationAdministration-m-copy.json"):
+            write_json(self.case, name, {
+                "resourceType": "MedicationAdministration", "id": "m",
+                "subject": {"reference": f"Patient/{GUID}"}})
+        dups = [c for c in self.categories() if c[3] == "ID-DUPLICATE"]
+        self.assertEqual(sorted(dups), [
+            ("MedicationAdministration-m-copy.json", "MedicationAdministration/m", "2 files", "ID-DUPLICATE"),
+            ("MedicationAdministration-m.json", "MedicationAdministration/m", "2 files", "ID-DUPLICATE")])
+
+    def test_repeated_and_dangling_evaluated_resources(self):
+        # Mirrors CMS819 73b0c1fe: three administrations collapsed onto one id.
+        write_json(self.case, "MedicationAdministration-m.json", {
+            "resourceType": "MedicationAdministration",
+            "subject": {"reference": f"Patient/{GUID}"}})
+        write_json(self.case, "MeasureReport-r.json", {
+            "resourceType": "MeasureReport",
+            "evaluatedResource": [
+                {"reference": f"Patient/{GUID}"},
+                {"reference": "MedicationAdministration/m"},
+                {"reference": "MedicationAdministration/m"},
+                {"reference": "MedicationAdministration/m"},
+                {"reference": "Encounter/gone"},
+                {"reference": "#contained-params"},
+                {"reference": "#contained-params"},
+            ]})
+        self.assertEqual(self.categories(), [
+            ("MeasureReport-r.json", "Encounter/gone", "(no file)", "EVALUATED-REF-DANGLING"),
+            ("MeasureReport-r.json", "MedicationAdministration/m", "3x", "EVALUATED-REF-REPEATED")])
+
+    def test_unresolved_references_are_opt_in_and_split_by_type(self):
+        write_json(self.case, "Location-here.json", {"resourceType": "Location"})
+        write_json(self.case, "Encounter-e.json", {
+            "resourceType": "Encounter",
+            "subject": {"reference": f"Patient/{GUID}"},
+            "location": [{"location": {"reference": "Location/HSLOC-1096-7"}},
+                         {"location": {"reference": "Location/here"}}],
+            "participant": [{"individual": {"reference": "Practitioner/p1"}}],
+            "serviceProvider": {"reference": "https://example.org/fhir/Organization/o1"},
+            "basedOn": [{"reference": "#contained"}, {"reference": "urn:uuid:abc"}]})
+        self.assertEqual(self.categories(), [])
+        findings, _ = validate([("CMS819X", GUID, self.files())], check_references=True)
+        self.assertEqual(sorted((f[3], f[4], f[6]) for f in findings), [
+            ("Encounter.location.location", "Location/HSLOC-1096-7", "REF-UNRESOLVED-CLINICAL"),
+            ("Encounter.participant.individual", "Practitioner/p1", "REF-UNRESOLVED-ACTOR")])
+
+    def test_versioned_reference_resolves(self):
+        write_json(self.case, "Condition-c.json", {
+            "resourceType": "Condition", "subject": {"reference": f"Patient/{GUID}"}})
+        write_json(self.case, "Encounter-e.json", {
+            "resourceType": "Encounter", "subject": {"reference": f"Patient/{GUID}"},
+            "diagnosis": [{"condition": {"reference": "Condition/c/_history/2"}}]})
+        self.assertEqual(self.categories(check_references=True), [])
+
+    def test_basename_split_on_every_platform_separator(self):
+        # | Platform              | Path                                   | Basename         |
+        # | macOS / Linux         | /tmp/case/Encounter-e.json             | Encounter-e.json |
+        # | Windows backslash     | C:\tmp\case\Encounter-e.json           | Encounter-e.json |
+        # | Windows forward slash | C:/tmp/case/Encounter-e.json           | Encounter-e.json |
+        from scripts.validate_test_fixtures import _basename
+        for path in ("/tmp/case/Encounter-e.json", "C:\\tmp\\case\\Encounter-e.json",
+                     "C:/tmp/case/Encounter-e.json"):
+            self.assertEqual(_basename(path), "Encounter-e.json", path)
+
+
+def ma_entry(rid, code, start):
+    return {"fullUrl": f"https://madie.cms.gov/MedicationAdministration/{rid}",
+            "resource": {"resourceType": "MedicationAdministration", "id": rid,
+                         "medicationCodeableConcept": {"coding": [{"code": code}]},
+                         "effectivePeriod": {"start": start}}}
+
+
+class BundleCheckTest(unittest.TestCase):
+    """--bundle mode: duplicate ids in a MADiE source Bundle, before splitting."""
+
+    # Reduction of the CMS819 627a80a1... export behind I-10: three
+    # administrations (naloxone in OR, later opioid, later naloxone) share one id.
+    CMS819_BUNDLE = {"resourceType": "Bundle", "type": "collection", "entry": [
+        ma_entry("5f32cff097c3b600003f7cb9", "1010600", "2028-02-01T09:00:00.000+00:00"),
+        ma_entry("5f32d03297c3b600003f7cd9", "1659929", "2028-02-01T10:00:00.000+00:00"),
+        ma_entry("5f32d03297c3b600003f7cd9", "1010600", "2028-02-07T08:00:00.000+00:00"),
+        ma_entry("5f32d03297c3b600003f7cd9", "1870933", "2028-02-07T20:00:00.000+00:00"),
+    ]}
+
+    def test_cms819_collision_is_divergent(self):
+        from scripts.validate_test_fixtures import check_bundle
+        self.assertEqual(check_bundle(self.CMS819_BUNDLE), [
+            {"kind": "resource", "key": "MedicationAdministration/5f32d03297c3b600003f7cd9",
+             "indices": [1, 2, 3], "identical": False},
+            {"kind": "fullUrl",
+             "key": "https://madie.cms.gov/MedicationAdministration/5f32d03297c3b600003f7cd9",
+             "indices": [1, 2, 3], "identical": False}])
+
+    def test_identical_duplicates_reported_as_identical(self):
+        from scripts.validate_test_fixtures import check_bundle
+        entry = ma_entry("a", "1010600", "2026-01-01T00:00:00Z")
+        results = check_bundle({"resourceType": "Bundle", "entry": [entry, json.loads(json.dumps(entry))]})
+        self.assertEqual([r["identical"] for r in results], [True, True])
+
+    def test_clean_bundle_has_no_findings(self):
+        from scripts.validate_test_fixtures import check_bundle
+        bundle = {"resourceType": "Bundle", "entry": [
+            ma_entry("a", "1010600", "2026-01-01T00:00:00Z"),
+            ma_entry("b", "1010600", "2026-01-02T00:00:00Z")]}
+        self.assertEqual(check_bundle(bundle), [])
+
+    def test_duplicate_fullurl_with_different_ids(self):
+        from scripts.validate_test_fixtures import check_bundle
+        a, b = ma_entry("a", "1", "2026-01-01"), ma_entry("b", "1", "2026-01-01")
+        b["fullUrl"] = a["fullUrl"]
+        self.assertEqual(check_bundle({"resourceType": "Bundle", "entry": [a, b]}), [
+            {"kind": "fullUrl", "key": a["fullUrl"], "indices": [0, 1], "identical": False}])
+
+    def run_main(self, bundle):
+        from unittest import mock
+        from scripts import validate_test_fixtures
+        tmp = tempfile.mkdtemp()
+        try:
+            path = write_json(tmp, "bundle.json", bundle, derive_id=False)
+            with mock.patch("sys.argv", ["validate_test_fixtures.py", "--bundle", path]), \
+                    mock.patch("sys.stdout"):
+                try:
+                    validate_test_fixtures.main()
+                except SystemExit as exc:
+                    return exc.code
+            return 0
+        finally:
+            import shutil
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_cli_exit_codes(self):
+        self.assertEqual(self.run_main(self.CMS819_BUNDLE), 1)
+        self.assertEqual(self.run_main({"resourceType": "Bundle", "entry": [
+            ma_entry("a", "1", "2026-01-01")]}), 0)
 
 
 if __name__ == "__main__":
