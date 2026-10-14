@@ -91,12 +91,27 @@ for what it leaves behind:
   dereference; ACTOR covers Practitioner / Organization / Coverage etc.
 
 ``--bundle PATH [PATH ...]`` checks MADiE export Bundles *before* they are
-split: every ``resourceType/id`` and ``fullUrl`` that occurs more than once is
-reported as identical (harmless) or divergent (data lost on split).  The
-process exits 1 if any divergent duplicate is found:
+split.  MADiE evaluates with the JS CQL engine, which treats every bundle
+resource as the patient's, so a bundle can pass in MADiE and still be malformed
+for the Java engine (I-76).  Every ``resourceType/id`` and ``fullUrl`` that
+occurs more than once is reported as identical (harmless) or divergent (data
+lost on split), and each entry gets the per-resource checks (``lint_bundle``):
+wrong patient, missing ``REQUIRED_PATIENT_FIELDS``, unresolved references.  The
+process exits 1 on a divergent duplicate or any non-warning finding.
+
+``--restore-from-bundle BUNDLE --case MEASURE/GUID`` is a dry run that drafts
+the resources a duplicate-id bundle lost when it was split into that fixture
+folder (``plan_restore``).  Bundle entries are matched to fixture files by
+content (codings plus dates shifted by the detected whole-year offset), never by
+id.  Drafts get new ids, the fixture's profile and the folder patient; the
+fixture MeasureReport's ``evaluatedResource`` is rewritten in bundle order.
+Everything is written under ``<--out>/restore/<MEASURE>/<GUID>/`` with a
+``restore-report.md``; ``input/tests/`` is never touched:
 
     python ./scripts/validate_test_fixtures.py --check-references
     python ./scripts/validate_test_fixtures.py --bundle path/to/madie-export.json
+    python ./scripts/validate_test_fixtures.py --restore-from-bundle path/to/madie-export.json \\
+        --case CMS819FHIRHHORAE/31b40acc-ca5f-4d1d-bd83-4b1a14eb822e
 """
 
 import argparse
@@ -404,6 +419,20 @@ def _iter_references(value, path: str):
             yield from _iter_references(child, path)
 
 
+def _unresolved_references(data: Dict, keys: Set[str]):
+    """Yield ``(field, reference, category)`` for each relative non-Patient
+    reference in ``data`` whose target is not in ``keys``."""
+    for field, ref in _iter_references(data, data["resourceType"]):
+        match = RELATIVE_REF_RE.match(ref)
+        if not match or match.group("type") == "Patient":
+            continue
+        if f"{match.group('type')}/{match.group('id')}" in keys:
+            continue
+        category = ("REF-UNRESOLVED-CLINICAL" if match.group("type") in CLINICAL_REF_TYPES
+                    else "REF-UNRESOLVED-ACTOR")
+        yield field, ref, category
+
+
 def check_internal_references(measure: str, guid: str, resources: List[str],
                               keys: Set[str]) -> List[Finding]:
     """Flag relative references between a folder's resources that resolve to no
@@ -415,16 +444,71 @@ def check_internal_references(measure: str, guid: str, resources: List[str],
         if not data or data.get("resourceType") in (None, "MeasureReport"):
             continue
         base = _basename(path)
-        for field, ref in _iter_references(data, data["resourceType"]):
-            match = RELATIVE_REF_RE.match(ref)
-            if not match or match.group("type") == "Patient":
-                continue
-            if f"{match.group('type')}/{match.group('id')}" in keys:
-                continue
-            category = ("REF-UNRESOLVED-CLINICAL" if match.group("type") in CLINICAL_REF_TYPES
-                        else "REF-UNRESOLVED-ACTOR")
+        for field, ref, category in _unresolved_references(data, keys):
             findings.append((measure, guid, base, field, ref, "(no file)", category))
     return findings
+
+
+def _bundle_entries(bundle) -> List[Dict]:
+    """Every well-formed entry (one with a typed ``resource``) of a Bundle."""
+    if not isinstance(bundle, dict):
+        return []
+    return [e for e in bundle.get("entry", [])
+            if isinstance(e, dict) and isinstance(e.get("resource"), dict)
+            and isinstance(e["resource"].get("resourceType"), str)]
+
+
+def _bundle_resources(bundle) -> List[Dict]:
+    """The ``resource`` of every well-formed entry of a Bundle, in order."""
+    return [e["resource"] for e in _bundle_entries(bundle)]
+
+
+def _bundle_full_urls(bundle) -> List[Optional[str]]:
+    """The ``fullUrl`` of every well-formed entry, aligned with ``_bundle_resources``."""
+    return [e.get("fullUrl") if isinstance(e.get("fullUrl"), str) else None
+            for e in _bundle_entries(bundle)]
+
+
+def lint_bundle(bundle) -> List[Dict]:
+    """Run the per-resource fixture checks on a source Bundle before it is split.
+
+    MADiE's JS engine treats every bundle resource as the patient's, so a bundle
+    can pass there and still carry defects that break the Java engine.  Each
+    result is ``{"index", "key", "field", "referenced", "category"}``:
+
+    * ``BUNDLE-PATIENT-AMBIGUOUS`` - not exactly one Patient entry.
+    * ``BUNDLE-WRONG-PATIENT`` - a CORE patient field points at another patient.
+    * ``MISSING-REQUIRED-FIELD`` - a ``REQUIRED_PATIENT_FIELDS`` reference is absent.
+    * ``REF-UNRESOLVED-CLINICAL`` / ``REF-UNRESOLVED-ACTOR`` (warnings) - a
+      relative reference with no entry in the bundle.
+    """
+    resources = _bundle_resources(bundle)
+    keys = {k for k in (resource_key(r) for r in resources) if k}
+    patient_ids = sorted({r.get("id") for r in resources if r["resourceType"] == "Patient"})
+    results: List[Dict] = []
+    expected = patient_ids[0] if len(patient_ids) == 1 else None
+    if expected is None:
+        results.append({"index": None, "key": None, "field": "Patient",
+                        "referenced": ", ".join(str(p) for p in patient_ids) or "(none)",
+                        "category": "BUNDLE-PATIENT-AMBIGUOUS"})
+    for index, data in enumerate(resources):
+        if data["resourceType"] in ("Patient", "MeasureReport"):
+            continue
+        key = resource_key(data)
+        for field in CORE_PATIENT_FIELDS:
+            referenced = _patient_ref_guid(data.get(field))
+            if expected and referenced is not None and referenced != expected:
+                results.append({"index": index, "key": key, "field": field,
+                                "referenced": f"Patient/{referenced}",
+                                "category": "BUNDLE-WRONG-PATIENT"})
+        for field in REQUIRED_PATIENT_FIELDS.get(data["resourceType"], ()):
+            if _patient_ref_guid(data.get(field)) is None:
+                results.append({"index": index, "key": key, "field": field,
+                                "referenced": "(missing)", "category": "MISSING-REQUIRED-FIELD"})
+        for field, ref, category in _unresolved_references(data, keys):
+            results.append({"index": index, "key": key, "field": field,
+                            "referenced": ref, "category": category})
+    return results
 
 
 def check_bundle(bundle) -> List[Dict]:
@@ -451,8 +535,10 @@ def check_bundle(bundle) -> List[Dict]:
     return results
 
 
-def render_bundle_report(results_by_path: Dict[str, List[Dict]]) -> str:
-    """Render a markdown table of the duplicate keys found by ``check_bundle``."""
+def render_bundle_report(results_by_path: Dict[str, List[Dict]],
+                         lint_by_path: Optional[Dict[str, List[Dict]]] = None) -> str:
+    """Render markdown tables of the duplicate keys found by ``check_bundle`` and
+    the per-resource findings from ``lint_bundle``."""
     lines = ["| Bundle | Kind | Key | Entries | Duplicate |",
              "| --- | --- | --- | --- | --- |"]
     for path, results in results_by_path.items():
@@ -461,7 +547,305 @@ def render_bundle_report(results_by_path: Dict[str, List[Dict]]) -> str:
                          f"{', '.join(str(i) for i in r['indices'])} | "
                          f"{'identical' if r['identical'] else 'DIVERGENT'} |")
     if len(lines) == 2:
-        return "No duplicate resource ids or fullUrls found."
+        lines = ["No duplicate resource ids or fullUrls found."]
+    lint_rows = [(path, f) for path, found in (lint_by_path or {}).items() for f in found]
+    if lint_rows:
+        lines += ["", "| Bundle | Entry | Resource | Field | Referenced | Category |",
+                  "| --- | --- | --- | --- | --- | --- |"]
+        for path, f in lint_rows:
+            lines.append(f"| {path} | {f['index']} | {f['key']} | {f['field']} | "
+                         f"{f['referenced']} | {f['category']} |")
+    return "\n".join(lines)
+
+
+def bundle_has_errors(dups: List[Dict], lint: List[Dict]) -> bool:
+    """True if a bundle has a divergent duplicate id or a non-warning lint
+    finding - i.e. splitting it into fixtures would lose or hide data."""
+    return (any(not d["identical"] for d in dups)
+            or any(f["category"] not in WARNING_CATEGORIES for f in lint))
+
+
+# --- restore-from-bundle (dry run) --------------------------------------------
+#
+# Re-derives the resources a duplicate-id bundle lost on split (I-76).  Fixture
+# ids and dates were rewritten after export (e.g. CMS819 dates moved 2028 ->
+# 2026), so bundle entries are matched to fixture files by content - resource
+# type, every coding (system, code), and every date shifted by a whole number of
+# years - never by id.
+
+DATE_VALUE_RE = re.compile(
+    r"^(?P<year>\d{4})(?P<rest>-\d{2}(?:-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?"
+    r"(?:Z|[+-]\d{2}:\d{2})?)?)?)?$")
+
+# Keys whose string values are never dates, even when they look like one
+# (a 4-digit code would otherwise read as a year).
+NON_DATE_KEYS = ("id", "code", "system", "value", "version", "reference", "display",
+                 "url", "lastUpdated")
+
+QICORE_PROFILE_PREFIX = "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-"
+UQC_PROFILE_PREFIX = ("http://fhir.org/guides/astp/us-quality-core/StructureDefinition/"
+                      "us-quality-core-")
+
+
+def _shift_date(value: str, years: int) -> str:
+    """Shift a FHIR date/dateTime string by ``years``, leaving anything else
+    alone.  Feb 29 shifted into a non-leap year becomes Feb 28."""
+    match = DATE_VALUE_RE.match(value)
+    if not match or years == 0:
+        return value
+    year = int(match.group("year")) + years
+    rest = match.group("rest") or ""
+    if rest.startswith("-02-29") and not (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)):
+        rest = "-02-28" + rest[len("-02-29"):]
+    return f"{year:04d}{rest}"
+
+
+def _map_dates(value, years: int, key: Optional[str] = None):
+    """Return a copy of ``value`` with every date string shifted by ``years``."""
+    if isinstance(value, dict):
+        return {k: _map_dates(v, years, k) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_map_dates(v, years, key) for v in value]
+    if isinstance(value, str) and key not in NON_DATE_KEYS:
+        return _shift_date(value, years)
+    return value
+
+
+def _dates(value, key: Optional[str] = None) -> List[str]:
+    """Every date string in ``value``, in document order."""
+    if isinstance(value, dict):
+        return [d for k, v in value.items() if k != "meta" for d in _dates(v, k)]
+    if isinstance(value, list):
+        return [d for v in value for d in _dates(v, key)]
+    if isinstance(value, str) and key not in NON_DATE_KEYS and DATE_VALUE_RE.match(value):
+        return [value]
+    return []
+
+
+def _codings(value) -> Tuple[Tuple[str, str], ...]:
+    """Every ``(system, code)`` pair in ``value``, sorted."""
+    found: List[Tuple[str, str]] = []
+
+    def walk(v):
+        if isinstance(v, dict):
+            if isinstance(v.get("system"), str) and isinstance(v.get("code"), str):
+                found.append((v["system"], v["code"]))
+            for k, child in v.items():
+                if k != "meta":
+                    walk(child)
+        elif isinstance(v, list):
+            for child in v:
+                walk(child)
+    walk(value)
+    return tuple(sorted(found))
+
+
+def _fingerprint(data: Dict, years: int = 0) -> Tuple:
+    """Content identity used to match a bundle entry to a fixture file."""
+    return (data.get("resourceType"), _codings(data),
+            tuple(sorted(_shift_date(d, years) for d in _dates(data))))
+
+
+def detect_year_shift(bundle_resources: List[Dict], fixture_resources: List[Dict]) -> int:
+    """The whole-year offset (fixture minus bundle) that most bundle entries need
+    to line up with a fixture file of the same type and codings; 0 if none."""
+    votes: Counter = Counter()
+    for b in bundle_resources:
+        b_dates = _dates(b)
+        if not b_dates:
+            continue
+        for f in fixture_resources:
+            if f.get("resourceType") != b.get("resourceType") or _codings(f) != _codings(b):
+                continue
+            f_dates = _dates(f)
+            if len(f_dates) != len(b_dates):
+                continue
+            deltas = set()
+            for bd, fd in zip(b_dates, f_dates):
+                bm, fm = DATE_VALUE_RE.match(bd), DATE_VALUE_RE.match(fd)
+                if (bm.group("rest") or "") != (fm.group("rest") or ""):
+                    deltas = set()
+                    break
+                deltas.add(int(fm.group("year")) - int(bm.group("year")))
+            if len(deltas) == 1:
+                votes[deltas.pop()] += 1
+    return votes.most_common(1)[0][0] if votes else 0
+
+
+def _profile_for(resource_type: str, fixture_resources: List[Dict],
+                 bundle_profile: Optional[str]) -> Tuple[Optional[str], Optional[str]]:
+    """Pick the ``meta.profile`` for a draft: the most common one on fixture files
+    of the same type, else the bundle's QI-Core profile renamed to US Quality
+    Core.  Returns ``(profile, note)``; ``note`` is set when the profile is a guess."""
+    seen = Counter(p for r in fixture_resources if r.get("resourceType") == resource_type
+                   for p in (r.get("meta") or {}).get("profile", [])[:1])
+    if seen:
+        return seen.most_common(1)[0][0], None
+    if bundle_profile and bundle_profile.startswith(QICORE_PROFILE_PREFIX):
+        guess = UQC_PROFILE_PREFIX + bundle_profile[len(QICORE_PROFILE_PREFIX):]
+        return guess, f"profile renamed from {bundle_profile}; confirm it exists"
+    return bundle_profile, "no fixture file of this type to copy a profile from"
+
+
+def plan_restore(bundle, fixture_paths: List[str], folder_guid: str,
+                 new_id=None) -> Dict:
+    """Work out which resources a duplicate-id bundle lost and draft them.
+
+    Only entries that share a ``resourceType/id`` with a *different* entry are
+    candidates (the I-76 mechanism).  A candidate whose content matches a fixture
+    file survived; the rest are drafted with a new id (``new_id()``, default
+    uuid4), dates shifted by the detected year offset, the fixture profile, and
+    patient references pointed at ``folder_guid``.  The fixture MeasureReport's
+    ``evaluatedResource`` is rewritten in bundle order when the surviving id is
+    repeated exactly once per colliding entry.  Nothing is written to disk.
+    """
+    import copy
+    import uuid
+    new_id = new_id or (lambda: str(uuid.uuid4()))
+    resources = _bundle_resources(bundle)
+    fixtures = [(p, d) for p, d in ((p, load_json(p)) for p in fixture_paths)
+                if d and isinstance(d.get("resourceType"), str)]
+    fixture_data = [d for _p, d in fixtures if d["resourceType"] != "MeasureReport"]
+    years = detect_year_shift(resources, fixture_data)
+    notes: List[str] = []
+
+    by_fp: Dict[Tuple, List[str]] = {}
+    for d in fixture_data:
+        by_fp.setdefault(_fingerprint(d), []).append(resource_key(d))
+
+    groups: Dict[str, List[int]] = {}
+    for index, data in enumerate(resources):
+        key = resource_key(data)
+        if key:
+            groups.setdefault(key, []).append(index)
+    colliding = {k: ix for k, ix in groups.items() if len(ix) > 1
+                 and len({json.dumps(resources[i], sort_keys=True) for i in ix}) > 1}
+    # A shared fullUrl with distinct ids also marks a collision: a re-exported
+    # bundle can carry the old fullUrl after the duplicate id was renamed (CMS819
+    # 31b40acc: Encounter-1 and Encounter-2 under one fullUrl, while the fixture
+    # kept only one).  Skip groups an id collision already covers.
+    full_urls: Dict[str, List[int]] = {}
+    for index, url in enumerate(_bundle_full_urls(bundle)):
+        if url:
+            full_urls.setdefault(url, []).append(index)
+    covered = {i for ix in colliding.values() for i in ix}
+    for url, ix in full_urls.items():
+        if (len(ix) > 1 and not set(ix) <= covered
+                and len({json.dumps(resources[i], sort_keys=True) for i in ix}) > 1):
+            colliding[url] = ix
+    collided_keys = {resource_key(resources[i]) for ix in colliding.values() for i in ix}
+
+    # Bundle id -> fixture id for entries that are unambiguous and survived, so
+    # references inside a draft (e.g. Claim.item.encounter) can be re-pointed.
+    id_map: Dict[str, str] = {}
+    for key, indices in groups.items():
+        if key in collided_keys or resources[indices[0]]["resourceType"] == "Patient":
+            continue
+        matches = by_fp.get(_fingerprint(resources[indices[0]], years), [])
+        if len(matches) == 1:
+            id_map[key] = matches[0]
+
+    drafts: Dict[str, Dict] = {}
+    report_groups: List[Dict] = []
+    rewrites: List[Tuple[str, List[str]]] = []
+    used: Set[str] = set()
+    for key, indices in colliding.items():
+        members = []
+        for index in indices:
+            data = resources[index]
+            survivor = next((k for k in by_fp.get(_fingerprint(data, years), []) if k not in used), None)
+            if survivor:
+                used.add(survivor)
+                members.append({"index": index, "status": "present", "fixture_key": survivor})
+                continue
+            draft = _map_dates(copy.deepcopy(data), years)
+            rid = new_id()
+            profile, note = _profile_for(data["resourceType"], fixture_data,
+                                         ((data.get("meta") or {}).get("profile") or [None])[0])
+            if note:
+                notes.append(f"{data['resourceType']}/{rid}: {note}")
+            for field, ref in list(_iter_references(draft, data["resourceType"])):
+                match = RELATIVE_REF_RE.match(ref)
+                if not match:
+                    continue
+                target = f"{match.group('type')}/{match.group('id')}"
+                if match.group("type") == "Patient":
+                    _set_reference(draft, ref, f"Patient/{folder_guid}")
+                elif target in id_map:
+                    _set_reference(draft, ref, id_map[target])
+                elif target in collided_keys:
+                    notes.append(f"{data['resourceType']}/{rid}: {field} -> {ref} is ambiguous "
+                                 f"(that id was reused in the bundle); set it by hand")
+                else:
+                    notes.append(f"{data['resourceType']}/{rid}: {field} -> {ref} has no "
+                                 f"matching fixture resource")
+            ordered = {"resourceType": data["resourceType"], "id": rid}
+            if profile:
+                ordered["meta"] = {"profile": [profile]}
+            ordered.update({k: v for k, v in draft.items()
+                            if k not in ("resourceType", "id", "meta")})
+            drafts[f"{data['resourceType']}-{rid}.json"] = ordered
+            members.append({"index": index, "status": "lost",
+                            "draft_key": f"{data['resourceType']}/{rid}"})
+        report_groups.append({"bundle_key": key, "members": members})
+        present = [m["fixture_key"] for m in members if m["status"] == "present"]
+        if any(m["status"] == "lost" for m in members):
+            if len(present) == 1:
+                rewrites.append((present[0], [m.get("fixture_key") or m["draft_key"]
+                                              for m in members]))
+            else:
+                notes.append(f"{key}: {len(present)} surviving fixture match(es); "
+                             f"evaluatedResource not rewritten")
+
+    measure_report = None
+    for path, data in fixtures:
+        if data["resourceType"] != "MeasureReport" or not rewrites:
+            continue
+        report = copy.deepcopy(data)
+        refs = report.get("evaluatedResource", [])
+        for survivor, ordered_keys in rewrites:
+            positions = [i for i, e in enumerate(refs) if e.get("reference") == survivor]
+            if len(positions) != len(ordered_keys):
+                notes.append(f"{_basename(path)}: {survivor} appears {len(positions)}x in "
+                             f"evaluatedResource, expected {len(ordered_keys)}x; not rewritten")
+                continue
+            for position, new_key in zip(positions, ordered_keys):
+                refs[position] = {**refs[position], "reference": new_key}
+        measure_report = (_basename(path), report)
+    return {"year_shift": years, "groups": report_groups, "drafts": drafts,
+            "measure_report": measure_report, "notes": notes}
+
+
+def _set_reference(value, old: str, new: str) -> None:
+    """Replace every ``{"reference": old}`` nested in ``value`` with ``new``."""
+    if isinstance(value, dict):
+        if value.get("reference") == old:
+            value["reference"] = new
+        for child in value.values():
+            _set_reference(child, old, new)
+    elif isinstance(value, list):
+        for child in value:
+            _set_reference(child, old, new)
+
+
+def render_restore_report(case: str, plan: Dict, out_dir: str) -> str:
+    """Markdown summary of a ``plan_restore`` result."""
+    lines = [f"# Restore dry run: {case}", "",
+             f"- **Year shift** (fixture minus bundle): {plan['year_shift']:+d}",
+             f"- **Drafts**: {len(plan['drafts'])} resource(s)"
+             + (" + MeasureReport" if plan["measure_report"] else ""),
+             f"- **Written to**: `{out_dir}` (nothing under `input/tests/` was changed)", ""]
+    if not plan["groups"]:
+        lines.append("No colliding ids in the bundle: nothing to restore.")
+    for group in plan["groups"]:
+        lines += [f"## `{group['bundle_key']}`", "", "| Entry | Status | Resource |",
+                  "| --- | --- | --- |"]
+        for m in group["members"]:
+            lines.append(f"| {m['index']} | {m['status']} | "
+                         f"{m.get('fixture_key') or m.get('draft_key')} |")
+        lines.append("")
+    if plan["notes"]:
+        lines += ["## Check by hand", ""] + [f"- {n}" for n in plan["notes"]] + [""]
     return "\n".join(lines)
 
 
@@ -940,24 +1324,61 @@ def main():
                         help="Also report relative references between a folder's resources "
                              "that resolve to no file (REF-UNRESOLVED-CLINICAL / -ACTOR)")
     parser.add_argument("--bundle", nargs="+", metavar="PATH",
-                        help="Check source Bundle file(s) for duplicate resourceType/id and "
-                             "fullUrl instead of the fixture tree; exits 1 on a divergent duplicate")
+                        help="Check source Bundle file(s) instead of the fixture tree: duplicate "
+                             "resourceType/id and fullUrl, plus the per-resource patient-reference, "
+                             "required-field and unresolved-reference checks; exits 1 on a "
+                             "divergent duplicate or a non-warning finding")
+    parser.add_argument("--restore-from-bundle", metavar="BUNDLE",
+                        help="Dry run: draft the resources a duplicate-id source Bundle lost when "
+                             "it was split into the --case fixture folder; writes drafts and a "
+                             "report under <--out>/restore/ and never edits input/tests/")
+    parser.add_argument("--case", metavar="MEASURE/GUID",
+                        help="Fixture folder for --restore-from-bundle, e.g. "
+                             "CMS819FHIRHHORAE/31b40acc-ca5f-4d1d-bd83-4b1a14eb822e")
     args = parser.parse_args()
 
     if args.bundle:
-        results_by_path = {}
+        results_by_path, lint_by_path = {}, {}
         for path in args.bundle:
             bundle = load_json(path)
             if bundle is None:
                 print(f"Cannot read {path} as JSON", file=sys.stderr)
                 sys.exit(2)
             results_by_path[path] = check_bundle(bundle)
+            lint_by_path[path] = lint_bundle(bundle)
         if args.as_json:
-            print(json.dumps(results_by_path, indent=2))
+            print(json.dumps({"duplicates": results_by_path, "findings": lint_by_path}, indent=2))
         else:
-            print(render_bundle_report(results_by_path))
-        if any(not r["identical"] for results in results_by_path.values() for r in results):
+            print(render_bundle_report(results_by_path, lint_by_path))
+        if any(bundle_has_errors(results_by_path[p], lint_by_path[p]) for p in results_by_path):
             sys.exit(1)
+        return
+
+    if args.restore_from_bundle:
+        if not args.case or args.case.replace("\\", "/").count("/") != 1:
+            parser.error("--restore-from-bundle needs --case MEASURE/GUID")
+        measure, guid = args.case.replace("\\", "/").split("/")
+        case_dir = os.path.join(TESTS_ROOT, measure, guid)
+        bundle = load_json(args.restore_from_bundle)
+        if bundle is None or not os.path.isdir(case_dir):
+            print(f"Cannot read {args.restore_from_bundle} or {case_dir}", file=sys.stderr)
+            sys.exit(2)
+        fixture_paths = [os.path.join(case_dir, f) for f in sorted(os.listdir(case_dir))
+                         if f.endswith(".json")]
+        plan = plan_restore(bundle, fixture_paths, guid)
+        out_dir = os.path.join(args.out, "restore", measure, guid)
+        os.makedirs(out_dir, exist_ok=True)
+        files = dict(plan["drafts"])
+        if plan["measure_report"]:
+            files[plan["measure_report"][0]] = plan["measure_report"][1]
+        for name, data in files.items():
+            with open(os.path.join(out_dir, name), "w", encoding="utf-8") as fh:
+                json.dump(data, fh, indent=2)
+                fh.write("\n")
+        report = render_restore_report(args.case, plan, out_dir)
+        with open(os.path.join(out_dir, "restore-report.md"), "w", encoding="utf-8") as fh:
+            fh.write(report + "\n")
+        print(report)
         return
 
     if args.fix_profile_ns:

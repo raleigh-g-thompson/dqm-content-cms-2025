@@ -185,9 +185,10 @@ I-07 below).
   authored — 12 cases failed visibly, 5 more carried the same defect without a visible symptom.
   `python3 scripts/validate_test_fixtures.py --measure CMS816FHIRHHHypo --fix-required-fields
   --apply` found and fixed all 19 affected files.
-- **Resource IDs.** MADiE used to accept test bundles in which several entries shared one
-  `resourceType/id`. Splitting such a bundle into `<resourceType>-<id>.json` files keeps only the
-  last entry, so the other resources disappear without any error (I-10: CMS819 lost the
+- **Resource IDs.** MADiE evaluates test cases with the JS CQL engine, which treats every resource
+  in the bundle as the patient's, so it used to accept test bundles in which several entries
+  shared one `resourceType/id`. Splitting such a bundle into `<resourceType>-<id>.json` files keeps only the
+  last entry, so the other resources disappear without any error (I-76: CMS819 lost the
   qualifying opioid/antagonist pair this way). On the fixture tree the duplicate is already gone,
   so the script looks for what it leaves behind: a file whose name disagrees with its
   `resourceType`/`id` (`ID-FILENAME-MISMATCH`, `ID-DUPLICATE`), and a fixture MeasureReport whose
@@ -196,7 +197,12 @@ I-07 below).
   references between resources that resolve to no file in the folder, split into
   `REF-UNRESOLVED-CLINICAL` (types measure logic dereferences, e.g. `Location`) and
   `REF-UNRESOLVED-ACTOR` (Practitioner, Organization, Coverage, …). `--bundle` checks a source
-  export *before* it is split and exits 1 if two entries share an id but differ in content.
+  export *before* it is split: duplicate ids, plus the patient-reference, required-field and
+  unresolved-reference checks on every entry. It exits 1 if two entries share an id but differ in
+  content, or on any finding that isn't a warning. `--restore-from-bundle BUNDLE --case
+  MEASURE/GUID` drafts the resources a split lost (new ids, dates shifted to the fixture's years,
+  the fixture's profile) plus the rewritten MeasureReport, under `out/restore/`. It never edits
+  `input/tests/`; copy approved drafts in by hand.
 
 ```sh
 python3 scripts/validate_test_fixtures.py                                    # report only
@@ -205,7 +211,8 @@ python3 scripts/validate_test_fixtures.py --json                             # m
 python3 scripts/validate_test_fixtures.py --fix --apply                      # rewrite CORE fields
 python3 scripts/validate_test_fixtures.py --fix-required-fields --apply      # inject missing for/subject
 python3 scripts/validate_test_fixtures.py --check-references                 # + unresolved intra-folder refs
-python3 scripts/validate_test_fixtures.py --bundle path/to/madie-export.json # duplicate ids in a source bundle
+python3 scripts/validate_test_fixtures.py --bundle path/to/madie-export.json # lint a source bundle
+python3 scripts/validate_test_fixtures.py --restore-from-bundle path/to/madie-export.json --case CMS819FHIRHHORAE/<guid>  # draft lost resources
 ```
 
 No `--apply` run ever commits anything — review with `git diff` first. See the script's own

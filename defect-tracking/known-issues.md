@@ -55,7 +55,6 @@ while the valueset it needed had never been committed.
 | I-04 | CMS986 malnutrition Measure-Observation component rows | `content` | Open — confirmed | CMS986 |
 | I-05 | CMS1017 fall-prevention HHFI Denominator/Numerator/Measure-Observation rows | `content` | Open — confirmed | CMS1017 |
 | I-08 | CMS871 HH Hyperglycemia fixture MR/Denominator authoring mismatch. **Needs re-confirmation (2026-09-18):** after the I-44 fix CMS871 has 10 failing cells, all `MISSING` and all attributable to I-63; no currently-failing cell matches this authoring-mismatch symptom | `content` | Open — needs re-confirmation | CMS871 |
-| I-10 | CMS819 HH Opioid-Related Adverse Events fixture MR authoring mismatch | `content` | Open — confirmed | CMS819 |
 | I-11 | CMS159 Depression Remission fixture MR authoring mismatch | `content` | Open — confirmed | CMS159 |
 | I-12 | CMS0334 Cesarean Birth fixture MR authoring mismatch | `content` | Open — confirmed | CMS0334 |
 | I-13 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch | `content` | Open — confirmed | CMS1218 |
@@ -101,6 +100,7 @@ while the valueset it needed had never been committed.
 | I-72 | CMS145 `1f70822b`: the test expects no `Group_2:Denominator Exception` because the patient-reason beta-blocker not-ordered falls on the first visit, but `"Has Medical or Patient Reason for Not Ordering Beta Blocker Therapy"` accepts the reason at any `"Qualifying CAD Encounter and Prior MI"`, and both visits qualify (expected 0, CMS 1). Twin case `b19af44d`, with the reason at the last visit, expects 1. QI-Core returns 0 only by accident (I-38: it scores the patient out of every population); the CQL is the same in both versions. Test case and logic disagree: **not a parity defect**. The steward should change the expectation, or the CQL in both versions. No CQL change | `implementation` | Open — confirmed | CMS145 |
 | I-73 | CMS72 / CMS104 multi-encounter stroke cases (`5a329008`, `cb7c95fc`, `febd4b3e`; `348471db`, `451b6853`, `a2b8327c`, `c15bee15`): each fixture has one Claim (the same template id `5ca62962b8484628b8de1ec5` in all 7), and its `item.encounter` references only one of the patient's inpatient encounters. `TJC."Ischemic Stroke Encounter"` takes the principal diagnosis from `CQMCommon.claimDiagnosis()`, which ignores `reasonReference`, so the other encounters drop out (IP / Denominator 1 where 2–4 are expected). QI-Core returns 0 only by accident (I-38); the CQL and fixtures are the same in both versions. **Not a parity defect**. The steward should add one Claim per stroke encounter, or expect the single-encounter values. No CQL change | `implementation` | Open — confirmed | CMS72, CMS104 |
 | I-75 | CMS72 `be5c4068`: the test expects a `Denominator Exception` for an INR > 3.5, but INR Observation `dfde458a` carries `valueQuantity` `{value: 100, unit: "0", system: UCUM}` with no `code`. `FHIRHelpers.ToQuantity` takes the unit from `Coalesce(code, unit, '1')`, and UCUM reads a bare `"0"` as a factor of zero, so the INR evaluates as `0 '1'` and `"Encounter With An INR Greater Than 3.5"` is empty (expected 1, CMS 0, QI-Core 0). Retrieve, status and `issued` window all pass; a scratch copy with `unit`/`code` `"1"` matches the fixture. Malformed test data in both versions: **not a parity defect**. **Classification pending SME confirmation**: if the SME prefers a UQC-side data fix, reclassify as `fixture`. No CQL change | `implementation` | Open — confirmed | CMS72 |
+| I-76 | MADiE source bundles reuse resource ids. MADiE evaluates with the JS CQL engine, which treats every bundle resource as the patient's, so these bundles passed there; splitting them into one `<resourceType>-<id>.json` file per id kept only the last entry, and the other resources were lost. Signature: the fixture MeasureReport lists the collapsed id in `evaluatedResource` once per original entry (`validate_test_fixtures.py` reports `EVALUATED-REF-REPEATED`). Both CMS819 cases restored from their source bundles (`73b0c1fe` 2026-10-13, `31b40acc` 2026-10-14). Suspected, still filed elsewhere until confirmed: the 7 I-73 cases (`Claim/5ca62962…` repeated as many times as the expected IP count), CMS1028 `763d86f9` (I-15), CMS1154 `bc9c82ca` (I-31). Restore into the UQC fixtures only | `fixture` | Open — confirmed | CMS819 |
 
 ## Resolved — reference patterns
 
@@ -276,6 +276,10 @@ the whole library.
   category-bearing `CommunicationNotDone` has `subject: null`, so
   `[CommunicationNotDone: category in ...]` returns `[]`. All 5 cases moved to
   I-39.
+- **I-10** `content`, retired 2026-10-14 — **another misdiagnosis.** CMS819's 2
+  cases were filed as fixture MR authoring. The expected values were right; the
+  resources they need were lost to duplicate ids in the MADiE source bundles.
+  Both cases moved to I-76 (`73b0c1fe` fixed, `31b40acc` open).
 - **I-30** `engine`, retired 2026-08-29 — duplicate of I-28 (same missing
   `FHIRCommon` Choice overload for `prevalenceInterval`). Rolled into I-28 and
   the `[I-30]` CQL comments renamed.

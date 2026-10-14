@@ -701,11 +701,17 @@ class ResourceIdChecksTest(unittest.TestCase):
             self.assertEqual(_basename(path), "Encounter-e.json", path)
 
 
-def ma_entry(rid, code, start):
+def ma_entry(rid, code, start, patient="p"):
     return {"fullUrl": f"https://madie.cms.gov/MedicationAdministration/{rid}",
             "resource": {"resourceType": "MedicationAdministration", "id": rid,
                          "medicationCodeableConcept": {"coding": [{"code": code}]},
+                         "subject": {"reference": f"Patient/{patient}"},
                          "effectivePeriod": {"start": start}}}
+
+
+def patient_entry(pid="p"):
+    return {"fullUrl": f"https://madie.cms.gov/Patient/{pid}",
+            "resource": {"resourceType": "Patient", "id": pid}}
 
 
 class BundleCheckTest(unittest.TestCase):
@@ -769,7 +775,258 @@ class BundleCheckTest(unittest.TestCase):
     def test_cli_exit_codes(self):
         self.assertEqual(self.run_main(self.CMS819_BUNDLE), 1)
         self.assertEqual(self.run_main({"resourceType": "Bundle", "entry": [
-            ma_entry("a", "1", "2026-01-01")]}), 0)
+            patient_entry(), ma_entry("a", "1", "2026-01-01")]}), 0)
+
+    def test_cli_warnings_alone_exit_zero_errors_exit_one(self):
+        warn = {"resourceType": "Bundle", "entry": [
+            patient_entry(),
+            {"resource": {"resourceType": "Encounter", "id": "e",
+                          "subject": {"reference": "Patient/p"},
+                          "location": [{"location": {"reference": "Location/gone"}}]}}]}
+        self.assertEqual(self.run_main(warn), 0)
+        missing_subject = {"resourceType": "Bundle", "entry": [
+            patient_entry(), {"resource": {"resourceType": "Encounter", "id": "e"}}]}
+        self.assertEqual(self.run_main(missing_subject), 1)
+
+
+class LintBundleTest(unittest.TestCase):
+    """--bundle per-resource checks: what MADiE's JS engine tolerates."""
+
+    def lint(self, *entries):
+        from scripts.validate_test_fixtures import lint_bundle
+        return [(f["key"], f["field"], f["referenced"], f["category"])
+                for f in lint_bundle({"resourceType": "Bundle", "entry": list(entries)})]
+
+    def test_clean_bundle(self):
+        self.assertEqual(self.lint(patient_entry(), ma_entry("a", "1", "2026-01-01")), [])
+
+    def test_wrong_patient_flagged(self):
+        self.assertEqual(self.lint(patient_entry(), ma_entry("a", "1", "2026-01-01", patient="q")), [
+            ("MedicationAdministration/a", "subject", "Patient/q", "BUNDLE-WRONG-PATIENT")])
+
+    def test_missing_required_subject_flagged(self):
+        entry = ma_entry("a", "1", "2026-01-01")
+        del entry["resource"]["subject"]
+        self.assertEqual(self.lint(patient_entry(), entry), [
+            ("MedicationAdministration/a", "subject", "(missing)", "MISSING-REQUIRED-FIELD")])
+
+    def test_no_or_several_patients_flagged(self):
+        self.assertEqual(self.lint(ma_entry("a", "1", "2026-01-01")), [
+            (None, "Patient", "(none)", "BUNDLE-PATIENT-AMBIGUOUS")])
+        self.assertEqual(self.lint(patient_entry("p"), patient_entry("q"))[0][3],
+                         "BUNDLE-PATIENT-AMBIGUOUS")
+
+    def test_unresolved_reference_split_by_type(self):
+        enc = {"resource": {"resourceType": "Encounter", "id": "e",
+                            "subject": {"reference": "Patient/p"},
+                            "location": [{"location": {"reference": "Location/gone"}}],
+                            "serviceProvider": {"reference": "Organization/o"}}}
+        self.assertEqual(sorted(self.lint(patient_entry(), enc)), [
+            ("Encounter/e", "Encounter.location.location", "Location/gone", "REF-UNRESOLVED-CLINICAL"),
+            ("Encounter/e", "Encounter.serviceProvider", "Organization/o", "REF-UNRESOLVED-ACTOR")])
+
+
+RXNORM = "http://www.nlm.nih.gov/research/umls/rxnorm"
+SCT = "http://snomed.info/sct"
+UQC_MA = ("http://fhir.org/guides/astp/us-quality-core/StructureDefinition/"
+          "us-quality-core-medicationadministration")
+QICORE_MA = "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-medicationadministration"
+CASE_GUID = "73b0c1fe-874b-4982-8cb2-3c30520441de"
+SRC_PATIENT = "1994e69a-472b-4e32-80c1-5c692f36acce"
+SC_ROUTE = {"route": {"coding": [{"system": SCT, "code": "34206005",
+                                  "display": "Subcutaneous route (qualifier value)"}]}}
+
+
+def med_admin(rid, profile, patient, code, display, start, end=None, route=False):
+    period = {"start": start, **({"end": end} if end else {})}
+    resource = {"resourceType": "MedicationAdministration", "id": rid,
+                "meta": {"profile": [profile]}, "status": "completed",
+                "medicationCodeableConcept": {"coding": [
+                    {"system": RXNORM, "code": code, "display": display}]},
+                "subject": {"reference": f"Patient/{patient}"}, "effectivePeriod": period}
+    if route:
+        resource["dosage"] = SC_ROUTE
+    return resource
+
+
+def encounter(rid, patient, year):
+    return {"resourceType": "Encounter", "id": rid, "status": "finished",
+            "class": {"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "IMP"},
+            "type": [{"coding": [{"system": SCT, "code": "183452005"}]}],
+            "subject": {"reference": f"Patient/{patient}"},
+            "period": {"start": f"{year}-01-08T08:00:00.000+00:00",
+                       "end": f"{year}-02-08T08:15:00.000+00:00"},
+            "location": [{"location": {"reference": "Location/HSLOC-1096-7"},
+                          "period": {"start": f"{year}-02-01T08:00:00.000+00:00",
+                                     "end": f"{year}-02-01T10:15:00.000+00:00"}}]}
+
+
+# CMS819 73b0c1fe as exported from MADiE (2028 dates, QI-Core profiles, one id on
+# three administrations), reduced to the fields the restore logic reads.
+CMS819_SOURCE = {"resourceType": "Bundle", "type": "collection", "entry": [{"resource": r} for r in [
+    {"resourceType": "Patient", "id": SRC_PATIENT, "birthDate": "1983-11-14"},
+    encounter("5f32cfdc97c3b600003f7c9c", SRC_PATIENT, 2028),
+    med_admin("5f32cff097c3b600003f7cb9", QICORE_MA, SRC_PATIENT, "1010600", "Opioid",
+              "2028-02-01T09:00:00.000+00:00", "2028-02-01T09:00:00.000+00:00"),
+    med_admin("5f32d03297c3b600003f7cd9", QICORE_MA, SRC_PATIENT, "1659929", "Naloxone",
+              "2028-02-01T10:00:00.000+00:00", route=True),
+    med_admin("5f32d03297c3b600003f7cd9", QICORE_MA, SRC_PATIENT, "1010600", "Opioid",
+              "2028-02-07T08:00:00.000+00:00", "2028-02-07T08:15:00.000+00:00"),
+    med_admin("5f32d03297c3b600003f7cd9", QICORE_MA, SRC_PATIENT, "1870933", "Naloxone",
+              "2028-02-07T20:00:00.000+00:00", route=True),
+]]}
+
+
+class RestoreFromBundleTest(unittest.TestCase):
+    """--restore-from-bundle: draft what a duplicate-id bundle lost (I-76)."""
+
+    def setUp(self):
+        self._tmp = tempfile.mkdtemp()
+        self.tests_root = os.path.join(self._tmp, "measure")
+        self.case = os.path.join(self.tests_root, "CMS819X", CASE_GUID)
+        os.makedirs(self.case)
+        # The fixture as split, before the 2026-10-13 fix: 2026 dates, US Quality
+        # Core profiles, new ids, only the last of the three colliding entries.
+        write_json(self.case, f"Patient-{CASE_GUID}.json",
+                   {"resourceType": "Patient", "id": CASE_GUID, "birthDate": "1981-11-14"})
+        write_json(self.case, "Encounter-52b6c77f.json", encounter("52b6c77f", CASE_GUID, 2026))
+        write_json(self.case, "MedicationAdministration-6d2c5396.json", med_admin(
+            "6d2c5396", UQC_MA, CASE_GUID, "1010600", "Opioid",
+            "2026-02-01T09:00:00.000+00:00", "2026-02-01T09:00:00.000+00:00"))
+        write_json(self.case, "MedicationAdministration-6a7ab547.json", med_admin(
+            "6a7ab547", UQC_MA, CASE_GUID, "1870933", "Naloxone",
+            "2026-02-07T20:00:00.000+00:00", route=True))
+        write_json(self.case, "MeasureReport-15d9e04f.json", {
+            "resourceType": "MeasureReport", "evaluatedResource": [
+                {"reference": f"Patient/{CASE_GUID}"}, {"reference": "Encounter/52b6c77f"},
+                {"reference": "MedicationAdministration/6d2c5396"},
+                {"reference": "MedicationAdministration/6a7ab547"},
+                {"reference": "MedicationAdministration/6a7ab547"},
+                {"reference": "MedicationAdministration/6a7ab547"}]})
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self._tmp, ignore_errors=True)
+
+    def files(self):
+        return [os.path.join(self.case, f) for f in sorted(os.listdir(self.case))]
+
+    def plan(self):
+        from scripts.validate_test_fixtures import plan_restore
+        ids = iter(["new-1", "new-2", "new-3"])
+        return plan_restore(CMS819_SOURCE, self.files(), CASE_GUID, new_id=lambda: next(ids))
+
+    def test_shift_date(self):
+        from scripts.validate_test_fixtures import _shift_date
+        self.assertEqual(_shift_date("2028-02-07T20:00:00.000+00:00", -2),
+                         "2026-02-07T20:00:00.000+00:00")
+        self.assertEqual(_shift_date("1983-11-14", -2), "1981-11-14")
+        self.assertEqual(_shift_date("2028", -2), "2026")
+        self.assertEqual(_shift_date("2028-02-29", -1), "2027-02-28")
+        self.assertEqual(_shift_date("2028-02-29", -4), "2024-02-29")
+        self.assertEqual(_shift_date("1659929", -2), "1659929")
+        self.assertEqual(_shift_date("2028-02-07", 0), "2028-02-07")
+
+    def test_codes_are_not_shifted(self):
+        from scripts.validate_test_fixtures import _map_dates
+        self.assertEqual(_map_dates({"code": "1984", "start": "1984"}, 1),
+                         {"code": "1984", "start": "1985"})
+
+    def test_detects_year_shift(self):
+        from scripts.validate_test_fixtures import detect_year_shift, load_json
+        fixtures = [load_json(p) for p in self.files()]
+        bundle = [e["resource"] for e in CMS819_SOURCE["entry"]]
+        self.assertEqual(detect_year_shift(bundle, fixtures), -2)
+        self.assertEqual(detect_year_shift(bundle[:1], fixtures), -2)  # Patient birthDate alone
+        self.assertEqual(detect_year_shift(fixtures, fixtures), 0)     # already in fixture years
+        self.assertEqual(detect_year_shift([], fixtures), 0)           # no evidence
+
+    def test_drafts_reproduce_the_hand_restored_files(self):
+        plan = self.plan()
+        self.assertEqual(plan["year_shift"], -2)
+        self.assertEqual(plan["notes"], [])
+        self.assertEqual([(m["status"], m.get("fixture_key") or m.get("draft_key"))
+                          for m in plan["groups"][0]["members"]], [
+            ("lost", "MedicationAdministration/new-1"),
+            ("lost", "MedicationAdministration/new-2"),
+            ("present", "MedicationAdministration/6a7ab547")])
+        self.assertEqual(plan["drafts"], {
+            "MedicationAdministration-new-1.json": med_admin(
+                "new-1", UQC_MA, CASE_GUID, "1659929", "Naloxone",
+                "2026-02-01T10:00:00.000+00:00", route=True),
+            "MedicationAdministration-new-2.json": med_admin(
+                "new-2", UQC_MA, CASE_GUID, "1010600", "Opioid",
+                "2026-02-07T08:00:00.000+00:00", "2026-02-07T08:15:00.000+00:00")})
+
+    def test_measure_report_rewritten_in_bundle_order(self):
+        name, report = self.plan()["measure_report"]
+        self.assertEqual(name, "MeasureReport-15d9e04f.json")
+        self.assertEqual([e["reference"] for e in report["evaluatedResource"]][3:], [
+            "MedicationAdministration/new-1", "MedicationAdministration/new-2",
+            "MedicationAdministration/6a7ab547"])
+
+    def test_nothing_to_restore_once_fixed(self):
+        write_json(self.case, "MedicationAdministration-a3ebcb6c.json", med_admin(
+            "a3ebcb6c", UQC_MA, CASE_GUID, "1659929", "Naloxone",
+            "2026-02-01T10:00:00.000+00:00", route=True))
+        write_json(self.case, "MedicationAdministration-18cc43f1.json", med_admin(
+            "18cc43f1", UQC_MA, CASE_GUID, "1010600", "Opioid",
+            "2026-02-07T08:00:00.000+00:00", "2026-02-07T08:15:00.000+00:00"))
+        plan = self.plan()
+        self.assertEqual(plan["drafts"], {})
+        self.assertIsNone(plan["measure_report"])
+        self.assertEqual({m["status"] for m in plan["groups"][0]["members"]}, {"present"})
+
+    def test_shared_full_url_with_distinct_ids_is_restored(self):
+        # CMS819 31b40acc: Encounter-2 and Encounter-1 share one fullUrl; the
+        # split kept the last (Encounter-1), dropping the second encounter.
+        from scripts.validate_test_fixtures import plan_restore
+        url = "https://madie.cms.gov/Encounter/Encounter-1"
+        late = encounter("Encounter-2", SRC_PATIENT, 2028)
+        late["period"] = {"start": "2028-10-30T08:00:00.000+00:00",
+                          "end": "2028-11-09T08:15:00.000+00:00"}
+        del late["location"]
+        bundle = {"resourceType": "Bundle", "entry": [
+            {"fullUrl": f"https://madie.cms.gov/Patient/{SRC_PATIENT}", "resource": CMS819_SOURCE["entry"][0]["resource"]},
+            {"fullUrl": url, "resource": late},
+            {"fullUrl": url, "resource": encounter("Encounter-1", SRC_PATIENT, 2028)}]}
+        write_json(self.case, "MeasureReport-15d9e04f.json", {
+            "resourceType": "MeasureReport", "evaluatedResource": [
+                {"reference": "Encounter/52b6c77f"}, {"reference": "Encounter/52b6c77f"}]})
+        plan = plan_restore(bundle, self.files(), CASE_GUID, new_id=lambda: "new-enc")
+        self.assertEqual([(m["status"], m.get("fixture_key") or m.get("draft_key"))
+                          for m in plan["groups"][0]["members"]],
+                         [("lost", "Encounter/new-enc"), ("present", "Encounter/52b6c77f")])
+        draft = plan["drafts"]["Encounter-new-enc.json"]
+        self.assertEqual(draft["period"], {"start": "2026-10-30T08:00:00.000+00:00",
+                                           "end": "2026-11-09T08:15:00.000+00:00"})
+        self.assertEqual(draft["subject"], {"reference": f"Patient/{CASE_GUID}"})
+        self.assertEqual([e["reference"] for e in plan["measure_report"][1]["evaluatedResource"]],
+                         ["Encounter/new-enc", "Encounter/52b6c77f"])
+
+    def test_bundle_without_collisions_restores_nothing(self):
+        from scripts.validate_test_fixtures import plan_restore
+        clean = {"resourceType": "Bundle", "entry": CMS819_SOURCE["entry"][:3]}
+        plan = plan_restore(clean, self.files(), CASE_GUID)
+        self.assertEqual((plan["groups"], plan["drafts"], plan["measure_report"]), ([], {}, None))
+
+    def test_cli_writes_drafts_to_out_only(self):
+        from unittest import mock
+        from scripts import validate_test_fixtures
+        before = {f: open(os.path.join(self.case, f)).read() for f in os.listdir(self.case)}
+        bundle_path = write_json(self._tmp, "bundle.json", CMS819_SOURCE, derive_id=False)
+        out = os.path.join(self._tmp, "out")
+        argv = ["validate_test_fixtures.py", "--restore-from-bundle", bundle_path,
+                "--case", f"CMS819X/{CASE_GUID}", "--out", out]
+        with mock.patch("sys.argv", argv), mock.patch("sys.stdout"), \
+                mock.patch.object(validate_test_fixtures, "TESTS_ROOT", self.tests_root):
+            validate_test_fixtures.main()
+        written = sorted(os.listdir(os.path.join(out, "restore", "CMS819X", CASE_GUID)))
+        self.assertEqual(len([f for f in written if f.startswith("MedicationAdministration-")]), 2)
+        self.assertIn("MeasureReport-15d9e04f.json", written)
+        self.assertIn("restore-report.md", written)
+        self.assertEqual({f: open(os.path.join(self.case, f)).read()
+                          for f in os.listdir(self.case)}, before)
 
 
 if __name__ == "__main__":

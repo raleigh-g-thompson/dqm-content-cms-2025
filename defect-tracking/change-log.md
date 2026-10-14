@@ -1227,8 +1227,9 @@ now point at the new ids, in bundle order. The QI-Core fixtures were deliberatel
 Numerator 1, no diagnostics. The opioid ending 02-07 08:15 and the naloxone at 20:00 are 11 h 45 m
 apart. `scripts/validate_test_fixtures.py --measure CMS819FHIRHHORAE` no longer reports
 `EVALUATED-REF-REPEATED` for this case. The QI-Core baseline stays 0, so the cell counts as
-CMS-better. The grid has not been regenerated. I-10's other case, `31b40acc`, shows the same
-signature and is still open, pending its source bundle. The case still has no
+CMS-better. The grid has not been regenerated. Tracked as I-76 (`fixture`; I-10 retired into
+it); the other CMS819 case, `31b40acc`, shows the same signature and is still open, pending its
+source bundle. The case still has no
 `Location/HSLOC-1096-7`, so the "Operating Room Suite" exclusion is not exercised; the 02-01 OR pair
 also qualifies.
 
@@ -1247,3 +1248,65 @@ also qualifies.
 ```
 
 **Measures Affected:** CMS819
+
+## Restore the Encounter lost from CMS819 `31b40acc`
+
+**Problem:** CMS819 `31b40acc` ("Two separate encounters. Only one meets Numerator") expects IP and
+Denominator 2, but both engines returned 1. The fixture had one Encounter, and the MeasureReport's
+`evaluatedResource` listed `Encounter/de36ea3b` twice, so the second encounter (10-30 to 11-09) was
+lost at conversion and the first (07-11 to 07-14) became `de36ea3b` (I-76). In the MADiE bundle as
+exported on 2026-10-14 (`tests-NUMERPass-TwoEncountersOneNumerator-bundle`) the two Encounters have
+different ids (`Encounter-1`, `Encounter-2`) but still share one `fullUrl`,
+`https://madie.cms.gov/Encounter/Encounter-1`. cqf-tooling 3.9.1 `-BundleToResources` names files
+from the resource id, not the `fullUrl`, and splits today's export into two Encounter files (probe
+2026-10-14), so the loss happened on an earlier version of the bundle. The shared `fullUrl` and the
+repeated reference suggest the second encounter was originally also `Encounter-1` and was renamed
+later without updating its `fullUrl`; this is not confirmed. The restored content is the same either
+way.
+
+**Change:** added `Encounter-776faeb3-f3e6-496b-aacf-af36ef6b71ed.json` with the lost encounter's
+content from the source bundle: dates shifted 2028 → 2026 like the rest of the case, a new id, the US
+Quality Core profile, and `subject` set to the case patient. Drafted with
+`scripts/validate_test_fixtures.py --restore-from-bundle`, then reviewed. In the MeasureReport, the
+first of the two `Encounter/de36ea3b` references now points at the new encounter, in bundle order.
+The QI-Core fixtures were deliberately left unchanged.
+
+**Verified 2026-10-14** with `cql_execute` (translator/engine 5.4.0): IP 2, Denominator 2,
+Numerator 1, no diagnostics, matching the fixture MeasureReport. The new encounter has the 10-31
+opioid (`596cf96f`) but no antagonist, so it is in the Denominator only. The QI-Core baseline stays
+at 1 for IP and Denominator, so those cells count as CMS-better. The grid has not been regenerated.
+
+### Example
+
+```jsonc
+// before (MeasureReport-c93e2b69 evaluatedResource)
+{ "reference": "Encounter/de36ea3b-fe15-4411-81e3-18cd1df1cb9b" },
+{ "reference": "Encounter/de36ea3b-fe15-4411-81e3-18cd1df1cb9b" }
+
+// after
+{ "reference": "Encounter/776faeb3-f3e6-496b-aacf-af36ef6b71ed" },
+{ "reference": "Encounter/de36ea3b-fe15-4411-81e3-18cd1df1cb9b" }
+```
+
+**Measures Affected:** CMS819
+
+## Point CMS871 `113a6e72` `evaluatedResource` at its Patient instead of `Patient/null`
+
+**Problem:** the fixture MeasureReport `0ac4f7d5` for CMS871 `113a6e72` listed `Patient/null` in
+`evaluatedResource`. The MADiE source bundle's Patient had no `id`, and cqf-tooling
+`-BundleToResources` names an id-less resource `null-null.json` (the QI-Core fixture still has that
+file), so the reference was written with a null id. The UQC folder already has
+`Patient-113a6e72-7049-4a7f-90cf-5ec3435b0dee.json`. Populations are unaffected (the case passes);
+`validate_test_fixtures.py` reported the reference as dangling.
+
+**Fix:** pointed the reference at the folder's Patient. UQC fixture only; the QI-Core fixture is
+unchanged. Related: I-76 (same MADiE-permissive-bundle source).
+
+```json
+// before
+{ "reference": "Patient/null" }
+// after
+{ "reference": "Patient/113a6e72-7049-4a7f-90cf-5ec3435b0dee" }
+```
+
+**Measures Affected:** CMS871
