@@ -153,6 +153,13 @@ def validate_measure_population_counts(measurename: str, populations: Dict[str, 
             denexc_count = 0
         if numer and denom:
             denexc_count = 0
+        # A Denominator Exception can't be scored against an empty Denominator,
+        # whatever the Numerator holds -- the same rule the `or not denom`
+        # clause applies to the Numerator above. Without it, a shared define
+        # that fires in every group leaves Denominator Exception at 1 in a
+        # group whose Denominator is 0 (I-64).
+        if not denom:
+            denexc_count = 0
     else:
         if numer and not numex:
             if isinstance(numer, list) and isinstance(denex, list):

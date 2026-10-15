@@ -24,6 +24,30 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Remove the QI-Core comparison from the test-case report; zero Denominator Exception when the Denominator is 0
+
+**Problem:** `scripts/compare_results.py` read an optional copy of the QI-Core project's results
+(`scripts/comparison/qicore_actual_results.csv`, 24,714 rows) and added QI-Core columns and a
+`## QI-Core Parity` section to the report. QI-Core is no longer changing, and the comparison isn't
+needed to use this repo as a US Quality Core example. Separately, `extract_population_actual.py`
+could leave Denominator Exception at 1 in a group whose Denominator is 0, when a shared define fires
+in every group (I-64).
+
+**Fix:**
+
+- Removed the QI-Core input, the `--qicore-actual` option, the QI-Core columns, and the parity
+  section from `compare_results.py`. Deleted `scripts/comparison/qicore_actual_results.csv` and
+  `scripts/tests/test_compare_results_qicore.py`; the tests in that file that don't involve QI-Core
+  moved to `test_compare_results_report.py` and `test_compare_results_implementation.py`. Removed
+  the `baseline` class (QI-Core-side drift) from the classes `known_issues.csv` accepts.
+- Added an `if not denom: denexc_count = 0` rule to `validate_measure_population_counts`, with four
+  tests. No cell on the current grid changes.
+- Updated `scripts/readme.md` and regenerated `scripts/comparison/discrepancy_report.md`.
+
+No CQL, FHIR resource, fixture, or valueset content changed.
+
+**Measures Affected:** none (test-case reporting only)
+
 ## Add an I-26 / #1868 tracking comment to CMS135's "Has Medical or Patient Reason for Not Ordering ACEI or ARB or ARNI"
 
 **Problem:** the I-26 engine defect (upstream `cqframework/clinical_quality_language#1868`) crashes the

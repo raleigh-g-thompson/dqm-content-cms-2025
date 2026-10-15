@@ -14,13 +14,17 @@ import tempfile
 import unittest
 
 from scripts.compare_results import (
+    DEFAULT_IMPLEMENTATION_ISSUES_FILE,
     IMPLEMENTATION,
     ImplementationIssue,
+    ResultKey,
     capture_results,
     cell_outcome,
     failing_implementation_keys,
     generate_output,
     implementation_case_count,
+    implementation_issue_for,
+    load_implementation_issues,
     main,
     scores,
 )
@@ -43,6 +47,85 @@ def _csv(*rows):
 
 def _issue(guid, group="", issue_id="I-73", measure=MEASURE):
     return ImplementationIssue(issue_id, measure, guid, group, "Steward note.")
+
+
+def _write(path, text):
+    with open(path, "w", newline="") as f:
+        f.write(text)
+    return path
+
+
+class LoadImplementationIssuesTest(unittest.TestCase):
+    """`implementation_issues.csv` lists cases owed to the steward, not to either engine."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def test_absent_file_means_no_issues(self):
+        self.assertEqual(
+            load_implementation_issues(os.path.join(self.tmp, "nope.csv")), [])
+        self.assertEqual(load_implementation_issues(None), [])
+
+    def test_reads_rows_strips_values_and_skips_blank_rows(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      "issue_id,measure_name,guid,group,note\n"
+                      f" I-67 , {MEASURE} , {GUID_A} ,,\" Has, a comma \"\n"
+                      ",,,,\n"
+                      f"I-68,{MEASURE},{GUID_B},Group_2,\n")
+        self.assertEqual(load_implementation_issues(path), [
+            ImplementationIssue("I-67", MEASURE, GUID_A, "", "Has, a comma"),
+            ImplementationIssue("I-68", MEASURE, GUID_B, "Group_2", ""),
+        ])
+
+    def test_group_and_note_columns_are_optional(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      f"issue_id,measure_name,guid\nI-67,{MEASURE},{GUID_A}\n")
+        self.assertEqual(load_implementation_issues(path),
+                         [ImplementationIssue("I-67", MEASURE, GUID_A, "", "")])
+
+    def test_unquoted_comma_in_note_raises(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      "issue_id,measure_name,guid,group,note\n"
+                      f"I-67,{MEASURE},{GUID_A},,Has, a comma\n")
+        with self.assertRaisesRegex(ValueError, "line 2: more fields than columns"):
+            load_implementation_issues(path)
+
+    def test_missing_required_column_raises(self):
+        path = _write(os.path.join(self.tmp, "i.csv"),
+                      f"issue_id,guid\nI-67,{GUID_A}\n")
+        with self.assertRaisesRegex(ValueError, "measure_name"):
+            load_implementation_issues(path)
+
+    def test_shipped_file_parses(self):
+        # The committed file must stay loadable; it is read on every run.
+        repo_root = os.path.dirname(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))))
+        path = os.path.join(repo_root, DEFAULT_IMPLEMENTATION_ISSUES_FILE)
+        for issue in load_implementation_issues(path):
+            self.assertTrue(issue.issue_id and issue.measure_name and issue.guid)
+
+
+class ImplementationIssueMatchTest(unittest.TestCase):
+
+    def test_blank_group_matches_every_group(self):
+        issues = [_issue(GUID_A)]
+        self.assertEqual(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_3"), issues), issues[0])
+
+    def test_group_specific_issue_matches_only_that_group(self):
+        issues = [_issue(GUID_A, "Group_2")]
+        self.assertIsNotNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_2"), issues))
+        self.assertIsNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_A, "Group_1"), issues))
+
+    def test_other_guid_or_measure_does_not_match(self):
+        issues = [_issue(GUID_A)]
+        self.assertIsNone(implementation_issue_for(
+            ResultKey(MEASURE, GUID_B, "Group_1"), issues))
+        self.assertIsNone(implementation_issue_for(
+            ResultKey("CMS998FHIROther", GUID_A, "Group_1"), issues))
 
 
 class ImplementationScoringTest(unittest.TestCase):
@@ -135,7 +218,7 @@ class ImplementationScoringTest(unittest.TestCase):
 
 
 class ImplementationReportTest(unittest.TestCase):
-    """End to end through main(), with no QI-Core file."""
+    """End to end through main()."""
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
@@ -154,7 +237,6 @@ class ImplementationReportTest(unittest.TestCase):
         self.output = os.path.join(self.tmp, "o.csv")
         report = os.path.join(self.tmp, "r.md")
         main(e, a, self.output, report, measure_resource_dir=self.tmp,
-             qicore_file=os.path.join(self.tmp, "no-qicore.csv"),
              implementation_file=impl)
         with open(report) as f:
             return f.read()
@@ -181,7 +263,6 @@ class ImplementationReportTest(unittest.TestCase):
                       "**I-73**. One Claim, two encounters.\n", text)
         self.assertIn("## Measures with No Discrepancies (1 of 1)", text)
         self.assertNotIn("## Measures with Discrepancies", text)
-        self.assertNotIn("QI-Core Parity", text)
         with open(self.output, newline="") as f:
             results = {(r["guid"], r["population"]): r["result"] for r in csv.DictReader(f)}
         self.assertEqual(results[(GUID_A, "Group_1:Denominator")], IMPLEMENTATION)

@@ -96,6 +96,61 @@ class TestExtractPopulationActual(unittest.TestCase):
         self.assertEqual(populations['Numerator'], 1)
         self.assertEqual(populations['Denominator Exception'], 0)
 
+    # Denominator Exception is zeroed whenever the group's Denominator is 0,
+    # whatever the Numerator holds (I-64).
+
+    def test_validate_scoring_denom_zero_numer_one_denexc_one_then_denexc_zeroed(self):
+        populations = {
+            'Denominator': 0,
+            'Denominator Exception': 1,
+            'Numerator': 1,
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 0)
+        self.assertEqual(populations['Numerator'], 0)
+        self.assertEqual(populations['Denominator Exception'], 0)
+
+    def test_validate_scoring_denom_zero_numer_list_denexc_one_then_denexc_zeroed(self):
+        """The same rule when the Numerator is a resource list, not a count.
+
+        A patient-resource Numerator arrives as a one-element list, which is
+        truthy, so the older `not numer and not denom` rule doesn't fire.
+        """
+        populations = {
+            'Denominator': 0,
+            'Denominator Exception': 1,
+            'Numerator': '[MedicationRequest(id=95a99210-094e-44ef-ad57-365001396272)]',
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 0)
+        self.assertEqual(populations['Numerator'], 0)
+        self.assertEqual(populations['Denominator Exception'], 0)
+
+    def test_validate_scoring_denom_one_numer_zero_denexc_one_denexc_unchanged(self):
+        """The rule is gated on an empty Denominator; a real exception survives."""
+        populations = {
+            'Denominator': 1,
+            'Denominator Exception': 1,
+            'Numerator': 0,
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 1)
+        self.assertEqual(populations['Numerator'], 0)
+        self.assertEqual(populations['Denominator Exception'], 1)
+
+    def test_validate_scoring_denom_two_or_more_path_unchanged(self):
+        """Multi-episode groups (Denominator >= 2) take the other branch, untouched."""
+        populations = {
+            'Denominator': 2,
+            'Denominator Exception': 1,
+            'Numerator': 2,
+            'Numerator Exclusion': 0,
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 2)
+        self.assertEqual(populations['Numerator'], 2)
+        self.assertEqual(populations['Denominator Exception'], 1)
+
     def test_convert_results_to_rows(self):
         results = {
             MeasureResultId('measureA', 'guidA', 'groupA'): {

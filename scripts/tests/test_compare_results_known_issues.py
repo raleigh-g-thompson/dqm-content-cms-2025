@@ -174,7 +174,7 @@ class KnownIssueScoringTest(unittest.TestCase):
 
 
 class KnownIssueReportTest(unittest.TestCase):
-    """End to end through main(), with no QI-Core file and no implementation issues."""
+    """End to end through main(), with no implementation issues."""
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
@@ -193,7 +193,6 @@ class KnownIssueReportTest(unittest.TestCase):
         self.output = os.path.join(self.tmp, "o.csv")
         report = os.path.join(self.tmp, "r.md")
         main(e, a, self.output, report, measure_resource_dir=self.tmp,
-             qicore_file=os.path.join(self.tmp, "no-qicore.csv"),
              implementation_file=os.path.join(self.tmp, "no-impl.csv"),
              known_issues_file=known)
         with open(report) as f:
