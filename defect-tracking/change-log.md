@@ -1310,3 +1310,134 @@ unchanged. Related: I-76 (same MADiE-permissive-bundle source).
 ```
 
 **Measures Affected:** CMS871
+
+## Restore the Claim lost from CMS1028 `763d86f9`
+
+**Problem:** CMS1028 `763d86f9` ("Complication (sepsis) on 1ST and 2nd encounter") expects
+Numerator 2 in both groups, but both engines returned 1. The SMM diagnosis path
+(`isDiagnosisPresentOnAdmission` → `CQMCommon.claimDiagnosis()`) reads only Claim diagnoses whose
+`item.encounter` references the encounter. The fixture had one Claim, `2c05d8c2`, and both of its
+items referenced the November encounter `df4df224`, so the February encounter `a3da5a2c` had no
+claim diagnoses. The MeasureReport's `evaluatedResource` listed `Claim/2c05d8c2` twice (I-76).
+
+The MADiE bundle as exported on 2026-10-15 (`6356dca654e383debade75aa`) has two Claims with
+distinct ids and `fullUrl`s: `5ca62962b8484628b8de1ec1` (created 2026-02-01, items → the February
+encounter) and `5ca62962b8484628b8de1ec5` (created 2026-11-08, items → the November encounter).
+Each carries J45.21 (POA Y) and A32.7 Listerial sepsis (POA N). The surviving fixture Claim is the
+second, the last entry. MADiE has since added test-case resource validation and other developers
+have fixed test cases there, so the export was most likely corrected after the original split.
+Every other resource in the export maps one-to-one to the fixtures.
+
+**Change:** added `Claim-2a83353c-a7b0-469e-a6a7-51439e2c6d05.json` with the lost Claim's content
+from the source bundle: a new id, the US Quality Core profile, `created` 2026-02-01 (no date shift;
+the export is already in 2026), and both items referencing `Encounter/a3da5a2c`. Provider and
+Coverage references follow the surviving Claim. In the MeasureReport, the first of the two
+`Claim/2c05d8c2` references now points at the new Claim, in bundle order. The QI-Core fixtures were
+deliberately left unchanged.
+
+**Verified 2026-10-15** with `cql_execute` (translator/engine 5.4.0): IP 2, Denominator 2,
+Numerator 1 and Numerator 2 each 2, both Numerator Exclusions 0, no diagnostics, matching the
+fixture MeasureReport. `SDE SOC Diagnoses Detail` shows Sepsis on both encounters.
+`scripts/validate_test_fixtures.py --measure CMS1028FHIRPCSevereOBComps` no longer reports
+`EVALUATED-REF-REPEATED` for this case. The grid was regenerated after a CMS1028 rerun on
+2026-10-15: every CMS1028 test case passes. The QI-Core baseline stays at 1, so the two Numerator
+cells count as CMS-better; CMS1028 now has no regression or shared-failure cells (1,114 parity
+pass, 14 CMS-better; the other 12 CMS-better cells predate this fix and are QI-Core drift, I-01 /
+I-38). I-76 was reclassified from `fixture` to `implementation` on 2026-10-15: the steward's test
+case and its MeasureReport are invalid in both versions.
+
+### Example
+
+```jsonc
+// before (MeasureReport-7ca90ad8 evaluatedResource)
+{ "reference": "Claim/2c05d8c2-ec55-480d-8dc9-8cc5f9bae9c0" },
+{ "reference": "Claim/2c05d8c2-ec55-480d-8dc9-8cc5f9bae9c0" }
+
+// after
+{ "reference": "Claim/2a83353c-a7b0-469e-a6a7-51439e2c6d05" },
+{ "reference": "Claim/2c05d8c2-ec55-480d-8dc9-8cc5f9bae9c0" }
+```
+
+**Measures Affected:** CMS1028
+
+## Restore the Prediabetes Condition lost from CMS1154 `bc9c82ca`
+
+**Problem:** CMS1154 `bc9c82ca` expects `Denominator Exclusion` 1, but both engines returned 0. The
+MADiE transaction bundle (`NUMPass-70-on-Jan1-1`) has two Prediabetes Conditions (SNOMED 714628002)
+under one id, `Condition/238ec3df-ff96-4356-843f-a89c036fa385`, with the same `fullUrl` and `PUT`
+URL: an active one (onset 2020-01-01) and an inactive one (onset 2025-12-31). Splitting the bundle
+kept only the last entry, the inactive one (`d463a372`), and the MeasureReport's `evaluatedResource`
+listed `Condition/d463a372` twice (I-76). The inactive Condition has no abatement, so
+`FHIRCommon.prevalenceInterval()` returns null for it (I-31) and `"Prediabetes Diagnosis Overlaps 2
+Year Look Back Period"` was empty. It would not qualify even under FHIRCommon's intended open
+`Interval[onset, null)`, so the expected exclusion comes from the lost active Condition. The case was
+previously filed under I-31.
+
+**Change:** added `Condition-18617b19-1ea4-46cc-a7e2-91b6d531152a.json` with the lost Condition's
+content from the source bundle: a new id, the US Quality Core profile, `clinicalStatus` active, and
+onset 2020-01-01 (no date shift; the export is already in 2026). In the MeasureReport, the first of
+the two `Condition/d463a372` references now points at the new Condition, in bundle order. The
+QI-Core fixtures and FHIRCommon were deliberately left unchanged.
+
+**Verified 2026-10-15** with `cql_execute` (translator/engine 5.4.0): IP 1, Denominator 1,
+`Denominator Exclusions` true, Numerator false, no diagnostics, matching the fixture
+MeasureReport. `"Prediabetes Diagnosis Overlaps 2 Year Look Back Period"` holds only `18617b19`.
+`scripts/validate_test_fixtures.py --measure CMS1154ScreeningPrediabetesFHIR` no longer reports
+`EVALUATED-REF-REPEATED` for this case. The QI-Core baseline stays at 0, so the cell counts as
+CMS-better. The grid was regenerated on 2026-10-15 and `bc9c82ca` passes. Tracked as I-76, reclassified from `fixture` to
+`implementation` on 2026-10-15: the steward's test case and its MeasureReport are invalid in both
+versions.
+
+### Example
+
+```jsonc
+// before (MeasureReport-466dec57 evaluatedResource)
+{ "reference": "Condition/d463a372-3385-4750-a011-05b99f82338c" },
+{ "reference": "Condition/d463a372-3385-4750-a011-05b99f82338c" }
+
+// after
+{ "reference": "Condition/18617b19-1ea4-46cc-a7e2-91b6d531152a" },
+{ "reference": "Condition/d463a372-3385-4750-a011-05b99f82338c" }
+```
+
+**Measures Affected:** CMS1154
+
+## Qualify `MedicationRequest` and `ServiceRequest` retrieves with `USQualityCore` (I-52, I-34)
+
+Recorded 2026-10-15 for commits made on 2026-10-01 that had no entry here.
+
+**Problem:** the migrated measures used unqualified `[MedicationRequest: …]` and
+`[ServiceRequest: …]` retrieves. These also returned the `doNotPerform` resources
+(`us-quality-core-medicationnotrequested` / `servicenotrequested`), so a declined order counted as a
+real one (I-52). CMS347's 23 statin cases over-fired the Numerator this way (I-34). QI-Core computed
+the expected values for these cases.
+
+**Change:** three commits qualified the retrieve types. No `doNotPerform` filter was added.
+
+- `e1714e2c`: every `ServiceRequest` retrieve becomes `[USQualityCore.ServiceRequest: …]`.
+- `217a29f1`: every `MedicationRequest` retrieve becomes `[USQualityCore.MedicationRequest: …]`.
+- `2709b513`: the same qualifier on every other retrieve whose type exists only as a USQualityCore
+  profile. Its grid diff changes no cell.
+
+**Verified** by each commit's own regenerated grid. `217a29f1` flips CMS347 (111 cells, all 23
+I-34 cases), CMS104 (14), CMS135 (12), CMS144 (5) and CMS71 (4) from FAIL to PASS. `e1714e2c` flips
+CMS645 (5), CMS22 (2, the `f9417a57` / `c41f9946` cases in the CMS22 entry above), CMS108 (1) and
+CMS190 (1). On the 2026-10-15 grid none of these cases diverges from QI-Core.
+
+**Example** (`input/cql/CMS347FHIRStatinPreventionTxCVD.cql:249-251`; the same change at every
+retrieve of these types):
+
+```cql
+-- before
+  ( [MedicationRequest: "Low Intensity Statin Therapy"]
+    union [MedicationRequest: "Moderate Intensity Statin Therapy"]
+    union [MedicationRequest: "High Intensity Statin Therapy"] ) StatinRequest
+
+-- after
+  ( [USQualityCore.MedicationRequest: "Low Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "Moderate Intensity Statin Therapy"]
+    union [USQualityCore.MedicationRequest: "High Intensity Statin Therapy"] ) StatinRequest
+```
+
+**Measures Affected:** CMS347, CMS104, CMS135, CMS144, CMS71, CMS645, CMS22, CMS108, CMS190 (cells
+changed). `2709b513` also touched the CQL of most other measures without changing a cell.

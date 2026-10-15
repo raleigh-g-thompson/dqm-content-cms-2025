@@ -6,13 +6,11 @@ I-11,content,,CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8
 I-12,content,,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
 I-14,content,,CMSFHIR844HybridHospitalWideMortality,6f22a06f-7186-4db1-9310-4f907dc49ff3,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
 I-14,content,,CMSFHIR844HybridHospitalWideMortality,af1b9448-3e7a-4b7f-8934-15bb63258b75,,Fixture MeasureReport authoring mismatch; QI-Core computes the same values.
-I-15,content,,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,,Fixture MeasureReport expects a value neither engine can compute from the resources present.
 I-15,content,,CMS646FHIRIntravesicalBCGTherapy,10cec7db-41ae-49ad-b883-022f19d92a8b,,Fixture MeasureReport expects a value neither engine can compute from the resources present.
 I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,c095195c-8893-4bf1-aa7d-ad2bfd9bafa5,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
 I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,cba5a449-1c45-4e11-ae0b-ba3974b410f7,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
 I-26,engine,,CMS135FHIRACEIorARBorARNIforHF,ec508dbb-76f6-4878-b8a2-114ea8e82297,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
 I-26,engine,,CMS165FHIRControllingHighBP,45e01fed-56bb-483d-a860-af3d566bda11,,MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs. Same crash on QI-Core.
-I-31,engine,,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,,"FHIRCommon prevalenceInterval() returns null for a non-active or no-status Condition with no abatement end. Worked around in CMS108 and CMS71, not yet here."
 I-33,engine,,CMS646FHIRIntravesicalBCGTherapy,342d2bec-0acc-43e5-aaf7-3c9a65b09f91,,"""Values FHIR.dateTime and FHIR.dateTime are not comparable"" aborts the case; QI-Core computes it. The FHIRHelpers.ToDateTime() workaround is applied to CMS156 only."
 I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,05f1e2a6-b317-42bb-827f-993ca3995f5b,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."
 I-39,fixture,,CMS142FHIRCommWithDrManagingDiab,41ae0086-ac99-4a31-9546-21b054bbf7d8,,"The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty. QI-Core returns the same."

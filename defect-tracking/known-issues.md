@@ -47,51 +47,38 @@ Do not promote anything to `Fixed` without confirming the fix is actually
 present in the repo and that the engine agrees — I-44 sat at `Fixed` for weeks
 while the valueset it needed had never been committed.
 
-## Open issues (50)
+## Open issues (37)
 
 | ID | Issue | Class | Status | Measures |
 |---|---|---|---|---|
-| I-01 | QI-Core baseline disagrees with fixture MeasureReports on 670 cases / 26 measures; CMS engine matches, baseline is fresh | `baseline` | Open — confirmed | 26 measures |
-| I-04 | CMS986 malnutrition Measure-Observation component rows | `content` | Open — confirmed | CMS986 |
-| I-05 | CMS1017 fall-prevention HHFI Denominator/Numerator/Measure-Observation rows | `content` | Open — confirmed | CMS1017 |
+| I-01 | QI-Core baseline disagrees with fixture MeasureReports on 712 cases / 29 measures (1586 cells, 2026-10-15; was 670 / 26 on 2026-09-08); CMS engine matches, baseline is fresh | `baseline` | Open — confirmed | 29 measures |
+| I-05 | CMS1017 HHFI: 2 cases fail `Group_1:Numerator Exclusion` (expected 0, both engines 1; the Numerator Exclusions and Denominator Exclusions defines are identical); cause not yet documented. The original Measure-Observation diagnosis was retracted to I-62 | `content` | Open — confirmed | CMS1017 |
 | I-08 | CMS871 HH Hyperglycemia fixture MR/Denominator authoring mismatch. **Needs re-confirmation (2026-09-18):** after the I-44 fix CMS871 has 10 failing cells, all `MISSING` and all attributable to I-63; no currently-failing cell matches this authoring-mismatch symptom | `content` | Open — needs re-confirmation | CMS871 |
 | I-11 | CMS159 Depression Remission fixture MR authoring mismatch | `content` | Open — confirmed | CMS159 |
 | I-12 | CMS0334 Cesarean Birth fixture MR authoring mismatch | `content` | Open — confirmed | CMS0334 |
-| I-13 | CMS1218 HH Respiratory Failure fixture MR authoring mismatch | `content` | Open — confirmed | CMS1218 |
-| I-14 | CMSFHIR844 fixture MR hand-authors Initial Population; both engines compute 0/1 against an expected 1/2 | `content` | Open — confirmed | CMSFHIR844 |
-| I-15 | CMS72 / CMS104 / CMS646 / CMS71 fixture MRs author Denominator-Exception / Denominator / Numerator / IP counts that neither engine can compute from the resources present | `content` | Open — confirmed | CMS1028, CMS104, CMS646 +3 more |
+| I-14 | CMSFHIR844 fixture MR hand-authors Initial Population; both engines compute 0/1 against an expected 1/2 (2 cases, 2 shared cells on the 2026-10-15 grid) | `content` | Open — confirmed | CMSFHIR844 |
+| I-15 | CMS646 fixture MR authors a Denominator Exclusion (`10cec7db`, expected 0) that both engines compute as 1. Originally also CMS72 / CMS104 / CMS71 / CMS996; those cases are now I-73 / I-75 / I-71 or pass | `content` | Open — confirmed | CMS646 |
 | I-16 | `Min()` over DateTime throws | `engine` | Worked around | CMS1173, CMS871 |
 | I-17 | Raw `FHIR.dateTime` / choice-typed `X.effective` in temporal operators fails | `engine` | Worked around | CMS1173 |
 | I-18 | Fluent overload ambiguity (sibling profiles, same Java class); upstream [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | `translator` | Worked around | CMS104, CMS108, CMS144 +3 more |
 | I-19 | Choice-type self-reference circular dispatch | `engine` | Worked around | CMS133, CMS142, CMS143 +5 more |
 | I-20 | Sibling overloads ambiguous at runtime (same Java class) | `engine` | Worked around | CMS133, CMS142, CMS143 +6 more |
 | I-21 | `as` cannot widen Choice to ancestor type | `engine` | Worked around | — |
-| I-22 | `convert Duration to days` returns null | `engine` | Worked around | CMS128, CMS156 |
-| I-23 | `ConvertQuantity` rejects calendar-word units from `ToQuantity` | `engine` | Worked around | CMS156 |
-| I-24 | Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`). Workaround applied to CMS156 `averageDailyDose()` 2026-10-02 (see `change-log.md`); upstream [cqframework/clinical_quality_language#1690](https://github.com/cqframework/clinical_quality_language/issues/1690) (engine returns UCUM canonical base units; spec question HL7 Jira FHIR-58137) | `engine` | Worked around | CMS156 |
+| I-24 | Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`). Workaround applied to CMS156 `averageDailyDose()` 2026-10-02 (`fb38df95`, cherry-picked from `cms156-fix`; see `change-log.md`); upstream [cqframework/clinical_quality_language#1690](https://github.com/cqframework/clinical_quality_language/issues/1690) (engine returns UCUM canonical base units; spec question HL7 Jira FHIR-58137) | `engine` | Worked around | CMS156 |
 | I-25 | `singleton from empty list` throws instead of returning null | `engine` | Worked around | CMS156 |
 | I-26 | `Unable to extract codes from fhirType Reference` | `engine` | Open — confirmed | CMS135, CMS165 |
-| I-27 | Union branch evaluates empty despite correct data | `engine` | Open — confirmed | CMS104, CMS108, CMS190 |
-| I-28 | Sibling-profile Condition union fed to `prevalenceInterval(Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>)` will not resolve — `FHIRCommon.cql` declares only the base `FHIR.Condition` overload and the translator cannot widen a Choice | `engine` | Worked around | CMS1154, CMS1157, CMS117 +29 more |
-| I-29 | `PCMaternal.cql` cast type change (`.value as DateTime` → `.value as FHIR.dateTime`) | `engine` | Open — suspected | CMS0334, CMS1028 |
-| I-31 | Singleton-source query skips `return` when its source is null, so `FHIRCommon.prevalenceInterval()` returns null for a non-active or no-status Condition with no abatement end | `engine` | Worked around (CMS108, CMS71) | CMS108, CMS1154, CMS71 |
-| I-32 | `us-quality-core-*` profile retrieves return empty (broader than ObservationScreeningAssessment alone) | `engine` | Open — confirmed | CMS108, CMS131, CMS190, CMS56 |
-| I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; the post-I-28 reappearance of the I-16/I-17 family) | `engine` | Worked around | CMS156 |
-| I-34 | `doNotPerform` negative-indication `MedicationRequest`s counted as positive orders by CMS347's statin logic | `engine` | Open — confirmed | CMS347 |
-| I-36 | `us-quality-core-*` profile retrieves return empty across the screening-assessment, observation, medication and procedure profile families (I-32 extended; corroborated on CMS135 ACEI/ARB HF, CMS144 HFrEF beta-blocker, CMS771 urinary-symptom, CMS645 CAD-bone-density) | `engine` | Open — confirmed | CMS135, CMS144, CMS145 +2 more |
+| I-28 | Sibling-profile Condition union fed to `prevalenceInterval(Choice<ConditionEncounterDiagnosis, ConditionProblemsHealthConcerns>)` will not resolve — `FHIRCommon.cql` declares only the base `FHIR.Condition` overload and the translator cannot widen a Choice | `engine` | Worked around | CMS1154, CMS1157, CMS117 +27 more |
+| I-31 | Singleton-source query skips `return` when its source is null, so `FHIRCommon.prevalenceInterval()` returns null for a non-active or no-status Condition with no abatement end | `engine` | Worked around (CMS108, CMS71) | CMS108, CMS71 |
+| I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; the post-I-28 reappearance of the I-16/I-17 family) | `engine` | Worked around (CMS156); CMS646 `342d2bec` open | CMS156, CMS646 |
 | I-37 | Ambiguous `recorded(...)` overload in `USQualityCoreCommon` throws, aborting CMS68 test case `f2e2e1c0` across all 4 populations (Missing Results). Overload removed and call sites bypassed 2026-10-02 (see `change-log.md`); upstream [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | `translator` | Worked around | CMS68, CMS190 |
-| I-38 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run | `engine` | Open — confirmed | CMS1028, CMS108, CMS129 +10 more |
+| I-38 | QI-Core engine-side regressions surfaced by 2026-09-05 fresh re-run | `baseline` | Open — confirmed | CMS1028, CMS108, CMS129 +10 more |
 | I-39 | `[CommunicationNotDone: category in ...]` retrieve returns no resources when the category-bearing resource has `subject: null`. Reclassified `engine` → `fixture` 2026-09-29: none of the 5 failing CMS142 fixtures has a `CommunicationNotDone` with both `category` and `subject`, so the patient-context retrieve is correctly empty | `fixture` | Open — confirmed | CMS142 |
-| I-45 | Sparse `MedicationRequest` dosage fixtures trip `singleton from empty list` | `fixture` | Worked around | CMS156 |
-| I-52 | `doNotPerform` not excluded from MedicationRequest/ServiceRequest retrieves | `migration` | Worked around | CMS104, CMS135, CMS144 +3 more |
 | I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | CMS108, CMS190, CMS68, CMS996, CMS646 |
 | I-56 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | `migration` | Open — confirmed | CMS144 |
-| I-57 | Vendored `CMD.cql` `convert…to days` null / calendar-unit bug (medication dispense side) | `vendored` | Worked around | CMS128 |
-| I-58 | Vendored `CumulativeMedicationDuration` 6.0.000 model adaptation (CMS156) | `vendored` | Worked around | CMS156 |
 | I-61 | Translator's ChoiceType compatibility check bypasses a registered FHIRHelpers conversion when a union produces divergent tuple-element types, leaving raw `FHIR.instant` `INRLabTest.issued` unconverted (CMS108/CMS190 INR Low Risk Indicator); corroborated on CMS986's bare-value `union` of raw `authoredOn` with an already-converted `System.DateTime` branch (Hospice/Dietitian Referral defines) | `translator` | Worked around | CMS108, CMS190, CMS986 |
 | I-62 | Comparison harness cannot invoke per-member `cqfm-aggregateMethod` measure-observations for ratio / continuous-variable measures, so those cells are excluded from automated scoring | `harness` | Worked around | CMS1017, CMS871, CMS986 |
-| I-63 | `Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).` aborts CMS871 cases `98533ccd` and `fd579f44`, 10 cells (both, all 5 populations MISSING). An integer `[1, 0]` interval, suggesting a range built over an empty list; root cause not yet traced and the error appears nowhere else in `input/tests/results/`. `fd579f44` only surfaced once I-44 was fixed — the ValueSet error had been masking it | `engine` | Open — confirmed | CMS871 |
-| I-65 | Denominator Exception unproducible in either engine: the CMS and QI-Core engines both return 0 on the same Denominator Exception define for the same fixture bundles. Root cause not yet localised (a profile-retrieve gap shared by both engines, or a missing qualifier in the exception CQL). The CMS771 cases fail on Denominator or Numerator instead, so their attribution needs re-triage | `content` | Open — suspected | CMS135, CMS144, CMS145 +2 more |
+| I-63 | `Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).` aborts CMS871 cases `98533ccd` and `fd579f44`, 10 cells (both, all 5 populations MISSING). An integer `[1, 0]` interval, suggesting a range built over an empty list; root cause not yet traced and the error appears nowhere else in `input/tests/results/`. `fd579f44` only surfaced once I-44 was fixed — the ValueSet error had been masking it | `engine` | Open — suspected | CMS871 |
+| I-65 | Denominator Exception unproducible in either engine: CMS and QI-Core both return 0 on the same Denominator Exception define (CMS135 2 cases, CMS145 5 cases; 7 shared cells on the 2026-10-15 grid). Root cause not yet localised. The 9 CMS135/CMS144/CMS645 cases now pass via the I-52 type-qualifier fix (`217a29f1`, `e1714e2c`) and moved to I-52. The 7 CMS771 cases fail on Denominator or Numerator instead and need re-triage | `content` | Open — suspected | CMS135, CMS145, CMS771 |
 | I-67 | CMS347 `1ba7b147`: the steward's test case uses a start-only `abatementPeriod` to mean "resolved 2025-12-31". FHIRCommon correctly reads the missing `end` as open-ended, so `prevalenceInterval()` runs to end of time and `"Has ESRD Diagnosis"` fires (`Group_4:Denominator Exception` 0→1). QI-Core returns 0 only by accident (I-69, plus I-68). Malformed resource, confirmed with SME 2026-10-08: **not a parity defect**. The steward should use `abatementDateTime` or add an `end`. No CQL change | `implementation` | Open — confirmed | CMS347 |
 | I-68 | Interval selector returns `null` when both bounds evaluate to null (`Interval[null, null)`), instead of an interval with unknown bounds (`IntervalEvaluator.kt`, acknowledged by a TODO); upstream [cqframework/clinical_quality_language#1850](https://github.com/cqframework/clinical_quality_language/issues/1850) (open). No result difference for `overlaps`. A start-sensitive consumer (`starts before`) loses rows the spec would keep. No affected case found yet | `engine` | Open — confirmed | CMS347 |
 | I-69 | `is Interval<T>` returns `false` when the interval has a null boundary (engine v5 `IsEvaluator`), so QICoreCommon's `abatementInterval()` / `toInterval()` return `null` for open-ended Periods. The same check nulls an open-ended interval passed to a `Choice`-typed function parameter (the call-site `As` delegates to `IsEvaluator`), which is why QICoreCommon's `toInterval()` sees `choice` = null. QI-Core side only in practice; FHIRCommon tests `is FHIR.Period` and isn't affected (one latent CMS exposure, NHSN `"Normalize Interval"`, no fixture hits). Fixed upstream in [cqframework/clinical_quality_language#1857](https://github.com/cqframework/clinical_quality_language/pull/1857) (`fb8055df`, merged 2026-10-08, not yet released); details in the outer repo's `defect-tracking/tickets/T-is-interval-null-bound.md` | `engine` | Open — confirmed | CMS347, CMS646 |
@@ -99,8 +86,8 @@ while the valueset it needed had never been committed.
 | I-71 | CMS996 `f6c7dbc1`: the test expects Denominator Exclusion 0 because the thrombolytic allergy "starts before and ends before ED", but it marks the end with `onsetPeriod.end` on an allergy that is still `active` with no `allergyintolerance-abatement`. `onset[x]` only says when the allergy began, so FHIRCommon `prevalenceInterval()` correctly runs to end of time and overlaps the ED encounter (`Group_1:Denominator Exclusion` expected 0, CMS 1). QI-Core returns 0 because its CQL still reads `onset.toInterval()`; CMS uses `prevalenceInterval()` by deliberate upstream change `6cccf5ce`. Test data that doesn't express its intent: **not a parity defect**. The steward should mark the allergy resolved with an abatement, or expect Denominator Exclusion 1. No CQL change | `implementation` | Open — confirmed | CMS996 |
 | I-72 | CMS145 `1f70822b`: the test expects no `Group_2:Denominator Exception` because the patient-reason beta-blocker not-ordered falls on the first visit, but `"Has Medical or Patient Reason for Not Ordering Beta Blocker Therapy"` accepts the reason at any `"Qualifying CAD Encounter and Prior MI"`, and both visits qualify (expected 0, CMS 1). Twin case `b19af44d`, with the reason at the last visit, expects 1. QI-Core returns 0 only by accident (I-38: it scores the patient out of every population); the CQL is the same in both versions. Test case and logic disagree: **not a parity defect**. The steward should change the expectation, or the CQL in both versions. No CQL change | `implementation` | Open — confirmed | CMS145 |
 | I-73 | CMS72 / CMS104 multi-encounter stroke cases (`5a329008`, `cb7c95fc`, `febd4b3e`; `348471db`, `451b6853`, `a2b8327c`, `c15bee15`): each fixture has one Claim (the same template id `5ca62962b8484628b8de1ec5` in all 7), and its `item.encounter` references only one of the patient's inpatient encounters. `TJC."Ischemic Stroke Encounter"` takes the principal diagnosis from `CQMCommon.claimDiagnosis()`, which ignores `reasonReference`, so the other encounters drop out (IP / Denominator 1 where 2–4 are expected). QI-Core returns 0 only by accident (I-38); the CQL and fixtures are the same in both versions. **Not a parity defect**. The steward should add one Claim per stroke encounter, or expect the single-encounter values. No CQL change | `implementation` | Open — confirmed | CMS72, CMS104 |
-| I-75 | CMS72 `be5c4068`: the test expects a `Denominator Exception` for an INR > 3.5, but INR Observation `dfde458a` carries `valueQuantity` `{value: 100, unit: "0", system: UCUM}` with no `code`. `FHIRHelpers.ToQuantity` takes the unit from `Coalesce(code, unit, '1')`, and UCUM reads a bare `"0"` as a factor of zero, so the INR evaluates as `0 '1'` and `"Encounter With An INR Greater Than 3.5"` is empty (expected 1, CMS 0, QI-Core 0). Retrieve, status and `issued` window all pass; a scratch copy with `unit`/`code` `"1"` matches the fixture. Malformed test data in both versions: **not a parity defect**. **Classification pending SME confirmation**: if the SME prefers a UQC-side data fix, reclassify as `fixture`. No CQL change | `implementation` | Open — confirmed | CMS72 |
-| I-76 | MADiE source bundles reuse resource ids. MADiE evaluates with the JS CQL engine, which treats every bundle resource as the patient's, so these bundles passed there; splitting them into one `<resourceType>-<id>.json` file per id kept only the last entry, and the other resources were lost. Signature: the fixture MeasureReport lists the collapsed id in `evaluatedResource` once per original entry (`validate_test_fixtures.py` reports `EVALUATED-REF-REPEATED`). Both CMS819 cases restored from their source bundles (`73b0c1fe` 2026-10-13, `31b40acc` 2026-10-14). Suspected, still filed elsewhere until confirmed: the 7 I-73 cases (`Claim/5ca62962…` repeated as many times as the expected IP count), CMS1028 `763d86f9` (I-15), CMS1154 `bc9c82ca` (I-31). Restore into the UQC fixtures only | `fixture` | Open — confirmed | CMS819 |
+| I-75 | CMS72 `be5c4068`: the test expects a `Denominator Exception` for an INR > 3.5, but INR Observation `dfde458a` carries `valueQuantity` `{value: 100, unit: "0", system: UCUM}` with no `code`. `FHIRHelpers.ToQuantity` takes the unit from `Coalesce(code, unit, '1')`, and UCUM reads a bare `"0"` as a factor of zero, so the INR evaluates as `0 '1'` and `"Encounter With An INR Greater Than 3.5"` is empty (expected 1, CMS 0, QI-Core 0). Retrieve, status and `issued` window all pass; a scratch copy with `unit`/`code` `"1"` matches the fixture. Malformed test data in both versions: **not a parity defect**. **Classification pending SME confirmation**: if the SME prefers a UQC-side data fix, reclassify as `fixture`. No CQL change | `implementation` | Open — suspected | CMS72 |
+| I-76 | MADiE source bundles reuse resource ids. MADiE evaluates with the JS CQL engine, which treats every bundle resource as the patient's, so these bundles passed there; splitting them into one `<resourceType>-<id>.json` file per id kept only the last entry, and the other resources were lost. Signature: the fixture MeasureReport lists the collapsed id in `evaluatedResource` once per original entry (`validate_test_fixtures.py` reports `EVALUATED-REF-REPEATED`). Both CMS819 cases restored from their source bundles (`73b0c1fe` 2026-10-13, `31b40acc` 2026-10-14), CMS1028 `763d86f9` (lost Claim, 2026-10-15), and CMS1154 `bc9c82ca` (lost active Prediabetes Condition, 2026-10-15; previously filed under I-31). Current MADiE exports may already be corrected (MADiE now validates test-case resources), so a clean export does not rule out a collision; the repeated reference is the durable signature. Suspected, still filed elsewhere until confirmed: the 7 I-73 cases (`Claim/5ca62962…` repeated as many times as the expected IP count). The steward's test case and its MeasureReport are invalid in both versions, so this is an `implementation` issue (reclassified from `fixture` 2026-10-15); the restores are local repairs into the UQC fixtures only | `implementation` | Open — confirmed | CMS819, CMS1028, CMS1154 |
 
 ## Resolved — reference patterns
 
@@ -121,8 +108,11 @@ The fix itself is recorded in `change-log.md`.
   and `[USCore.ObservationPregnancyStatusProfile]` retrieved nothing. Fixed by
   re-attributing `meta.profile` to `us-core-bmi` /
   `us-core-observation-pregnancystatus`.
-  - **Latent, not yet fixed:** 4 CMS69 Observations still carry a malformed
-    `us-quality-core-observationcancelled` profile (missing hyphen).
+  - The follow-up that called `us-quality-core-observationcancelled` malformed
+    (missing hyphen) was closed 2026-10-15: it is the model info's identifier,
+    matches every other unhyphenated USQC negation profile and QI-Core's
+    `qicore-observationcancelled`, and 22 cases across 6 measures pass because
+    `[ObservationCancelled]` matches it.
 - **I-48** `fixture` — same shape on CMS165/CMS135: blood-pressure panels
   (LOINC `85354-9` / `8480-6` / `8462-4`) and an `82810-3` pregnancy
   Observation carried `...observation-screening-assessment`, emptying
@@ -134,9 +124,11 @@ The fix itself is recorded in `change-log.md`.
 A reference that does not resolve produces a silent zero, never an error — the
 resource simply never attaches to the patient.
 
-- **I-41** `fixture` — 40 `Condition` / `Encounter` / `Observation` /
-  `MedicationRequest` / `Procedure` / `ServiceRequest` files had a typo'd
-  Patient GUID in `subject.reference` (stray character, embedded double space).
+- **I-41** `fixture` — 40 fixture files (CMS347 35, CMS72 3, CMS108 1, NHSN 1)
+  had a `subject.reference` that did not point at their own patient: 36 at
+  another patient's GUID, 4 at a typo of the right one (stray or dropped
+  character, embedded double space). Fixed 2026-09-01 (`fe41c7bcc`, 38 files)
+  and 2026-09-18 (`f0e8eb172`, the 2 `1d3021bb` files, also I-51).
 - **I-42** `fixture` — 188 files' `Claim.patient` / `Coverage.beneficiary` /
   `AllergyIntolerance.patient` pointed at two fixed placeholder GUIDs left
   behind by a generation template; no such test cases ever existed.
@@ -146,8 +138,8 @@ resource simply never attaches to the patient.
 - **I-07** `fixture` — CMS816's 12 failing Initial Population/Denominator cases
   (2 also Numerator) were originally filed as a `content` "fixture MR hand-
   authors expected values that don't reproduce" mismatch. The real cause was
-  narrower and mechanical: 17 of CMS816's 28 fixture `Encounter` resources
-  (19 files) had **no `subject` element at all**, so `context Patient` scoping
+  narrower and mechanical: the `Encounter` resources for 17 of CMS816's 28
+  test-case patients (19 files) had **no `subject` element at all**, so `context Patient` scoping
   silently dropped them from `["Encounter": "Encounter Inpatient"]` regardless
   of how correctly type/status/period were authored — confirmed by direct CQL
   execution (`["Encounter": "Encounter Inpatient"]` returned empty *before* any
@@ -232,13 +224,26 @@ the whole library.
   point at onset, which can never `overlaps` a measurement period years later,
   so chronic / still-active checks never fire. Fixed at 16 sites by moving to a
   base `[FHIR.Condition: ...]` retrieve plus `prevalenceInterval()` (see I-28).
+- **I-45** `fixture` — sparse `MedicationRequest` dosage fixtures tripped the
+  I-25 `singleton from empty list` bug. Fixed in the probe fixtures; the real
+  CMS156 fixtures pass without enrichment (watch closed 2026-10-15).
+- **I-52** `migration` — unqualified `[MedicationRequest: …]` / `[ServiceRequest: …]`
+  retrieves also returned the `doNotPerform` (`…notrequested`) resources, so a
+  declined order counted as a real one. Fixed 2026-10-01 by qualifying them as
+  `[USQualityCore.MedicationRequest: …]` / `[USQualityCore.ServiceRequest: …]`
+  (`e1714e2c`, `217a29f1`) in CMS347, CMS104, CMS71, CMS135, CMS144, CMS645 and
+  CMS22; no `doNotPerform` filter was needed. The same fix covers the 23 CMS347
+  cases first filed as I-34 and the CMS108 / CMS190 / CMS135 cases first filed as
+  I-32 / I-36 (all retired 2026-10-15), and 9 CMS135 / CMS144 / CMS645 cases
+  moved from I-65 the same day.
 - **I-59** `migration` — CMS22's 6 `ServiceNotRequested` negation defines
   filtered base FHIR `.reasonCode in "Patient Declined"`, but US Quality Core
   carries the decline reason in the `us-quality-core-doNotPerformReason`
   extension, so the Denominator Exception under-fired. Fixed by switching to
   the `.reasonRefused()` accessor.
   - The 2 remaining CMS22 cases (`f9417a57`, `c41f9946`, filed under I-52) were
-    a positive-retrieve over-fire. Fixed 2026-10-07 by qualifying the
+    a positive-retrieve over-fire. Fixed 2026-10-01 (`e1714e2c`, confirmed on
+    the 2026-10-07 grid) by qualifying the
     unqualified `[ServiceRequest: …]` retrieves as
     `[USQualityCore.ServiceRequest: …]`; no `doNotPerform` filter was needed.
 - **I-60** `content` — CMS2's `"Denominator Exceptions"` was hardcoded to
@@ -268,6 +273,16 @@ the whole library.
 - **I-02** `content` — CMS145 and CMS149 had no CQL at all; not a conversion or
   engine defect. Fixed by porting the libraries from QI-Core.
 
+### Fixed by an engine upgrade
+
+- **I-22**, **I-23** `engine` — `convert <Duration> to days` returning null and
+  `convert` / `ConvertQuantity` rejecting calendar-word units (`'day'`) no
+  longer reproduce on translator/engine 5.4.0 (probe 2026-10-15). The
+  `ToDays()` workaround the dossiers described was never committed.
+- **I-57** `vendored` — the packaged CMD `2.0.0-ballot` dispense path
+  (`convert D.daysSupply to days`) returns the days supply on engine 5.4.0; no
+  CMS128-local workaround exists or is needed.
+
 ### Retired or superseded ids
 
 - **I-09** `content`, retired 2026-09-10 — **another misdiagnosis.** CMS142's 5
@@ -279,7 +294,30 @@ the whole library.
 - **I-10** `content`, retired 2026-10-14 — **another misdiagnosis.** CMS819's 2
   cases were filed as fixture MR authoring. The expected values were right; the
   resources they need were lost to duplicate ids in the MADiE source bundles.
-  Both cases moved to I-76 (`73b0c1fe` fixed, `31b40acc` open).
+  Both cases moved to I-76 (`73b0c1fe` fixed 2026-10-13, `31b40acc` fixed
+  2026-10-14).
+- **I-04** `content`, retired 2026-10-15 — superseded by I-62. The CMS986
+  Measure Observation diagnosis had already been retracted to the harness
+  aggregation gap; every CMS986 cell passes.
+- **I-13** `content`, retired 2026-10-15 — no longer reproduces. CMS1218
+  `ea9c34ee` has passed since the 2026-09-18 resync; QI-Core agrees. The
+  mechanism was not isolated.
+- **I-27** `engine`, retired 2026-10-15 — **another misdiagnosis.** The 18
+  "union branch evaluates empty" cases (CMS104, CMS108, CMS190) had
+  `TaskRejected` fixtures with no `Task.for`, so patient scoping dropped them.
+  Fixed by the 2026-09-18 Task fixture repair; moved to I-46.
+- **I-29** `engine`, retired 2026-10-15 — unconfirmed and never tied to a
+  failing cell. The `PCMaternal.cql` `as FHIR.dateTime` casts remain a latent
+  I-16 / I-17 / I-33-family hazard.
+- **I-32**, **I-36** `engine`, retired 2026-10-15 — "`us-quality-core-*`
+  profile retrieve returns empty" never had a confirmed instance. Every cited
+  case was fixed or re-attributed under I-52, I-55, I-31, I-66, I-65, I-71 or
+  I-33; several were over-fires, not empty retrieves.
+- **I-34** `engine`, retired 2026-10-15 — the CMS347 instance of I-52 (same
+  mechanism, same 2026-10-01 qualifier fix); its 23 cases moved to I-52.
+- **I-58** `vendored`, retired 2026-10-15 — nothing distinct from I-22 /
+  I-23 / I-24. The vendored CMD 6.0.000 copy it described never existed in
+  the repo; CMS156's only live adaptation is the I-24 `averageDailyDose()` fix.
 - **I-30** `engine`, retired 2026-08-29 — duplicate of I-28 (same missing
   `FHIRCommon` Choice overload for `prevalenceInterval`). Rolled into I-28 and
   the `[I-30]` CQL comments renamed.

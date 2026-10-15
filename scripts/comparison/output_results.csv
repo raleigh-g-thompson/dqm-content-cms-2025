@@ -11805,11 +11805,11 @@ PASS,CMS1028FHIRPCSevereOBComps,b2d27ac4-8709-4296-85a4-598d9ef02fe7,Group_2:Num
 PASS,CMS1028FHIRPCSevereOBComps,b2d27ac4-8709-4296-85a4-598d9ef02fe7,Group_2:Numerator Exclusion,0,0
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_1:Initial Population,2,2
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_1:Denominator,2,2
-FAIL,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_1:Numerator,2,1
+PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_1:Numerator,2,2
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_1:Numerator Exclusion,0,0
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_2:Initial Population,2,2
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_2:Denominator,2,2
-FAIL,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_2:Numerator,2,1
+PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_2:Numerator,2,2
 PASS,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,Group_2:Numerator Exclusion,0,0
 PASS,CMS1028FHIRPCSevereOBComps,83db4135-8018-4a54-8059-cc0f9f785a82,Group_1:Initial Population,1,1
 PASS,CMS1028FHIRPCSevereOBComps,83db4135-8018-4a54-8059-cc0f9f785a82,Group_1:Denominator,1,1
@@ -22413,7 +22413,7 @@ PASS,CMS1154ScreeningPrediabetesFHIR,b4eff700-1f2c-4bc6-9c1e-eb11baa3b125,Group_
 PASS,CMS1154ScreeningPrediabetesFHIR,b4eff700-1f2c-4bc6-9c1e-eb11baa3b125,Group_1:Numerator,0,0
 PASS,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,Group_1:Initial Population,1,1
 PASS,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,Group_1:Denominator,1,1
-FAIL,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,Group_1:Denominator Exclusion,1,0
+PASS,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,Group_1:Denominator Exclusion,1,1
 PASS,CMS1154ScreeningPrediabetesFHIR,bc9c82ca-72b5-41c4-a9a3-7e3860a9ac2d,Group_1:Numerator,0,0
 PASS,CMS1154ScreeningPrediabetesFHIR,22778fb6-6e45-40cf-9d3f-4deb60464fcd,Group_1:Initial Population,1,1
 PASS,CMS1154ScreeningPrediabetesFHIR,22778fb6-6e45-40cf-9d3f-4deb60464fcd,Group_1:Denominator,1,1

@@ -47,6 +47,16 @@ def log(message: str):
     if VERBOSE:
         print(message)
 
+def is_scaffold_measure(measure_name: str) -> bool:
+    """True for the `test*` repro libraries, which are excluded from scoring.
+
+    Mirrors the skip in compare_results.py: any measure whose name starts with
+    "test", case-insensitively. These libraries exist to reproduce a defect in
+    isolation, so they are scaffolding rather than measures under test and
+    never belong in the extracted results.
+    """
+    return bool(measure_name) and measure_name.lower().startswith("test")
+
 def find_all_groups_by_expression(measure_criteria: Dict[str, Dict[str, str]], expression: str) -> Dict[str, str]:
     return {group: criteria_map[expression] for group, criteria_map in measure_criteria.items() if expression in criteria_map}
 
@@ -176,11 +186,13 @@ def measures_in_results_dir(dir_path: str, results_format: str) -> set:
 
     Used only for diagnostics: comparing this against the measures that
     actually produced rows is what turns "this measure silently contributed
-    nothing" into a visible warning.
+    nothing" into a visible warning. `test*` scaffolds are omitted here too,
+    so that skipping them in capture_results() does not resurface as a
+    spurious "produced NO population rows" warning.
     """
     names = set()
     for entry in sorted(os.listdir(dir_path)):
-        if entry.startswith('.'):
+        if entry.startswith('.') or is_scaffold_measure(entry):
             continue
         entry_path = os.path.join(dir_path, entry)
         if results_format == 'json':
@@ -382,6 +394,8 @@ def capture_results(measure_sections: Generator['MeasureSection', None, None], a
     results = {}
     for measure_section in measure_sections:
         measure_name = measure_section.measure
+        if is_scaffold_measure(measure_name):
+            continue
         section_data = measure_section.section
         if isinstance(section_data, dict):
             results.update(capture_json_results(measure_name, section_data, all_measure_criteria))

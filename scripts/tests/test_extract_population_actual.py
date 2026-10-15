@@ -148,6 +148,32 @@ class TestExtractPopulationActual(unittest.TestCase):
         actual_results_as_dict = {f'{measure_id.Measure}:{measure_id.PatientGUID}:{measure_id.GroupId}': population_count for measure_id, population_count in actual_results.items()}
         self.assertDictEqual(test_case_data['expected_results'], actual_results_as_dict)
     
+    def test_capture_results_skips_test_measures(self):
+        """`test*` repro libraries never reach the extracted results.
+
+        Decided by the same case-insensitive prefix rule compare_results.py
+        applies when reading the CSVs, so the two stay consistent.
+        """
+        criteria = {'realMeasure': {'Group_1': {}}}
+        json_section = MeasureSection('testJson', {
+            'testCaseName': 'guid-1',
+            'errors': [],
+            'results': [{'name': 'Initial Population', 'value': 'true'}],
+        })
+        txt_section = MeasureSection(
+            'testTxt', 'Patient = Patient(id=335cae91-96fc-4337-88f6-b8d9f06ade01)')
+        real_section = MeasureSection('realMeasure', {
+            'testCaseName': 'guid-2',
+            'errors': [],
+            'results': [{'name': 'Initial Population', 'value': 'true'}],
+        })
+
+        results = capture_results(iter([json_section, txt_section, real_section]),
+                                  criteria)
+
+        self.assertEqual({measure_id.Measure for measure_id in results},
+                         {'realMeasure'})
+
     def test_create_empty_populations(self):
         measure_criteria = {
             'Group_1': {
@@ -267,6 +293,20 @@ class ResultsFormatDetectionTest(unittest.TestCase):
         self.assertTrue(has_txt_results(self.tmp))
 
     def test_measures_in_results_dir_sees_both_shapes(self):
+        self._write_txt("MeasureA")
+        self._write_json("MeasureB")
+        self.assertEqual(measures_in_results_dir(self.tmp, "txt"), {"MeasureA"})
+        self.assertEqual(measures_in_results_dir(self.tmp, "json"), {"MeasureB"})
+
+    def test_measures_in_results_dir_excludes_test_measures(self):
+        """`test*` scaffolds are hidden so the health check doesn't warn on them.
+
+        capture_results() drops their rows, so if they were still counted as
+        "claimed" here, report_extraction_health() would report each of them as
+        producing no rows -- a spurious warning.
+        """
+        self._write_txt("testScaffold")
+        self._write_json("testE123Repro")
         self._write_txt("MeasureA")
         self._write_json("MeasureB")
         self.assertEqual(measures_in_results_dir(self.tmp, "txt"), {"MeasureA"})
