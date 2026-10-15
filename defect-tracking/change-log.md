@@ -24,6 +24,33 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Add an I-26 / #1868 tracking comment to CMS135's "Has Medical or Patient Reason for Not Ordering ACEI or ARB or ARNI"
+
+**Problem:** the I-26 engine defect (upstream `cqframework/clinical_quality_language#1868`) crashes the
+`[USQualityCore.MedicationNotRequested: medication in "ACE Inhibitor or ARB or ARNI"]` retrieve before
+any population evaluates, so the affected CMS135 cases produce no result. The define carried no pointer
+to the issue.
+
+**Fix:** added a five-line comment above the define citing the issue (`I-26`), the upstream ticket URL
+(`https://github.com/cqframework/clinical_quality_language/issues/1868`), a one-line mechanism summary,
+and the three affected CMS135 cases (`c095195c`, `cba5a449`, `ec508dbb`). Comment only — no CQL logic changed. (The generated `input/resources/library/…` base64 copy
+of the CQL and the Measure's contained logic definitions are refreshed by the IG Publisher, not here.)
+
+**Measures Affected:** CMS135
+
+## Update upstream ticket-file references to the new `TXXXX-*` naming (doc-only path fix)
+
+**Problem:** the outer tooling repo renamed its upstream ticket files from `T-<slug>.md` to
+`TXXXX-<slug>.md` (drafts carry a literal `TXXXX` placeholder until the GitHub issue number is
+assigned, then become `T<number>-<slug>.md`). Two inner-repo references still pointed at the old
+filenames.
+
+**Fix:** updated the stale references — `known-issues.md` (I-69 →
+`TXXXX-is-interval-null-bound.md`) and this file (`TXXXX-prevalence-interval-null-singleton-return.md`).
+No CQL, FHIR resource, fixture, or valueset content changed.
+
+**Measures Affected:** none (documentation references only)
+
 ## Replace `ConditionProblemsHealthConcerns`/`ConditionEncounterDiagnosis` union with a single `Condition` retrieve
 
 **Problem:** the Choice-typed union of two sibling profiles that compile to the same runtime Java
@@ -772,7 +799,7 @@ Of VTE"`'s prior-VTE branch could never match. The intended `Interval[onset, nul
 been right either: a null *open* high bound means the end is unknown (so `end of` is null and
 `overlaps` is null), while a null *closed* high bound means no end (the end is the maximum DateTime). Confirmed with the
 `testProbeSingletonNullReturn` scaffold probe (translator/engine 5.4.0). Upstream ticket:
-`defect-tracking/tickets/T-prevalence-interval-null-singleton-return.md` (tooling repo).
+`defect-tracking/tickets/TXXXX-prevalence-interval-null-singleton-return.md` (tooling repo).
 
 **Fix:** added a measure-local `localPrevalenceInterval(Condition)` fluent function that uses
 `if/else` instead of the singleton query and an open null high bound (`null)`; the consumers
