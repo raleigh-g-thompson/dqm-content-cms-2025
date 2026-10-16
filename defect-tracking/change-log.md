@@ -24,6 +24,24 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Generate the Open issues table and the two issue CSVs from the issue catalog
+
+**Problem:** the Open issues table in `known-issues.md`, `scripts/comparison/known_issues.csv`, and
+`scripts/comparison/implementation_issues.csv` were edited by hand alongside the project's internal
+issue catalog, so they drifted from it (I-26's ticket was recorded in one place and not the other).
+Their wording also compared results against QI-Core, which this repo no longer does.
+
+**Fix:** the three are now generated from the issue catalog and rewritten in user-facing terms,
+with no QI-Core comparison. The table gains a Ticket column. Every open issue is listed except the
+two QI-Core baseline issues (I-01, I-38), so it now has 35 rows, and the `baseline` class is gone
+from the class table. `known_issues.csv` gains I-24's ticket and case; `implementation_issues.csv`
+gains the four restored I-76 cases. All of these cases pass, so the report totals don't change.
+`AGENTS.md`, `scripts/readme.md`, and the report's wording now say these files are generated.
+
+No CQL, FHIR resource, fixture, or valueset content changed.
+
+**Measures Affected:** none (issue tracking and test-case reporting only)
+
 ## Remove the QI-Core comparison from the test-case report; zero Denominator Exception when the Denominator is 0
 
 **Problem:** `scripts/compare_results.py` read an optional copy of the QI-Core project's results

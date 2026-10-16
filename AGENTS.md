@@ -19,7 +19,9 @@ python3 -m pytest
 ## Known issues
 
 - `defect-tracking/known-issues.md` — every issue found so far, with its root-cause class and
-  status. Maintained **by hand**; nothing generates it and no script reads it, so edit it freely.
+  status. The **Open issues** table, `scripts/comparison/known_issues.csv`, and
+  `scripts/comparison/implementation_issues.csv` are generated from the project's issue catalog;
+  don't edit them by hand. The rest of `known-issues.md` is hand-maintained.
 - `defect-tracking/change-log.md` — what content has already been changed and why. Check it before
   "fixing" something, so you don't undo a deliberate decision. Add an entry for any CQL, FHIR
   resource/fixture, or valueset change you apply.

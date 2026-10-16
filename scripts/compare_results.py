@@ -26,7 +26,7 @@ inventing discrepancies that are not there:
   * **Implementation issues resolve a failing test case.** Some test cases
     can't match their fixture MeasureReport because the measure steward's test
     data or expectation misuses FHIR or CQL semantics (class `implementation` in
-    `defect-tracking/known-issues.md`; e.g. I-67). They are listed by hand in
+    `defect-tracking/known-issues.md`; e.g. I-67). They are listed in
     ``scripts/comparison/implementation_issues.csv``. A failing cell covered by
     one scores ``IMPLEMENTATION`` instead of ``FAIL``, and a test case whose
     every failing cell is covered counts as resolved, the same as a pass. Those
@@ -849,8 +849,7 @@ def render_known_issues_section(ticketed_keys: Set[ResultKey],
         'a pass, only once its issue has a GitHub ticket: its cells are then '
         'scored `KNOWN_ISSUE` in `output_results.csv` and it leaves the '
         'per-measure discrepancy tables. Without a ticket it still counts as a '
-        f'failure. Listed in `{known_issues_file}`; add the ticket URL there '
-        'when one is filed._\n',
+        f'failure. Listed in `{known_issues_file}`._\n',
         '\n',
     ]
     lines.extend(create_markdown_table(
@@ -1086,7 +1085,7 @@ def generate_comparison_report(file: str,
                         mismatched_headers, mismatched_rows, mismatched_separator))
                     f.write('\n')
 
-        f.write('\n_Known issues are tracked by hand in '
+        f.write('\n_Known issues are listed in '
                 '`defect-tracking/known-issues.md`; the test cases they explain, '
                 f'and their tickets, in `{known_issues_file}`._\n')
 

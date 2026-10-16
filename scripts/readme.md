@@ -61,7 +61,7 @@ _NOTES_
 
 #### Implementation issues (optional)
 
-Some test cases can't match their fixture MeasureReport because the measure steward's test data or expectation misuses FHIR or CQL semantics, not because of the CQL or the engine. These are class `implementation` in `defect-tracking/known-issues.md`; I-67 is an example (a start-only `abatementPeriod` used to mean a resolution date). An issue that explains the failure is as good as a match, so these cases count as resolved. They are listed by hand in:
+Some test cases can't match their fixture MeasureReport because the measure steward's test data or expectation misuses FHIR or CQL semantics, not because of the CQL or the engine. These are class `implementation` in `defect-tracking/known-issues.md`; I-67 is an example (a start-only `abatementPeriod` used to mean a resolution date). An issue that explains the failure is as good as a match, so these cases count as resolved. They are listed in:
 
 - `scripts/comparison/implementation_issues.csv`, with columns `issue_id,measure_name,guid,group,note`. Leave `group` blank to cover every group of the test case. Quote any `note` that contains a comma. The script stops with an error on a missing required column or an unquoted comma.
 - **If the file is absent or empty, nothing changes.**
@@ -80,13 +80,15 @@ A listed case that passes needs no explanation and is scored `PASS` as usual.
 
 #### Known issues with a ticket (optional)
 
-Other failing test cases are explained by an issue in `defect-tracking/known-issues.md` of another class, typically an `engine` or `translator` bug such as I-26. Such a case counts as resolved only once its issue has a GitHub ticket. They are listed by hand in:
+Other failing test cases are explained by an issue in `defect-tracking/known-issues.md` of another class, typically an `engine` or `translator` bug such as I-26. Such a case counts as resolved only once its issue has a GitHub ticket. They are listed in:
 
 - `scripts/comparison/known_issues.csv`, with columns `issue_id,class,ticket,measure_name,guid,group,note`.
 - `class` is one of the classes in `known-issues.md`, except `implementation`, which belongs in `implementation_issues.csv`.
 - `ticket` is the GitHub issue or pull request URL, e.g. `https://github.com/cqframework/clinical_quality_language/issues/1855`. Leave it blank until one is filed. Any other value, such as `TBD`, stops the script with an error.
-- Every row of one issue must carry the same `class` and `ticket`. When a ticket is filed, add its URL to every row of that issue.
+- Every row of one issue must carry the same `class` and `ticket`.
 - `group` and quoting work as in `implementation_issues.csv`. **If the file is absent or empty, nothing changes.**
+
+Both files, and the Open issues table in `defect-tracking/known-issues.md`, are generated from the project's issue catalog, so a hand edit is overwritten on the next update.
 
 How a listed case is scored:
 
