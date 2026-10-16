@@ -1510,3 +1510,231 @@ retrieve of these types):
 
 **Measures Affected:** CMS347, CMS104, CMS135, CMS144, CMS71, CMS645, CMS22, CMS108, CMS190 (cells
 changed). `2709b513` also touched the CQL of most other measures without changing a cell.
+
+## Fold the issue sections into Measures with Discrepancies
+
+**Problem:** `discrepancy_report.md` listed failures in three places: `## Implementation Issues`,
+`## Known Issues` and `## Measures with Discrepancies`. A failure that an issue resolved appeared
+only in the first two, and its measure was listed under "Measures with No Discrepancies". It was
+hard to see in one place which measures fail and which failures nothing yet explains.
+
+**Change:**
+
+- `scripts/compare_results.py`:
+  - `## Implementation Issues` and `## Known Issues` are removed.
+  - `## Measures with Discrepancies` lists every measure with a mismatching test case, whatever the
+    issue state.
+  - The per-measure `Known Issue` column becomes `Issue`. It holds `I-XX (implementation)`,
+    `I-XX (ticketed)`, `I-XX (needs ticket)`, or blank.
+  - Each measure section ends with an `Issues` list giving each cited issue's class, ticket and
+    note.
+  - The `Discrepancy Summary` table gains an `Unattributed Discrepancies` row, and the per-measure
+    summary gains an `Unattributed` column. Both count test cases that no implementation issue and
+    no ticketed known issue resolves, which are the `FAIL` verdicts.
+  - "Measures with No Discrepancies" now lists only measures where every test case matches its
+    fixture.
+  - Documented in `scripts/readme.md`. Tests are in `scripts/tests/test_compare_results_*.py`.
+
+**Result:** reporting only. `output_results.csv` and every count are unchanged: 3918 pass,
+12 implementation, 4 known issue and 30 fail out of 3964. Measures with Discrepancies goes from 10
+to 15 (CMS72, CMS104, CMS165, CMS347 and CMS996 are now listed with their resolving issues), and
+Measures with No Discrepancies goes from 64 to 59. Unattributed Discrepancies: 30 test cases in
+10 measures.
+
+**Measures Affected:** none (reporting only)
+
+## Restore the stroke Claim lost from CMS72 `5a329008`
+
+**Problem:** CMS72 `5a329008` ("Testing multiple encounters, one with ED to Inpatient with
+antithrombotic, and one with Ed to Obs to Inpatient with tPA") expects IP 2, Denominator 2,
+Denominator Exclusion 1, Numerator 1, but both engines returned IP 1. `TJC."Ischemic Stroke
+Encounter"` takes the principal diagnosis from `CQMCommon.claimDiagnosis()`, which reads only Claims
+whose `item.encounter` references the encounter. The fixture had one Claim (`5ca62962…1ec5`, listed
+twice in `evaluatedResource`) pointing at the June encounter `93ad3087`, so the April encounter
+`6fac0d25` had no principal diagnosis and dropped out.
+
+The MADiE bundle (`60f82c2f98086b570510e2cd`, test case `LCG2Enc1WithAntithrombic1WithtPA`) has two
+Claims under one id, `Claim/5ca62962b8484628b8de1ec5`, with the same `fullUrl`
+(`https://madie.cms.gov/claim/5ca62962b8484628b8de1ec5`). The first references the April inpatient
+encounter, the second the June one. Splitting the bundle kept only the last entry (I-76). The two
+Claims are otherwise identical (I63.00 principal, `created` 2026-12-01). Every other resource in the
+bundle maps one-to-one to the fixtures. The case was previously filed under I-73.
+
+**Change:** added `Claim-8b852968-1ff0-4578-8466-66e6f11d3d2b.json` with the lost Claim's content:
+a new id, the US Quality Core profile, `created` 2026-12-01 (no date shift), and `item.encounter`
+referencing `Encounter/6fac0d25`. Patient, provider and Coverage references follow the surviving
+Claim (the source Claims reference `Patient/d170a0a8…`, another patient). In the MeasureReport, the
+first of the two `Claim/5ca62962…1ec5` references now points at the new Claim, in bundle order. The
+QI-Core fixtures were deliberately left unchanged.
+
+**Verified 2026-10-16** with `cql_execute` (translator/engine 5.4.0): Initial Population and
+Denominator hold `6fac0d25` and `93ad3087`, Denominator Exclusions holds `93ad3087` (alteplase
+`d48cca8a`), Denominator Exceptions is empty, and the Numerator after exclusions is `6fac0d25`
+(antithrombotic `431d0925`). That is 2/2/1/1/0, matching the fixture MeasureReport, with no
+diagnostics. `scripts/validate_test_fixtures.py --measure CMS72FHIRSTKAntithromboticDay2` no longer
+reports `EVALUATED-REF-REPEATED` for this case. The grid has not yet been regenerated. Tracked as
+I-76 (`implementation`): the steward's test case and its MeasureReport are invalid in both versions.
+
+### Example
+
+```jsonc
+// before (MeasureReport-dda268cb evaluatedResource)
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+
+// after
+{ "reference": "Claim/8b852968-1ff0-4578-8466-66e6f11d3d2b" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+```
+
+**Measures Affected:** CMS72
+
+## Restore the two stroke Claims lost from CMS72 `cb7c95fc`
+
+**Problem:** CMS72 `cb7c95fc` (`3Enc2WithAntithrombic1WithtPA`) expects IP 3, Denominator 3,
+Denominator Exclusion 1, Numerator 2, but both engines returned IP 1. As in `5a329008` above, only
+the July encounter `3312b3d4` had a Claim, so the September (`d047da74`) and October (`24c9a03a`)
+encounters had no principal diagnosis and dropped out. The MeasureReport's `evaluatedResource`
+listed `Claim/5ca62962…1ec5` three times.
+
+The MADiE bundle (`60f82c2f98086b570510e2bb`) has three Claims under one id and `fullUrl`,
+`https://madie.cms.gov/claim/5ca62962b8484628b8de1ec5`, referencing in bundle order the September,
+October and July inpatient encounters. Splitting the bundle kept only the last (I-76). The Claims
+are otherwise identical (I63.00 principal, `created` 2026-12-01). Every other resource in the
+bundle maps one-to-one to the fixtures. The case was previously filed under I-73.
+
+**Change:** added `Claim-81f827a1-5c7a-4f30-af5a-1ee4cd38da16.json` (`item.encounter` →
+`Encounter/d047da74`) and `Claim-1cb6ea3f-a1ad-45bf-a8cf-00e4717132dd.json` (`item.encounter` →
+`Encounter/24c9a03a`), each a copy of the surviving Claim with a new id (US Quality Core profile,
+`created` 2026-12-01, patient, provider and Coverage as on the surviving Claim). In the
+MeasureReport, the first two of the three `Claim/5ca62962…1ec5` references now point at the new
+Claims, in bundle order. The QI-Core fixtures were deliberately left unchanged.
+
+**Verified 2026-10-16** with `cql_execute` (translator/engine 5.4.0): Initial Population and
+Denominator hold all three encounters, Denominator Exclusions holds `3312b3d4` (tPA Procedure
+`824551a9`), Denominator Exceptions is empty, and the Numerator is `d047da74` and `24c9a03a`
+(antithrombotic `c6b8c3e5`, `d62c123c`). That is 3/3/1/2/0, matching the fixture MeasureReport,
+with no diagnostics. `scripts/validate_test_fixtures.py --measure CMS72FHIRSTKAntithromboticDay2`
+no longer reports `EVALUATED-REF-REPEATED` for this case. The grid has not yet been regenerated.
+Tracked as I-76 (`implementation`).
+
+### Example
+
+```jsonc
+// before (MeasureReport-6844e7ed evaluatedResource)
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+
+// after
+{ "reference": "Claim/81f827a1-5c7a-4f30-af5a-1ee4cd38da16" },
+{ "reference": "Claim/1cb6ea3f-a1ad-45bf-a8cf-00e4717132dd" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+```
+
+**Measures Affected:** CMS72
+
+## Restore the three stroke Claims lost from CMS72 `febd4b3e`
+
+**Problem:** CMS72 `febd4b3e` (`4Enc2WithAntithrombic2WithtPA`) expects IP 4, Denominator 4,
+Denominator Exclusion 2, Numerator 2, but both engines returned IP 1. As in `5a329008` and
+`cb7c95fc` above, only the November encounter `96df9404` had a Claim, so the September
+(`11dfdb91`), October (`8eedd582`) and July (`3a6145c7`) encounters had no principal diagnosis and
+dropped out. The MeasureReport's `evaluatedResource` listed `Claim/5ca62962…1ec5` four times.
+
+The MADiE bundle (`60f82c2f98086b570510e2cc`) has four Claims under one id and `fullUrl`,
+`https://madie.cms.gov/claim/5ca62962b8484628b8de1ec5`, referencing in bundle order the September,
+October, July and November inpatient encounters. Splitting the bundle kept only the last (I-76).
+The Claims are otherwise identical (I63.00 principal, `created` 2026-12-01). Every other resource
+in the bundle maps one-to-one to the fixtures. The case was previously filed under I-73.
+
+**Change:** added `Claim-f89712ea-cace-4383-a982-7b4e014b9307.json` (`item.encounter` →
+`Encounter/11dfdb91`), `Claim-43e7677b-c099-4fa3-8f31-74177993b014.json` (→ `Encounter/8eedd582`)
+and `Claim-54ea443b-79cc-42b0-b6da-b7d778cb7ae4.json` (→ `Encounter/3a6145c7`), each a copy of the
+surviving Claim with a new id (US Quality Core profile, `created` 2026-12-01, patient, provider and
+Coverage as on the surviving Claim). In the MeasureReport, the first three of the four
+`Claim/5ca62962…1ec5` references now point at the new Claims, in bundle order. The QI-Core
+fixtures were deliberately left unchanged.
+
+Not changed: the September encounter's `reasonReference` points at
+`Condition/5c953f97b848462de0ae416d`, which exists in neither the MADiE bundle nor the fixture,
+and Condition `d99b4ae8` is referenced by no encounter. No population reads `reasonReference` on
+this path, so this is left for the steward.
+
+**Verified 2026-10-16** with `cql_execute` (translator/engine 5.4.0): Initial Population and
+Denominator hold all four encounters, Denominator Exclusions holds `11dfdb91` (alteplase
+`65d451e6`) and `3a6145c7` (tPA Procedure `6062c2bc`), Denominator Exceptions is empty, and the
+Numerator is `8eedd582` and `96df9404` (antithrombotic `d35411b4`, `5d8c229c`). That is 4/4/2/2/0,
+matching the fixture MeasureReport, with no diagnostics. `scripts/validate_test_fixtures.py
+--measure CMS72FHIRSTKAntithromboticDay2` no longer reports `EVALUATED-REF-REPEATED` for any CMS72
+case. The grid has not yet been regenerated. Tracked as I-76 (`implementation`).
+
+### Example
+
+```jsonc
+// before (MeasureReport-4f80f98a evaluatedResource)
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+
+// after
+{ "reference": "Claim/f89712ea-cace-4383-a982-7b4e014b9307" },
+{ "reference": "Claim/43e7677b-c099-4fa3-8f31-74177993b014" },
+{ "reference": "Claim/54ea443b-79cc-42b0-b6da-b7d778cb7ae4" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+```
+
+**Measures Affected:** CMS72
+
+## Restore the stroke Claims lost from four CMS104 multi-encounter cases
+
+**Problem:** four CMS104 multi-encounter stroke cases, `348471db`, `451b6853`, `a2b8327c` and
+`c15bee15`, expected IP 2 or 3, but both engines returned IP 1. As in the three CMS72 cases above,
+only one encounter per patient had a Claim (the template `5ca62962…1ec5`), so the others had no
+principal diagnosis and dropped out. Each MeasureReport listed the Claim once per encounter.
+
+The whole-measure MADiE export of 2026-10-16 (`CMS104FHIR-v1.0.000`, test cases
+`NUMERPass-3Enc2WithAntithrombotic2WithExcep`, `-3Enc2WithAntithrombotic1WithExcep1Exclu`,
+`-2Enc3WithAntithrombotic` and `-3Enc2WithAntithrombotic1WithExcep`) has one Claim per inpatient
+encounter, with distinct ids and `fullUrl`s, otherwise identical to the fixture template. The
+fixtures were split from an earlier version in which all of them carried the template id (I-76).
+In each case the surviving fixture Claim belongs to the last Claim's encounter in bundle order,
+and every other resource count matches. The cases were previously filed under I-73.
+
+**Change:** added seven Claims, each a copy of the case's surviving Claim with a new id and
+`item.encounter` pointing at an encounter that had none:
+
+| Case | New Claim → Encounter |
+| --- | --- |
+| `348471db` | `f0b94078-7d15-4068-b347-c2a6e81b31ba` → `75f7c014`; `a86c4aaf-034a-4670-b422-7b1afced2d35` → `fa6b04db` |
+| `451b6853` | `cddeebd4-24ae-465a-b189-680fe0ee8f06` → `b0308413`; `09dbe4fd-1648-47f5-b354-49c2c3dc56e5` → `b9ee5db2` |
+| `a2b8327c` | `75f1f336-41a9-4580-ab36-e0c6a591a2ab` → `ae6c08c6` |
+| `c15bee15` | `620b9f4e-77f5-47c0-9005-cae9360321c5` → `1a78b4b0`; `e25cde12-fc1c-4339-a3f1-ce6576b5486d` → `c5ea6ecd` |
+
+These MeasureReports list every Encounter before every Claim, so in each the first one or two
+repeated `Claim/5ca62962…1ec5` references now point at the new Claims and the last still points at
+the original. The QI-Core fixtures were deliberately left unchanged.
+
+**Verified 2026-10-16** with `cql_execute` (translator/engine 5.4.0), IP/Den/DenExcl/Numer/DenExcep
+after exclusions: `348471db` 3/3/1/1/1, `451b6853` 3/3/2/1/0, `a2b8327c` 2/2/0/2/0, `c15bee15`
+3/3/0/2/1, each matching its fixture MeasureReport, with no diagnostics.
+`scripts/validate_test_fixtures.py --measure CMS104FHIRSTKDCAntithrombotic` no longer reports
+`EVALUATED-REF-REPEATED` for these cases. The grid has not yet been regenerated. Tracked as I-76
+(`implementation`); I-73 is retired.
+
+### Example
+
+```jsonc
+// before (MeasureReport-bf54d81d evaluatedResource, 348471db)
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+
+// after
+{ "reference": "Claim/f0b94078-7d15-4068-b347-c2a6e81b31ba" },
+{ "reference": "Claim/a86c4aaf-034a-4670-b422-7b1afced2d35" },
+{ "reference": "Claim/5ca62962b8484628b8de1ec5" }
+```
+
+**Measures Affected:** CMS104

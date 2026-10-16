@@ -18837,10 +18837,10 @@ CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,59f7d72d-7470-46ee-986a-daabe67f64a7,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Initial Population,1
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Initial Population,2
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator,2
 CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator Exclusion,1
-CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Numerator,1
 CMS72FHIRSTKAntithromboticDay2,5a329008-fcc1-4168-ab9c-89cb5dd6ff32,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,5adf0120-b2f5-415f-b1ff-1684d9f4af7a,Group_1:Denominator,1
@@ -19192,10 +19192,10 @@ CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,c97d55e0-29b4-4387-b9ed-ca0647eeb376,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Initial Population,1
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator,1
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Initial Population,3
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator,3
 CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator Exclusion,1
-CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Numerator,0
+CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Numerator,2
 CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,cbe5f41b-754f-49d8-91c4-85823628ceff,Group_1:Denominator,1
@@ -19357,10 +19357,10 @@ CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Deno
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Denominator Exclusion,1
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Numerator,0
 CMS72FHIRSTKAntithromboticDay2,fcfbed2b-7381-4b5f-8d42-a2c2de464dae,Group_1:Denominator Exception,0
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Initial Population,1
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator,1
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator Exclusion,0
-CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Numerator,1
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Initial Population,4
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator,4
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator Exclusion,2
+CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Numerator,2
 CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,Group_1:Denominator Exception,0
 CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Initial Population,1
 CMS72FHIRSTKAntithromboticDay2,fed17706-6d92-4092-a9b1-9b7e47847f2a,Group_1:Denominator,1

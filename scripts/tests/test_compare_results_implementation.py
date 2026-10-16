@@ -241,7 +241,7 @@ class ImplementationReportTest(unittest.TestCase):
         with open(report) as f:
             return f.read()
 
-    def test_measure_with_only_implementation_failures_has_no_discrepancies(self):
+    def test_measure_with_only_implementation_failures_is_listed_as_resolved(self):
         text = self._run(
             [f"{MEASURE},{GUID_A},Group_1:Initial Population,2",
              f"{MEASURE},{GUID_A},Group_1:Denominator,2",
@@ -253,16 +253,21 @@ class ImplementationReportTest(unittest.TestCase):
              f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
             ISSUES_HEADER + f'I-73,{MEASURE},{GUID_A},,"One Claim, two encounters."\n')
         self.assertIn("| Total Test Cases | 2 |", text)
-        self.assertIn("| Measures with Discrepancies | 0 |", text)
+        self.assertIn("| Measures with Discrepancies | 1 |", text)
         self.assertIn("| Pass Count | 1 (50.00%) |", text)
         self.assertIn("| Implementation Issue Count | 1 (50.00%) |", text)
         self.assertIn("| Fail Count | 0 (0.00%) |", text)
         self.assertIn("| Resolved (Pass + Implementation) | 2 (100.00%) |", text)
-        self.assertIn("## Implementation Issues (1 test case, 1 measure)", text)
-        self.assertIn(f"  - {GUID_A} (Group_1: Initial Population 2 → 1, Denominator 2 → 1): "
-                      "**I-73**. One Claim, two encounters.\n", text)
-        self.assertIn("## Measures with No Discrepancies (1 of 1)", text)
-        self.assertNotIn("## Measures with Discrepancies", text)
+        self.assertIn("| Unattributed Discrepancies | 0 | 0 |", text)
+        self.assertNotIn("## Implementation Issues", text)
+        # Still listed, labelled as resolved by its issue, with nothing unattributed.
+        self.assertIn("## Measures with Discrepancies (1 of 1)", text)
+        self.assertNotIn("## Measures with No Discrepancies", text)
+        self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 2 | 0 | 0 | 50.00%   (1) | 0 |",
+                      text)
+        self.assertIn(f"| {GUID_A} | Group_1 | Initial Population<br>Denominator | 2<br>2 | "
+                      "1<br>1 | I-73 (implementation) |", text)
+        self.assertIn("- **I-73** (`implementation`): One Claim, two encounters.\n", text)
         with open(self.output, newline="") as f:
             results = {(r["guid"], r["population"]): r["result"] for r in csv.DictReader(f)}
         self.assertEqual(results[(GUID_A, "Group_1:Denominator")], IMPLEMENTATION)
@@ -277,11 +282,13 @@ class ImplementationReportTest(unittest.TestCase):
             ISSUES_HEADER + f"I-72,{MEASURE},{GUID_A},Group_2,Only Group_2.\n")
         self.assertIn("| Fail Count | 1 (100.00%) |", text)
         self.assertNotIn("Implementation Issue Count", text)
-        # Group_2 is explained and listed; Group_1 stays a discrepancy.
-        self.assertIn("## Implementation Issues (1 test case, 1 measure)", text)
-        self.assertIn(f"  - {GUID_A} (Group_2: Denominator 1 → 0): **I-72**. Only Group_2.\n", text)
-        self.assertIn("Mismatched Test Cases (1 of 2)", text)
-        self.assertRegex(text, rf"\| {GUID_A} \| Group_1 \| Denominator \| 1 \| 0 \|")
+        # Group_2 is explained; Group_1 isn't, so the case is unattributed.
+        self.assertIn("| Unattributed Discrepancies | 1 | 1 |", text)
+        self.assertIn("Mismatched Test Cases (2 of 2)", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | 1 | 0 |  |", text)
+        self.assertIn(f"| {GUID_A} | Group_2 | Denominator | 1 | 0 | I-72 (implementation) |",
+                      text)
+        self.assertIn("- **I-72** (`implementation`): Only Group_2.\n", text)
 
     def test_no_failing_covered_case_renders_no_section(self):
         text = self._run(
@@ -289,6 +296,7 @@ class ImplementationReportTest(unittest.TestCase):
             [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
             ISSUES_HEADER + f"I-73,{MEASURE},{GUID_A},,Already fixed.\n")
         self.assertNotIn("Implementation Issue", text)
+        self.assertNotIn("| Issue |", text)
         self.assertIn("| Pass Count | 1 (100.00%) |", text)
 
 

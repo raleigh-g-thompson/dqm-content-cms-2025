@@ -1,12 +1,12 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-15 19:26:53.602371 |
+| Generated | 2026-10-16 05:20:00.001408 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Measures with Discrepancies | 10 |
-| Pass Count | 3918 (98.84%) |
-| Implementation Issue Count | 12 (0.30%) |
+| Measures with Discrepancies | 15 |
+| Pass Count | 3921 (98.92%) |
+| Implementation Issue Count | 9 (0.23%) |
 | Known Issue Count (ticketed) | 4 (0.10%) |
 | Fail Count | 30 (0.76%) |
 | &nbsp;&nbsp;— known issue, needs ticket | 30 (0.76%) |
@@ -15,13 +15,14 @@
 
 | Discrepancy Summary | Measure Count | Test Case Count |
 |---|:---:|:---:|
-| Missing Results | 2 | 3 |
+| Missing Results | 4 | 7 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 9 | 27 |
+| Mismatched Test Cases | 13 | 36 |
+| Unattributed Discrepancies | 10 | 30 |
 
 
 
-_Note: Measures can have multiple discrepancies, so the Measures with Discrepancies count may not match the summary counts._
+_Note: Measures can have multiple discrepancies, so the Measures with Discrepancies count may not match the summary counts. Unattributed Discrepancies are those no implementation issue or ticketed known issue resolves._
 
 ## Populations Excluded from Automated Scoring (CQFM Aggregation)
 
@@ -35,105 +36,7 @@ _These populations require invoking a parameterized CQL `measure-observation` fu
 
 _2085 cells excluded across 3 measures._
 
-## Implementation Issues (12 test cases, 6 measures)
-
-_These test cases fail their fixture MeasureReport because of the measure steward's test data or expectation, not the CQL or the engine (class `implementation` in `defect-tracking/known-issues.md`). Each is explained by an issue, which resolves it the same as a pass: its cells are scored `IMPLEMENTATION` in `output_results.csv`, and it is left out of the per-measure discrepancy tables. The fix belongs to the steward. Listed in `./scripts/comparison/implementation_issues.csv`._
-
-| Measure | Test Cases |
-|---|:---:|
-| CMS72FHIRSTKAntithromboticDay2 | 4 |
-| CMS104FHIRSTKDCAntithrombotic | 4 |
-| CMS145FHIRCADBBlockerTPMIorLVSD | 1 |
-| CMS347FHIRStatinPreventionTxCVD | 1 |
-| CMS646FHIRIntravesicalBCGTherapy | 1 |
-| CMS996FHIRAptTxforSTEMI | 1 |
-
-
-- **CMS72FHIRSTKAntithromboticDay2** (4)
-  - [ 5a329008-fcc1-4168-ab9c-89cb5dd6ff32 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/5a329008-fcc1-4168-ab9c-89cb5dd6ff32/MeasureReport-dda268cb-4395-4776-acd8-0fee046d392a.json) (Group_1: Initial Population 2 → 1, Denominator 2 → 1, Numerator 1 → 0): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-  - [ be5c4068-2639-4b0c-bea3-5b7c80a6fe3b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/be5c4068-2639-4b0c-bea3-5b7c80a6fe3b/MeasureReport-ad329961-b67b-413b-a186-d6b269572c42.json) (Group_1: Denominator Exception 1 → 0): **I-75**. PENDING SME CONFIRMATION. INR Observation valueQuantity has UCUM unit "0" and no code; UCUM reads "0" as a factor of zero, so INR 100 evaluates as 0 and the INR > 3.5 Denominator Exception can't fire. A dimensionless unit (unit/code "1") makes the case match.
-  - [ cb7c95fc-6d6b-4e07-81e8-a79385142b94 ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/cb7c95fc-6d6b-4e07-81e8-a79385142b94/MeasureReport-6844e7ed-08a4-43d5-be1c-720dc795b3cf.json) (Group_1: Initial Population 3 → 1, Denominator 3 → 1, Numerator 2 → 0): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-  - [ febd4b3e-99bc-4c55-bba9-3b2136c2160b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/febd4b3e-99bc-4c55-bba9-3b2136c2160b/MeasureReport-4f80f98a-71ab-45d6-bdda-d0875ec02ec9.json) (Group_1: Initial Population 4 → 1, Denominator 4 → 1, Denominator Exclusion 2 → 0, Numerator 2 → 1): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-- **CMS104FHIRSTKDCAntithrombotic** (4)
-  - [ 348471db-5aaa-4bf3-a280-75222f20d599 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/348471db-5aaa-4bf3-a280-75222f20d599/MeasureReport-bf54d81d-f635-45ff-b69b-1580a144d3fb.json) (Group_1: Initial Population 3 → 1, Denominator 3 → 1, Denominator Exclusion 1 → 0, Numerator 1 → 0): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-  - [ 451b6853-3734-4c1c-b37e-5904629e0350 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/451b6853-3734-4c1c-b37e-5904629e0350/MeasureReport-4eefe8af-efb3-47eb-91df-e2ea877a39e7.json) (Group_1: Initial Population 3 → 1, Denominator 3 → 1, Denominator Exclusion 2 → 1, Numerator 1 → 0): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-  - [ a2b8327c-eaf4-4552-863e-851426e729d4 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/a2b8327c-eaf4-4552-863e-851426e729d4/MeasureReport-0ced6c1b-75a5-4ee3-a7a0-017818c03e9a.json) (Group_1: Initial Population 2 → 1, Denominator 2 → 1, Numerator 2 → 1): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-  - [ c15bee15-84c1-494a-ac82-2159b06da175 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/c15bee15-84c1-494a-ac82-2159b06da175/MeasureReport-bbe28035-6557-410d-964f-21cf38904d0f.json) (Group_1: Initial Population 3 → 1, Denominator 3 → 1, Numerator 2 → 0): **I-73**. Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
-- **CMS145FHIRCADBBlockerTPMIorLVSD** (1)
-  - [ 1f70822b-c513-4c3a-8162-49f0bb9c914b ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/1f70822b-c513-4c3a-8162-49f0bb9c914b/MeasureReport-9b3577fa-355c-409d-8d3f-21e9720fb889.json) (Group_2: Denominator Exception 0 → 1): **I-72**. Test expects no Group_2 Denominator Exception because the patient-reason beta-blocker not-ordered falls on the first visit, but the CQL accepts the reason at any qualifying visit, and both visits qualify. Twin case b19af44d (reason at the last visit) expects 1. The steward must change the expectation or the CQL.
-- **CMS347FHIRStatinPreventionTxCVD** (1)
-  - [ 1ba7b147-b701-424c-bade-4e8270547030 ](../.././input/tests/measure/CMS347FHIRStatinPreventionTxCVD/1ba7b147-b701-424c-bade-4e8270547030/MeasureReport-2278c703-994b-4b13-8e3b-c726ba6b8530.json) (Group_4: Denominator Exception 0 → 1): **I-67**. ESRD Condition uses a start-only abatementPeriod to mean resolved 2025-12-31; the steward should use abatementDateTime or add an end.
-- **CMS646FHIRIntravesicalBCGTherapy** (1)
-  - [ ab48e0c0-6543-4537-8f00-bfcdcba7a81b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/ab48e0c0-6543-4537-8f00-bfcdcba7a81b/MeasureReport-ea6cfef5-54d2-4d6d-a7aa-48cf8e749eaf.json) (Group_1: Numerator 0 → 1): **I-70**. Test expects Numerator 0 because BCG was given before staging results came back, but the CQL measures from the start of the staging Procedure and the BCG dose starts at the same moment (2026-04-02T08:00), so the case can't fail the Numerator.
-- **CMS996FHIRAptTxforSTEMI** (1)
-  - [ f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847/MeasureReport-f2a63299-25e1-4d91-8e5c-1bdf3b60e9cb.json) (Group_1: Denominator Exclusion 0 → 1): **I-71**. Active thrombolytic allergy uses onsetPeriod.end to mean it ended before the ED visit; with no abatement, prevalenceInterval() correctly runs to end of time and overlaps the encounter. The steward should mark it resolved with an allergyintolerance-abatement extension, or expect Denominator Exclusion 1.
-
-## Known Issues (34 test cases, 10 issues)
-
-_These test cases fail because of an issue already catalogued in `defect-tracking/known-issues.md`. A test case is resolved, the same as a pass, only once its issue has a GitHub ticket: its cells are then scored `KNOWN_ISSUE` in `output_results.csv` and it leaves the per-measure discrepancy tables. Without a ticket it still counts as a failure. Listed in `./scripts/comparison/known_issues.csv`._
-
-| Issue | Class | Ticket | Test Cases | Status |
-|---|---|---|:---:|---|
-| I-05 | `content` | — | 2 | **Needs ticket** |
-| I-11 | `content` | — | 2 | **Needs ticket** |
-| I-12 | `content` | — | 1 | **Needs ticket** |
-| I-14 | `content` | — | 2 | **Needs ticket** |
-| I-15 | `content` | — | 1 | **Needs ticket** |
-| I-26 | `engine` | [cqframework/clinical_quality_language#1868](https://github.com/cqframework/clinical_quality_language/issues/1868) | 4 | Resolved (ticketed) |
-| I-33 | `engine` | — | 1 | **Needs ticket** |
-| I-39 | `fixture` | — | 5 | **Needs ticket** |
-| I-63 | `engine` | — | 2 | **Needs ticket** |
-| I-65 | `content` | — | 14 | **Needs ticket** |
-
-
-_9 issues (I-05, I-11, I-12, I-14, I-15, I-33, I-39, I-63, I-65) need a ticket before their test cases count as resolved._
-
-- **I-05** (2)
-  - CMS1017FHIRHHFI [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) (Group_1: Numerator Exclusion 0 → 1): Numerator Exclusion 0 → 1. Cause not yet documented; needs re-triage.
-  - CMS1017FHIRHHFI [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) (Group_1: Numerator Exclusion 0 → 1): Numerator Exclusion 0 → 1. Cause not yet documented; needs re-triage.
-- **I-11** (2)
-  - CMS159FHIRDepRemissionat12Months [ 491f554e-e897-40c5-ad2b-0983923df4e8 ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-e897-40c5-ad2b-0983923df4e8/MeasureReport-580087e1-b59e-43eb-b110-692c35a82dca.json) (Group_1: Denominator Exclusion 1 → 0, Numerator 0 → 1): Fixture MeasureReport authoring mismatch: it expects values the test data doesn't support.
-  - CMS159FHIRDepRemissionat12Months [ 96b6579c-1cee-423f-9433-a72db6fb8a0a ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-1cee-423f-9433-a72db6fb8a0a/MeasureReport-e3ec1311-05ed-4a6f-b13f-a4d290865bb3.json) (Group_1: Denominator Exclusion 1 → 0, Numerator 0 → 1): Fixture MeasureReport authoring mismatch: it expects values the test data doesn't support.
-- **I-12** (1)
-  - CMS0334FHIRPCCesareanBirth [ c58acff5-248b-49c9-b18d-69e4a84a08d9 ](../.././input/tests/measure/CMS0334FHIRPCCesareanBirth/c58acff5-248b-49c9-b18d-69e4a84a08d9/MeasureReport-920b0c2e-1f1f-42d3-ab1f-1d7b12fa4bd0.json) (Group_1: Denominator 1 → 0, Denominator Exclusion 1 → 0): Fixture MeasureReport authoring mismatch: it expects values the test data doesn't support.
-- **I-14** (2)
-  - CMSFHIR844HybridHospitalWideMortality [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) (Group_1: Initial Population 1 → 0): Fixture MeasureReport hand-authors the Initial Population; the test data supports the computed value.
-  - CMSFHIR844HybridHospitalWideMortality [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) (Group_1: Initial Population 2 → 1): Fixture MeasureReport hand-authors the Initial Population; the test data supports the computed value.
-- **I-15** (1)
-  - CMS646FHIRIntravesicalBCGTherapy [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) (Group_1: Denominator Exclusion 0 → 1): Fixture MeasureReport expects a value the resources present can't produce.
-- **I-26** (4)
-  - CMS135FHIRACEIorARBorARNIforHF [ c095195c-8893-4bf1-aa7d-ad2bfd9bafa5 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/c095195c-8893-4bf1-aa7d-ad2bfd9bafa5/MeasureReport-f2d033da-6f32-46dc-86bc-69fdf82b1cfd.json) (Group_1: Initial Population 1 → MISSING, Denominator 0 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
-  - CMS135FHIRACEIorARBorARNIforHF [ cba5a449-1c45-4e11-ae0b-ba3974b410f7 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/cba5a449-1c45-4e11-ae0b-ba3974b410f7/MeasureReport-ae8c4b99-af76-4577-b66d-b1230ac09aa3.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
-  - CMS135FHIRACEIorARBorARNIforHF [ ec508dbb-76f6-4878-b8a2-114ea8e82297 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/ec508dbb-76f6-4878-b8a2-114ea8e82297/MeasureReport-d1b704c8-7e95-4cd9-89e7-a8b90f925ce2.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
-  - CMS165FHIRControllingHighBP [ 45e01fed-56bb-483d-a860-af3d566bda11 ](../.././input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/MeasureReport-02991ca7-859d-422d-8849-655760f8e10a.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Numerator 0 → MISSING): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
-- **I-33** (1)
-  - CMS646FHIRIntravesicalBCGTherapy [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Denominator Exception 0 → MISSING, Numerator 0 → MISSING): "Values FHIR.dateTime and FHIR.dateTime are not comparable" aborts the case. The FHIRHelpers.ToDateTime() workaround is applied to CMS156 only.
-- **I-39** (5)
-  - CMS142FHIRCommWithDrManagingDiab [ 05f1e2a6-b317-42bb-827f-993ca3995f5b ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-b317-42bb-827f-993ca3995f5b/MeasureReport-84bcf708-71bb-4169-8067-18fd354f3c37.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
-  - CMS142FHIRCommWithDrManagingDiab [ 41ae0086-ac99-4a31-9546-21b054bbf7d8 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/41ae0086-ac99-4a31-9546-21b054bbf7d8/MeasureReport-b77a6309-214c-4fc2-a9bc-18d81c740da6.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
-  - CMS142FHIRCommWithDrManagingDiab [ 6aef5a18-59bd-4a47-80bc-2bd44636e41f ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/6aef5a18-59bd-4a47-80bc-2bd44636e41f/MeasureReport-e5735d61-0444-4958-8f47-165a59e91dc0.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
-  - CMS142FHIRCommWithDrManagingDiab [ b85440e4-b902-49cd-b3d6-363ba7a99bce ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/b85440e4-b902-49cd-b3d6-363ba7a99bce/MeasureReport-9d61df39-18a0-451f-a795-988388d58778.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
-  - CMS142FHIRCommWithDrManagingDiab [ d9840e8c-3359-42c2-b354-4b236c3c1b15 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/d9840e8c-3359-42c2-b354-4b236c3c1b15/MeasureReport-1fbf56ab-6e60-4ce6-a1d5-b520382164bd.json) (Group_1: Denominator Exception 1 → 0): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
-- **I-63** (2)
-  - CMS871FHIRHHHyper [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 1 → MISSING, Numerator 0 → MISSING, Numerator Exclusion 0 → MISSING): "Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)." aborts the case; root cause not yet traced.
-  - CMS871FHIRHHHyper [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) (Group_1: Initial Population 1 → MISSING, Denominator 1 → MISSING, Denominator Exclusion 0 → MISSING, Numerator 0 → MISSING, Numerator Exclusion 0 → MISSING): "Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)." aborts the case; root cause not yet traced.
-- **I-65** (14)
-  - CMS135FHIRACEIorARBorARNIforHF [ 5b7e720f-e2fc-4779-9b1c-3f34a0241482 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/5b7e720f-e2fc-4779-9b1c-3f34a0241482/MeasureReport-01fb5443-0f43-487e-ac44-f7cc6e163ca0.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS135FHIRACEIorARBorARNIforHF [ d18e37a6-7b66-4e7c-b305-692872c13f8d ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/d18e37a6-7b66-4e7c-b305-692872c13f8d/MeasureReport-ecbb5067-dcb1-48ce-8e78-6dfd556ac43d.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS145FHIRCADBBlockerTPMIorLVSD [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) (Group_2: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS145FHIRCADBBlockerTPMIorLVSD [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS145FHIRCADBBlockerTPMIorLVSD [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS145FHIRCADBBlockerTPMIorLVSD [ b65680a0-9768-4ce4-b08d-972fcd84e28e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/b65680a0-9768-4ce4-b08d-972fcd84e28e/MeasureReport-b5ebd0a9-a2de-4b31-b0d9-588888e95872.json) (Group_2: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS145FHIRCADBBlockerTPMIorLVSD [ fd5fb311-a466-4c59-966d-48fa7aa88931 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/fd5fb311-a466-4c59-966d-48fa7aa88931/MeasureReport-05ffed3e-5604-40eb-bcf8-99cacecc26c0.json) (Group_1: Denominator Exception 1 → 0): Denominator Exception define returns 0; root cause not yet found.
-  - CMS771FHIRUrinarySymptomScoreBPH [ 051c5977-9f2c-4e8b-8e02-ac3ec0c718d6 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/051c5977-9f2c-4e8b-8e02-ac3ec0c718d6/MeasureReport-13a299d2-1f32-41d7-b226-7380902e41b7.json) (Group_1: Denominator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ 3ab3ac1d-9b5e-4087-8862-dcb2562fb90f ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/3ab3ac1d-9b5e-4087-8862-dcb2562fb90f/MeasureReport-47dae27e-89cf-4ee5-8c8b-bf1e44997d07.json) (Group_1: Denominator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ 4c234ec0-3f89-4d55-b767-219d1130f634 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/4c234ec0-3f89-4d55-b767-219d1130f634/MeasureReport-47a91ced-cb5f-44c0-9417-e8efa33a4b08.json) (Group_1: Numerator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ 9be591a0-517b-4be2-b652-a29be0c75c15 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/9be591a0-517b-4be2-b652-a29be0c75c15/MeasureReport-004d2ae6-6c2e-49f8-bf07-26cada3bbaf3.json) (Group_1: Numerator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ bc79e5bc-237e-44be-b5fc-c5c4efb50286 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bc79e5bc-237e-44be-b5fc-c5c4efb50286/MeasureReport-621196a7-ca5f-4408-8508-851332413956.json) (Group_1: Numerator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ bf0f8968-c2c0-4416-88db-11ea3e3da968 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/bf0f8968-c2c0-4416-88db-11ea3e3da968/MeasureReport-bcce208a-3ff4-4c82-9d49-c0b64ccb9138.json) (Group_1: Numerator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-  - CMS771FHIRUrinarySymptomScoreBPH [ e90d90a7-3071-44de-8089-ad7b6f5f3e5d ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/e90d90a7-3071-44de-8089-ad7b6f5f3e5d/MeasureReport-9ef2db11-d78a-49af-a2ac-6536fac264a1.json) (Group_1: Numerator 1 → 0): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
-
-## Measures with No Discrepancies (64 of 74)
+## Measures with No Discrepancies (59 of 74)
 
 |  |  |  |
 | --- | --- | --- |
@@ -143,56 +46,106 @@ _9 issues (I-05, I-11, I-12, I-14, I-15, I-33, I-39, I-63, I-65) need a ticket b
 | [ CMS56FHIRFuncStatHipReplacement ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ test ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) | [ CMS139FHIRFallRiskScreening ](../../input/cql/CMS139FHIRFallRiskScreening.cql) [ test ](../../input/tests/results/CMS139FHIRFallRiskScreening.txt) | [ CMS832FHIRHHAKI ](../../input/cql/CMS832FHIRHHAKI.cql) [ test ](../../input/tests/results/CMS832FHIRHHAKI.txt) |
 | [ CMS68FHIRDocumentationCurrentMeds ](../../input/cql/CMS68FHIRDocumentationCurrentMeds.cql) [ test ](../../input/tests/results/CMS68FHIRDocumentationCurrentMeds.txt) | [ CMS143FHIRPOAGOpticNerveEval ](../../input/cql/CMS143FHIRPOAGOpticNerveEval.cql) [ test ](../../input/tests/results/CMS143FHIRPOAGOpticNerveEval.txt) | [ CMS951FHIRKidneyHealthEval ](../../input/cql/CMS951FHIRKidneyHealthEval.cql) [ test ](../../input/tests/results/CMS951FHIRKidneyHealthEval.txt) |
 | [ CMS69FHIRPCSBMIScreenAndFollowUp ](../../input/cql/CMS69FHIRPCSBMIScreenAndFollowUp.cql) [ test ](../../input/tests/results/CMS69FHIRPCSBMIScreenAndFollowUp.txt) | [ CMS144FHIRHFBetaBlockerForLVSD ](../../input/cql/CMS144FHIRHFBetaBlockerForLVSD.cql) [ test ](../../input/tests/results/CMS144FHIRHFBetaBlockerForLVSD.txt) | [ CMS986FHIRMalnutritionScore ](../../input/cql/CMS986FHIRMalnutritionScore.cql) [ test ](../../input/tests/results/CMS986FHIRMalnutritionScore.txt) |
-| [ CMS71FHIRSTKAnticoagAFFlutter ](../../input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql) [ test ](../../input/tests/results/CMS71FHIRSTKAnticoagAFFlutter.txt) | [ CMS146FHIRApproTestPharyngitis ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ test ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) | [ CMS996FHIRAptTxforSTEMI ](../../input/cql/CMS996FHIRAptTxforSTEMI.cql) [ test ](../../input/tests/results/CMS996FHIRAptTxforSTEMI.txt) |
-| [ CMS72FHIRSTKAntithromboticDay2 ](../../input/cql/CMS72FHIRSTKAntithromboticDay2.cql) [ test ](../../input/tests/results/CMS72FHIRSTKAntithromboticDay2.txt) | [ CMS149FHIRDementiaCognitiveAssess ](../../input/cql/CMS149FHIRDementiaCognitiveAssess.cql) [ test ](../../input/tests/results/CMS149FHIRDementiaCognitiveAssess.txt) | [ CMS1028FHIRPCSevereOBComps ](../../input/cql/CMS1028FHIRPCSevereOBComps.cql) [ test ](../../input/tests/results/CMS1028FHIRPCSevereOBComps.txt) |
-| [ CMS74FHIRDentalCariesPrevention ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ test ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) | [ CMS153FHIRChlamydiaScreening ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ test ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) | [ CMS1056FHIRCTClinical ](../../input/cql/CMS1056FHIRCTClinical.cql) [ test ](../../input/tests/results/CMS1056FHIRCTClinical.txt) |
-| [ CMS75FHIRChildrenDentalDecay ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ test ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) | [ CMS154FHIRAppropriateTxforURI ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ test ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) | [ CMS1074FHIRCTIQR ](../../input/cql/CMS1074FHIRCTIQR.cql) [ test ](../../input/tests/results/CMS1074FHIRCTIQR.txt) |
-| [ CMS90FHIRFSAforHeartFailure ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ test ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) | [ CMS155FHIRWgtAssessCounseling ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ test ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) | [ CMS1154ScreeningPrediabetesFHIR ](../../input/cql/CMS1154ScreeningPrediabetesFHIR.cql) [ test ](../../input/tests/results/CMS1154ScreeningPrediabetesFHIR.txt) |
-| [ CMS104FHIRSTKDCAntithrombotic ](../../input/cql/CMS104FHIRSTKDCAntithrombotic.cql) [ test ](../../input/tests/results/CMS104FHIRSTKDCAntithrombotic.txt) | [ CMS156FHIRHighRiskMedsElderly ](../../input/cql/CMS156FHIRHighRiskMedsElderly.cql) [ test ](../../input/tests/results/CMS156FHIRHighRiskMedsElderly.txt) | [ CMS1157FHIRHIVRetention ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ test ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) |
-| [ CMS108FHIRVTEProphylaxis ](../../input/cql/CMS108FHIRVTEProphylaxis.cql) [ test ](../../input/tests/results/CMS108FHIRVTEProphylaxis.txt) | [ CMS157FHIRPainIntensityQuantified ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ test ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) | [ CMS1173FHIRDiagnosticDelayVTE ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ test ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt) |
-| [ CMS117FHIRChildImmunStatus ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ test ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) | [ CMS165FHIRControllingHighBP ](../../input/cql/CMS165FHIRControllingHighBP.cql) [ test ](../../input/tests/results/CMS165FHIRControllingHighBP.txt) | [ CMS1188FHIRHIVSTITesting ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ test ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) |
-| [ CMS122FHIRDiabetesAssessGT9Pct ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ test ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) | [ CMS177FHIRChildMDDSuicideAssmt ](../../input/cql/CMS177FHIRChildMDDSuicideAssmt.cql) [ test ](../../input/tests/results/CMS177FHIRChildMDDSuicideAssmt.txt) | [ CMS1206FHIRCTOQR ](../../input/cql/CMS1206FHIRCTOQR.cql) [ test ](../../input/tests/results/CMS1206FHIRCTOQR.txt) |
-| [ CMS124FHIRCervicalCancerScreen ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ test ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) | [ CMS190FHIRVTEProphylaxisICU ](../../input/cql/CMS190FHIRVTEProphylaxisICU.cql) [ test ](../../input/tests/results/CMS190FHIRVTEProphylaxisICU.txt) | [ CMS1218FHIRHHRF ](../../input/cql/CMS1218FHIRHHRF.cql) [ test ](../../input/tests/results/CMS1218FHIRHHRF.txt) |
-| [ CMS125FHIRBreastCancerScreen ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ test ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) | [ CMS314FHIRHIVViralSuppression ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ test ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) | [ CMS1244FHIRECATHOQR ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ test ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) |
-| [ CMS128FHIRAntidepressantMgmt ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ test ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) | [ CMS347FHIRStatinPreventionTxCVD ](../../input/cql/CMS347FHIRStatinPreventionTxCVD.cql) [ test ](../../input/tests/results/CMS347FHIRStatinPreventionTxCVD.txt) | [ CMS1264FHIRECATREHQR ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ test ](../../input/tests/results/CMS1264FHIRECATREHQR.txt) |
-| [ CMS129FHIRProstCaBoneScanUse ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ test ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) | [ CMS349FHIRHIVScreening ](../../input/cql/CMS349FHIRHIVScreening.cql) [ test ](../../input/tests/results/CMS349FHIRHIVScreening.txt) | [ NHSNAcuteCareHospitalMonthlyInitialPopulation1 ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ test ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) |
-| [ CMS130FHIRColorectalCancerScrn ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ test ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) | [ CMS506FHIRSafeUseofOpioids ](../../input/cql/CMS506FHIRSafeUseofOpioids.cql) [ test ](../../input/tests/results/CMS506FHIRSafeUseofOpioids.txt) | [ NHSNGlycemicControlHypoglycemiaInitialPopulation ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ test ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) |
-| [ CMS131FHIRDiabetesEyeExam ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ test ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) | [ CMSFHIR529HybridHospitalWideReadmission ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ test ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) |  |
+| [ CMS71FHIRSTKAnticoagAFFlutter ](../../input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql) [ test ](../../input/tests/results/CMS71FHIRSTKAnticoagAFFlutter.txt) | [ CMS146FHIRApproTestPharyngitis ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ test ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) | [ CMS1028FHIRPCSevereOBComps ](../../input/cql/CMS1028FHIRPCSevereOBComps.cql) [ test ](../../input/tests/results/CMS1028FHIRPCSevereOBComps.txt) |
+| [ CMS74FHIRDentalCariesPrevention ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ test ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) | [ CMS149FHIRDementiaCognitiveAssess ](../../input/cql/CMS149FHIRDementiaCognitiveAssess.cql) [ test ](../../input/tests/results/CMS149FHIRDementiaCognitiveAssess.txt) | [ CMS1056FHIRCTClinical ](../../input/cql/CMS1056FHIRCTClinical.cql) [ test ](../../input/tests/results/CMS1056FHIRCTClinical.txt) |
+| [ CMS75FHIRChildrenDentalDecay ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ test ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) | [ CMS153FHIRChlamydiaScreening ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ test ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) | [ CMS1074FHIRCTIQR ](../../input/cql/CMS1074FHIRCTIQR.cql) [ test ](../../input/tests/results/CMS1074FHIRCTIQR.txt) |
+| [ CMS90FHIRFSAforHeartFailure ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ test ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) | [ CMS154FHIRAppropriateTxforURI ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ test ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) | [ CMS1154ScreeningPrediabetesFHIR ](../../input/cql/CMS1154ScreeningPrediabetesFHIR.cql) [ test ](../../input/tests/results/CMS1154ScreeningPrediabetesFHIR.txt) |
+| [ CMS108FHIRVTEProphylaxis ](../../input/cql/CMS108FHIRVTEProphylaxis.cql) [ test ](../../input/tests/results/CMS108FHIRVTEProphylaxis.txt) | [ CMS155FHIRWgtAssessCounseling ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ test ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) | [ CMS1157FHIRHIVRetention ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ test ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) |
+| [ CMS117FHIRChildImmunStatus ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ test ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) | [ CMS156FHIRHighRiskMedsElderly ](../../input/cql/CMS156FHIRHighRiskMedsElderly.cql) [ test ](../../input/tests/results/CMS156FHIRHighRiskMedsElderly.txt) | [ CMS1173FHIRDiagnosticDelayVTE ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ test ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt) |
+| [ CMS122FHIRDiabetesAssessGT9Pct ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ test ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) | [ CMS157FHIRPainIntensityQuantified ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ test ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) | [ CMS1188FHIRHIVSTITesting ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ test ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) |
+| [ CMS124FHIRCervicalCancerScreen ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ test ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) | [ CMS177FHIRChildMDDSuicideAssmt ](../../input/cql/CMS177FHIRChildMDDSuicideAssmt.cql) [ test ](../../input/tests/results/CMS177FHIRChildMDDSuicideAssmt.txt) | [ CMS1206FHIRCTOQR ](../../input/cql/CMS1206FHIRCTOQR.cql) [ test ](../../input/tests/results/CMS1206FHIRCTOQR.txt) |
+| [ CMS125FHIRBreastCancerScreen ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ test ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) | [ CMS190FHIRVTEProphylaxisICU ](../../input/cql/CMS190FHIRVTEProphylaxisICU.cql) [ test ](../../input/tests/results/CMS190FHIRVTEProphylaxisICU.txt) | [ CMS1218FHIRHHRF ](../../input/cql/CMS1218FHIRHHRF.cql) [ test ](../../input/tests/results/CMS1218FHIRHHRF.txt) |
+| [ CMS128FHIRAntidepressantMgmt ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ test ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) | [ CMS314FHIRHIVViralSuppression ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ test ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) | [ CMS1244FHIRECATHOQR ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ test ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) |
+| [ CMS129FHIRProstCaBoneScanUse ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ test ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) | [ CMS349FHIRHIVScreening ](../../input/cql/CMS349FHIRHIVScreening.cql) [ test ](../../input/tests/results/CMS349FHIRHIVScreening.txt) | [ CMS1264FHIRECATREHQR ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ test ](../../input/tests/results/CMS1264FHIRECATREHQR.txt) |
+| [ CMS130FHIRColorectalCancerScrn ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ test ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) | [ CMS506FHIRSafeUseofOpioids ](../../input/cql/CMS506FHIRSafeUseofOpioids.cql) [ test ](../../input/tests/results/CMS506FHIRSafeUseofOpioids.txt) | [ NHSNAcuteCareHospitalMonthlyInitialPopulation1 ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ test ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) |
+| [ CMS131FHIRDiabetesEyeExam ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ test ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) | [ CMSFHIR529HybridHospitalWideReadmission ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ test ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) | [ NHSNGlycemicControlHypoglycemiaInitialPopulation ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ test ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) |
 | [ CMS133FHIRCataracts2040BCVA90Days ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ test ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt) | [ CMS645FHIRBoneDensityPCADTherapy ](../../input/cql/CMS645FHIRBoneDensityPCADTherapy.cql) [ test ](../../input/tests/results/CMS645FHIRBoneDensityPCADTherapy.txt) |  |
 
 
-## Measures with Discrepancies (10 of 74)
-| Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases |
-|---|:---:|:---:|:---:|:---:|
-| [CMS135FHIRACEIorARBorARNIforHF](#cms135fhiraceiorarborarniforhf) | 40 | 0 | 0 | 5.00%   (2) |
-| [CMS142FHIRCommWithDrManagingDiab](#cms142fhircommwithdrmanagingdiab) | 32 | 0 | 0 | 15.62%   (5) |
-| [CMS145FHIRCADBBlockerTPMIorLVSD](#cms145fhircadbblockertpmiorlvsd) | 106 | 0 | 0 | 4.72%   (5) |
-| [CMS159FHIRDepRemissionat12Months](#cms159fhirdepremissionat12months) | 67 | 0 | 0 | 2.99%   (2) |
-| [CMS0334FHIRPCCesareanBirth](#cms0334fhirpccesareanbirth) | 138 | 0 | 0 | 0.72%   (1) |
-| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 2.63%   (1) |
-| [CMS771FHIRUrinarySymptomScoreBPH](#cms771fhirurinarysymptomscorebph) | 31 | 0 | 0 | 22.58%   (7) |
-| [CMSFHIR844HybridHospitalWideMortality](#cmsfhir844hybridhospitalwidemortality) | 10 | 0 | 0 | 20.00%   (2) |
-| [CMS871FHIRHHHyper](#cms871fhirhhhyper) | 26 | 2 | 0 | 0.00%   (0) |
-| [CMS1017FHIRHHFI](#cms1017fhirhhfi) | 65 | 0 | 0 | 3.08%   (2) |
+## Measures with Discrepancies (15 of 74)
 
+_Every measure with a test case that doesn't match its fixture MeasureReport. The `Issue` column names the issue that explains a test case: `implementation` (the measure steward's test data or expectation, see `defect-tracking/known-issues.md`) and `ticketed` resolve it, the same as a pass; `needs ticket` does not yet. A test case nothing resolves is counted as Unattributed._
+
+| Measure | Total Test Cases | Missing Results | Missing Populations | Mismatched Test Cases | Unattributed |
+|---|:---:|:---:|:---:|:---:|:---:|
+| [CMS72FHIRSTKAntithromboticDay2](#cms72fhirstkantithromboticday2) | 158 | 0 | 0 | 0.63%   (1) | 0 |
+| [CMS104FHIRSTKDCAntithrombotic](#cms104fhirstkdcantithrombotic) | 82 | 0 | 0 | 4.88%   (4) | 0 |
+| [CMS135FHIRACEIorARBorARNIforHF](#cms135fhiraceiorarborarniforhf) | 40 | 3 | 0 | 5.00%   (2) | 2 |
+| [CMS142FHIRCommWithDrManagingDiab](#cms142fhircommwithdrmanagingdiab) | 32 | 0 | 0 | 15.62%   (5) | 5 |
+| [CMS145FHIRCADBBlockerTPMIorLVSD](#cms145fhircadbblockertpmiorlvsd) | 106 | 0 | 0 | 5.66%   (6) | 5 |
+| [CMS159FHIRDepRemissionat12Months](#cms159fhirdepremissionat12months) | 67 | 0 | 0 | 2.99%   (2) | 2 |
+| [CMS165FHIRControllingHighBP](#cms165fhircontrollinghighbp) | 68 | 1 | 0 | 0.00%   (0) | 0 |
+| [CMS0334FHIRPCCesareanBirth](#cms0334fhirpccesareanbirth) | 138 | 0 | 0 | 0.72%   (1) | 1 |
+| [CMS347FHIRStatinPreventionTxCVD](#cms347fhirstatinpreventiontxcvd) | 752 | 0 | 0 | 0.13%   (1) | 0 |
+| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 5.26%   (2) | 2 |
+| [CMS771FHIRUrinarySymptomScoreBPH](#cms771fhirurinarysymptomscorebph) | 31 | 0 | 0 | 22.58%   (7) | 7 |
+| [CMSFHIR844HybridHospitalWideMortality](#cmsfhir844hybridhospitalwidemortality) | 10 | 0 | 0 | 20.00%   (2) | 2 |
+| [CMS871FHIRHHHyper](#cms871fhirhhhyper) | 26 | 2 | 0 | 0.00%   (0) | 2 |
+| [CMS996FHIRAptTxforSTEMI](#cms996fhirapttxforstemi) | 114 | 0 | 0 | 0.88%   (1) | 0 |
+| [CMS1017FHIRHHFI](#cms1017fhirhhfi) | 65 | 0 | 0 | 3.08%   (2) | 2 |
+
+
+
+#### CMS72FHIRSTKAntithromboticDay2
+[ [cql] ](../../input/cql/CMS72FHIRSTKAntithromboticDay2.cql) [ [test results] ](../../input/tests/results/CMS72FHIRSTKAntithromboticDay2.txt)
+
+Mismatched Test Cases (1 of 158)
+| Test Case | Group | Population | Expected | Actual | Issue |
+|---|---|---|:---:|:---:|---|
+| [ be5c4068-2639-4b0c-bea3-5b7c80a6fe3b ](../.././input/tests/measure/CMS72FHIRSTKAntithromboticDay2/be5c4068-2639-4b0c-bea3-5b7c80a6fe3b/MeasureReport-ad329961-b67b-413b-a186-d6b269572c42.json) | Group_1 | Denominator Exception | 1 | 0 | I-75 (implementation) |
+
+
+Issues
+
+- **I-75** (`implementation`): PENDING SME CONFIRMATION. INR Observation valueQuantity has UCUM unit "0" and no code; UCUM reads "0" as a factor of zero, so INR 100 evaluates as 0 and the INR > 3.5 Denominator Exception can't fire. A dimensionless unit (unit/code "1") makes the case match.
+
+
+#### CMS104FHIRSTKDCAntithrombotic
+[ [cql] ](../../input/cql/CMS104FHIRSTKDCAntithrombotic.cql) [ [test results] ](../../input/tests/results/CMS104FHIRSTKDCAntithrombotic.txt)
+
+Mismatched Test Cases (4 of 82)
+| Test Case | Group | Population | Expected | Actual | Issue |
+|---|---|---|:---:|:---:|---|
+| [ 348471db-5aaa-4bf3-a280-75222f20d599 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/348471db-5aaa-4bf3-a280-75222f20d599/MeasureReport-bf54d81d-f635-45ff-b69b-1580a144d3fb.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion<br>Numerator | 3<br>3<br>1<br>1 | 1<br>1<br>0<br>0 | I-73 (implementation) |
+| [ 451b6853-3734-4c1c-b37e-5904629e0350 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/451b6853-3734-4c1c-b37e-5904629e0350/MeasureReport-4eefe8af-efb3-47eb-91df-e2ea877a39e7.json) | Group_1 | Initial Population<br>Denominator<br>Denominator Exclusion<br>Numerator | 3<br>3<br>2<br>1 | 1<br>1<br>1<br>0 | I-73 (implementation) |
+| [ a2b8327c-eaf4-4552-863e-851426e729d4 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/a2b8327c-eaf4-4552-863e-851426e729d4/MeasureReport-0ced6c1b-75a5-4ee3-a7a0-017818c03e9a.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 2<br>2<br>2 | 1<br>1<br>1 | I-73 (implementation) |
+| [ c15bee15-84c1-494a-ac82-2159b06da175 ](../.././input/tests/measure/CMS104FHIRSTKDCAntithrombotic/c15bee15-84c1-494a-ac82-2159b06da175/MeasureReport-bbe28035-6557-410d-964f-21cf38904d0f.json) | Group_1 | Initial Population<br>Denominator<br>Numerator | 3<br>3<br>2 | 1<br>1<br>0 | I-73 (implementation) |
+
+
+Issues
+
+- **I-73** (`implementation`): Multi-encounter stroke case with one Claim (template id 5ca62962b8484628b8de1ec5) whose item.encounter references only one of the patient's inpatient encounters. TJC "Ischemic Stroke Encounter" takes the principal diagnosis from CQMCommon.claimDiagnosis(), which ignores reasonReference, so the other encounters drop out. The steward should add one Claim per stroke encounter or expect the single-encounter values.
 
 
 #### CMS135FHIRACEIorARBorARNIforHF
 [ [cql] ](../../input/cql/CMS135FHIRACEIorARBorARNIforHF.cql) [ [test results] ](../../input/tests/results/CMS135FHIRACEIorARBorARNIforHF.txt)
 
+Missing Results (3 of 40 test cases)
+| Test Case | Group | Issue |
+| --- | --- | --- |
+| [ c095195c-8893-4bf1-aa7d-ad2bfd9bafa5 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/c095195c-8893-4bf1-aa7d-ad2bfd9bafa5/MeasureReport-f2d033da-6f32-46dc-86bc-69fdf82b1cfd.json) | Group_1 | I-26 (ticketed) |
+| [ cba5a449-1c45-4e11-ae0b-ba3974b410f7 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/cba5a449-1c45-4e11-ae0b-ba3974b410f7/MeasureReport-ae8c4b99-af76-4577-b66d-b1230ac09aa3.json) | Group_1 | I-26 (ticketed) |
+| [ ec508dbb-76f6-4878-b8a2-114ea8e82297 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/ec508dbb-76f6-4878-b8a2-114ea8e82297/MeasureReport-d1b704c8-7e95-4cd9-89e7-a8b90f925ce2.json) | Group_1 | I-26 (ticketed) |
+
+
 Mismatched Test Cases (2 of 40)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 5b7e720f-e2fc-4779-9b1c-3f34a0241482 ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/5b7e720f-e2fc-4779-9b1c-3f34a0241482/MeasureReport-01fb5443-0f43-487e-ac44-f7cc6e163ca0.json) | Group_1 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
 | [ d18e37a6-7b66-4e7c-b305-692872c13f8d ](../.././input/tests/measure/CMS135FHIRACEIorARBorARNIforHF/d18e37a6-7b66-4e7c-b305-692872c13f8d/MeasureReport-ecbb5067-dcb1-48ce-8e78-6dfd556ac43d.json) | Group_1 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
 
+
+Issues
+
+- **I-26** (`engine`, [cqframework/clinical_quality_language#1868](https://github.com/cqframework/clinical_quality_language/issues/1868)): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
+- **I-65** (`content`, **needs ticket**): Denominator Exception define returns 0; root cause not yet found.
 
 
 #### CMS142FHIRCommWithDrManagingDiab
 [ [cql] ](../../input/cql/CMS142FHIRCommWithDrManagingDiab.cql) [ [test results] ](../../input/tests/results/CMS142FHIRCommWithDrManagingDiab.txt)
 
 Mismatched Test Cases (5 of 32)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 05f1e2a6-b317-42bb-827f-993ca3995f5b ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-b317-42bb-827f-993ca3995f5b/MeasureReport-84bcf708-71bb-4169-8067-18fd354f3c37.json) | Group_1 | Denominator Exception | 1 | 0 | I-39 (needs ticket) |
 | [ 41ae0086-ac99-4a31-9546-21b054bbf7d8 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/41ae0086-ac99-4a31-9546-21b054bbf7d8/MeasureReport-b77a6309-214c-4fc2-a9bc-18d81c740da6.json) | Group_1 | Denominator Exception | 1 | 0 | I-39 (needs ticket) |
@@ -201,13 +154,18 @@ Mismatched Test Cases (5 of 32)
 | [ d9840e8c-3359-42c2-b354-4b236c3c1b15 ](../.././input/tests/measure/CMS142FHIRCommWithDrManagingDiab/d9840e8c-3359-42c2-b354-4b236c3c1b15/MeasureReport-1fbf56ab-6e60-4ce6-a1d5-b520382164bd.json) | Group_1 | Denominator Exception | 1 | 0 | I-39 (needs ticket) |
 
 
+Issues
+
+- **I-39** (`fixture`, **needs ticket**): The fixture has no CommunicationNotDone with both category and subject, so the patient-context retrieve is empty.
+
 
 #### CMS145FHIRCADBBlockerTPMIorLVSD
 [ [cql] ](../../input/cql/CMS145FHIRCADBBlockerTPMIorLVSD.cql) [ [test results] ](../../input/tests/results/CMS145FHIRCADBBlockerTPMIorLVSD.txt)
 
-Mismatched Test Cases (5 of 106)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+Mismatched Test Cases (6 of 106)
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
+| [ 1f70822b-c513-4c3a-8162-49f0bb9c914b ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/1f70822b-c513-4c3a-8162-49f0bb9c914b/MeasureReport-9b3577fa-355c-409d-8d3f-21e9720fb889.json) | Group_2 | Denominator Exception | 0 | 1 | I-72 (implementation) |
 | [ 4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e/MeasureReport-e77c61ff-cc3a-402c-9752-7a97a6727a39.json) | Group_2 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
 | [ 5fd0d626-e9c5-4e6c-a10d-1a1183fa7702 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/5fd0d626-e9c5-4e6c-a10d-1a1183fa7702/MeasureReport-ce1b8712-b9dd-48e2-adf4-554ed641bee5.json) | Group_1 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
 | [ 61306767-0e74-44b8-ac06-1339c3783355 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/61306767-0e74-44b8-ac06-1339c3783355/MeasureReport-6ea40199-5a45-4c8d-8a2b-c08bf93ebd8a.json) | Group_1 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
@@ -215,49 +173,97 @@ Mismatched Test Cases (5 of 106)
 | [ fd5fb311-a466-4c59-966d-48fa7aa88931 ](../.././input/tests/measure/CMS145FHIRCADBBlockerTPMIorLVSD/fd5fb311-a466-4c59-966d-48fa7aa88931/MeasureReport-05ffed3e-5604-40eb-bcf8-99cacecc26c0.json) | Group_1 | Denominator Exception | 1 | 0 | I-65 (needs ticket) |
 
 
+Issues
+
+- **I-65** (`content`, **needs ticket**): Denominator Exception define returns 0; root cause not yet found.
+- **I-72** (`implementation`): Test expects no Group_2 Denominator Exception because the patient-reason beta-blocker not-ordered falls on the first visit, but the CQL accepts the reason at any qualifying visit, and both visits qualify. Twin case b19af44d (reason at the last visit) expects 1. The steward must change the expectation or the CQL.
+
 
 #### CMS159FHIRDepRemissionat12Months
 [ [cql] ](../../input/cql/CMS159FHIRDepRemissionat12Months.cql) [ [test results] ](../../input/tests/results/CMS159FHIRDepRemissionat12Months.txt)
 
 Mismatched Test Cases (2 of 67)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 491f554e-e897-40c5-ad2b-0983923df4e8 ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-e897-40c5-ad2b-0983923df4e8/MeasureReport-580087e1-b59e-43eb-b110-692c35a82dca.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | I-11 (needs ticket) |
 | [ 96b6579c-1cee-423f-9433-a72db6fb8a0a ](../.././input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-1cee-423f-9433-a72db6fb8a0a/MeasureReport-e3ec1311-05ed-4a6f-b13f-a4d290865bb3.json) | Group_1 | Denominator Exclusion<br>Numerator | 1<br>0 | 0<br>1 | I-11 (needs ticket) |
 
+
+Issues
+
+- **I-11** (`content`, **needs ticket**): Fixture MeasureReport authoring mismatch: it expects values the test data doesn't support.
+
+
+#### CMS165FHIRControllingHighBP
+[ [cql] ](../../input/cql/CMS165FHIRControllingHighBP.cql) [ [test results] ](../../input/tests/results/CMS165FHIRControllingHighBP.txt)
+
+Missing Results (1 of 68 test cases)
+| Test Case | Group | Issue |
+| --- | --- | --- |
+| [ 45e01fed-56bb-483d-a860-af3d566bda11 ](../.././input/tests/measure/CMS165FHIRControllingHighBP/45e01fed-56bb-483d-a860-af3d566bda11/MeasureReport-02991ca7-859d-422d-8849-655760f8e10a.json) | Group_1 | I-26 (ticketed) |
+
+
+Issues
+
+- **I-26** (`engine`, [cqframework/clinical_quality_language#1868](https://github.com/cqframework/clinical_quality_language/issues/1868)): MedicationRequest.medication is a Reference(Medication); the engine's code extraction throws before any define runs.
 
 
 #### CMS0334FHIRPCCesareanBirth
 [ [cql] ](../../input/cql/CMS0334FHIRPCCesareanBirth.cql) [ [test results] ](../../input/tests/results/CMS0334FHIRPCCesareanBirth.txt)
 
 Mismatched Test Cases (1 of 138)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ c58acff5-248b-49c9-b18d-69e4a84a08d9 ](../.././input/tests/measure/CMS0334FHIRPCCesareanBirth/c58acff5-248b-49c9-b18d-69e4a84a08d9/MeasureReport-920b0c2e-1f1f-42d3-ab1f-1d7b12fa4bd0.json) | Group_1 | Denominator<br>Denominator Exclusion | 1<br>1 | 0<br>0 | I-12 (needs ticket) |
 
+
+Issues
+
+- **I-12** (`content`, **needs ticket**): Fixture MeasureReport authoring mismatch: it expects values the test data doesn't support.
+
+
+#### CMS347FHIRStatinPreventionTxCVD
+[ [cql] ](../../input/cql/CMS347FHIRStatinPreventionTxCVD.cql) [ [test results] ](../../input/tests/results/CMS347FHIRStatinPreventionTxCVD.txt)
+
+Mismatched Test Cases (1 of 752)
+| Test Case | Group | Population | Expected | Actual | Issue |
+|---|---|---|:---:|:---:|---|
+| [ 1ba7b147-b701-424c-bade-4e8270547030 ](../.././input/tests/measure/CMS347FHIRStatinPreventionTxCVD/1ba7b147-b701-424c-bade-4e8270547030/MeasureReport-2278c703-994b-4b13-8e3b-c726ba6b8530.json) | Group_4 | Denominator Exception | 0 | 1 | I-67 (implementation) |
+
+
+Issues
+
+- **I-67** (`implementation`): ESRD Condition uses a start-only abatementPeriod to mean resolved 2025-12-31; the steward should use abatementDateTime or add an end.
 
 
 #### CMS646FHIRIntravesicalBCGTherapy
 [ [cql] ](../../input/cql/CMS646FHIRIntravesicalBCGTherapy.cql) [ [test results] ](../../input/tests/results/CMS646FHIRIntravesicalBCGTherapy.txt)
 
 Missing Results (1 of 38 test cases)
-| Test Case | Group | Known Issue |
+| Test Case | Group | Issue |
 | --- | --- | --- |
 | [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | I-33 (needs ticket) |
 
 
-Mismatched Test Cases (1 of 38)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+Mismatched Test Cases (2 of 38)
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 10cec7db-41ae-49ad-b883-022f19d92a8b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/10cec7db-41ae-49ad-b883-022f19d92a8b/MeasureReport-b8b4961d-450b-4980-ac8f-95500c6393d4.json) | Group_1 | Denominator Exclusion | 0 | 1 | I-15 (needs ticket) |
+| [ ab48e0c0-6543-4537-8f00-bfcdcba7a81b ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/ab48e0c0-6543-4537-8f00-bfcdcba7a81b/MeasureReport-ea6cfef5-54d2-4d6d-a7aa-48cf8e749eaf.json) | Group_1 | Numerator | 0 | 1 | I-70 (implementation) |
 
+
+Issues
+
+- **I-15** (`content`, **needs ticket**): Fixture MeasureReport expects a value the resources present can't produce.
+- **I-33** (`engine`, **needs ticket**): "Values FHIR.dateTime and FHIR.dateTime are not comparable" aborts the case. The FHIRHelpers.ToDateTime() workaround is applied to CMS156 only.
+- **I-70** (`implementation`): Test expects Numerator 0 because BCG was given before staging results came back, but the CQL measures from the start of the staging Procedure and the BCG dose starts at the same moment (2026-04-02T08:00), so the case can't fail the Numerator.
 
 
 #### CMS771FHIRUrinarySymptomScoreBPH
 [ [cql] ](../../input/cql/CMS771FHIRUrinarySymptomScoreBPH.cql) [ [test results] ](../../input/tests/results/CMS771FHIRUrinarySymptomScoreBPH.txt)
 
 Mismatched Test Cases (7 of 31)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 051c5977-9f2c-4e8b-8e02-ac3ec0c718d6 ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/051c5977-9f2c-4e8b-8e02-ac3ec0c718d6/MeasureReport-13a299d2-1f32-41d7-b226-7380902e41b7.json) | Group_1 | Denominator | 1 | 0 | I-65 (needs ticket) |
 | [ 3ab3ac1d-9b5e-4087-8862-dcb2562fb90f ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/3ab3ac1d-9b5e-4087-8862-dcb2562fb90f/MeasureReport-47dae27e-89cf-4ee5-8c8b-bf1e44997d07.json) | Group_1 | Denominator | 1 | 0 | I-65 (needs ticket) |
@@ -268,38 +274,69 @@ Mismatched Test Cases (7 of 31)
 | [ e90d90a7-3071-44de-8089-ad7b6f5f3e5d ](../.././input/tests/measure/CMS771FHIRUrinarySymptomScoreBPH/e90d90a7-3071-44de-8089-ad7b6f5f3e5d/MeasureReport-9ef2db11-d78a-49af-a2ac-6536fac264a1.json) | Group_1 | Numerator | 1 | 0 | I-65 (needs ticket) |
 
 
+Issues
+
+- **I-65** (`content`, **needs ticket**): Filed under I-65, but the failing cell is Denominator or Numerator, not Denominator Exception. Needs re-triage.
+
 
 #### CMSFHIR844HybridHospitalWideMortality
 [ [cql] ](../../input/cql/CMSFHIR844HybridHospitalWideMortality.cql) [ [test results] ](../../input/tests/results/CMSFHIR844HybridHospitalWideMortality.txt)
 
 Mismatched Test Cases (2 of 10)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 6f22a06f-7186-4db1-9310-4f907dc49ff3 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/6f22a06f-7186-4db1-9310-4f907dc49ff3/MeasureReport-a02a261f-1274-4f8b-b1f3-5496f7885cbe.json) | Group_1 | Initial Population | 1 | 0 | I-14 (needs ticket) |
 | [ af1b9448-3e7a-4b7f-8934-15bb63258b75 ](../.././input/tests/measure/CMSFHIR844HybridHospitalWideMortality/af1b9448-3e7a-4b7f-8934-15bb63258b75/MeasureReport-7afefb0f-3075-4fb8-8d56-474ba1112c38.json) | Group_1 | Initial Population | 2 | 1 | I-14 (needs ticket) |
 
+
+Issues
+
+- **I-14** (`content`, **needs ticket**): Fixture MeasureReport hand-authors the Initial Population; the test data supports the computed value.
 
 
 #### CMS871FHIRHHHyper
 [ [cql] ](../../input/cql/CMS871FHIRHHHyper.cql) [ [test results] ](../../input/tests/results/CMS871FHIRHHHyper.txt)
 
 Missing Results (2 of 26 test cases)
-| Test Case | Group | Known Issue |
+| Test Case | Group | Issue |
 | --- | --- | --- |
 | [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) | Group_1 | I-63 (needs ticket) |
 | [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) | Group_1 | I-63 (needs ticket) |
+
+
+Issues
+
+- **I-63** (`engine`, **needs ticket**): "Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1)." aborts the case; root cause not yet traced.
+
+
+#### CMS996FHIRAptTxforSTEMI
+[ [cql] ](../../input/cql/CMS996FHIRAptTxforSTEMI.cql) [ [test results] ](../../input/tests/results/CMS996FHIRAptTxforSTEMI.txt)
+
+Mismatched Test Cases (1 of 114)
+| Test Case | Group | Population | Expected | Actual | Issue |
+|---|---|---|:---:|:---:|---|
+| [ f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847 ](../.././input/tests/measure/CMS996FHIRAptTxforSTEMI/f6c7dbc1-9ca7-46cd-bcbe-29d8fae4e847/MeasureReport-f2a63299-25e1-4d91-8e5c-1bdf3b60e9cb.json) | Group_1 | Denominator Exclusion | 0 | 1 | I-71 (implementation) |
+
+
+Issues
+
+- **I-71** (`implementation`): Active thrombolytic allergy uses onsetPeriod.end to mean it ended before the ED visit; with no abatement, prevalenceInterval() correctly runs to end of time and overlaps the encounter. The steward should mark it resolved with an allergyintolerance-abatement extension, or expect Denominator Exclusion 1.
 
 
 #### CMS1017FHIRHHFI
 [ [cql] ](../../input/cql/CMS1017FHIRHHFI.cql) [ [test results] ](../../input/tests/results/CMS1017FHIRHHFI.txt)
 
 Mismatched Test Cases (2 of 65)
-| Test Case | Group | Population | Expected | Actual | Known Issue |
+| Test Case | Group | Population | Expected | Actual | Issue |
 |---|---|---|:---:|:---:|---|
 | [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion | 0 | 1 | I-05 (needs ticket) |
 | [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion | 0 | 1 | I-05 (needs ticket) |
 
 
+Issues
+
+- **I-05** (`content`, **needs ticket**): Numerator Exclusion 0 → 1. Cause not yet documented; needs re-triage.
 
 
-_Known issues are listed in `defect-tracking/known-issues.md`; the test cases they explain, and their tickets, in `./scripts/comparison/known_issues.csv`._
+
+_Known issues are listed in `defect-tracking/known-issues.md`; the test cases they explain, and their tickets, in `./scripts/comparison/known_issues.csv` and `./scripts/comparison/implementation_issues.csv`._

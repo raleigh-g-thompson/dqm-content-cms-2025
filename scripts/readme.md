@@ -73,8 +73,7 @@ How a listed case is scored:
 | `output_results.csv` | A mismatching cell in a covered group has `result` `IMPLEMENTATION` instead of `FAIL`. Matching cells stay `PASS` |
 | Test-case verdict | `IMPLEMENTATION` when every mismatching cell is covered. One mismatch in a group the issue doesn't cover keeps the case `FAIL` |
 | Header `Details` table | `Implementation Issue Count` sits between `Pass Count` and `Fail Count`, and `Resolved (Pass + Implementation)` gives the combined rate. The three counts add up to `Total Test Cases`. Neither row appears when no case is resolved this way |
-| `## Implementation Issues` | One bullet per test case: its mismatching populations as `expected → actual`, the issue ID and the note |
-| Per-measure tables | Covered groups are left out of Missing Results, Missing Populations and Mismatched Test Cases. A measure whose only failures are covered is listed under "Measures with No Discrepancies" |
+| Per-measure tables | Covered groups stay listed under "Measures with Discrepancies", with `I-XX (implementation)` in the `Issue` column and the note in the measure's `Issues` list. They don't count toward `Unattributed` |
 
 A listed case that passes needs no explanation and is scored `PASS` as usual.
 
@@ -94,10 +93,10 @@ How a listed case is scored:
 
 | Ticket | `output_results.csv` | Test-case verdict | Report |
 |---|---|---|---|
-| Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; left out of the per-measure tables |
-| Blank | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; a `Known Issue` column in the per-measure tables names the issue |
+| Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; `I-XX (ticketed)` in the per-measure `Issue` column; not counted as `Unattributed` |
+| Blank | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; `I-XX (needs ticket)` in the per-measure `Issue` column; counted as `Unattributed` |
 
-Both kinds are listed in `## Known Issues`, one row per issue with its class, ticket and status, then each failing GUID. An implementation issue takes precedence over a known issue on the same cells.
+Every failing test case, whatever its issue state, is listed under `## Measures with Discrepancies`. Under its tables, each measure has an `Issues` list giving each cited issue's class, ticket (or **needs ticket**) and note. A test case that no implementation issue or ticketed known issue resolves is counted under `Unattributed Discrepancies` in the `Discrepancy Summary` table and in the `Unattributed` column of the per-measure summary; these are the `FAIL` verdicts. A measure is listed under "Measures with No Discrepancies" only when every test case matches its fixture. An implementation issue takes precedence over a known issue on the same cells.
 
 ### `comparison/populations.py`
 

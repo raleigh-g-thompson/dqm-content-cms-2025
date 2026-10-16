@@ -207,14 +207,15 @@ class KnownIssueReportTest(unittest.TestCase):
         self.assertIn("| Known Issue Count (ticketed) | 1 (50.00%) |", text)
         self.assertIn("| Fail Count | 0 (0.00%) |", text)
         self.assertIn("| Resolved (Pass + Known Issue) | 2 (100.00%) |", text)
-        self.assertNotIn("needs ticket", text)
-        self.assertIn("## Known Issues (1 test case, 1 issue)", text)
-        self.assertIn("| I-18 | `translator` | "
-                      f"[cqframework/clinical_quality_language#1855]({TICKET}) | 1 | "
-                      "Resolved (ticketed) |", text)
-        self.assertIn(f"  - {MEASURE} {GUID_A} (Group_1: Denominator 1 → MISSING): "
+        self.assertNotIn("(needs ticket)", text)
+        self.assertNotIn("## Known Issues", text)
+        # Still listed, labelled as resolved by its ticketed issue.
+        self.assertIn("| Measures with Discrepancies | 1 |", text)
+        self.assertIn("| Unattributed Discrepancies | 0 | 0 |", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-18 (ticketed) |", text)
+        self.assertIn("- **I-18** (`translator`, "
+                      f"[cqframework/clinical_quality_language#1855]({TICKET})): "
                       "Overload ambiguity.\n", text)
-        self.assertIn("| Measures with Discrepancies | 0 |", text)
         with open(self.output, newline="") as f:
             results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
         self.assertEqual(results, {GUID_A: KNOWN_ISSUE, GUID_B: "PASS"})
@@ -232,10 +233,9 @@ class KnownIssueReportTest(unittest.TestCase):
         self.assertIn("| &nbsp;&nbsp;— known issue, needs ticket | 2 (66.67%) |", text)
         self.assertNotIn("Known Issue Count (ticketed)", text)
         self.assertNotIn("Resolved (", text)
-        self.assertIn("| I-26 | `engine` | — | 2 | **Needs ticket** |", text)
-        self.assertIn("_1 issue (I-26) needs a ticket before its test cases count as "
-                      "resolved._", text)
-        # Still in the discrepancy tables, with the issue named; GUID_C has none.
+        self.assertIn("| Unattributed Discrepancies | 1 | 3 |", text)
+        self.assertIn("- **I-26** (`engine`, **needs ticket**)\n", text)
+        # In the discrepancy tables, with the issue named; GUID_C has none.
         self.assertIn(f"| {GUID_A} | Group_1 | I-26 (needs ticket) |", text)
         self.assertRegex(text, rf"\| {GUID_B} \| Group_1 \| Denominator \| 1 \| 0 \| "
                                r"I-26 \(needs ticket\) \|")
@@ -250,7 +250,77 @@ class KnownIssueReportTest(unittest.TestCase):
             [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
             KNOWN_HEADER + f"I-26,engine,,{MEASURE},{GUID_A},,\n")
         self.assertNotIn("## Known Issues", text)
-        self.assertNotIn("Known Issue", text.split("\n_Known issues are tracked")[0])
+        self.assertNotIn("| Issue |", text)
+        self.assertNotIn("\nIssues\n", text)
+        self.assertIn("| Unattributed Discrepancies | 0 | 0 |", text)
+
+
+class MeasureIssueSectionTest(unittest.TestCase):
+    """Every issue state in one measure section, in place of the old issue sections."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def _write(self, name, text):
+        path = os.path.join(self.tmp, name)
+        with open(path, "w", newline="") as f:
+            f.write(text)
+        return path
+
+    def _run(self, expected_rows, actual_rows, known_text, impl_text=IMPL_HEADER):
+        e = self._write("e.csv", _csv(*expected_rows))
+        a = self._write("a.csv", _csv(*actual_rows))
+        report = os.path.join(self.tmp, "r.md")
+        main(e, a, os.path.join(self.tmp, "o.csv"), report, measure_resource_dir=self.tmp,
+             implementation_file=self._write("impl.csv", impl_text),
+             known_issues_file=self._write("known.csv", known_text))
+        with open(report) as f:
+            return f.read()
+
+    def test_mixed_issue_states(self):
+        guid_d = "dddddddd-4444-4444-8444-dddddddddddd"
+        other = "CMS998FHIRCleanMeasure"
+        text = self._run(
+            [f"{MEASURE},{g},Group_1:Denominator,1" for g in (GUID_A, GUID_B, GUID_C, guid_d)]
+            + [f"{other},{GUID_A},Group_1:Denominator,1"],
+            [f"{MEASURE},{g},Group_1:Denominator,0" for g in (GUID_A, GUID_B, GUID_C, guid_d)]
+            + [f"{other},{GUID_A},Group_1:Denominator,1"],
+            KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_B},,Needs work.\n"
+            + f"I-26,engine,{TICKET},{MEASURE},{GUID_C},,Engine note.\n",
+            IMPL_HEADER + f"I-73,{MEASURE},{GUID_A},,Steward data.\n")
+        # A resolved (I-73, I-26), B needs a ticket, D has no issue: 2 unattributed.
+        self.assertIn("| Unattributed Discrepancies | 1 | 2 |", text)
+        self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 4 | 0 | 0 | 100.00%   (4) | 2 |",
+                      text)
+        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | 1 | 0 | I-73 (implementation) |",
+                      text)
+        self.assertIn(f"| {GUID_B} | Group_1 | Denominator | 1 | 0 | I-65 (needs ticket) |", text)
+        self.assertIn(f"| {GUID_C} | Group_1 | Denominator | 1 | 0 | I-26 (ticketed) |", text)
+        self.assertIn(f"| {guid_d} | Group_1 | Denominator | 1 | 0 |  |", text)
+        # Issue notes in numeric order.
+        notes = [l for l in text.splitlines() if l.startswith("- **I-")]
+        self.assertEqual([l.split("**")[1] for l in notes], ["I-26", "I-65", "I-73"])
+        # A measure is listed under exactly one of the two measure sections.
+        clean, discrepant = text.split("## Measures with Discrepancies")
+        self.assertIn(other, clean.split("## Measures with No Discrepancies")[1])
+        self.assertNotIn(MEASURE, clean.split("## Measures with No Discrepancies")[1])
+        self.assertNotIn(other, discrepant)
+
+    def test_distinct_notes_of_one_issue_get_sub_bullets(self):
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_C},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,0",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,0",
+             f"{MEASURE},{GUID_C},Group_1:Denominator,0"],
+            KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_A},,First cause.\n"
+            + f"I-65,content,,{MEASURE},{GUID_B},,Second cause.\n"
+            + f"I-65,content,,{MEASURE},{GUID_C},,First cause.\n")
+        self.assertIn("- **I-65** (`content`, **needs ticket**)\n"
+                      "  - `aaaaaaaa`, `cccccccc`: First cause.\n"
+                      "  - `bbbbbbbb`: Second cause.\n", text)
 
 
 class HelpersTest(unittest.TestCase):

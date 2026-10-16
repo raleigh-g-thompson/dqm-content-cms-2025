@@ -30,15 +30,16 @@ inventing discrepancies that are not there:
     ``scripts/comparison/implementation_issues.csv``. A failing cell covered by
     one scores ``IMPLEMENTATION`` instead of ``FAIL``, and a test case whose
     every failing cell is covered counts as resolved, the same as a pass. Those
-    cases leave the per-measure discrepancy tables and are listed in
-    `## Implementation Issues` with their issue ID and note.
+    cases stay in the per-measure discrepancy tables, labelled with the issue.
   * **A ticketed known issue resolves a failing test case.** A case whose
     failure is explained by a catalogued engine, translator, content, ... issue
     is listed in ``scripts/comparison/known_issues.csv`` with the issue's GitHub
     ticket. Once the ticket is recorded, a covered failing cell scores
     ``KNOWN_ISSUE`` and the case counts as resolved. Without a ticket the case
-    still fails, and the report labels it as awaiting one. Both kinds are listed
-    in `## Known Issues`.
+    still fails, and the report labels it as awaiting one. Every mismatch, of
+    either kind or of none, is listed under `## Measures with Discrepancies`
+    with an `Issue` column and the issue's note. The ones no issue resolves are
+    counted as Unattributed Discrepancies.
 """
 import csv
 import glob
@@ -400,11 +401,6 @@ def failing_known_issue_keys(expected_results: Dict[ResultKey, Dict[str, str]],
     return keys
 
 
-def plural(count: int, singular: str, suffix: str = "s") -> str:
-    """`1 test case` / `2 test cases` -- the report states these counts as prose."""
-    return f"{count} {singular}{'' if count == 1 else suffix}"
-
-
 def render_cqfm_exclusions_section(
         cqfm_exclusions: Dict[str, FrozenSet[str]],
         unscored_cells: List[UnscoredCell]) -> List[str]:
@@ -691,9 +687,9 @@ def capture_discrepancies_by_measure(expected_results: Dict[ResultKey, Dict[str,
                                      resolved_keys: Set[ResultKey] = frozenset()) -> Dict[str, MeasureDiscrepancy]:
     """Per-measure discrepancies, for measures that have any.
 
-    ``resolved_keys`` (failing test cases covered by an implementation issue)
-    still count toward ``all_test_cases`` but are not discrepancies, so a
-    measure whose only failures are implementation issues has none.
+    ``resolved_keys`` still count toward ``all_test_cases`` but are not
+    discrepancies. The report passes none, so a resolved failure stays listed,
+    labelled with its issue.
     """
     def has_discrepancy(discrepancy: MeasureDiscrepancy) -> bool:
         return discrepancy.missing_populations or \
@@ -722,78 +718,6 @@ def capture_discrepancies_by_measure(expected_results: Dict[ResultKey, Dict[str,
     return {measure: discrepancies[measure] for measure in sort_measure_names([k for k,v in discrepancies.items() if has_discrepancy(v)])}
 
 
-def render_implementation_section(resolved_keys: Set[ResultKey],
-                                  expected_results: Dict[ResultKey, Dict[str, str]],
-                                  actual_results: Dict[ResultKey, Dict[str, str]],
-                                  implementation_issues: Sequence[ImplementationIssue],
-                                  implementation_file: str) -> List[str]:
-    """`## Implementation Issues`: failing test cases resolved by a steward note.
-
-    One bullet per GUID, naming each failing group's
-    mismatching populations as `expected → actual`, then the issue ID and note.
-    Rendered only when there are any, so a run without
-    ``implementation_issues.csv`` looks exactly as it did before.
-
-    Counts every GUID with a resolved group. That can exceed the header's
-    `Implementation Issue Count` when a case also fails in a group no issue
-    covers: such a case is a FAIL, and its other group stays in the
-    discrepancy tables.
-    """
-    if not resolved_keys:
-        return []
-    by_measure: Dict[str, List[ResultKey]] = {}
-    for key in resolved_keys:
-        by_measure.setdefault(key.measure_name, []).append(key)
-    measures = sort_measure_names(list(by_measure))
-    lines = [
-        f'## Implementation Issues '
-        f'({plural(len({(k.measure_name, k.patient_guid) for k in resolved_keys}), "test case")}, '
-        f'{plural(len(measures), "measure")})\n',
-        '\n',
-        '_These test cases fail their fixture MeasureReport because of the '
-        'measure steward\'s test data or expectation, not the CQL or the '
-        'engine (class `implementation` in `defect-tracking/known-issues.md`). '
-        'Each is explained by an issue, which resolves it the same as a pass: '
-        'its cells are scored `IMPLEMENTATION` in `output_results.csv`, and it '
-        'is left out of the per-measure discrepancy tables. The fix belongs to '
-        f'the steward. Listed in `{implementation_file}`._\n',
-        '\n',
-    ]
-    lines.extend(create_markdown_table(
-        ['Measure', 'Test Cases'],
-        [[measure, len({k.patient_guid for k in by_measure[measure]})]
-         for measure in measures],
-        '|---|:---:|\n'))
-    for measure in measures:
-        keys = sort_result_keys(by_measure[measure])
-        by_guid: Dict[str, List[ResultKey]] = {}
-        for key in keys:
-            by_guid.setdefault(key.patient_guid, []).append(key)
-        lines.append(f'- **{measure}** ({len(by_guid)})\n')
-        for guid, guid_keys in by_guid.items():
-            groups = [mismatch_summary(key, expected_results, actual_results)
-                      for key in guid_keys]
-            issue = implementation_issue_for(guid_keys[0], implementation_issues)
-            note = f' {issue.note}' if issue.note else ''
-            lines.append(f'  - {measure_report_file_link(measure, guid)} '
-                         f'({"; ".join(groups)}): **{issue.issue_id}**.{note}\n')
-    lines.append('\n')
-    return lines
-
-
-def mismatch_summary(key: ResultKey,
-                     expected_results: Dict[ResultKey, Dict[str, str]],
-                     actual_results: Dict[ResultKey, Dict[str, str]]) -> str:
-    """`Group_1: Denominator 1 → 0, Numerator 1 → MISSING` for one failing group."""
-    expected_pops = expected_results[key]
-    actual_pops = actual_results.get(key) or {}
-    cells = ', '.join(
-        f'{p} {expected_pops[p]} → {actual_pops.get(p, "MISSING")}'
-        for p in sort_populations(list(expected_pops))
-        if str(actual_pops.get(p)) != str(expected_pops[p]))
-    return f'{key.group}: {cells}'
-
-
 def ticket_link(ticket: str) -> str:
     """`[owner/repo#123](url)` for a GitHub ticket URL; blank stays blank."""
     if not ticket:
@@ -810,80 +734,63 @@ def sort_issue_ids(issue_ids) -> List[str]:
     return sorted(issue_ids, key=key)
 
 
-def render_known_issues_section(ticketed_keys: Set[ResultKey],
-                                awaiting_keys: Set[ResultKey],
-                                expected_results: Dict[ResultKey, Dict[str, str]],
-                                actual_results: Dict[ResultKey, Dict[str, str]],
-                                known_issues: Sequence[KnownIssue],
-                                known_issues_file: str) -> List[str]:
-    """`## Known Issues`: failing test cases tied to a catalogued issue.
+def covering_issue(key: ResultKey,
+                   implementation_issues: Sequence[ImplementationIssue],
+                   known_issues: Sequence[KnownIssue]):
+    """(issue, status) for a failing group, or (None, None) when no issue covers it.
 
-    A summary table, one row per issue, with its class, ticket and status,
-    then one bullet per issue listing its failing GUIDs. A ticketed issue
-    resolves its cases (scored `KNOWN_ISSUE`, left out of the discrepancy
-    tables); an unticketed one doesn't, and its cases stay in those tables with
-    a `Known Issue` column. Rendered only when there are any, so a run without
-    ``known_issues.csv`` looks exactly as it did before.
+    ``status`` is ``implementation``, ``ticketed`` or ``needs ticket``; the first
+    two resolve the group. An implementation issue takes precedence over a known
+    issue, as in ``cell_outcome``.
     """
-    keys = ticketed_keys | awaiting_keys
-    if not keys:
+    issue = implementation_issue_for(key, implementation_issues)
+    if issue is not None:
+        return issue, "implementation"
+    issue = implementation_issue_for(key, known_issues)
+    if issue is not None:
+        return issue, "ticketed" if issue.ticketed else "needs ticket"
+    return None, None
+
+
+def render_measure_issue_notes(keys: Sequence[ResultKey],
+                               implementation_issues: Sequence[ImplementationIssue],
+                               known_issues: Sequence[KnownIssue]) -> List[str]:
+    """The `Issues` list under a measure's tables: one bullet per issue it cites.
+
+    Each bullet gives the issue's class, its status (implementation, the ticket,
+    or **needs ticket**) and its note. Notes are written per test case, so an
+    issue whose cases in this measure carry different notes gets one sub-bullet
+    per note, naming the test cases (by GUID prefix) it applies to.
+    """
+    by_issue: Dict[str, Tuple[object, str, Dict[str, List[str]]]] = {}
+    for key in sort_result_keys(list(keys)):
+        issue, status = covering_issue(key, implementation_issues, known_issues)
+        if issue is None:
+            continue
+        _, _, notes = by_issue.setdefault(issue.issue_id, (issue, status, {}))
+        guids = notes.setdefault(issue.note, [])
+        if key.patient_guid not in guids:
+            guids.append(key.patient_guid)
+    if not by_issue:
         return []
-    by_issue: Dict[str, List[ResultKey]] = {}
-    issue_rows: Dict[str, KnownIssue] = {}
-    for key in keys:
-        issue = implementation_issue_for(key, known_issues)
-        by_issue.setdefault(issue.issue_id, []).append(key)
-        issue_rows[issue.issue_id] = issue
-    issue_ids = sort_issue_ids(by_issue)
 
-    def case_count(issue_keys) -> int:
-        return len({(k.measure_name, k.patient_guid) for k in issue_keys})
-
-    awaiting_ids = [i for i in issue_ids if not issue_rows[i].ticketed]
-    lines = [
-        f'## Known Issues '
-        f'({plural(case_count(keys), "test case")}, {plural(len(issue_ids), "issue")})\n',
-        '\n',
-        '_These test cases fail because of an issue already catalogued in '
-        '`defect-tracking/known-issues.md`. A test case is resolved, the same as '
-        'a pass, only once its issue has a GitHub ticket: its cells are then '
-        'scored `KNOWN_ISSUE` in `output_results.csv` and it leaves the '
-        'per-measure discrepancy tables. Without a ticket it still counts as a '
-        f'failure. Listed in `{known_issues_file}`._\n',
-        '\n',
-    ]
-    lines.extend(create_markdown_table(
-        ['Issue', 'Class', 'Ticket', 'Test Cases', 'Status'],
-        [[issue_id, f'`{issue_rows[issue_id].issue_class}`',
-          ticket_link(issue_rows[issue_id].ticket) or '—',
-          case_count(by_issue[issue_id]),
-          'Resolved (ticketed)' if issue_rows[issue_id].ticketed
-          else '**Needs ticket**']
-         for issue_id in issue_ids],
-        '|---|---|---|:---:|---|\n'))
-    if awaiting_ids:
-        lines.append(
-            f'_{plural(len(awaiting_ids), "issue")} '
-            f'({", ".join(awaiting_ids)}) {"needs" if len(awaiting_ids) == 1 else "need"} '
-            'a ticket before '
-            f'{"its" if len(awaiting_ids) == 1 else "their"} test cases count as '
-            'resolved._\n')
-        lines.append('\n')
-    for issue_id in issue_ids:
-        issue_keys = sort_result_keys(by_issue[issue_id])
-        lines.append(f'- **{issue_id}** ({case_count(issue_keys)})\n')
-        by_case: Dict[Tuple[str, str], List[ResultKey]] = {}
-        for key in issue_keys:
-            by_case.setdefault((key.measure_name, key.patient_guid), []).append(key)
-        measure_order = sort_measure_names(list({m for m, _ in by_case}))
-        for (measure, guid) in sorted(by_case, key=lambda c: (
-                measure_order.index(c[0]), c[1].casefold())):
-            case_keys = by_case[(measure, guid)]
-            groups = [mismatch_summary(key, expected_results, actual_results)
-                      for key in case_keys]
-            note = implementation_issue_for(case_keys[0], known_issues).note
-            lines.append(f'  - {measure} {measure_report_file_link(measure, guid)} '
-                         f'({"; ".join(groups)}){"." if not note else ": " + note}\n')
+    lines = ['Issues\n', '\n']
+    for issue_id in sort_issue_ids(by_issue):
+        issue, status, notes = by_issue[issue_id]
+        if status == "implementation":
+            detail = '`implementation`'
+        else:
+            detail = (f'`{issue.issue_class}`, '
+                      f'{ticket_link(issue.ticket) if issue.ticketed else "**needs ticket**"}')
+        bullet = f'- **{issue_id}** ({detail})'
+        if len(notes) == 1:
+            note = next(iter(notes))
+            lines.append(f'{bullet}: {note}\n' if note else f'{bullet}\n')
+        else:
+            lines.append(f'{bullet}\n')
+            for note, guids in notes.items():
+                prefixes = ', '.join(f'`{g[:8]}`' for g in guids)
+                lines.append(f'  - {prefixes}: {note or "no note"}\n')
     lines.append('\n')
     return lines
 
@@ -915,16 +822,29 @@ def generate_comparison_report(file: str,
     awaiting_keys = failing_known_issue_keys(expected_results, actual_results,
                                              known_issues, implementation_issues,
                                              ticketed=False)
-    discrepancies = capture_discrepancies_by_measure(expected_results, actual_results,
-                                                     resolved_keys | ticketed_keys)
+    # Every mismatching group, whatever its issue state. Resolved ones stay in
+    # the tables, labelled with the issue that resolves them.
+    discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
+    resolved = resolved_keys | ticketed_keys
+    covered = resolved | awaiting_keys
     awaiting_case_count = len({(k.measure_name, k.patient_guid) for k in awaiting_keys})
-    awaiting_measures = {k.measure_name for k in awaiting_keys}
 
-    def known_issue_cell(key: ResultKey) -> str:
-        """`I-26 (needs ticket)` for an unticketed known issue, else blank."""
-        if key not in awaiting_keys:
-            return ''
-        return f'{implementation_issue_for(key, known_issues).issue_id} (needs ticket)'
+    def discrepancy_keys(measure: str, discrepancy: MeasureDiscrepancy) -> List[ResultKey]:
+        return (list(discrepancy.missing_results)
+                + [mp.result_key for mp in discrepancy.missing_populations]
+                + [ResultKey(measure, t.patient_guid, t.group)
+                   for t in discrepancy.mismatched_test_cases])
+
+    measure_keys = {measure: discrepancy_keys(measure, d) for measure, d in discrepancies.items()}
+    # Unattributed: test cases with a group no implementation issue or ticketed
+    # known issue resolves -- the FAIL verdict.
+    unattributed_cases = {measure: {k.patient_guid for k in keys if k not in resolved}
+                          for measure, keys in measure_keys.items()}
+
+    def issue_cell(key: ResultKey) -> str:
+        """`I-73 (implementation)`, `I-26 (ticketed)`, `I-65 (needs ticket)`, or blank."""
+        issue, status = covering_issue(key, implementation_issues, known_issues)
+        return f'{issue.issue_id} ({status})' if issue is not None else ''
 
     total_cases = pass_count + fail_count + implementation_count + known_issue_count
 
@@ -974,24 +894,23 @@ def generate_comparison_report(file: str,
                     'Mismatched Test Cases',
                     len(set([m for m, d in discrepancies.items() if d.mismatched_test_cases])),
                     sum([len(d.mismatched_test_cases.keys()) for d in discrepancies.values()])
+                ],
+                [
+                    'Unattributed Discrepancies',
+                    sum(1 for cases in unattributed_cases.values() if cases),
+                    sum(len(cases) for cases in unattributed_cases.values())
                 ]
             ],
             '|---|:---:|:---:|\n'))
         f.write('\n')
         f.write('_Note: Measures can have multiple discrepancies, so the Measures with '
-                'Discrepancies count may not match the summary counts._\n')
+                'Discrepancies count may not match the summary counts. Unattributed '
+                'Discrepancies are those no implementation issue or ticketed known issue '
+                'resolves._\n')
         f.write('\n')
 
         f.writelines(render_cqfm_exclusions_section(cqfm_exclusions or {},
                                                     unscored_cells or []))
-
-        f.writelines(render_implementation_section(
-            resolved_keys, expected_results, actual_results, implementation_issues,
-            implementation_file))
-
-        f.writelines(render_known_issues_section(
-            ticketed_keys, awaiting_keys, expected_results, actual_results,
-            known_issues, known_issues_file))
 
         non_discrepancy_measures = [
             m for m in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()])))
@@ -1002,9 +921,17 @@ def generate_comparison_report(file: str,
         if discrepancies:
             f.write(f'## Measures with Discrepancies '
                     f'({len(discrepancies)} of {total_measures})\n')
+            f.write('\n')
+            f.write('_Every measure with a test case that doesn\'t match its fixture '
+                    'MeasureReport. The `Issue` column names the issue that explains a '
+                    'test case: `implementation` (the measure steward\'s test data or '
+                    'expectation, see `defect-tracking/known-issues.md`) and `ticketed` '
+                    'resolve it, the same as a pass; `needs ticket` does not yet. A test '
+                    'case nothing resolves is counted as Unattributed._\n')
+            f.write('\n')
             summary_headers = ['Measure', 'Total Test Cases', 'Missing Results',
-                               'Missing Populations', 'Mismatched Test Cases']
-            summary_separator = '|---|:---:|:---:|:---:|:---:|\n'
+                               'Missing Populations', 'Mismatched Test Cases', 'Unattributed']
+            summary_separator = '|---|:---:|:---:|:---:|:---:|:---:|\n'
             summary_rows = []
             for measure, discrepancy in discrepancies.items():
                 row = [
@@ -1013,7 +940,8 @@ def generate_comparison_report(file: str,
                     len(discrepancy.missing_results),
                     len(discrepancy.missing_populations),
                     f'{len(discrepancy.mismatched_test_cases)/len(discrepancy.all_test_cases)*100:.2f}%   '
-                    f'({len(discrepancy.mismatched_test_cases)})'
+                    f'({len(discrepancy.mismatched_test_cases)})',
+                    len(unattributed_cases[measure])
                 ]
                 summary_rows.append(row)
             f.writelines(create_markdown_table(summary_headers, summary_rows,
@@ -1024,23 +952,22 @@ def generate_comparison_report(file: str,
                 f.write(f'#### {measure}\n')
                 f.write(f'{cql_file_link(measure, "[cql]")} '
                         f'{test_results_file_link(measure, "[test results]")}\n\n')
-                # The column appears only on measures with an unticketed known
-                # issue, so every other table renders as it did before.
-                show_known_issue = measure in awaiting_measures
+                # The column appears only on measures with a row an issue covers.
+                show_issue = any(k in covered for k in measure_keys[measure])
 
                 if discrepancy.missing_results:
                     f.write(f'Missing Results ({len(discrepancy.missing_results)} of '
                             f'{len(discrepancy.all_test_cases)} test cases)\n')
                     missing_results_headers = ['Test Case', 'Group']
-                    if show_known_issue:
-                        missing_results_headers.append('Known Issue')
+                    if show_issue:
+                        missing_results_headers.append('Issue')
                     missing_results_rows = []
                     for missing_key in sort_result_keys(list(discrepancy.missing_results)):
                         row = [measure_report_file_link(missing_key.measure_name,
                                                         missing_key.patient_guid),
                                missing_key.group]
-                        if show_known_issue:
-                            row.append(known_issue_cell(missing_key))
+                        if show_issue:
+                            row.append(issue_cell(missing_key))
                         missing_results_rows.append(row)
                     f.writelines(create_markdown_table(
                         missing_results_headers, missing_results_rows))
@@ -1050,12 +977,12 @@ def generate_comparison_report(file: str,
                             f'{len(discrepancy.all_test_cases)} test cases)\n')
                     f.writelines(create_markdown_table(
                         ['Test Case', 'Group', 'Population']
-                        + (['Known Issue'] if show_known_issue else []),
+                        + (['Issue'] if show_issue else []),
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
                             missing_id.group,
                             ','.join(populations)
-                        ] + ([known_issue_cell(missing_id)] if show_known_issue else [])
+                        ] + ([issue_cell(missing_id)] if show_issue else [])
                             for (missing_id, populations) in sort_missing_populations(
                             list(discrepancy.missing_populations))]))
 
@@ -1064,8 +991,8 @@ def generate_comparison_report(file: str,
                             f'{len(discrepancy.all_test_cases)})\n')
                     mismatched_headers = ['Test Case', 'Group', 'Population', 'Expected', 'Actual']
                     mismatched_separator = '|---|---|---|:---:|:---:|\n'
-                    if show_known_issue:
-                        mismatched_headers.append('Known Issue')
+                    if show_issue:
+                        mismatched_headers.append('Issue')
                         mismatched_separator = mismatched_separator[:-1] + '---|\n'
                     mismatched_rows = []
                     for test_group_id, populations in sort_mismatched_test_cases(
@@ -1077,17 +1004,21 @@ def generate_comparison_report(file: str,
                             '<br>'.join(ordered),
                             '<br>'.join([populations[p].expected for p in ordered]),
                             '<br>'.join([populations[p].actual for p in ordered])]
-                        if show_known_issue:
-                            row.append(known_issue_cell(ResultKey(
+                        if show_issue:
+                            row.append(issue_cell(ResultKey(
                                 measure, test_group_id.patient_guid, test_group_id.group)))
                         mismatched_rows.append(row)
                     f.writelines(create_markdown_table(
                         mismatched_headers, mismatched_rows, mismatched_separator))
-                    f.write('\n')
+
+                f.writelines(render_measure_issue_notes(
+                    measure_keys[measure], implementation_issues, known_issues))
+                f.write('\n')
 
         f.write('\n_Known issues are listed in '
                 '`defect-tracking/known-issues.md`; the test cases they explain, '
-                f'and their tickets, in `{known_issues_file}`._\n')
+                f'and their tickets, in `{known_issues_file}` and '
+                f'`{implementation_file}`._\n')
 
 
 def main(expected_file: str, actual_file: str, output_file: str,
