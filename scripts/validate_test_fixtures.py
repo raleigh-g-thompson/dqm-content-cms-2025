@@ -37,17 +37,21 @@ A presence check is additionally enforced for a small set of fields the engine
 all: e.g. ``Task.for`` is the model's patient ``contextPath`` for Task
 retrieves, so a Task missing it is silently filtered out of every
 ``[Task...]`` retrieve (an empty result is a data-authoring error, not a CQL
-bug) - the same is true of ``subject`` on Encounter, Observation, and
-MedicationAdministration.  See ``REQUIRED_PATIENT_FIELDS``. This is exactly
+bug) - the same is true of ``subject`` on Encounter, Observation,
+MedicationAdministration, and Communication.  See ``REQUIRED_PATIENT_FIELDS``. This is exactly
 what was needed to fix CMS816FHIRHHHypo's 12 failing test cases (I-07): 17 of
 its 28 fixture Encounter resources had no ``subject`` at all, so the engine
 silently dropped them from every retrieve regardless of how correctly their
-type/status/period were authored.
+type/status/period were authored. CMS142FHIRCommWithDrManagingDiab's 5
+Denominator Exception failures (I-39) were the same defect on Communication:
+MADiE's engine treats every resource in a test case as the patient's without
+checking references, so its expected results counted resources that carry no
+``subject`` at all.
 ``--fix-required-fields`` injects the missing reference
 (``Patient/<folder patient guid>``) using a dedicated fixer function per
 resource type (``apply_task_for_fix``, ``apply_encounter_subject_fix``,
 ``apply_medicationadministration_subject_fix``,
-``apply_observation_subject_fix``); it is scrubbed separately from the CORE
+``apply_observation_subject_fix``, ``apply_communication_subject_fix``); it is scrubbed separately from the CORE
 auto-fix so the generic patient-reference rewrite never touches it.
 
 Run from the repo root (Python 3.12):
@@ -147,6 +151,7 @@ REQUIRED_PATIENT_FIELDS = {
     "Encounter": ("subject",),
     "MedicationAdministration": ("subject",),
     "Observation": ("subject",),
+    "Communication": ("subject",),
 }
 
 Finding = Tuple[str, str, str, str, str, str, str]  # (measure, patient, file, field, referenced, expected, category)
@@ -1097,6 +1102,37 @@ def apply_observation_subject_fix(finding: Finding, tests_root: str = TESTS_ROOT
     return True
 
 
+def apply_communication_subject_fix(finding: Finding, tests_root: str = TESTS_ROOT) -> bool:
+    """Inject the missing ``subject`` patient reference into a Communication
+    resource in place. ``subject`` is set to ``Patient/<expected>`` (the
+    folder's own patient GUID) and re-inserted right after ``status`` when
+    present so the JSON reads like its sibling fixtures; key order is
+    semantically irrelevant. Returns True if the file was actually edited."""
+    measure, guid, filename, _field, _referenced, expected, _cat = finding
+    path = os.path.join(tests_root, measure, guid, filename)
+    data = load_json(path)
+    if data is None or data.get("resourceType") != "Communication":
+        return False
+    if _patient_ref_guid(data.get("subject")) is not None:
+        return False
+    keys = list(data.keys())
+    if "status" in keys:
+        pos = keys.index("status") + 1
+    else:
+        pos = len(keys)
+    rebuilt = {}
+    for i, key in enumerate(keys):
+        if i == pos:
+            rebuilt["subject"] = {"reference": f"Patient/{expected}"}
+        rebuilt[key] = data[key]
+    if "subject" not in rebuilt:
+        rebuilt["subject"] = {"reference": f"Patient/{expected}"}
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(rebuilt, fh, indent=2)
+        fh.write("\n")
+    return True
+
+
 def apply_required_field_fix(finding: Finding, tests_root: str = TESTS_ROOT) -> bool:
     """Dispatch a MISSING-REQUIRED-FIELD finding to the specific fixer function
     for its resource type. Returns True if the file was actually edited."""
@@ -1114,6 +1150,8 @@ def apply_required_field_fix(finding: Finding, tests_root: str = TESTS_ROOT) -> 
         return apply_medicationadministration_subject_fix(finding, tests_root=tests_root)
     if resource_type == "Observation":
         return apply_observation_subject_fix(finding, tests_root=tests_root)
+    if resource_type == "Communication":
+        return apply_communication_subject_fix(finding, tests_root=tests_root)
     return False
 
 

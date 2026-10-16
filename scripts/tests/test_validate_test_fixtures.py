@@ -484,6 +484,33 @@ class RequiredPatientFieldTest(unittest.TestCase):
         # A second apply is a no-op.
         self.assertFalse(apply_encounter_subject_fix(fixable[0], tests_root=self.tests_root))
 
+    def test_apply_communication_subject_fix_injects_and_positions(self):
+        from scripts.validate_test_fixtures import (
+            apply_communication_subject_fix,
+            collect_required_field_findings,
+        )
+        write_json(self.case, "Communication-c.json", {
+            "resourceType": "Communication",
+            "id": "c1",
+            "status": "not-done",
+            "category": [{"coding": [{"code": "428341000124108"}]}],
+        })
+        findings, _ = validate(self._cases())
+        fixable = collect_required_field_findings(findings)
+        self.assertEqual(len(fixable), 1)
+        path = os.path.join(self.case, "Communication-c.json")
+        self.assertTrue(apply_communication_subject_fix(fixable[0], tests_root=self.tests_root))
+        with open(path) as fh:
+            data = json.load(fh)
+        keys = list(data.keys())
+        self.assertEqual(data["subject"], {"reference": f"Patient/{self.good}"})
+        # `subject` is re-inserted immediately after `status`; nothing else changed.
+        self.assertEqual(keys.index("subject"), keys.index("status") + 1)
+        self.assertEqual(data["id"], "c1")
+        self.assertEqual(len(data), 5)
+        # A second apply is a no-op.
+        self.assertFalse(apply_communication_subject_fix(fixable[0], tests_root=self.tests_root))
+
     def test_apply_required_field_fix_dispatches_by_resource_type(self):
         from scripts.validate_test_fixtures import apply_required_field_fix, collect_required_field_findings
         write_json(self.case, "Task-t.json", {"resourceType": "Task"})
@@ -491,9 +518,10 @@ class RequiredPatientFieldTest(unittest.TestCase):
         write_json(self.case, "MedicationAdministration-m.json",
                    {"resourceType": "MedicationAdministration", "status": "completed"})
         write_json(self.case, "Observation-o.json", {"resourceType": "Observation", "status": "final"})
+        write_json(self.case, "Communication-c.json", {"resourceType": "Communication", "status": "not-done"})
         findings, _ = validate(self._cases())
         fixable = collect_required_field_findings(findings)
-        self.assertEqual(len(fixable), 4)
+        self.assertEqual(len(fixable), 5)
         for finding in fixable:
             self.assertTrue(apply_required_field_fix(finding, tests_root=self.tests_root))
         with open(os.path.join(self.case, "Task-t.json")) as fh:
@@ -503,6 +531,8 @@ class RequiredPatientFieldTest(unittest.TestCase):
         with open(os.path.join(self.case, "MedicationAdministration-m.json")) as fh:
             self.assertEqual(json.load(fh)["subject"], {"reference": f"Patient/{self.good}"})
         with open(os.path.join(self.case, "Observation-o.json")) as fh:
+            self.assertEqual(json.load(fh)["subject"], {"reference": f"Patient/{self.good}"})
+        with open(os.path.join(self.case, "Communication-c.json")) as fh:
             self.assertEqual(json.load(fh)["subject"], {"reference": f"Patient/{self.good}"})
 
     def test_collect_required_field_findings_filters_category(self):

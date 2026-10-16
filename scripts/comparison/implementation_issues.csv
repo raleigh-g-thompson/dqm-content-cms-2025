@@ -15,3 +15,5 @@ I-76,CMS72FHIRSTKAntithromboticDay2,cb7c95fc-6d6b-4e07-81e8-a79385142b94,,A dupl
 I-76,CMS72FHIRSTKAntithromboticDay2,febd4b3e-99bc-4c55-bba9-3b2136c2160b,,A duplicate-id resource lost when the MADiE bundle was split; restored from the source bundle.
 I-76,CMS104FHIRSTKDCAntithrombotic,a2b8327c-eaf4-4552-863e-851426e729d4,,A duplicate-id resource lost when the MADiE bundle was split; restored from the source bundle.
 I-76,CMS1028FHIRPCSevereOBComps,763d86f9-d93f-4873-8b64-8439566b242e,,A duplicate-id resource lost when the MADiE bundle was split; restored from the source bundle.
+I-77,CMS135FHIRACEIorARBorARNIforHF,5b7e720f-e2fc-4779-9b1c-3f34a0241482,,The exception diagnosis is a problem-list item; the exception reads encounter diagnoses only. Under SME review.
+I-77,CMS135FHIRACEIorARBorARNIforHF,d18e37a6-7b66-4e7c-b305-692872c13f8d,,The exception diagnosis is a problem-list item; the exception reads encounter diagnoses only. Under SME review.

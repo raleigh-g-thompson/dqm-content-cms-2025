@@ -24,6 +24,55 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Fix CMS142 / CMS149 fixture resources missing `subject`; add Communication to the fixture validator's required-field check
+
+**Problem:** 5 CMS142 test cases failed on Denominator Exception (expected 1, actual 0; I-39).
+Each has two CommunicationNotDone resources: one carries the `category` the
+"Medical or Patient Reason for Not Communicating ..." defines retrieve on but has no `subject`,
+and the other has a `subject` but no `category`. Under `context Patient` a resource with no
+reference to the patient is outside the patient's data, so the
+`[CommunicationNotDone: category in ...]` retrieves were correctly empty. The test cases were
+authored in MADiE, whose engine treats every resource in a test case as the patient's without
+checking references, so the defect never showed there: MADiE's expected results counted the
+subject-less resources. The MADiE export for `05f1e2a6` has the same shape, so this was not
+introduced on conversion.
+
+A repo-wide scan for resources with no patient reference found 10 Communications in 7 CMS142
+test cases (the 5 failing cases plus `03b74242`, `2dd72971`, `28492651`, `afe0cb42`) and one
+cancelled Observation in CMS149 (`9e1ffb55`), and nothing else.
+
+**Fix:** added `subject: {"reference": "Patient/<folder guid>"}` to all 11 resources, matching
+the population MADiE evaluated. No other field changed. `scripts/validate_test_fixtures.py`'s
+`REQUIRED_PATIENT_FIELDS` now covers Communication `subject`, with a dedicated
+`apply_communication_subject_fix`. **Verified 2026-10-16**: CMS142FHIRCommWithDrManagingDiab
+passes all 32 test cases (128/128 cells, previously 27/32) and CMS149FHIRDementiaCognitiveAssess
+still passes all 33.
+
+**Example** (`input/tests/measure/CMS142FHIRCommWithDrManagingDiab/05f1e2a6-.../Communication-12e125bd-...json`):
+
+```json
+-- before
+{
+  "resourceType": "Communication",
+  "status": "not-done",
+  "statusReason": { ... },
+  "category": [ { "coding": [ { "code": "428341000124108", ... } ] } ],
+  ...
+}
+
+-- after
+{
+  "resourceType": "Communication",
+  "status": "not-done",
+  "subject": { "reference": "Patient/05f1e2a6-b317-42bb-827f-993ca3995f5b" },
+  "statusReason": { ... },
+  "category": [ { "coding": [ { "code": "428341000124108", ... } ] } ],
+  ...
+}
+```
+
+**Measures Affected:** CMS142, CMS149
+
 ## Generate the Open issues table and the two issue CSVs from the issue catalog
 
 **Problem:** the Open issues table in `known-issues.md`, `scripts/comparison/known_issues.csv`, and
