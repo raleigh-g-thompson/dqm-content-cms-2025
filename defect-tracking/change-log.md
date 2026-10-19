@@ -24,6 +24,203 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Correct wrong-patient `subject.reference` in five CMS159 / CMS645 / CMS646 fixtures (I-11, residual of I-41)
+
+**Problem:** five fixture resources carried the dangling
+`http://GoodHealthcare.com/fhir/Patient/46464646` reference instead of their own case's Patient, so
+the patient-scoped retrieve never returned them. In CMS159 that suppressed the expected hospice
+exclusion on cases `491f554e` and `96b6579c` (the exact pattern I-41 swept for; these files were
+missed by that sweep).
+
+**Change:** repointed each `subject.reference` at the case's own Patient, using the relative
+`Patient/<guid>` form the sibling resources already use. Five files, one field each:
+
+- `input/tests/measure/CMS159FHIRDepRemissionat12Months/491f554e-…/ServiceRequest-fd6539a4-….json`
+- `input/tests/measure/CMS159FHIRDepRemissionat12Months/96b6579c-…/ServiceRequest-1b3d82ab-….json`
+- `input/tests/measure/CMS159FHIRDepRemissionat12Months/2b4c52e3-…/ServiceRequest-ed70e254-….json`
+- `input/tests/measure/CMS645FHIRBoneDensityPCADTherapy/4d648e0d-…/Observation-6459f9f6-….json`
+- `input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/6e9a1974-…/MedicationAdministration-404ce24c-….json`
+
+Example (CMS159 `491f554e`; the other four are the same substitution with their own GUID):
+
+```json
+// before
+"subject": {
+  "reference": "http://GoodHealthcare.com/fhir/Patient/46464646"
+},
+// after
+"subject": {
+  "reference": "Patient/491f554e-e897-40c5-ad2b-0983923df4e8"
+},
+```
+
+**Observed effect on re-run (2026-10-19, engine re-run with the case folder as the data root):**
+
+- CMS159 `491f554e` / `96b6579c`: `Has Hospice Services …` `false` → `true`,
+  `Denominator Exclusions` `null` → `true` — the two expected-`1` DenEx cells now reproduce. The
+  paired `Numerator` cells (expected `0`) flip too: the raw `Numerator` define stays `true`
+  (follow-up PHQ-9 = 3, `3 < 5`), but `extract_population_actual.py` applies proportion scoring
+  and zeroes a single patient's Numerator once their denominator exclusion fires, which yields the
+  `0` the fixture expects. All 4 I-11 cells now pass.
+- CMS159 `2b4c52e3` (revoked order) and CMS645 `4d648e0d`: no value changed.
+- CMS646 `6e9a1974`: `First BCG Administered` `null` → the in-progress BCG administration and
+  `Numerator` `false` → `true`, which newly mismatches the fixture MR's expected `0` (no exclusion
+  fires for that case, so no scoring zeroes it). Filed as `I-79`; the reference itself is correct.
+
+**Measures Affected:** CMS159FHIRDepRemissionat12Months, CMS645FHIRBoneDensityPCADTherapy, CMS646FHIRIntravesicalBCGTherapy
+
+## Correct `testE15ConditionUnionPrevalence` header's stale Choice-parameter claim (I-28)
+
+**Problem:** the header recorded I-28's early conclusion — *"a Choice is not accepted as a fluent
+function parameter type"* — as the reason a shared `prevalenceInterval(Choice<…>)` overload cannot
+work. The 2026-10-19 probe series refuted that: FHIRCommon itself declares a Choice-typed fluent
+parameter (`toInterval(choice Choice<dateTime, Period, Timing, instant, string, Age, Range>)`) and 24
+measure-local `isVerified(Choice<…>)` functions compile.
+
+**Change:** comment-only correction of the header's `CHOICE-OVERLOAD EXPERIMENT` section: the
+Choice-parameter claim is retracted, and the real blockers are recorded (an unqualified body call
+rebinds to the function itself and dies as a `circular reference` — I-19; a qualified non-fluent call
+is rejected; the only viable Choice-overload shape inlines the body with `is`/`as` narrowing, as
+`testI28ChoiceArgumentProbeC.cql` demonstrates). The base `[FHIR.Condition]` retrieve remains the
+shipped fix and I-28 stays `workaround-applied`. No executable CQL line changed.
+
+**Measures Affected:** none (test scaffold; comment only)
+
+## Add `testI28ChoiceArgumentProbeA` / `testI28ChoiceArgumentProbeC` scaffold probes (I-28)
+
+**Problem:** I-28's recorded conclusion — `testE15ConditionUnionPrevalence.cql:42-44`, *"a Choice is
+not accepted as a fluent function parameter type"*, therefore the QI-Core Choice overload cannot be
+restored — had been inherited by every downstream write-up and is wrong. Three independent facts
+contradict it: FHIRCommon itself declares a Choice-typed fluent parameter
+(`FHIRCommon-2.0.0.cql:130`, `toInterval(choice Choice<dateTime, Period, Timing, instant, string,
+Age, Range>)`); 24 measure-local `isVerified(Choice<ConditionProblemsHealthConcerns,
+ConditionEncounterDiagnosis>)` declarations compile and three of them are actually called (CMS22,
+CMS1173, CMS506 — all fully passing); and the parameter list was never the failure point.
+
+**Change:** added two scaffold probe libraries. No measure CQL, fixture or valueset change.
+
+- `testI28ChoiceArgumentProbeA` — PROBE A reproduces the I-28 failure verbatim at `:85`
+  (`Could not resolve call to operator prevalenceInterval with signature
+  (choice<USQualityCore.ConditionEncounterDiagnosis,USQualityCore.ConditionProblemsHealthConcerns>)`),
+  so the string previously preserved only in prose is now reproducible on demand. PROBE B/C show the
+  same union-built `Choice<...>` argument binding to locally declared `Choice<...>` parameters. Like
+  `testI37RecordedAmbiguousOverload`, it fails to translate on purpose.
+- `testI28ChoiceArgumentProbeC` — the union against a locally declared
+  `prevalenceInterval(Choice<...>)` whose body **inlines** FHIRCommon's logic with `is`/`as`
+  narrowing instead of delegating to it. Zero translation errors, and the body's own calls resolve
+  (`toInterval` accepts a 7-member Choice argument, `abatementInterval` binds after narrowing).
+  Dispatch: union argument → local overload; base `[FHIR.Condition]` → FHIRCommon (the base-retrieve
+  workaround is not hijacked); bare profile argument → local overload.
+
+Findings recorded in `defect-tracking/issues/I-28.md`: a delegating body cannot work in either
+direction — an unqualified body call re-binds to the function itself and dies as a **circular
+reference** (I-19, reproduced), while a qualified non-fluent call is rejected (`… is a fluent
+function and can only be invoked with fluent syntax`). The inlined body is therefore the viable
+shape. **Deliberately not applied**: the base `[FHIR.Condition]` workaround stays in force and I-28
+stays `workaround-applied`. Two further probes used during triage (an unqualified-body I-19
+reproduction and a bare-profile dispatch isolate) were deleted rather than kept.
+
+**Measures Affected:** none (scaffold probes only)
+
+## Report the ticketed known issues that the `WORKAROUND` verdict hides
+
+**Problem:** `cell_outcome` reaches `KNOWN_ISSUE` only from a mismatching cell and `WORKAROUND`
+only from a matching one, so the two verdicts partition — but they answer different questions, and
+a case can be both. I-78's five CMS145 cases are covered by a ticketed known issue
+([cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872))
+*and* match only because the measure's `ConditionProblemsHealthConcerns` casts work around it.
+The single verdict dropped the ticketed half, so the header read `Known Issue Count (ticketed) 4`
+when ten cases were in fact covered by a ticketed issue (4 `KNOWN_ISSUE`, 5 I-78, 1 I-24). A
+reader could not tell from the summary that I-78 was ticketed at all — only that six cases were
+workaround-held.
+
+**Fix (harness, no scoring change):**
+
+- `scripts/compare_results.py`: `ticketed_known_issue_cases()` collects the `(measure, guid)`
+  pairs with a scored cell covered by a ticketed issue; `ticketed_known_issue_coverage_count()`
+  and `ticketed_workaround_case_count()` count them through the `KNOWN_ISSUE` and `WORKAROUND`
+  verdicts. `generate_comparison_report()` gains a `— covered by a ticketed known issue` sub-row
+  under `Workaround Count` and a cross-cutting `Known issues with an upstream ticket` row after
+  `Fail Count`, and the console output carries both. Only those two explained verdicts are
+  counted, so a stale attribution row on a case that genuinely passes cannot inflate the roll-up.
+- `scripts/readme.md`: documents the cross-cutting row and why it is not one of the five counts
+  that add up to `Total Test Cases`.
+- `scripts/tests/test_compare_results_known_issues.py`: a new ticketed-rollup test pins a grid
+  with one workaround-held case, one ticketed failure and one unticketed failure; the two existing
+  workaround tests now assert the sub-row's presence and absence.
+
+**Not changed:** the five verdict counts, `Total Test Cases` and
+`Resolved (Pass + Implementation + Known Issue)` are all exactly as before. `WORKAROUND` stays out
+of `Resolved` deliberately — the defect behind I-78 is open, and reverting the casts turns those
+five cases into failures.
+
+**Effect on the grid:** header only. `Workaround Count 6 (0.15%)` gains a
+`— covered by a ticketed known issue 6 (0.15%)` sub-row, and a new
+`Known issues with an upstream ticket 10 (0.25%)` row states the coverage the two separate counts
+obscured. Every workaround case in the grid is ticketed.
+
+**Measures Affected:** CMS145, CMS156 (reporting only)
+
+## Fill in I-78's upstream ticket link in CMS145's workaround comment
+
+**Problem:** the `// [I-78]` comment block above the `ConditionProblemsHealthConcerns` casts in
+`CMS145FHIRCADBBlockerTPMIorLVSD.cql` has carried `// Upstream ticket: (pending)` since the casts were
+applied on 2026-10-16. An unfilled placeholder is not a finished change, and the upstream ticket now
+exists.
+
+**Fix:** the upstream translator ticket was filed on 2026-10-18 as
+[cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872)
+("Overload resolution ignores subtypes when the argument is a Choice"), so the placeholder line now
+carries that URL.
+
+```before
+        // [I-78] Choice-typed parameter binds Condition-branch calls to the AllergyIntolerance overload
+        // Upstream ticket: (pending)
+```
+
+```after
+        // [I-78] Choice-typed parameter binds Condition-branch calls to the AllergyIntolerance overload
+        // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+```
+
+One comment line changed; **no CQL logic changed**. The casts themselves are untouched and stay in
+place until #1872 lands — the comment block and the casts are removed together at that point, not
+merely because the grid passes.
+
+**Measures Affected:** CMS145
+
+## Score deliberate workarounds as `WORKAROUND` so they stay in the discrepancy report
+
+**Problem:** some issues are worked around in the measure's own CQL — I-78's
+`ConditionProblemsHealthConcerns` casts in CMS145, I-24's `System.Quantity` construction in
+CMS156. The affected cases then *match* their fixture MeasureReport, and `compare_results.py`
+scored them `PASS`. That erased the open defect from `discrepancy_report.md`: CMS145 went from a
+listed measure to a clean one, because the only thing left differing in it was an unrelated
+implementation issue. A reader could not tell a case that genuinely passes from one that passes
+only because a workaround is holding it up — and the report exists precisely to keep open defects
+visible, since the workaround is to be reverted when the root cause is fixed.
+
+**Fix (harness, no content change):**
+
+- `scripts/comparison/known_issues.csv` gained a `status` column carrying the issue's
+  `defect_status` from the catalog (`suspected`, `confirmed`, `workaround-applied`). It is
+  generated, so the column appears on the next publish; hand-edited fixtures without it still
+  load, and a blank status is never a workaround.
+- `scripts/compare_results.py` scores a *matching* cell whose issue carries `workaround-applied`
+  as `WORKAROUND` instead of `PASS`. It counts as neither a pass nor a failure
+  (`Workaround Count` in the header, a `Workarounds` row and per-measure column in the summary),
+  and it keeps the measure under `## Measures with Discrepancies`, listing each case with
+  `I-XX (workaround applied)` and the issue's note.
+- A workaround-applied issue whose case is *failing* — reverted, or never applied — leaves the
+  cells on the ordinary FAIL path and is labelled `I-XX (workaround reverted)`.
+
+**Effect on the grid:** `Pass Count` 3935 → 3929, `Workaround Count` 0 → 6, `Measures with
+Discrepancies` 13 → 14. CMS145 now lists its five I-78 cases under `Workarounds`, and CMS156 its
+I-24 case. Nothing else moved; the 18 failures are unchanged.
+
+**Measures Affected:** CMS145FHIRCADBBlockerTPMIorLVSD, CMS156FHIRHighRiskMedsElderly (report
+only — no CQL, FHIR resource, or valueset changed by this entry).
+
 ## Fix CMS142 / CMS149 fixture resources missing `subject`; add Communication to the fixture validator's required-field check
 
 **Problem:** 5 CMS142 test cases failed on Denominator Exception (expected 1, actual 0; I-39).
@@ -1787,3 +1984,50 @@ after exclusions: `348471db` 3/3/1/1/1, `451b6853` 3/3/2/1/0, `a2b8327c` 2/2/0/2
 ```
 
 **Measures Affected:** CMS104
+
+## Work around the CMS145 Choice-typed overload mis-binding in `overlapsAfterDayOfEncounter`
+
+**Problem:** in `CMS145FHIRCADBBlockerTPMIorLVSD`, `overlapsAfterDayOfEncounter` takes
+`Event Choice<AllergyIntolerance, ConditionProblemsHealthConcerns>`. In the
+`when Event is ConditionProblemsHealthConcerns` branch, both `FHIRCommon.isVerified()` and
+`FHIRCommon.prevalenceInterval()` resolved to the **AllergyIntolerance** overloads, so the ELM
+carries `As {http://hl7.org/fhir}AllergyIntolerance` of a Condition. That cast is null at
+runtime, so the prevalence interval is null and the Denominator Exception never fires: five
+cases expect 1 and got 0 (`5fd0d626`, `61306767`, `fd5fb311`, `4f4a65f4`, `b65680a0`).
+
+The translator accepts a `Choice` component only by **exact equality** — `ChoiceType.isCompatibleWith`
+and `ConversionMap.findChoiceConversion` test `param.isCompatibleWith(component)` and never
+`isSubTypeOf` — so the base-typed `Condition` overload is not a candidate and the
+`AllergyIntolerance` one wins on the exact component match, with no ambiguity reported. This is a
+**translator** defect (I-78), not a content defect: the function text is unchanged from the
+QI-Core measure, and no US Quality Core rule requires a cast here. QI-Core gets the right answer
+only because its `QICoreCommon.prevalenceInterval` declares a single Choice-typed overload; USQC's
+`AHAOverall` declares no `isVerified` or `prevalenceInterval` at all, and both calls resolve
+against `hl7.fhir.uv.cql.FHIRCommon 2.0.0`, which types them on the base FHIR resources.
+
+**Change:** cast explicitly in the Condition branch so the `FHIR.Condition` overloads bind.
+
+### Example
+
+```cql
+// before
+when Event is ConditionProblemsHealthConcerns then Event.isVerified()
+  and Event.prevalenceInterval() overlaps after day of Visit.period
+
+// after
+when Event is ConditionProblemsHealthConcerns then (Event as ConditionProblemsHealthConcerns).isVerified()
+  and (Event as ConditionProblemsHealthConcerns).prevalenceInterval() overlaps after day of Visit.period
+```
+
+The original two lines are retained above the replacement in an `[I-78]` comment block.
+
+**Verified 2026-10-16** with `cql_execute`: denominator exception 1 true for `5fd0d626`,
+`61306767` and `fd5fb311`; denominator exception 2 true for `4f4a65f4` and `b65680a0`; all other
+populations unchanged. **Re-verified 2026-10-17** by a full CMS145 suite run — the same five cells
+and no others, the other 48 cases identical, so the five move from failing to matching and nothing
+else in the measure shifts. The five cases pass **only** because of this workaround and remain cited in
+`scripts/comparison/known_issues.csv`; the issue stays open until the translator fix lands, at
+which point the casts and their comment block should be removed together. The AllergyIntolerance
+branch reads properties on `Event` directly and is unaffected.
+
+**Measures Affected:** CMS145

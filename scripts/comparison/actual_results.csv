@@ -8761,7 +8761,7 @@ CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_1:Den
 CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_2:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_2:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_2:Numerator,0
-CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_2:Denominator Exception,0
+CMS145FHIRCADBBlockerTPMIorLVSD,4f4a65f4-a4c6-47e7-b37e-3ad9a9c9342e,Group_2:Denominator Exception,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5a85d133-acfb-40fa-a3ab-0c557d21e67c,Group_1:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5a85d133-acfb-40fa-a3ab-0c557d21e67c,Group_1:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5a85d133-acfb-40fa-a3ab-0c557d21e67c,Group_1:Numerator,0
@@ -8773,7 +8773,7 @@ CMS145FHIRCADBBlockerTPMIorLVSD,5a85d133-acfb-40fa-a3ab-0c557d21e67c,Group_2:Den
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_1:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_1:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_1:Numerator,0
-CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_1:Denominator Exception,0
+CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_1:Denominator Exception,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_2:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_2:Denominator,0
 CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_2:Numerator,0
@@ -8781,7 +8781,7 @@ CMS145FHIRCADBBlockerTPMIorLVSD,5fd0d626-e9c5-4e6c-a10d-1a1183fa7702,Group_2:Den
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_1:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_1:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_1:Numerator,0
-CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_1:Denominator Exception,0
+CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_1:Denominator Exception,1
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_2:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_2:Denominator,0
 CMS145FHIRCADBBlockerTPMIorLVSD,61306767-0e74-44b8-ac06-1339c3783355,Group_2:Numerator,0
@@ -8961,7 +8961,7 @@ CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_1:Den
 CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_2:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_2:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_2:Numerator,0
-CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_2:Denominator Exception,0
+CMS145FHIRCADBBlockerTPMIorLVSD,b65680a0-9768-4ce4-b08d-972fcd84e28e,Group_2:Denominator Exception,1
 CMS145FHIRCADBBlockerTPMIorLVSD,bfacfb96-e784-4346-bf29-a20359dc0ba5,Group_1:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,bfacfb96-e784-4346-bf29-a20359dc0ba5,Group_1:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,bfacfb96-e784-4346-bf29-a20359dc0ba5,Group_1:Numerator,0
@@ -9045,7 +9045,7 @@ CMS145FHIRCADBBlockerTPMIorLVSD,f9a24bdb-a835-4851-8e50-eb11a5c9fb50,Group_2:Den
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_1:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_1:Denominator,1
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_1:Numerator,0
-CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_1:Denominator Exception,0
+CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_1:Denominator Exception,1
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_2:Initial Population,1
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_2:Denominator,0
 CMS145FHIRCADBBlockerTPMIorLVSD,fd5fb311-a466-4c59-966d-48fa7aa88931,Group_2:Numerator,0
@@ -11182,8 +11182,8 @@ CMS159FHIRDepRemissionat12Months,4888e5a5-18ce-4034-b597-68b631225fc2,Group_1:De
 CMS159FHIRDepRemissionat12Months,4888e5a5-18ce-4034-b597-68b631225fc2,Group_1:Numerator,0
 CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Initial Population,1
 CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Denominator,1
-CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Denominator Exclusion,0
-CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Numerator,1
+CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Denominator Exclusion,1
+CMS159FHIRDepRemissionat12Months,491f554e-e897-40c5-ad2b-0983923df4e8,Group_1:Numerator,0
 CMS159FHIRDepRemissionat12Months,4963ead8-c4a7-4101-9fac-9a51732f1723,Group_1:Initial Population,1
 CMS159FHIRDepRemissionat12Months,4963ead8-c4a7-4101-9fac-9a51732f1723,Group_1:Denominator,1
 CMS159FHIRDepRemissionat12Months,4963ead8-c4a7-4101-9fac-9a51732f1723,Group_1:Denominator Exclusion,1
@@ -11266,8 +11266,8 @@ CMS159FHIRDepRemissionat12Months,8e77e9a0-3406-46f2-8250-92e32da1bc65,Group_1:De
 CMS159FHIRDepRemissionat12Months,8e77e9a0-3406-46f2-8250-92e32da1bc65,Group_1:Numerator,0
 CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Initial Population,1
 CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Denominator,1
-CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Denominator Exclusion,0
-CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Numerator,1
+CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Denominator Exclusion,1
+CMS159FHIRDepRemissionat12Months,96b6579c-1cee-423f-9433-a72db6fb8a0a,Group_1:Numerator,0
 CMS159FHIRDepRemissionat12Months,9879bf57-839e-485e-abf6-51c93a7e31ab,Group_1:Initial Population,1
 CMS159FHIRDepRemissionat12Months,9879bf57-839e-485e-abf6-51c93a7e31ab,Group_1:Denominator,1
 CMS159FHIRDepRemissionat12Months,9879bf57-839e-485e-abf6-51c93a7e31ab,Group_1:Denominator Exclusion,0
@@ -17664,7 +17664,7 @@ CMS646FHIRIntravesicalBCGTherapy,68a791aa-734a-442b-b82a-e85ee3105a66,Group_1:De
 CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Initial Population,1
 CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Denominator,1
 CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Denominator Exclusion,0
-CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Numerator,0
+CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Numerator,1
 CMS646FHIRIntravesicalBCGTherapy,6e9a1974-7334-4c41-b8dd-8413ae0caa29,Group_1:Denominator Exception,0
 CMS646FHIRIntravesicalBCGTherapy,7488d3a7-f4e1-445f-8375-d3fff29f080d,Group_1:Initial Population,1
 CMS646FHIRIntravesicalBCGTherapy,7488d3a7-f4e1-445f-8375-d3fff29f080d,Group_1:Denominator,1

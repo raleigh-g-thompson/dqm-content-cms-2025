@@ -3,8 +3,14 @@
 A failing case explained by a catalogued issue (`defect-tracking/known-issues.md`)
 is listed in `known_issues.csv`. It counts as resolved only once its issue has a
 GitHub ticket: its failing cells then score KNOWN_ISSUE instead of FAIL. Without
-a ticket the case stays FAIL and the report labels it as needing one. These
-tests pin that rule, the loader's validation, and the report rendering.
+a ticket the case stays FAIL and the report labels it as needing one.
+
+A row also carries the issue's `status`. When that is `workaround-applied` the
+measure's CQL already works around the defect, so the case is *expected to pass*
+and a matching cell scores WORKAROUND: a passing case that still counts as a
+discrepancy, because the defect is open and the workaround is to be reverted.
+
+These tests pin those rules, the loader's validation, and the report rendering.
 """
 import csv
 import os
@@ -15,6 +21,7 @@ import unittest
 from scripts.compare_results import (
     IMPLEMENTATION,
     KNOWN_ISSUE,
+    WORKAROUND,
     ImplementationIssue,
     KnownIssue,
     capture_results,
@@ -26,6 +33,12 @@ from scripts.compare_results import (
     scores,
     sort_issue_ids,
     ticket_link,
+    ticket_number,
+    ticketed_known_issue_cases,
+    ticketed_known_issue_coverage_count,
+    ticketed_workaround_case_count,
+    workaround_case_count,
+    workaround_keys,
 )
 # Imported under another name: pytest would collect a bare `test_case_outcomes`.
 from scripts.compare_results import test_case_outcomes as case_outcomes
@@ -38,6 +51,7 @@ TICKET = "https://github.com/cqframework/clinical_quality_language/issues/1855"
 
 CSV_HEADER = "measure_name,guid,population,count\n"
 KNOWN_HEADER = "issue_id,class,ticket,measure_name,guid,group,note\n"
+KNOWN_HEADER_STATUS = "issue_id,class,status,ticket,measure_name,guid,group,note\n"
 IMPL_HEADER = "issue_id,measure_name,guid,group,note\n"
 
 
@@ -45,8 +59,12 @@ def _csv(*rows):
     return CSV_HEADER + "".join(f"{r}\n" for r in rows)
 
 
-def _known(guid, ticket=TICKET, group="", issue_id="I-26", issue_class="engine"):
-    return KnownIssue(issue_id, issue_class, ticket, MEASURE, guid, group, "Engine note.")
+def _known(guid, ticket=TICKET, group="", issue_id="I-26", issue_class="engine",
+           status="confirmed"):
+    """One `KnownIssue`; `status` defaults to a non-workaround so existing cases
+    keep their old verdicts."""
+    return KnownIssue(issue_id, issue_class, status, ticket, MEASURE, guid, group,
+                      "Engine note.")
 
 
 class KnownIssueLoaderTest(unittest.TestCase):
@@ -98,6 +116,25 @@ class KnownIssueLoaderTest(unittest.TestCase):
                        + f"I-26,engine,{TICKET},{MEASURE},{GUID_A},,\n"
                        + f"I-26,engine,,{MEASURE},{GUID_B},,\n")
 
+    def test_status_column_marks_a_workaround(self):
+        issues = self._load(KNOWN_HEADER_STATUS
+                            + f"I-78,translator,workaround-applied,{TICKET},{MEASURE},"
+                              f"{GUID_A},,Cast applied.\n")
+        self.assertEqual(issues[0].status, "workaround-applied")
+        self.assertTrue(issues[0].workaround_applied)
+
+    def test_status_is_optional_and_empty_by_default(self):
+        issues = self._load(KNOWN_HEADER + f"I-26,engine,{TICKET},{MEASURE},{GUID_A},,\n")
+        self.assertEqual(issues[0].status, "")
+        self.assertFalse(issues[0].workaround_applied)
+
+    def test_rows_of_one_issue_must_share_the_status(self):
+        with self.assertRaisesRegex(ValueError, "I-78 rows disagree"):
+            self._load(KNOWN_HEADER_STATUS
+                       + f"I-78,translator,workaround-applied,{TICKET},{MEASURE},"
+                         f"{GUID_A},,\n"
+                       + f"I-78,translator,confirmed,{TICKET},{MEASURE},{GUID_B},,\n")
+
     def test_missing_column_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "missing column.*ticket"):
             self._load(IMPL_HEADER + f"I-26,{MEASURE},{GUID_A},,\n")
@@ -132,6 +169,18 @@ class KnownIssueScoringTest(unittest.TestCase):
     def test_passing_cell_stays_pass(self):
         key = (MEASURE, GUID_A, "Group_1:Denominator")
         self.assertEqual(cell_outcome(key, "1", "1", (), [_known(GUID_A)]), ("PASS", "1"))
+
+    def test_matching_cell_under_a_workaround_scores_workaround(self):
+        key = (MEASURE, GUID_A, "Group_1:Denominator")
+        known = [_known(GUID_A, issue_id="I-78", issue_class="translator",
+                        status="workaround-applied")]
+        self.assertEqual(cell_outcome(key, "1", "1", (), known), (WORKAROUND, "1"))
+
+    def test_failing_cell_under_a_reverted_workaround_is_not_a_workaround(self):
+        key = (MEASURE, GUID_A, "Group_1:Denominator")
+        known = [_known(GUID_A, ticket="", issue_id="I-78", issue_class="translator",
+                        status="workaround-applied")]
+        self.assertEqual(cell_outcome(key, "1", "0", (), known), ("FAIL", "0"))
 
     def test_implementation_issue_takes_precedence(self):
         key = (MEASURE, GUID_A, "Group_1:Denominator")
@@ -171,6 +220,34 @@ class KnownIssueScoringTest(unittest.TestCase):
              failing_known_issue_keys(expected.groups, actual.groups, known, impl,
                                       ticketed=False)},
             {(GUID_B, "Group_1")})
+
+    def test_workaround_case_is_in_neither_count(self):
+        # GUID_A passes only because of the workaround; GUID_B just passes.
+        expected = self._rows(
+            f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+            f"{MEASURE},{GUID_B},Group_1:Denominator,1")
+        actual = self._rows(
+            f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+            f"{MEASURE},{GUID_B},Group_1:Denominator,1")
+        known = [_known(GUID_A, issue_id="I-78", issue_class="translator",
+                        status="workaround-applied")]
+        self.assertEqual(case_outcomes(expected.rows, actual.rows, (), known), {
+            (MEASURE, GUID_A): WORKAROUND,
+            (MEASURE, GUID_B): "PASS",
+        })
+        self.assertEqual(scores(expected.rows, actual.rows, (), known), (1, 0))
+        self.assertEqual(workaround_case_count(expected.rows, actual.rows, (), known), 1)
+        self.assertEqual(
+            {(k.patient_guid, k.group) for k in
+             workaround_keys(expected.groups, actual.groups, known)},
+            {(GUID_A, "Group_1")})
+
+    def test_workaround_keys_need_a_matching_case(self):
+        expected = self._rows(f"{MEASURE},{GUID_A},Group_1:Denominator,1")
+        actual = self._rows(f"{MEASURE},{GUID_A},Group_1:Denominator,0")
+        known = [_known(GUID_A, issue_id="I-78", issue_class="translator",
+                        status="workaround-applied")]
+        self.assertEqual(workaround_keys(expected.groups, actual.groups, known), set())
 
 
 class KnownIssueReportTest(unittest.TestCase):
@@ -212,7 +289,7 @@ class KnownIssueReportTest(unittest.TestCase):
         # Still listed, labelled as resolved by its ticketed issue.
         self.assertIn("| Measures with Discrepancies | 1 |", text)
         self.assertIn("| Unattributed Discrepancies | 0 | 0 |", text)
-        self.assertIn(f"| {GUID_A} | Group_1 | I-18 (ticketed) |", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-18 | [1855]({TICKET}) |", text)
         self.assertIn("- **I-18** (`translator`, "
                       f"[cqframework/clinical_quality_language#1855]({TICKET})): "
                       "Overload ambiguity.\n", text)
@@ -234,12 +311,12 @@ class KnownIssueReportTest(unittest.TestCase):
         self.assertNotIn("Known Issue Count (ticketed)", text)
         self.assertNotIn("Resolved (", text)
         self.assertIn("| Unattributed Discrepancies | 1 | 3 |", text)
-        self.assertIn("- **I-26** (`engine`, **needs ticket**)\n", text)
+        self.assertIn("- **I-26** (`engine`)\n", text)
         # In the discrepancy tables, with the issue named; GUID_C has none.
-        self.assertIn(f"| {GUID_A} | Group_1 | I-26 (needs ticket) |", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-26 | pending |", text)
         self.assertRegex(text, rf"\| {GUID_B} \| Group_1 \| Denominator \| 1 \| 0 \| "
-                               r"I-26 \(needs ticket\) \|")
-        self.assertRegex(text, rf"\| {GUID_C} \| Group_1 \| Denominator \| 1 \| 0 \|  \|")
+                               r"I-26 \| pending \|")
+        self.assertRegex(text, rf"\| {GUID_C} \| Group_1 \| Denominator \| 1 \| 0 \|  \|  \|")
         with open(self.output, newline="") as f:
             results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
         self.assertEqual(set(results.values()), {"FAIL"})
@@ -291,13 +368,16 @@ class MeasureIssueSectionTest(unittest.TestCase):
             IMPL_HEADER + f"I-73,{MEASURE},{GUID_A},,Steward data.\n")
         # A resolved (I-73, I-26), B needs a ticket, D has no issue: 2 unattributed.
         self.assertIn("| Unattributed Discrepancies | 1 | 2 |", text)
-        self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 4 | 0 | 0 | 100.00%   (4) | 2 |",
+        self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 4 | 0 | 0 | 100.00%   (4) | 0 | 2 |",
                       text)
-        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | 1 | 0 | I-73 (implementation) |",
+        self.assertIn("| Test Case | Group | Population | Expected | Actual | Issue | Ticketed |\n"
+                      "|---|---|---|:---:|:---:|---|---|\n", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | 1 | 0 | I-73 (implementation) | N/A |",
                       text)
-        self.assertIn(f"| {GUID_B} | Group_1 | Denominator | 1 | 0 | I-65 (needs ticket) |", text)
-        self.assertIn(f"| {GUID_C} | Group_1 | Denominator | 1 | 0 | I-26 (ticketed) |", text)
-        self.assertIn(f"| {guid_d} | Group_1 | Denominator | 1 | 0 |  |", text)
+        self.assertIn(f"| {GUID_B} | Group_1 | Denominator | 1 | 0 | I-65 | pending |", text)
+        self.assertIn(f"| {GUID_C} | Group_1 | Denominator | 1 | 0 | I-26 | [1855]({TICKET}) |", text)
+        # No issue, so the Ticketed cell is blank like the Issue cell.
+        self.assertIn(f"| {guid_d} | Group_1 | Denominator | 1 | 0 |  |  |", text)
         # Issue notes in numeric order.
         notes = [l for l in text.splitlines() if l.startswith("- **I-")]
         self.assertEqual([l.split("**")[1] for l in notes], ["I-26", "I-65", "I-73"])
@@ -306,6 +386,19 @@ class MeasureIssueSectionTest(unittest.TestCase):
         self.assertIn(other, clean.split("## Measures with No Discrepancies")[1])
         self.assertNotIn(MEASURE, clean.split("## Measures with No Discrepancies")[1])
         self.assertNotIn(other, discrepant)
+
+    def test_missing_tables_carry_the_ticketed_column(self):
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
+            # A has the group but not the population; B has no results at all.
+            [f"{MEASURE},{GUID_A},Group_1:Initial Population,1"],
+            KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_A},,Needs work.\n"
+            + f"I-26,engine,{TICKET},{MEASURE},{GUID_B},,Engine note.\n")
+        self.assertIn("| Test Case | Group | Issue | Ticketed |\n", text)
+        self.assertIn(f"| {GUID_B} | Group_1 | I-26 | [1855]({TICKET}) |", text)
+        self.assertIn("| Test Case | Group | Population | Issue | Ticketed |\n", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | I-65 | pending |", text)
 
     def test_distinct_notes_of_one_issue_get_sub_bullets(self):
         text = self._run(
@@ -318,9 +411,122 @@ class MeasureIssueSectionTest(unittest.TestCase):
             KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_A},,First cause.\n"
             + f"I-65,content,,{MEASURE},{GUID_B},,Second cause.\n"
             + f"I-65,content,,{MEASURE},{GUID_C},,First cause.\n")
-        self.assertIn("- **I-65** (`content`, **needs ticket**)\n"
+        self.assertIn("- **I-65** (`content`)\n"
                       "  - `aaaaaaaa`, `cccccccc`: First cause.\n"
                       "  - `bbbbbbbb`: Second cause.\n", text)
+
+
+class WorkaroundReportTest(unittest.TestCase):
+    """A case that passes only because of a workaround is still a discrepancy.
+
+    The point of the report is to surface defects. A workaround makes the grid
+    match, but the defect is open and the workaround is to be reverted, so the
+    measure must stay under `## Measures with Discrepancies` and the case must
+    not be counted as a pass.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def _write(self, name, text):
+        path = os.path.join(self.tmp, name)
+        with open(path, "w", newline="") as f:
+            f.write(text)
+        return path
+
+    def _run(self, expected_rows, actual_rows, known_text):
+        e = self._write("e.csv", _csv(*expected_rows))
+        a = self._write("a.csv", _csv(*actual_rows))
+        self.output = os.path.join(self.tmp, "o.csv")
+        report = os.path.join(self.tmp, "r.md")
+        main(e, a, self.output, report, measure_resource_dir=self.tmp,
+             implementation_file=os.path.join(self.tmp, "no-impl.csv"),
+             known_issues_file=self._write("known.csv", known_text))
+        with open(report) as f:
+            return f.read()
+
+    def test_workaround_keeps_the_measure_in_the_report(self):
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1"],
+            KNOWN_HEADER_STATUS
+            + f"I-78,translator,workaround-applied,{TICKET},{MEASURE},{GUID_A},,"
+              "Cast applied.\n")
+        # Counted as neither a pass nor a failure.
+        self.assertIn("| Pass Count | 1 (50.00%) |", text)
+        self.assertIn("| Workaround Count | 1 (50.00%) |", text)
+        self.assertIn("| Fail Count | 0 (0.00%) |", text)
+        # It is also a ticketed known issue, and the header says so rather than
+        # reporting only the workaround half of the story.
+        self.assertIn("| &nbsp;&nbsp;— covered by a ticketed known issue | 1 (50.00%) |",
+                      text)
+        self.assertIn("| Known issues with an upstream ticket | 1 (50.00%) |", text)
+        # And the measure stays a discrepancy, with its own table.
+        self.assertIn("| Measures with Discrepancies | 1 |", text)
+        self.assertIn("| Workarounds | 1 | 1 |", text)
+        self.assertIn("| Unattributed Discrepancies | 0 | 0 |", text)
+        self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 2 | 0 | 0 | 0.00%   (0) | 1 "
+                      "| 0 |", text)
+        self.assertIn("Workarounds (1 of 2 test cases)", text)
+        self.assertIn("| Test Case | Group | Issue | Ticketed |\n", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-78 (workaround applied) | [1855]({TICKET}) |", text)
+        self.assertIn("_Cast applied._", text)
+        # The issue is listed under the measure too, like any other it cites.
+        self.assertIn("- **I-78** (`translator`, **workaround applied**)", text)
+        self.assertNotIn("## Measures with No Discrepancies", text)
+        with open(self.output, newline="") as f:
+            results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
+        self.assertEqual(results, {GUID_A: WORKAROUND, GUID_B: "PASS"})
+
+    def test_reverted_workaround_is_reported_as_a_failure(self):
+        # No actual results at all: the case fails once the workaround is gone.
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
+            [],
+            KNOWN_HEADER_STATUS
+            + f"I-78,translator,workaround-applied,,{MEASURE},{GUID_A},,Cast applied.\n")
+        self.assertIn("| Fail Count | 1 (100.00%) |", text)
+        self.assertNotIn("| Workaround Count |", text)
+        # Unticketed, so nothing claims ticket coverage for it either.
+        self.assertNotIn("covered by a ticketed known issue", text)
+        self.assertNotIn("Known issues with an upstream ticket", text)
+        self.assertIn("| Workarounds | 0 | 0 |", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-78 (workaround reverted) | pending |", text)
+        # The bullet tracks the issue's catalog state, not the row's resolution.
+        self.assertIn("- **I-78** (`translator`, **workaround applied**)", text)
+
+    def test_ticketed_rollup_spans_workaround_and_failing_cases(self):
+        # A case that a ticketed issue covers *and* a workaround props up gets a
+        # single WORKAROUND verdict, and a ticketed failure gets KNOWN_ISSUE, so
+        # neither count alone reports the ticketed coverage. Three cases: one
+        # propped up, one failing for a ticketed issue, one for an unticketed one.
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_C},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,0"],
+            KNOWN_HEADER_STATUS
+            + f"I-78,translator,workaround-applied,{TICKET},{MEASURE},{GUID_A},,"
+              "Cast applied.\n"
+            + f"I-26,engine,confirmed,{TICKET},{MEASURE},{GUID_B},,\n"
+            + f"I-33,engine,confirmed,,{MEASURE},{GUID_C},,\n")
+        self.assertIn("| Workaround Count | 1 (33.33%) |", text)
+        self.assertIn("| &nbsp;&nbsp;— covered by a ticketed known issue | 1 (33.33%) |",
+                      text)
+        self.assertIn("| Known Issue Count (ticketed) | 1 (33.33%) |", text)
+        self.assertIn("| Fail Count | 1 (33.33%) |", text)
+        # The two ticketed cases, counted across the verdicts that separated them;
+        # the unticketed failure is not among them.
+        self.assertIn("| Known issues with an upstream ticket | 2 (66.67%) |", text)
+        # The roll-up is cross-cutting: it is not one of the five that total.
+        self.assertIn("| Total Test Cases | 3 |", text)
+        with open(self.output, newline="") as f:
+            results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
+        self.assertEqual(results, {GUID_A: WORKAROUND, GUID_B: KNOWN_ISSUE, GUID_C: "FAIL"})
 
 
 class HelpersTest(unittest.TestCase):
@@ -329,6 +535,12 @@ class HelpersTest(unittest.TestCase):
         self.assertEqual(ticket_link(TICKET),
                          f"[cqframework/clinical_quality_language#1855]({TICKET})")
         self.assertEqual(ticket_link(""), "")
+
+    def test_ticket_number(self):
+        self.assertEqual(ticket_number(TICKET), "1855")
+        self.assertEqual(ticket_number(
+            "https://github.com/cqframework/clinical_quality_language/pull/1968"), "1968")
+        self.assertEqual(ticket_number(""), "")
 
     def test_sort_issue_ids_is_numeric(self):
         self.assertEqual(sort_issue_ids(["I-26", "I-9", "I-100"]), ["I-9", "I-26", "I-100"])

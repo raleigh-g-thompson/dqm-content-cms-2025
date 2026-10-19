@@ -81,10 +81,11 @@ A listed case that passes needs no explanation and is scored `PASS` as usual.
 
 Other failing test cases are explained by an issue in `defect-tracking/known-issues.md` of another class, typically an `engine` or `translator` bug such as I-26. Such a case counts as resolved only once its issue has a GitHub ticket. They are listed in:
 
-- `scripts/comparison/known_issues.csv`, with columns `issue_id,class,ticket,measure_name,guid,group,note`.
+- `scripts/comparison/known_issues.csv`, with columns `issue_id,class,status,ticket,measure_name,guid,group,note`.
 - `class` is one of the classes in `known-issues.md`, except `implementation`, which belongs in `implementation_issues.csv`.
+- `status` is the issue's `defect_status` from the catalog: `suspected`, `confirmed` or `workaround-applied`. It decides how a case is scored when it *matches* its fixture; see "Workarounds" below.
 - `ticket` is the GitHub issue or pull request URL, e.g. `https://github.com/cqframework/clinical_quality_language/issues/1855`. Leave it blank until one is filed. Any other value, such as `TBD`, stops the script with an error.
-- Every row of one issue must carry the same `class` and `ticket`.
+- Every row of one issue must carry the same `class`, `status` and `ticket`.
 - `group` and quoting work as in `implementation_issues.csv`. **If the file is absent or empty, nothing changes.**
 
 Both files, and the Open issues table in `defect-tracking/known-issues.md`, are generated from the project's issue catalog, so a hand edit is overwritten on the next update.
@@ -96,7 +97,25 @@ How a listed case is scored:
 | Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; `I-XX (ticketed)` in the per-measure `Issue` column; not counted as `Unattributed` |
 | Blank | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; `I-XX (needs ticket)` in the per-measure `Issue` column; counted as `Unattributed` |
 
-Every failing test case, whatever its issue state, is listed under `## Measures with Discrepancies`. Under its tables, each measure has an `Issues` list giving each cited issue's class, ticket (or **needs ticket**) and note. A test case that no implementation issue or ticketed known issue resolves is counted under `Unattributed Discrepancies` in the `Discrepancy Summary` table and in the `Unattributed` column of the per-measure summary; these are the `FAIL` verdicts. A measure is listed under "Measures with No Discrepancies" only when every test case matches its fixture. An implementation issue takes precedence over a known issue on the same cells.
+Every failing test case, whatever its issue state, is listed under `## Measures with Discrepancies`. Under its tables, each measure has an `Issues` list giving each cited issue's class, ticket, and note (an unticketed known issue's bullet reads e.g. `- **I-65** (\`content\`)`, dropping the `**needs ticket**` belt-and-braces that the per-row `Ticketed` column now carries). A test case that no implementation issue or ticketed known issue resolves is counted under `Unattributed Discrepancies` in the `Discrepancy Summary` table and in the `Unattributed` column of the per-measure summary; these are the `FAIL` verdicts. A measure is listed under "Measures with No Discrepancies" only when every test case matches its fixture. An implementation issue takes precedence over a known issue on the same cells.
+
+A ticketed known issue and a workaround are not mutually exclusive, and a case can be both: I-78's CMS145 cases are covered by a ticketed issue *and* match only because the measure's CQL works around it. `cell_outcome` can give such a case only one verdict, since it reaches `KNOWN_ISSUE` from a mismatching cell and `WORKAROUND` from a matching one, so neither count on its own reports that coverage. The header `Details` table therefore also carries a cross-cutting `Known issues with an upstream ticket` row, counting the cases that either explained verdict covers. It is deliberately not one of the five that add up to `Total Test Cases`, and `Resolved` still excludes the workaround half of it: the defect behind those cases is open, and reverting the workaround turns them into failures again.
+
+A `Ticketed` column sits to the right of the `Issue` column on every per-measure table (Missing Results, Missing Populations, Mismatched Test Cases, Workarounds). `N/A` means the issue is implementation, `pending` means a known issue without a ticket, and a link to the issue/PR (`[1868](https://github.com/.../issues/1868)`) means it is recorded. The cell is blank when no issue covers the row, matching the `Issue` cell beside it.
+
+#### Workarounds (`status` `workaround-applied`, optional)
+
+Some issues are worked around in the measure's own CQL -- a cast that removes an overload ambiguity, a `System.Quantity` construction, and so on (I-78 and I-24 are examples). The case then *matches* its fixture, but the defect is open and the workaround is meant to be reverted once the root cause is fixed. Scoring it `PASS` would erase the defect from the report, which is the opposite of the report's purpose, so it is scored `WORKAROUND` instead: counted as neither a pass nor a failure, and listed under the measure as its own discrepancy.
+
+| Where | Effect |
+|---|---|
+| `output_results.csv` | Matching cells under a `workaround-applied` issue have `result` `WORKAROUND` instead of `PASS` |
+| Test-case verdict | `WORKAROUND` when the case matches and carries such an issue. The case leaves `Pass Count` |
+| Header `Details` table | `Workaround Count` sits between `Pass Count` and `Fail Count`, with a `— covered by a ticketed known issue` sub-row when any of them has one. The five counts add up to `Total Test Cases`; the row is absent when no case is a workaround |
+| `Discrepancy Summary` | A `Workarounds` row, and a `Workarounds` column in the per-measure summary |
+| Per-measure tables | A `Workarounds` table with the issue, e.g. `I-78 (workaround applied)`, and the issue's note. The measure stays under "Measures with Discrepancies" even when nothing else in it differs |
+
+An issue-carried workaround that is *not* holding the case up -- reverted, or never applied -- leaves the cell failing, and the failure takes the ordinary path above; its `Issue` column then reads `I-XX (workaround reverted)` rather than `ticketed`/`needs ticket`. A row whose `status` is anything else is never a workaround, so an ordinary catalog row whose case happens to pass stays a stale attribution instead of being relabelled.
 
 ### `comparison/populations.py`
 

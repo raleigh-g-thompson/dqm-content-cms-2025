@@ -125,8 +125,9 @@ class ReportTablesTest(unittest.TestCase):
             text = f.read()
         self.assertNotIn("QI-Core", text)
         self.assertIn("| Measure | Total Test Cases | Missing Results | "
-                      "Missing Populations | Mismatched Test Cases | Unattributed |\n"
-                      "|---|:---:|:---:|:---:|:---:|:---:|\n", text)
+                      "Missing Populations | Mismatched Test Cases | Workarounds | "
+                      "Unattributed |\n"
+                      "|---|:---:|:---:|:---:|:---:|:---:|:---:|\n", text)
         self.assertIn("| Test Case | Group |\n", text)
         self.assertIn("| Test Case | Group | Population | Expected | Actual |\n"
                       "|---|---|---|:---:|:---:|\n", text)

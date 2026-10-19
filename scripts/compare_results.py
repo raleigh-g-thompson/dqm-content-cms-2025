@@ -8,8 +8,9 @@ Reads two CSVs of ``measure_name,guid,population,count`` rows and writes:
 
 Run it with no arguments from the repository root; see ``scripts/readme.md``.
 
-Four behaviours are worth knowing about, because each exists to stop the report
-inventing discrepancies that are not there:
+Five behaviours are worth knowing about, because each exists to stop the report
+inventing discrepancies that are not there -- and one exists to stop it hiding
+one that is real:
 
   * **Population names are canonicalised** (``scripts/comparison/populations.py``)
     before comparison. The expected CSV takes population names from the fixture
@@ -40,6 +41,15 @@ inventing discrepancies that are not there:
     either kind or of none, is listed under `## Measures with Discrepancies`
     with an `Issue` column and the issue's note. The ones no issue resolves are
     counted as Unattributed Discrepancies.
+  * **A workaround keeps a passing case in the report.** Some issues are listed
+    in ``known_issues.csv`` with ``defect_status`` ``workaround-applied``: the
+    measure's CQL already casts, retrieves or restructures around the defect, so
+    the test case *matches* its fixture. Scoring it ``PASS`` would erase the
+    open defect from the report, so a matching cell whose issue carries that
+    status scores ``WORKAROUND`` instead -- neither a pass nor a failure. The
+    measure stays under `## Measures with Discrepancies` with a `Workarounds`
+    table, and the workaround is expected to be reverted when the root cause is
+    fixed (at which point the case fails again and takes the normal FAIL path).
 """
 import csv
 import glob
@@ -83,6 +93,17 @@ DEFAULT_KNOWN_ISSUES_FILE = "./scripts/comparison/known_issues.csv"
 # that has a ticket. Counts as resolved. Without a ticket the cell stays FAIL.
 KNOWN_ISSUE = "KNOWN_ISSUE"
 
+# The per-cell and per-test-case verdict for a *matching* cell whose issue says a
+# workaround is applied. Counts as neither a pass nor a failure: the case matches
+# its fixture, but only because the measure's CQL works around an open defect,
+# and the workaround is scheduled to be reverted.
+WORKAROUND = "WORKAROUND"
+
+# The `KnownIssue.status` value that marks a workaround. `known_issues.csv` is
+# generated from the dossier's `defect_status`, so this is the only spelling that
+# can appear.
+WORKAROUND_STATUS = "workaround-applied"
+
 MeasureDifference = namedtuple('MeasureDifference', ['measure', 'total_test_cases', 'test_cases_with_differences', 'result_deltas'])
 ResultKey = namedtuple('ResultKey', ['measure_name', 'patient_guid', 'group'])
 ResultDelta = namedtuple('ResultDelta', ['patient_guid', 'group', 'population', 'expected', 'actual'])
@@ -112,6 +133,9 @@ class MeasureDiscrepancy:
     missing_results: List[ResultKey] = field(default_factory=list)
     missing_populations: List[MissingPopulation] = field(default_factory=list)
     mismatched_test_cases: Dict[TestCaseGroupId, Dict[str, Comparison]] = field(default_factory=dict)
+    # Cases that match their fixture only because a workaround is applied. Not a
+    # mismatch, but an open defect the report must not lose sight of.
+    workarounds: List[ResultKey] = field(default_factory=list)
 
 class UnscoredCell(NamedTuple):
     measure_name: str
@@ -298,15 +322,25 @@ def failing_implementation_keys(expected_results: Dict[ResultKey, Dict[str, str]
 
 
 class KnownIssue(NamedTuple):
-    """One row of ``known_issues.csv``: a failing test case tied to a catalogued issue.
+    """One row of ``known_issues.csv``: a test case tied to a catalogued issue.
 
     ``ticket`` is the GitHub issue (or pull request) URL tracking the fix. A
     known issue resolves a failing case only once it has one; until then the
     case stays FAIL and is reported as awaiting a ticket. ``group`` is optional,
     as in ``ImplementationIssue``.
+
+    ``status`` is the dossier's ``defect_status`` -- one of ``suspected``,
+    ``confirmed`` or ``workaround-applied``, because the file is generated from
+    the open-issue catalog. A ``workaround-applied`` issue means the measure's
+    CQL already works around the defect, so the case is *expected to pass*: a
+    matching cell scores ``WORKAROUND`` rather than ``PASS``, and the measure
+    stays in the discrepancy report while the defect is open. Optional in the
+    file; a row without it is an ordinary failing-case catalog row, which keeps
+    older hand-written fixtures loading.
     """
     issue_id: str
     issue_class: str
+    status: str
     ticket: str
     measure_name: str
     guid: str
@@ -317,8 +351,13 @@ class KnownIssue(NamedTuple):
     def ticketed(self) -> bool:
         return bool(self.ticket)
 
+    @property
+    def workaround_applied(self) -> bool:
+        return self.status == WORKAROUND_STATUS
 
-KNOWN_ISSUE_COLUMNS = ("issue_id", "class", "ticket", "measure_name", "guid", "group", "note")
+
+KNOWN_ISSUE_COLUMNS = ("issue_id", "class", "status", "ticket", "measure_name", "guid",
+                       "group", "note")
 
 # Root-cause classes from `defect-tracking/known-issues.md`, less `implementation`,
 # which has its own file because it resolves a case without a ticket.
@@ -331,11 +370,16 @@ GITHUB_TICKET_PATTERN = re.compile(r"^https://github\.com/[^/\s]+/[^/\s]+/(?:iss
 def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
     """Read ``known_issues.csv``; an absent file means no known issues.
 
-    Columns: ``issue_id,class,ticket,measure_name,guid,group,note``. Raises
-    ValueError on a missing column, an unquoted comma, a class outside
-    ``KNOWN_ISSUE_CLASSES``, a ``ticket`` that isn't a GitHub issue/PR URL (so a
-    placeholder like ``TBD`` can't resolve a case), or rows of one issue that
-    disagree on class or ticket (a ticket belongs to the issue, not the case).
+    Columns: ``issue_id,class,status,ticket,measure_name,guid,group,note``
+    (``status`` optional and empty when absent). Raises ValueError on a missing
+    column, an unquoted comma, a class outside ``KNOWN_ISSUE_CLASSES``, a
+    ``ticket`` that isn't a GitHub issue/PR URL (so a placeholder like ``TBD``
+    can't resolve a case), or rows of one issue that disagree on class, status
+    or ticket (those belong to the issue, not the case).
+
+    ``status`` is not validated: it is generated from the catalog, whose open
+    statuses are the only values that can appear, and rejecting an unfamiliar
+    one here would stop the harness rather than report anything useful.
     """
     if not file or not os.path.exists(file):
         return []
@@ -367,13 +411,14 @@ def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
             if row["ticket"] and not GITHUB_TICKET_PATTERN.match(row["ticket"]):
                 raise ValueError(f"{where}: ticket {row['ticket']!r} is not a GitHub "
                                  "issue or pull request URL; leave it blank until one exists")
-            identity = (row["class"], row["ticket"])
+            identity = (row["class"], row.get("status", ""), row["ticket"])
             if seen.setdefault(row["issue_id"], identity) != identity:
-                raise ValueError(f"{where}: {row['issue_id']} rows disagree on class or "
-                                 "ticket; every row of an issue must carry the same values")
+                raise ValueError(f"{where}: {row['issue_id']} rows disagree on class, "
+                                 "status or ticket; every row of an issue must carry the "
+                                 "same values")
             issues.append(KnownIssue(
-                row["issue_id"], row["class"], row["ticket"], row["measure_name"],
-                row["guid"], row.get("group", ""), row.get("note", "")))
+                row["issue_id"], row["class"], row.get("status", ""), row["ticket"],
+                row["measure_name"], row["guid"], row.get("group", ""), row.get("note", "")))
     return issues
 
 
@@ -397,6 +442,32 @@ def failing_known_issue_keys(expected_results: Dict[ResultKey, Dict[str, str]],
             continue
         issue = implementation_issue_for(key, known_issues)
         if issue is not None and issue.ticketed == ticketed:
+            keys.add(key)
+    return keys
+
+
+def workaround_keys(expected_results: Dict[ResultKey, Dict[str, str]],
+                    actual_results: Dict[ResultKey, Dict[str, str]],
+                    known_issues: Sequence[KnownIssue]) -> Set[ResultKey]:
+    """Matching (test case, group)s whose issue says a workaround is applied.
+
+    Only a group that currently matches counts. An issue-carried workaround that
+    has been reverted -- or that never worked -- leaves the cell failing, and
+    that failure is reported through the ordinary FAIL path instead, so the
+    report can never claim a workaround is holding up a case it is not.
+
+    A row without a ``status`` is never a workaround, so an ordinary catalog row
+    whose case happens to pass stays a stale attribution rather than being
+    relabelled here.
+    """
+    if not known_issues:
+        return set()
+    keys = set()
+    for key, expected_pops in expected_results.items():
+        if side_status(expected_pops, actual_results.get(key)) != "PASS":
+            continue
+        issue = implementation_issue_for(key, known_issues)
+        if issue is not None and issue.workaround_applied:
             keys.add(key)
     return keys
 
@@ -457,23 +528,34 @@ def cell_outcome(key: Tuple[str, str, str], expected_result: str, actual_result:
 
     An implementation issue wins over a known issue. A known issue without a
     ticket leaves the cell FAIL.
+
+    A *matching* cell whose issue carries ``workaround-applied`` scores
+    ``WORKAROUND``: it passes, but only because the measure's CQL works around an
+    open defect, so calling it a pass would hide the defect.
     """
     result, actual_display = row_outcome(expected_result, actual_result)
+    result_key = cell_result_key(key)
     if result == "FAIL":
-        result_key = cell_result_key(key)
         if implementation_issue_for(result_key, implementation_issues):
             result = IMPLEMENTATION
         else:
             issue = implementation_issue_for(result_key, known_issues)
             if issue is not None and issue.ticketed:
                 result = KNOWN_ISSUE
+    elif result == "PASS":
+        issue = implementation_issue_for(result_key, known_issues)
+        if issue is not None and issue.workaround_applied:
+            result = WORKAROUND
     return result, actual_display
 
 
 def test_case_outcomes(expected_rows: Dict, actual_rows: Dict,
                        implementation_issues: Sequence[ImplementationIssue] = (),
                        known_issues: Sequence[KnownIssue] = ()) -> Dict[Tuple[str, str], str]:
-    """Map (measure_name, patient_guid) -> 'PASS', 'IMPLEMENTATION', 'KNOWN_ISSUE' or 'FAIL'.
+    """Map (measure_name, patient_guid) -> a verdict for the case.
+
+    One of ``PASS``, ``WORKAROUND``, ``IMPLEMENTATION``, ``KNOWN_ISSUE`` or
+    ``FAIL``.
 
     A test case passes iff every expected valid population cell for that case
     matches the actual value; it fails once if any expected cell is wrong or
@@ -485,9 +567,12 @@ def test_case_outcomes(expected_rows: Dict, actual_rows: Dict,
     mismatching cell is covered by an implementation issue. One uncovered
     mismatch, e.g. in a group the issue doesn't name, makes it FAIL. KNOWN_ISSUE
     is the same, for cells covered by a ticketed known issue; a case with both
-    kinds of cell is KNOWN_ISSUE. Every verdict but FAIL counts as resolved.
+    kinds of cell is KNOWN_ISSUE. WORKAROUND is a case that matches but carries a
+    workaround-applied issue, and it outranks PASS so that a single workaround
+    cell marks the whole case. Every verdict but FAIL counts as accounted for;
+    only PASS counts as a pass and only FAIL as a failure.
     """
-    rank = {"PASS": 0, IMPLEMENTATION: 1, KNOWN_ISSUE: 2, "FAIL": 3}
+    rank = {"PASS": 0, WORKAROUND: 1, IMPLEMENTATION: 2, KNOWN_ISSUE: 3, "FAIL": 4}
     outcomes: Dict[Tuple[str, str], str] = {}
     for key, expected_result in expected_rows.items():
         # key fields: [ 'measure_name', 'patient_guid', 'group:population' ]
@@ -510,8 +595,10 @@ def generate_output(file: str, expected_rows: Dict, actual_rows: Dict,
     at test-case granularity (a case counts once even if several of its
     population cells mismatch — they usually share a root cause). A mismatching
     cell covered by an implementation issue is written as IMPLEMENTATION, one
-    covered by a ticketed known issue as KNOWN_ISSUE, and such cases are in
-    neither count; see ``implementation_case_count``/``known_issue_case_count``.
+    covered by a ticketed known issue as KNOWN_ISSUE, and a matching cell under
+    a workaround-applied issue as WORKAROUND; such cases are in neither count;
+    see ``implementation_case_count``/``known_issue_case_count``/
+    ``workaround_case_count``.
     """
     header = ["result", "measure_name", "guid", "population", "expected_result", "actual_result"]
     output = []
@@ -541,8 +628,9 @@ def scores(expected_rows: Dict[str, str], actual_rows: Dict[str, str],
            known_issues: Sequence[KnownIssue] = ()) -> Tuple[int, int]:
     """Compute (pass, fail) counting distinct test cases (not population cells).
 
-    IMPLEMENTATION and KNOWN_ISSUE cases are in neither count; see
-    ``implementation_case_count`` and ``known_issue_case_count``.
+    IMPLEMENTATION, KNOWN_ISSUE and WORKAROUND cases are in neither count; see
+    ``implementation_case_count``, ``known_issue_case_count`` and
+    ``workaround_case_count``.
     """
     outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
                                   known_issues)
@@ -567,6 +655,70 @@ def known_issue_case_count(expected_rows: Dict[str, str], actual_rows: Dict[str,
     outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
                                   known_issues)
     return sum(1 for o in outcomes.values() if o == KNOWN_ISSUE)
+
+
+def workaround_case_count(expected_rows: Dict[str, str], actual_rows: Dict[str, str],
+                          implementation_issues: Sequence[ImplementationIssue],
+                          known_issues: Sequence[KnownIssue]) -> int:
+    """Test cases that match only because a workaround is applied.
+
+    Counted separately from both the passes and the failures: the case agrees
+    with its fixture, but the issue that explains why the CQL needs a workaround
+    is still open, and the workaround is meant to be removed once it is fixed.
+    """
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
+    return sum(1 for o in outcomes.values() if o == WORKAROUND)
+
+
+def ticketed_known_issue_cases(expected_rows: Dict[str, str],
+                               known_issues: Sequence[KnownIssue]) -> Set[Tuple[str, str]]:
+    """``(measure, guid)`` pairs with a scored cell covered by a ticketed issue.
+
+    Coverage is a property of the attribution rows and the expected keys, so the
+    actual values are not consulted: a case counts whether it currently matches
+    its fixture or not. That is the point. ``cell_outcome`` reaches
+    ``KNOWN_ISSUE`` only from a mismatching cell and ``WORKAROUND`` only from a
+    matching one, so a case that a ticketed issue covers *and* a workaround props
+    up (I-78's CMS145 cases) can carry only one of the two verdicts, and neither
+    verdict alone reports the ticketed coverage.
+    """
+    cases = set()
+    for key in expected_rows:
+        issue = implementation_issue_for(cell_result_key(key), known_issues)
+        if issue is not None and issue.ticketed:
+            cases.add((key[0], key[1]))
+    return cases
+
+
+def ticketed_known_issue_coverage_count(expected_rows: Dict[str, str],
+                                        actual_rows: Dict[str, str],
+                                        implementation_issues: Sequence[ImplementationIssue],
+                                        known_issues: Sequence[KnownIssue]) -> int:
+    """Test cases explained by a ticketed known issue, matching or failing.
+
+    Spans the ``KNOWN_ISSUE`` and ``WORKAROUND`` verdicts, which partition with
+    each other, so it reports the ticketed coverage that either one alone drops.
+    Only those two explained verdicts are counted: a stale attribution row on a
+    case that genuinely passes would otherwise inflate the total.
+    """
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
+    covered = ticketed_known_issue_cases(expected_rows, known_issues)
+    return sum(1 for case_key, verdict in outcomes.items()
+               if case_key in covered and verdict in (KNOWN_ISSUE, WORKAROUND))
+
+
+def ticketed_workaround_case_count(expected_rows: Dict[str, str],
+                                   actual_rows: Dict[str, str],
+                                   implementation_issues: Sequence[ImplementationIssue],
+                                   known_issues: Sequence[KnownIssue]) -> int:
+    """The ``WORKAROUND`` subset of ``ticketed_known_issue_coverage_count``."""
+    outcomes = test_case_outcomes(expected_rows, actual_rows, implementation_issues,
+                                  known_issues)
+    covered = ticketed_known_issue_cases(expected_rows, known_issues)
+    return sum(1 for case_key, verdict in outcomes.items()
+               if case_key in covered and verdict == WORKAROUND)
 
 
 def create_markdown_table(headers: List[str], data: List[str], custom_separator_row: str=None) -> List[str]:
@@ -684,22 +836,33 @@ def render_no_discrepancy_section(non_discrepancy_measures: List[str],
 
 def capture_discrepancies_by_measure(expected_results: Dict[ResultKey, Dict[str, str]],
                                      actual_results: Dict[ResultKey, Dict[str, str]],
-                                     resolved_keys: Set[ResultKey] = frozenset()) -> Dict[str, MeasureDiscrepancy]:
+                                     resolved_keys: Set[ResultKey] = frozenset(),
+                                     workaround_keys: Set[ResultKey] = frozenset()) -> Dict[str, MeasureDiscrepancy]:
     """Per-measure discrepancies, for measures that have any.
 
     ``resolved_keys`` still count toward ``all_test_cases`` but are not
     discrepancies. The report passes none, so a resolved failure stays listed,
     labelled with its issue.
+
+    ``workaround_keys`` are matching groups whose issue says a workaround is
+    applied. They are not mismatches either, but they are discrepancies in the
+    sense that matters here -- an open defect the case would expose if the
+    workaround were removed -- so a measure whose only qualifier is a workaround
+    still appears under `## Measures with Discrepancies`.
     """
     def has_discrepancy(discrepancy: MeasureDiscrepancy) -> bool:
         return discrepancy.missing_populations or \
            discrepancy.missing_results or \
-           discrepancy.mismatched_test_cases
+           discrepancy.mismatched_test_cases or \
+           discrepancy.workarounds
 
     discrepancies = {}
     for expected_results_key, expected_populations in expected_results.items():
         measure_discrepancy = discrepancies.setdefault(expected_results_key.measure_name, MeasureDiscrepancy())
         measure_discrepancy.all_test_cases.append(expected_results_key.patient_guid)
+        if expected_results_key in workaround_keys:
+            measure_discrepancy.workarounds.append(expected_results_key)
+            continue
         if expected_results_key in resolved_keys:
             continue
         if expected_results_key not in actual_results:
@@ -726,6 +889,16 @@ def ticket_link(ticket: str) -> str:
     return f'[{owner}/{repo}#{number}]({ticket})'
 
 
+def ticket_number(ticket: str) -> str:
+    """`123` from a GitHub issue or pull request URL; blank stays blank.
+
+    The trailing path segment is the issue (or PR) number, e.g.
+    ``https://github.com/org/repo/issues/123``. ``load_known_issues`` rejects a
+    ``ticket`` that is not one of those URLs, so the shape is not in doubt here.
+    """
+    return ticket.rstrip('/').rsplit('/', 1)[-1] if ticket else ''
+
+
 def sort_issue_ids(issue_ids) -> List[str]:
     """`I-9` before `I-26`: numeric order, not string order."""
     def key(issue_id: str):
@@ -739,15 +912,22 @@ def covering_issue(key: ResultKey,
                    known_issues: Sequence[KnownIssue]):
     """(issue, status) for a failing group, or (None, None) when no issue covers it.
 
-    ``status`` is ``implementation``, ``ticketed`` or ``needs ticket``; the first
-    two resolve the group. An implementation issue takes precedence over a known
-    issue, as in ``cell_outcome``.
+    ``status`` is ``implementation``, ``ticketed``, ``needs ticket`` or
+    ``workaround reverted``; the first two resolve the group. An implementation
+    issue takes precedence over a known issue, as in ``cell_outcome``.
+
+    Only failing groups reach this function, so an issue with a
+    ``workaround-applied`` status here means the workaround is *not* holding the
+    group up -- it was reverted, or never worked. That is the more useful thing
+    to say than whether the issue has a ticket yet.
     """
     issue = implementation_issue_for(key, implementation_issues)
     if issue is not None:
         return issue, "implementation"
     issue = implementation_issue_for(key, known_issues)
     if issue is not None:
+        if issue.workaround_applied:
+            return issue, "workaround reverted"
         return issue, "ticketed" if issue.ticketed else "needs ticket"
     return None, None
 
@@ -758,16 +938,41 @@ def render_measure_issue_notes(keys: Sequence[ResultKey],
     """The `Issues` list under a measure's tables: one bullet per issue it cites.
 
     Each bullet gives the issue's class, its status (implementation, the ticket,
-    or **needs ticket**) and its note. Notes are written per test case, so an
-    issue whose cases in this measure carry different notes gets one sub-bullet
-    per note, naming the test cases (by GUID prefix) it applies to.
+    or **workaround applied**) and its note. Notes are written per test case, so
+    an issue whose cases in this measure carry different notes gets one
+    sub-bullet per note, naming the test cases (by GUID prefix) it applies to.
+
+    ``keys`` may include matching workaround groups as well as failing ones, so
+    an issue which only holds a passing case up is still listed here. The
+    bullet's status is a property of the *issue*, not of any one key, so
+    deriving it from ``covering_issue`` would mangle the bullet whenever a
+    workaround-applied issue's first key processed is a matching group
+    (``covering_issue`` reads every workaround-applied group as "reverted").
+    The issue's own properties (``workaround_applied``, ``ticketed``, the
+    ``implementation_issue_for`` lookup) are used instead. The bullet also
+    drops ``(needs ticket)``: the per-row `Ticketed` column already says
+    ``pending``, and the bullet's job here is the issue, not its row.
     """
     by_issue: Dict[str, Tuple[object, str, Dict[str, List[str]]]] = {}
     for key in sort_result_keys(list(keys)):
-        issue, status = covering_issue(key, implementation_issues, known_issues)
-        if issue is None:
-            continue
-        _, _, notes = by_issue.setdefault(issue.issue_id, (issue, status, {}))
+        impl = implementation_issue_for(key, implementation_issues)
+        if impl is not None:
+            issue = impl
+            status = 'implementation'
+        else:
+            kn = implementation_issue_for(key, known_issues)
+            if kn is None:
+                continue
+            issue = kn
+            if kn.workaround_applied:
+                status = 'workaround applied'
+            elif kn.ticketed:
+                status = 'ticketed'
+            else:
+                status = 'needs ticket'
+        if issue.issue_id not in by_issue:
+            by_issue[issue.issue_id] = (issue, status, {})
+        _, _, notes = by_issue[issue.issue_id]
         guids = notes.setdefault(issue.note, [])
         if key.patient_guid not in guids:
             guids.append(key.patient_guid)
@@ -779,9 +984,12 @@ def render_measure_issue_notes(keys: Sequence[ResultKey],
         issue, status, notes = by_issue[issue_id]
         if status == "implementation":
             detail = '`implementation`'
-        else:
-            detail = (f'`{issue.issue_class}`, '
-                      f'{ticket_link(issue.ticket) if issue.ticketed else "**needs ticket**"}')
+        elif status == "workaround applied":
+            detail = f'`{issue.issue_class}`, **workaround applied**'
+        elif status == "ticketed":
+            detail = f'`{issue.issue_class}`, {ticket_link(issue.ticket)}'
+        else:  # "needs ticket"
+            detail = f'`{issue.issue_class}`'
         bullet = f'- **{issue_id}** ({detail})'
         if len(notes) == 1:
             note = next(iter(notes))
@@ -807,13 +1015,24 @@ def generate_comparison_report(file: str,
                                implementation_count: int = 0,
                                known_issues: Sequence[KnownIssue] = (),
                                known_issues_file: str = DEFAULT_KNOWN_ISSUES_FILE,
-                               known_issue_count: int = 0):
+                               known_issue_count: int = 0,
+                               workaround_count: int = 0,
+                               ticketed_coverage_count: int = 0,
+                               ticketed_workaround_count: int = 0):
     """Write ``discrepancy_report.md``.
 
     ``pass_count`` / ``fail_count`` / ``implementation_count`` /
-    ``known_issue_count`` are test-case counts from ``scores``,
-    ``implementation_case_count`` and ``known_issue_case_count``; the four
-    together are the total.
+    ``known_issue_count`` / ``workaround_count`` are test-case counts from
+    ``scores``, ``implementation_case_count``, ``known_issue_case_count`` and
+    ``workaround_case_count``; the five together are the total. Workaround cases
+    are deliberately in neither the pass nor the fail count: they match their
+    fixture, but only because the CQL works around an open defect.
+
+    ``ticketed_coverage_count`` (from ``ticketed_known_issue_coverage_count``)
+    and its ``ticketed_workaround_count`` subset are cross-cutting rather than
+    part of that partition: they count cases a ticketed known issue covers
+    whichever way ``cell_outcome`` scores them, so the header can report the
+    ticketed half of the workaround cases that a single verdict would drop.
     """
     resolved_keys = failing_implementation_keys(expected_results, actual_results,
                                                 implementation_issues)
@@ -822,9 +1041,13 @@ def generate_comparison_report(file: str,
     awaiting_keys = failing_known_issue_keys(expected_results, actual_results,
                                              known_issues, implementation_issues,
                                              ticketed=False)
+    # Groups that match only because a workaround is applied. Not mismatches, but
+    # the open defect behind them must stay in the report.
+    workaround_key_set = workaround_keys(expected_results, actual_results, known_issues)
     # Every mismatching group, whatever its issue state. Resolved ones stay in
     # the tables, labelled with the issue that resolves them.
-    discrepancies = capture_discrepancies_by_measure(expected_results, actual_results)
+    discrepancies = capture_discrepancies_by_measure(expected_results, actual_results,
+                                                     workaround_keys=workaround_key_set)
     resolved = resolved_keys | ticketed_keys
     covered = resolved | awaiting_keys
     awaiting_case_count = len({(k.measure_name, k.patient_guid) for k in awaiting_keys})
@@ -842,11 +1065,67 @@ def generate_comparison_report(file: str,
                           for measure, keys in measure_keys.items()}
 
     def issue_cell(key: ResultKey) -> str:
-        """`I-73 (implementation)`, `I-26 (ticketed)`, `I-65 (needs ticket)`, or blank."""
-        issue, status = covering_issue(key, implementation_issues, known_issues)
-        return f'{issue.issue_id} ({status})' if issue is not None else ''
+        """``I-73 (implementation)``, ``I-78 (workaround reverted)``, a bare
+        ``I-26`` / ``I-65`` for a known issue, or blank.
 
-    total_cases = pass_count + fail_count + implementation_count + known_issue_count
+        The parenthetical qualifier only stays when it says something the
+        `Ticketed` column beside it cannot say: ``(implementation)`` names the
+        issue class (steward data vs. upstream defect) and
+        ``(workaround reverted)`` says the case is failing again. The ``ticketed``
+        and ``needs ticket`` qualifiers used to live here too, but they restate
+        what the `Ticketed` column already shows (the ticket number, or
+        ``pending``), so a known issue's cell is now just its id.
+        """
+        issue, status = covering_issue(key, implementation_issues, known_issues)
+        if issue is None:
+            return ''
+        if status in ("ticketed", "needs ticket"):
+            return issue.issue_id
+        return f'{issue.issue_id} ({status})'
+
+    def workaround_issue_cell(key: ResultKey) -> str:
+        """`I-78 (workaround applied)`, or blank.
+
+        Unlike ``issue_cell`` this is for a *matching* group, so the status is
+        fixed: ``covering_issue`` describes failing groups, and would report a
+        workaround-applied issue as reverted here.
+        """
+        issue = implementation_issue_for(key, known_issues)
+        return f'{issue.issue_id} (workaround applied)' if issue is not None else ''
+
+    def ticketed_cell(key: ResultKey) -> str:
+        """`pending`, `N/A`, a link to the upstream ticket, or blank.
+
+        Blank means the row has no issue, matching the ``Issue`` cell next to it.
+        ``N/A`` is for an implementation issue: the steward's test data or
+        expectation is not something an upstream ticket tracks. Anything else
+        with a ticket gives a markdown link to it (the link text is the ticket
+        number, e.g. ``[1868](https://github.com/.../issues/1868)``), and
+        without one is ``pending``.
+
+        Deliberately does not use ``covering_issue``: that describes *failing*
+        groups, so a matching workaround group would come back as
+        ``workaround reverted``. Only the ticket matters here, so the two issue
+        lists are consulted directly, in the precedence ``covering_issue`` uses.
+        """
+        if implementation_issue_for(key, implementation_issues) is not None:
+            return 'N/A'
+        issue = implementation_issue_for(key, known_issues)
+        if issue is None:
+            return ''
+        return f'[{ticket_number(issue.ticket)}]({issue.ticket})' if issue.ticket else 'pending'
+
+    def workaround_notes(keys: Sequence[ResultKey]) -> List[str]:
+        """Distinct notes of the issues holding the given passing groups up."""
+        notes: List[str] = []
+        for key in sort_result_keys(list(keys)):
+            issue = implementation_issue_for(key, known_issues)
+            if issue is not None and issue.note and issue.note not in notes:
+                notes.append(issue.note)
+        return notes
+
+    total_cases = (pass_count + fail_count + implementation_count
+                   + known_issue_count + workaround_count)
 
     with open(file, "w", newline="") as f:
         f.write('# Discrepancy Report\n')
@@ -861,6 +1140,11 @@ def generate_comparison_report(file: str,
             ['Measures with Discrepancies', len(discrepancies)],
             ['Pass Count', count_with_pct(pass_count)],
         ]
+        if workaround_count:
+            detail_rows.append(['Workaround Count', count_with_pct(workaround_count)])
+            if ticketed_workaround_count:
+                detail_rows.append(['&nbsp;&nbsp;— covered by a ticketed known issue',
+                                    count_with_pct(ticketed_workaround_count)])
         if implementation_count:
             detail_rows.append(['Implementation Issue Count', count_with_pct(implementation_count)])
         if known_issue_count:
@@ -869,6 +1153,9 @@ def generate_comparison_report(file: str,
         if awaiting_case_count:
             detail_rows.append(['&nbsp;&nbsp;— known issue, needs ticket',
                                 count_with_pct(awaiting_case_count)])
+        if ticketed_coverage_count:
+            detail_rows.append(['Known issues with an upstream ticket',
+                                count_with_pct(ticketed_coverage_count)])
         resolved_parts = [name for name, count in (('Implementation', implementation_count),
                                                     ('Known Issue', known_issue_count))
                           if count]
@@ -896,6 +1183,11 @@ def generate_comparison_report(file: str,
                     sum([len(d.mismatched_test_cases.keys()) for d in discrepancies.values()])
                 ],
                 [
+                    'Workarounds',
+                    len(set([m for m, d in discrepancies.items() if d.workarounds])),
+                    sum([len(d.workarounds) for d in discrepancies.values()])
+                ],
+                [
                     'Unattributed Discrepancies',
                     sum(1 for cases in unattributed_cases.values() if cases),
                     sum(len(cases) for cases in unattributed_cases.values())
@@ -906,7 +1198,9 @@ def generate_comparison_report(file: str,
         f.write('_Note: Measures can have multiple discrepancies, so the Measures with '
                 'Discrepancies count may not match the summary counts. Unattributed '
                 'Discrepancies are those no implementation issue or ticketed known issue '
-                'resolves._\n')
+                'resolves. Workarounds are test cases that match their fixture only because '
+                'the CQL works around an open issue: they count as neither a pass nor a '
+                'failure, and the workaround is removed once the root cause is fixed._\n')
         f.write('\n')
 
         f.writelines(render_cqfm_exclusions_section(cqfm_exclusions or {},
@@ -923,15 +1217,20 @@ def generate_comparison_report(file: str,
                     f'({len(discrepancies)} of {total_measures})\n')
             f.write('\n')
             f.write('_Every measure with a test case that doesn\'t match its fixture '
-                    'MeasureReport. The `Issue` column names the issue that explains a '
-                    'test case: `implementation` (the measure steward\'s test data or '
-                    'expectation, see `defect-tracking/known-issues.md`) and `ticketed` '
-                    'resolve it, the same as a pass; `needs ticket` does not yet. A test '
-                    'case nothing resolves is counted as Unattributed._\n')
+                    'MeasureReport, or that matches only because the CQL works around an '
+                    'open issue. The `Issue` column names the issue that explains a '
+                    'test case: `I-XX (implementation)` is the measure steward\'s test '
+                    'data or expectation (see `defect-tracking/known-issues.md`), and '
+                    '`I-XX (workaround reverted)` means the case is failing again. Any '
+                    'other `I-XX` is a known issue, and the `Ticketed` column beside it '
+                    'says whether a ticket exists: `N/A` for an implementation issue, '
+                    '`pending` until one is filed, and a link to it once one is. A '
+                    'test case nothing resolves is counted as Unattributed._\n')
             f.write('\n')
             summary_headers = ['Measure', 'Total Test Cases', 'Missing Results',
-                               'Missing Populations', 'Mismatched Test Cases', 'Unattributed']
-            summary_separator = '|---|:---:|:---:|:---:|:---:|:---:|\n'
+                               'Missing Populations', 'Mismatched Test Cases', 'Workarounds',
+                               'Unattributed']
+            summary_separator = '|---|:---:|:---:|:---:|:---:|:---:|:---:|\n'
             summary_rows = []
             for measure, discrepancy in discrepancies.items():
                 row = [
@@ -941,6 +1240,7 @@ def generate_comparison_report(file: str,
                     len(discrepancy.missing_populations),
                     f'{len(discrepancy.mismatched_test_cases)/len(discrepancy.all_test_cases)*100:.2f}%   '
                     f'({len(discrepancy.mismatched_test_cases)})',
+                    len(discrepancy.workarounds),
                     len(unattributed_cases[measure])
                 ]
                 summary_rows.append(row)
@@ -960,14 +1260,14 @@ def generate_comparison_report(file: str,
                             f'{len(discrepancy.all_test_cases)} test cases)\n')
                     missing_results_headers = ['Test Case', 'Group']
                     if show_issue:
-                        missing_results_headers.append('Issue')
+                        missing_results_headers += ['Issue', 'Ticketed']
                     missing_results_rows = []
                     for missing_key in sort_result_keys(list(discrepancy.missing_results)):
                         row = [measure_report_file_link(missing_key.measure_name,
                                                         missing_key.patient_guid),
                                missing_key.group]
                         if show_issue:
-                            row.append(issue_cell(missing_key))
+                            row += [issue_cell(missing_key), ticketed_cell(missing_key)]
                         missing_results_rows.append(row)
                     f.writelines(create_markdown_table(
                         missing_results_headers, missing_results_rows))
@@ -977,12 +1277,13 @@ def generate_comparison_report(file: str,
                             f'{len(discrepancy.all_test_cases)} test cases)\n')
                     f.writelines(create_markdown_table(
                         ['Test Case', 'Group', 'Population']
-                        + (['Issue'] if show_issue else []),
+                        + (['Issue', 'Ticketed'] if show_issue else []),
                         [[
                             measure_report_file_link(missing_id.measure_name, missing_id.patient_guid),
                             missing_id.group,
                             ','.join(populations)
-                        ] + ([issue_cell(missing_id)] if show_issue else [])
+                        ] + ([issue_cell(missing_id), ticketed_cell(missing_id)]
+                             if show_issue else [])
                             for (missing_id, populations) in sort_missing_populations(
                             list(discrepancy.missing_populations))]))
 
@@ -990,10 +1291,11 @@ def generate_comparison_report(file: str,
                     f.write(f'Mismatched Test Cases ({len(discrepancy.mismatched_test_cases)} of '
                             f'{len(discrepancy.all_test_cases)})\n')
                     mismatched_headers = ['Test Case', 'Group', 'Population', 'Expected', 'Actual']
-                    mismatched_separator = '|---|---|---|:---:|:---:|\n'
+                    mismatched_separator = '|---|---|---|:---:|:---:|'
                     if show_issue:
-                        mismatched_headers.append('Issue')
-                        mismatched_separator = mismatched_separator[:-1] + '---|\n'
+                        mismatched_headers += ['Issue', 'Ticketed']
+                        mismatched_separator += '---|---|'
+                    mismatched_separator += '\n'
                     mismatched_rows = []
                     for test_group_id, populations in sort_mismatched_test_cases(
                             discrepancy.mismatched_test_cases):
@@ -1005,14 +1307,35 @@ def generate_comparison_report(file: str,
                             '<br>'.join([populations[p].expected for p in ordered]),
                             '<br>'.join([populations[p].actual for p in ordered])]
                         if show_issue:
-                            row.append(issue_cell(ResultKey(
-                                measure, test_group_id.patient_guid, test_group_id.group)))
+                            key = ResultKey(
+                                measure, test_group_id.patient_guid, test_group_id.group)
+                            row += [issue_cell(key), ticketed_cell(key)]
                         mismatched_rows.append(row)
                     f.writelines(create_markdown_table(
                         mismatched_headers, mismatched_rows, mismatched_separator))
 
+                if discrepancy.workarounds:
+                    f.write(f'Workarounds ({len(discrepancy.workarounds)} of '
+                            f'{len(discrepancy.all_test_cases)} test cases)\n')
+                    f.write('_These cases match their fixture only because the measure\'s '
+                            'CQL works around an open issue. Removing the workaround makes '
+                            'them fail again, so they count as neither a pass nor a '
+                            'failure._\n')
+                    for note in workaround_notes(discrepancy.workarounds):
+                        f.write(f'_{note}_\n')
+                    f.write('\n')
+                    f.writelines(create_markdown_table(
+                        ['Test Case', 'Group', 'Issue', 'Ticketed'],
+                        [[measure_report_file_link(w.measure_name, w.patient_guid),
+                          w.group, workaround_issue_cell(w), ticketed_cell(w)]
+                         for w in sort_result_keys(list(discrepancy.workarounds))]))
+
+                # Workaround groups are included so their issue is listed here too:
+                # only the `implementation` branch reads the status, so a matching
+                # group renders the usual class/ticket/note bullet.
                 f.writelines(render_measure_issue_notes(
-                    measure_keys[measure], implementation_issues, known_issues))
+                    measure_keys[measure] + list(discrepancy.workarounds),
+                    implementation_issues, known_issues))
                 f.write('\n')
 
         f.write('\n_Known issues are listed in '
@@ -1039,7 +1362,8 @@ def main(expected_file: str, actual_file: str, output_file: str,
 
     known_issues = load_known_issues(known_issues_file)
     print(f"Known issues: {len(known_issues)} case rows "
-          f"({sum(1 for i in known_issues if i.ticketed)} ticketed) "
+          f"({sum(1 for i in known_issues if i.ticketed)} ticketed, "
+          f"{sum(1 for i in known_issues if i.workaround_applied)} workaround) "
           f"from {known_issues_file!r}")
 
     pass_count, fail_count = generate_output(output_file, expected_results.rows,
@@ -1049,7 +1373,14 @@ def main(expected_file: str, actual_file: str, output_file: str,
         expected_results.rows, actual_results.rows, implementation_issues, known_issues)
     known_count = known_issue_case_count(
         expected_results.rows, actual_results.rows, implementation_issues, known_issues)
-    total = pass_count + fail_count + implementation_count + known_count
+    workaround_count = workaround_case_count(
+        expected_results.rows, actual_results.rows, implementation_issues, known_issues)
+    ticketed_coverage_count = ticketed_known_issue_coverage_count(
+        expected_results.rows, actual_results.rows, implementation_issues, known_issues)
+    ticketed_workaround_count = ticketed_workaround_case_count(
+        expected_results.rows, actual_results.rows, implementation_issues, known_issues)
+    total = (pass_count + fail_count + implementation_count + known_count
+             + workaround_count)
 
     def pct(count: int) -> str:
         return f"{(count / total * 100) if total else 0.0:.2f}%"
@@ -1059,7 +1390,14 @@ def main(expected_file: str, actual_file: str, output_file: str,
         print(f"IMPLEMENTATION (test cases): {implementation_count} ({pct(implementation_count)})")
     if known_count:
         print(f"KNOWN_ISSUE (test cases): {known_count} ({pct(known_count)})")
+    if workaround_count:
+        print(f"WORKAROUND (test cases): {workaround_count} ({pct(workaround_count)})")
+        if ticketed_workaround_count:
+            print(f"  covered by a ticketed known issue: {ticketed_workaround_count}")
     print(f"FAIL (test cases): {fail_count} ({pct(fail_count)})")
+    if ticketed_coverage_count:
+        print(f"Known issues with an upstream ticket (test cases): "
+              f"{ticketed_coverage_count} ({pct(ticketed_coverage_count)})")
 
     unscored = list(expected_results.unscored) + list(actual_results.unscored)
     generate_comparison_report(comparison_report, expected_results.groups,
@@ -1071,7 +1409,10 @@ def main(expected_file: str, actual_file: str, output_file: str,
                                implementation_count=implementation_count,
                                known_issues=known_issues,
                                known_issues_file=known_issues_file,
-                               known_issue_count=known_count)
+                               known_issue_count=known_count,
+                               workaround_count=workaround_count,
+                               ticketed_coverage_count=ticketed_coverage_count,
+                               ticketed_workaround_count=ticketed_workaround_count)
 
 
 def parse_args(argv: List[str]) -> Tuple[str, str, str, str, Optional[str]]:
