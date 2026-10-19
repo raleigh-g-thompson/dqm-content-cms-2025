@@ -55,7 +55,7 @@ while the valueset it needed had never been committed.
 |---|---|---|---|---|---|
 | I-05 | CMS1017 HHFI: 2 cases fail `Group_1:Numerator Exclusion` (expected 0, actual 1); the Numerator Exclusions and Denominator Exclusions defines are identical. Cause not yet documented | `content` | Open — confirmed | — | CMS1017 |
 | I-08 | CMS871 HH Hyperglycemia fixture MeasureReport / Denominator authoring mismatch. Needs re-confirmation: since the I-44 fix, every failing CMS871 cell is a missing result explained by I-63, and none matches this symptom | `content` | Open — needs re-confirmation | — | CMS871 |
-| I-12 | CMS0334 Cesarean Birth fixture MeasureReport authoring mismatch | `content` | Open — confirmed | — | CMS0334 |
+| I-12 | CMS0334 Cesarean Birth test case c58acff5 fails its expected Denominator and Denominator Exclusion because one fixture Encounter names its diagnosis with an unresolvable reference | `fixture` | Open — confirmed | — | CMS0334 |
 | I-14 | CMSFHIR844 fixture MeasureReport hand-authors the Initial Population; the engine computes 0 / 1 where 1 / 2 is expected (2 cases) | `content` | Open — confirmed | — | CMSFHIR844 |
 | I-15 | CMS646 fixture MeasureReport expects Denominator Exclusion 0 for `10cec7db`, but the resources present give 1 | `content` | Open — confirmed | — | CMS646 |
 | I-16 | `Min()` over DateTime throws | `engine` | Worked around | — | CMS1173, CMS871 |

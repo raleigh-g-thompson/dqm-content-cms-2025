@@ -24,6 +24,74 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Document why CMS0334 test case `c58acff5` fails its expected Denominator / Denominator Exclusion (I-12)
+
+**Problem:** CMS0334 case `c58acff5` fails two cells (`Group_1:Denominator` and `Group_1:Denominator
+Exclusion`, both expected `1`, both `0`). The case's `Encounter-9d6ea959…` names its delivery
+diagnosis with `reasonReference: "delivery-of-singleton-0997"` — not a valid `Type/id` reference, and
+no resource in the case carries that id (the `Condition` was re-identified to
+`8f7d2289-fe66-4bde-8ed8-3223de1da063` when the case was imported). `CQMCommon.encounterDiagnosis()`
+therefore returns nothing, `Encounter With Singleton Delivery` is empty, and both populations
+collapse to `0`. The `Denominator` define carried no pointer to the issue.
+
+**Fix:** added a ten-line comment above the `Denominator` define citing the issue (`I-12`), the
+mechanism, that the fixture is deliberately left as-is, and the one affected CMS0334 case
+(`c58acff5`). Comment only — no CQL logic changed.
+
+```cql
+// [I-12] Test case c58acff5 does not reproduce its expected Denominator / Denominator
+// Exclusions (both expect 1, both evaluate to 0). CQMCommon.encounterDiagnosis() finds the
+// qualifying delivery diagnosis through Encounter.reasonReference, and this fixture's
+// reference is the malformed, dangling "delivery-of-singleton-0997": no type prefix, and no
+// resource in the case carries that id (the Condition was re-identified to a GUID on import).
+// encounterDiagnosis() therefore returns nothing, "Encounter With Singleton Delivery" is
+// empty, and both populations collapse to 0. The fixture is deliberately left as-is, so this
+// case is expected to keep failing; it is a test-data defect, not a translator or engine
+// defect.
+// Upstream ticket: N/A (fixture data, not a translator/engine issue)
+// Affected CMS0334 cases: c58acff5.
+define "Denominator":
+```
+
+No upstream ticket applies: tickets are filed for translator/engine defects only, so the comment
+records `N/A` (unlike the I-26 comment on CMS135, which carries a real ticket URL).
+
+**Measures Affected:** CMS0334
+
+## Mark the `Ticketed` column `N/A` for known-issue classes no upstream ticket covers
+
+**Problem:** the discrepancy report's `Ticketed` cell read `pending` for *any* failing case covered by
+an unticketed known issue, implying a ticket was owed. Only `engine` and `translator` issues can
+carry an upstream ticket — of the 79 catalog issues, only 7 do, all in those two classes — so a
+`content` / `fixture` / `harness` defect read `pending` forever, and the header sub-row
+`— known issue, needs ticket` counted those cases too. I-12 (now `fixture`) made this concrete: its
+two cells want `N/A`.
+
+**Fix (harness, no scoring change):**
+
+- `scripts/compare_results.py`:
+  - new `TICKETABLE_CLASSES = ("engine", "translator")`;
+  - `ticketed_cell()` returns `N/A` for any known issue outside it (the `implementation` case
+    already did), and keeps `pending` → ticket link for engine/translator;
+  - `generate_comparison_report()` splits the old `— known issue, needs ticket` sub-row into
+    `— known issue, needs ticket` (engine/translator, still awaiting one) and
+    `— known issue, no ticket expected` (our own content, fixture, or harness);
+  - module/docstring and the report's explanatory paragraph updated to match.
+- `scripts/tests/test_compare_results_known_issues.py`: the two `I-65` (`content`) assertions now
+  expect `N/A`, and a new `test_unticketed_non_ticketable_class_reads_na_and_is_not_needs_ticket`
+  pins the new sub-row and its absence for engine/translator.
+
+**Not changed:** the five verdict counts and `KNOWN_ISSUE` scoring are untouched — an unticketed
+known issue still leaves its cell `FAIL`, and is still counted as `Unattributed`. Only the label
+changes.
+
+**Effect on the grid:** 14 previously `pending` cells across I-05, I-12, I-14, I-15, I-65 and I-79
+now read `N/A`; the 2 unticketed engine cases (I-63) and 1 I-33 `workaround reverted` row keep
+`pending`, and the header now reads `— known issue, needs ticket 3` +
+`— known issue, no ticket expected 14`.
+
+**Measures Affected:** CMS0334, CMS646, CMS771, CMSFHIR844, CMS1017 (reporting only)
+
 ## Correct wrong-patient `subject.reference` in five CMS159 / CMS645 / CMS646 fixtures (I-11, residual of I-41)
 
 **Problem:** five fixture resources carried the dangling

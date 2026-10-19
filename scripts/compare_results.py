@@ -37,7 +37,9 @@ one that is real:
     is listed in ``scripts/comparison/known_issues.csv`` with the issue's GitHub
     ticket. Once the ticket is recorded, a covered failing cell scores
     ``KNOWN_ISSUE`` and the case counts as resolved. Without a ticket the case
-    still fails, and the report labels it as awaiting one. Every mismatch, of
+    still fails, and the report labels it as awaiting one -- or, for a class no
+    upstream ticket could track (our own content, fixture, or harness), labels
+    the cell ``N/A`` while it stays a failure. Every mismatch, of
     either kind or of none, is listed under `## Measures with Discrepancies`
     with an `Issue` column and the issue's note. The ones no issue resolves are
     counted as Unattributed Discrepancies.
@@ -363,6 +365,13 @@ KNOWN_ISSUE_COLUMNS = ("issue_id", "class", "status", "ticket", "measure_name", 
 # which has its own file because it resolves a case without a ticket.
 KNOWN_ISSUE_CLASSES = ("engine", "translator", "content", "migration", "fixture",
                        "vendored", "harness")
+
+# The subset of `KNOWN_ISSUE_CLASSES` whose root cause lives in an upstream project
+# (`clinical_quality_language` / `clinical-reasoning`), so an upstream ticket is the
+# right tracking artifact and its absence is worth saying out loud as ``pending``.
+# Every other class is our own content, fixture, or harness -- nothing an upstream
+# ticket tracks, so those rows read ``N/A`` rather than implying a ticket is owed.
+TICKETABLE_CLASSES = ("engine", "translator")
 
 GITHUB_TICKET_PATTERN = re.compile(r"^https://github\.com/[^/\s]+/[^/\s]+/(?:issues|pull)/\d+$")
 
@@ -951,7 +960,8 @@ def render_measure_issue_notes(keys: Sequence[ResultKey],
     The issue's own properties (``workaround_applied``, ``ticketed``, the
     ``implementation_issue_for`` lookup) are used instead. The bullet also
     drops ``(needs ticket)``: the per-row `Ticketed` column already says
-    ``pending``, and the bullet's job here is the issue, not its row.
+    ``pending`` (or ``N/A``, for a class no ticket is owed), and the bullet's
+    job here is the issue, not its row.
     """
     by_issue: Dict[str, Tuple[object, str, Dict[str, List[str]]]] = {}
     for key in sort_result_keys(list(keys)):
@@ -1041,6 +1051,20 @@ def generate_comparison_report(file: str,
     awaiting_keys = failing_known_issue_keys(expected_results, actual_results,
                                              known_issues, implementation_issues,
                                              ticketed=False)
+
+    def awaiting_class(key: ResultKey) -> str:
+        issue, _ = covering_issue(key, implementation_issues, known_issues)
+        return issue.issue_class if issue is not None else ''
+
+    # An unticketed failing case means different things by class: an engine or
+    # translator defect is waiting on a ticket we intend to file, while a
+    # content/fixture/harness defect never gets one (the report says ``N/A``
+    # beside it). Keep the two apart so the header does not call the second
+    # "needs ticket".
+    awaiting_ticket_keys = [k for k in awaiting_keys
+                            if awaiting_class(k) in TICKETABLE_CLASSES]
+    awaiting_no_ticket_keys = [k for k in awaiting_keys
+                               if awaiting_class(k) not in TICKETABLE_CLASSES]
     # Groups that match only because a workaround is applied. Not mismatches, but
     # the open defect behind them must stay in the report.
     workaround_key_set = workaround_keys(expected_results, actual_results, known_issues)
@@ -1050,7 +1074,10 @@ def generate_comparison_report(file: str,
                                                      workaround_keys=workaround_key_set)
     resolved = resolved_keys | ticketed_keys
     covered = resolved | awaiting_keys
-    awaiting_case_count = len({(k.measure_name, k.patient_guid) for k in awaiting_keys})
+    awaiting_ticket_case_count = len({(k.measure_name, k.patient_guid)
+                                      for k in awaiting_ticket_keys})
+    awaiting_no_ticket_case_count = len({(k.measure_name, k.patient_guid)
+                                         for k in awaiting_no_ticket_keys})
 
     def discrepancy_keys(measure: str, discrepancy: MeasureDiscrepancy) -> List[ResultKey]:
         return (list(discrepancy.missing_results)
@@ -1073,8 +1100,8 @@ def generate_comparison_report(file: str,
         issue class (steward data vs. upstream defect) and
         ``(workaround reverted)`` says the case is failing again. The ``ticketed``
         and ``needs ticket`` qualifiers used to live here too, but they restate
-        what the `Ticketed` column already shows (the ticket number, or
-        ``pending``), so a known issue's cell is now just its id.
+        what the `Ticketed` column already shows (the ticket number, ``pending``,
+        or ``N/A``), so a known issue's cell is now just its id.
         """
         issue, status = covering_issue(key, implementation_issues, known_issues)
         if issue is None:
@@ -1097,11 +1124,15 @@ def generate_comparison_report(file: str,
         """`pending`, `N/A`, a link to the upstream ticket, or blank.
 
         Blank means the row has no issue, matching the ``Issue`` cell next to it.
-        ``N/A`` is for an implementation issue: the steward's test data or
-        expectation is not something an upstream ticket tracks. Anything else
-        with a ticket gives a markdown link to it (the link text is the ticket
-        number, e.g. ``[1868](https://github.com/.../issues/1868)``), and
-        without one is ``pending``.
+        ``N/A`` covers two cases. For an ``implementation`` issue the steward's
+        own test data or expectation is not something an upstream ticket tracks.
+        For a known issue outside ``TICKETABLE_CLASSES`` (i.e. neither ``engine``
+        nor ``translator``) the root cause is our own content, fixture, or
+        harness, so no ticket is owed either -- saying ``pending`` would imply
+        one is expected. Anything in ``TICKETABLE_CLASSES`` with a ticket gives a
+        markdown link to it (the link text is the ticket number, e.g.
+        ``[1868](https://github.com/.../issues/1868)``), and one without a ticket
+        reads ``pending``: an upstream defect still waiting to be filed.
 
         Deliberately does not use ``covering_issue``: that describes *failing*
         groups, so a matching workaround group would come back as
@@ -1113,6 +1144,8 @@ def generate_comparison_report(file: str,
         issue = implementation_issue_for(key, known_issues)
         if issue is None:
             return ''
+        if issue.issue_class not in TICKETABLE_CLASSES:
+            return 'N/A'
         return f'[{ticket_number(issue.ticket)}]({issue.ticket})' if issue.ticket else 'pending'
 
     def workaround_notes(keys: Sequence[ResultKey]) -> List[str]:
@@ -1150,9 +1183,12 @@ def generate_comparison_report(file: str,
         if known_issue_count:
             detail_rows.append(['Known Issue Count (ticketed)', count_with_pct(known_issue_count)])
         detail_rows.append(['Fail Count', count_with_pct(fail_count)])
-        if awaiting_case_count:
+        if awaiting_ticket_case_count:
             detail_rows.append(['&nbsp;&nbsp;— known issue, needs ticket',
-                                count_with_pct(awaiting_case_count)])
+                                count_with_pct(awaiting_ticket_case_count)])
+        if awaiting_no_ticket_case_count:
+            detail_rows.append(['&nbsp;&nbsp;— known issue, no ticket expected',
+                                count_with_pct(awaiting_no_ticket_case_count)])
         if ticketed_coverage_count:
             detail_rows.append(['Known issues with an upstream ticket',
                                 count_with_pct(ticketed_coverage_count)])
@@ -1223,8 +1259,10 @@ def generate_comparison_report(file: str,
                     'data or expectation (see `defect-tracking/known-issues.md`), and '
                     '`I-XX (workaround reverted)` means the case is failing again. Any '
                     'other `I-XX` is a known issue, and the `Ticketed` column beside it '
-                    'says whether a ticket exists: `N/A` for an implementation issue, '
-                    '`pending` until one is filed, and a link to it once one is. A '
+                    'says whether a ticket is owed: `N/A` for an implementation issue '
+                    'or a defect in our own content, fixture, or harness (nothing an '
+                    'upstream ticket tracks), `pending` for an engine/translator defect '
+                    'whose ticket is not filed yet, and a link to it once one is. A '
                     'test case nothing resolves is counted as Unattributed._\n')
             f.write('\n')
             summary_headers = ['Measure', 'Total Test Cases', 'Missing Results',

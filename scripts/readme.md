@@ -79,7 +79,7 @@ A listed case that passes needs no explanation and is scored `PASS` as usual.
 
 #### Known issues with a ticket (optional)
 
-Other failing test cases are explained by an issue in `defect-tracking/known-issues.md` of another class, typically an `engine` or `translator` bug such as I-26. Such a case counts as resolved only once its issue has a GitHub ticket. They are listed in:
+Other failing test cases are explained by an issue in `defect-tracking/known-issues.md`. Only an `engine` or `translator` issue can carry a GitHub ticket — those are the two classes whose root cause lives in the upstream `clinical_quality_language`/`clinical-reasoning` projects. Such a case counts as resolved only once its issue has a ticket. A defect in our own content, fixture, or harness can never be ticketed upstream, so it never resolves this way. They are listed in:
 
 - `scripts/comparison/known_issues.csv`, with columns `issue_id,class,status,ticket,measure_name,guid,group,note`.
 - `class` is one of the classes in `known-issues.md`, except `implementation`, which belongs in `implementation_issues.csv`.
@@ -94,14 +94,17 @@ How a listed case is scored:
 
 | Ticket | `output_results.csv` | Test-case verdict | Report |
 |---|---|---|---|
-| Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; `I-XX (ticketed)` in the per-measure `Issue` column; not counted as `Unattributed` |
-| Blank | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; `I-XX (needs ticket)` in the per-measure `Issue` column; counted as `Unattributed` |
+| Recorded | Mismatching covered cells are `KNOWN_ISSUE` | `KNOWN_ISSUE`, counted as resolved | `Known Issue Count (ticketed)` row; a bare `I-XX` in the per-measure `Issue` column; the ticket number links from the `Ticketed` column |
+| Blank, `engine`/`translator` | Cells stay `FAIL` | `FAIL` | `— known issue, needs ticket` row under `Fail Count`; a bare `I-XX` in the `Issue` column and `pending` in `Ticketed`; counted as `Unattributed` |
+| Blank, any other class | Cells stay `FAIL` | `FAIL` | `— known issue, no ticket expected` row under `Fail Count`; a bare `I-XX` in the `Issue` column and `N/A` in `Ticketed`; counted as `Unattributed` |
 
-Every failing test case, whatever its issue state, is listed under `## Measures with Discrepancies`. Under its tables, each measure has an `Issues` list giving each cited issue's class, ticket, and note (an unticketed known issue's bullet reads e.g. `- **I-65** (\`content\`)`, dropping the `**needs ticket**` belt-and-braces that the per-row `Ticketed` column now carries). A test case that no implementation issue or ticketed known issue resolves is counted under `Unattributed Discrepancies` in the `Discrepancy Summary` table and in the `Unattributed` column of the per-measure summary; these are the `FAIL` verdicts. A measure is listed under "Measures with No Discrepancies" only when every test case matches its fixture. An implementation issue takes precedence over a known issue on the same cells.
+An upstream ticket tracks a defect in `clinical_quality_language` / `clinical-reasoning`, so it is meaningful only for the `engine` and `translator` classes. For any other class the `Ticketed` column reads `N/A` rather than `pending`: no ticket is owed, and `pending` would suggest one is.
+
+Every failing test case, whatever its issue state, is listed under `## Measures with Discrepancies`. Under its tables, each measure has an `Issues` list giving each cited issue's class, ticket, and note (an unticketed known issue's bullet reads e.g. `- **I-65** (\`content\`)`, dropping the `**needs ticket**` belt-and-braces that the per-row `Ticketed` column carries instead). A test case that no implementation issue or ticketed known issue resolves is counted under `Unattributed Discrepancies` in the `Discrepancy Summary` table and in the `Unattributed` column of the per-measure summary; these are the `FAIL` verdicts. A measure is listed under "Measures with No Discrepancies" only when every test case matches its fixture. An implementation issue takes precedence over a known issue on the same cells.
 
 A ticketed known issue and a workaround are not mutually exclusive, and a case can be both: I-78's CMS145 cases are covered by a ticketed issue *and* match only because the measure's CQL works around it. `cell_outcome` can give such a case only one verdict, since it reaches `KNOWN_ISSUE` from a mismatching cell and `WORKAROUND` from a matching one, so neither count on its own reports that coverage. The header `Details` table therefore also carries a cross-cutting `Known issues with an upstream ticket` row, counting the cases that either explained verdict covers. It is deliberately not one of the five that add up to `Total Test Cases`, and `Resolved` still excludes the workaround half of it: the defect behind those cases is open, and reverting the workaround turns them into failures again.
 
-A `Ticketed` column sits to the right of the `Issue` column on every per-measure table (Missing Results, Missing Populations, Mismatched Test Cases, Workarounds). `N/A` means the issue is implementation, `pending` means a known issue without a ticket, and a link to the issue/PR (`[1868](https://github.com/.../issues/1868)`) means it is recorded. The cell is blank when no issue covers the row, matching the `Issue` cell beside it.
+A `Ticketed` column sits to the right of the `Issue` column on every per-measure table (Missing Results, Missing Populations, Mismatched Test Cases, Workarounds). `N/A` means no ticket is owed: the issue is `implementation` (the steward's own data), or a known issue outside `engine`/`translator` (our own content, fixture, or harness). `pending` means an `engine` or `translator` issue that is still waiting on a ticket, and a link to the issue/PR (`[1868](https://github.com/.../issues/1868)`) means it is recorded. The cell is blank when no issue covers the row, matching the `Issue` cell beside it.
 
 #### Workarounds (`status` `workaround-applied`, optional)
 

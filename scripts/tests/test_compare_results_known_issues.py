@@ -3,7 +3,11 @@
 A failing case explained by a catalogued issue (`defect-tracking/known-issues.md`)
 is listed in `known_issues.csv`. It counts as resolved only once its issue has a
 GitHub ticket: its failing cells then score KNOWN_ISSUE instead of FAIL. Without
-a ticket the case stays FAIL and the report labels it as needing one.
+a ticket the case stays FAIL and the report labels it as needing one -- but only
+for an engine/translator defect, where an upstream ticket is the right tracker.
+A known issue in any other class (our content, fixture, harness, ...) reads N/A
+instead: nothing upstream tracks it, so no ticket is owed and `pending` would
+mislead.
 
 A row also carries the issue's `status`. When that is `workaround-applied` the
 measure's CQL already works around the defect, so the case is *expected to pass*
@@ -321,6 +325,30 @@ class KnownIssueReportTest(unittest.TestCase):
             results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
         self.assertEqual(set(results.values()), {"FAIL"})
 
+    def test_unticketed_non_ticketable_class_reads_na_and_is_not_needs_ticket(self):
+        # `content` is not in TICKETABLE_CLASSES: no upstream ticket is owed, so the
+        # cell reads N/A and the header line counts it separately from the
+        # engine/translator cases that really are waiting on a ticket.
+        text = self._run(
+            [f"{MEASURE},{GUID_A},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_B},Group_1:Denominator,1",
+             f"{MEASURE},{GUID_C},Group_1:Denominator,1"],
+            [f"{MEASURE},{GUID_B},Group_1:Denominator,0",
+             f"{MEASURE},{GUID_C},Group_1:Denominator,0"],
+            KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_A},,\n"
+            + f"I-65,content,,{MEASURE},{GUID_B},,\n")
+        self.assertIn("| Fail Count | 3 (100.00%) |", text)
+        self.assertIn("| &nbsp;&nbsp;— known issue, no ticket expected | 2 (66.67%) |", text)
+        self.assertNotIn("known issue, needs ticket", text)
+        self.assertNotIn("Known Issue Count (ticketed)", text)
+        self.assertIn("- **I-65** (`content`)\n", text)
+        self.assertIn(f"| {GUID_A} | Group_1 | I-65 | N/A |", text)
+        self.assertRegex(text, rf"\| {GUID_B} \| Group_1 \| Denominator \| 1 \| 0 \| "
+                               r"I-65 \| N/A \|")
+        with open(self.output, newline="") as f:
+            results = {r["guid"]: r["result"] for r in csv.DictReader(f)}
+        self.assertEqual(set(results.values()), {"FAIL"})
+
     def test_no_failing_covered_case_renders_no_section(self):
         text = self._run(
             [f"{MEASURE},{GUID_A},Group_1:Denominator,1"],
@@ -366,7 +394,8 @@ class MeasureIssueSectionTest(unittest.TestCase):
             KNOWN_HEADER + f"I-65,content,,{MEASURE},{GUID_B},,Needs work.\n"
             + f"I-26,engine,{TICKET},{MEASURE},{GUID_C},,Engine note.\n",
             IMPL_HEADER + f"I-73,{MEASURE},{GUID_A},,Steward data.\n")
-        # A resolved (I-73, I-26), B needs a ticket, D has no issue: 2 unattributed.
+        # A resolved (I-73, I-26), B explained by an unticketed content issue,
+        # D has no issue: 2 unattributed.
         self.assertIn("| Unattributed Discrepancies | 1 | 2 |", text)
         self.assertIn(f"| [{MEASURE}](#{MEASURE.lower()}) | 4 | 0 | 0 | 100.00%   (4) | 0 | 2 |",
                       text)
@@ -374,7 +403,8 @@ class MeasureIssueSectionTest(unittest.TestCase):
                       "|---|---|---|:---:|:---:|---|---|\n", text)
         self.assertIn(f"| {GUID_A} | Group_1 | Denominator | 1 | 0 | I-73 (implementation) | N/A |",
                       text)
-        self.assertIn(f"| {GUID_B} | Group_1 | Denominator | 1 | 0 | I-65 | pending |", text)
+        # I-65 is `content`, so no upstream ticket is owed: N/A, not pending.
+        self.assertIn(f"| {GUID_B} | Group_1 | Denominator | 1 | 0 | I-65 | N/A |", text)
         self.assertIn(f"| {GUID_C} | Group_1 | Denominator | 1 | 0 | I-26 | [1855]({TICKET}) |", text)
         # No issue, so the Ticketed cell is blank like the Issue cell.
         self.assertIn(f"| {guid_d} | Group_1 | Denominator | 1 | 0 |  |  |", text)
@@ -398,7 +428,8 @@ class MeasureIssueSectionTest(unittest.TestCase):
         self.assertIn("| Test Case | Group | Issue | Ticketed |\n", text)
         self.assertIn(f"| {GUID_B} | Group_1 | I-26 | [1855]({TICKET}) |", text)
         self.assertIn("| Test Case | Group | Population | Issue | Ticketed |\n", text)
-        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | I-65 | pending |", text)
+        # I-65 is `content`: the Ticketed column still renders, as N/A.
+        self.assertIn(f"| {GUID_A} | Group_1 | Denominator | I-65 | N/A |", text)
 
     def test_distinct_notes_of_one_issue_get_sub_bullets(self):
         text = self._run(
