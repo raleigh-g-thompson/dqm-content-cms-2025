@@ -49,7 +49,7 @@ while the valueset it needed had never been committed.
 
 <!-- OPEN_ISSUES_BEGIN: generated from the issue catalog; don't edit by hand -->
 
-## Open issues (34)
+## Open issues (35)
 
 | ID | Issue | Class | Status | Ticket | Measures |
 |---|---|---|---|---|---|
@@ -87,6 +87,7 @@ while the valueset it needed had never been committed.
 | I-77 | CMS135 `Has Diagnosis of Renal Failure Due to ACEI` and `Has Diagnosis of Allergy or Intolerance to ACEI or ARB` retrieve only `ConditionEncounterDiagnosis`, so a qualifying diagnosis recorded as a problem-list item (`ConditionProblemsHealthConcerns`) does not meet the Denominator Exception. Whether problem-list diagnoses should count is under review with a subject-matter expert | `implementation` | Open — confirmed | — | CMS135 |
 | I-78 | In CMS145 `overlapsAfterDayOfEncounter`, whose parameter is `Choice<AllergyIntolerance, ConditionProblemsHealthConcerns>`, the translator binds `isVerified()` and `prevalenceInterval()` in the Condition branch to the AllergyIntolerance overloads, so a beta-blocker allergy or intolerance diagnosis never meets the Denominator Exception. Explicit casts are applied as a temporary workaround, so the five affected test cases pass while the defect remains open | `translator` | Worked around | [cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872) | CMS145 |
 | I-79 | CMS646 case `6e9a1974` scores Numerator 1 against an expected 0 once its MedicationAdministration references the right patient | `content` | Open — suspected | — | CMS646 |
+| I-80 | When a `union` combines lists whose tuple element types diverge, the engine can silently drop an entire branch — any tuple with a `null` element, or an empty branch, makes the translator-inserted type cast evaluate to null. Worked around in CMS771 by giving both branches identical tuple element types | `engine` | Open — confirmed | [cqframework/clinical_quality_language#1875](https://github.com/cqframework/clinical_quality_language/issues/1875) | CMS771 |
 
 <!-- OPEN_ISSUES_END -->
 
