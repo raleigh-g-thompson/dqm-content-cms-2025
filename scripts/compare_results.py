@@ -52,6 +52,13 @@ one that is real:
     measure stays under `## Measures with Discrepancies` with a `Workarounds`
     table, and the workaround is expected to be reverted when the root cause is
     fixed (at which point the case fails again and takes the normal FAIL path).
+  * **An I-28 workaround note names the affected measures.** Measures whose CQL
+    carries the ``[I-28]`` comment marker use a base ``FHIR.Condition`` retrieve
+    in place of a sibling-profile Condition union -- the preferred pattern while
+    the I-28 translator defect is open, and the only form that resolves today.
+    The note lists those measures (never their test cases), says the change is a
+    workaround rather than a fix, and points at the upstream ticket; the
+    workaround is to be reverted once that ticket closes.
 """
 import csv
 import glob
@@ -491,6 +498,89 @@ def workaround_keys(expected_results: Dict[ResultKey, Dict[str, str]],
         if issue is not None and issue.workaround_applied:
             keys.add(key)
     return keys
+
+
+I28_MARKER = '[I-28]'
+I28_TICKET = 'https://github.com/cqframework/clinical_quality_language/issues/1872'
+
+
+def measures_with_cql_marker(marker: str,
+                             cql_dir: str = './input/cql',
+                             tests_dir: str = './input/tests/measure') -> List[str]:
+    """Measures whose CQL carries ``marker`` and that have a test-case suite.
+
+    The CQL comment convention (``// [I-XX] ...``, see the repository's
+    ``AGENTS.md``) makes the measures' own CQL the source of truth for which
+    ones carry a workaround -- no separate list to drift. Helper libraries
+    without a test-case suite (e.g. ``defectHelper.cql``) are excluded, and an
+    absent ``cql_dir`` (a run outside the content repository) yields nothing.
+    """
+    if not os.path.isdir(cql_dir):
+        return []
+    measures = []
+    for entry in sorted(os.listdir(cql_dir)):
+        if not entry.endswith('.cql'):
+            continue
+        stem = entry[:-len('.cql')]
+        if not os.path.isdir(os.path.join(tests_dir, stem)):
+            continue
+        with open(os.path.join(cql_dir, entry), encoding='utf-8') as fh:
+            if marker in fh.read():
+                measures.append(stem)
+    return measures
+
+
+def render_i28_workaround_note_section(measures: Sequence[str]) -> List[str]:
+    """``## I-28 Workaround Note``: the base-``Condition`` retrieve, and why.
+
+    I-28 is a translator defect: a sibling-profile Condition union types as
+    ``Choice<ConditionProblemsHealthConcerns, ConditionEncounterDiagnosis>`` and
+    the translator will not widen it to base ``FHIR.Condition``, so the whole
+    library fails to translate. Every affected measure therefore retrieves
+    ``[FHIR.Condition: ...]`` directly. That change is semantics-preserving and
+    is the preferred pattern *while the defect is open* -- but it is a
+    workaround, not a fix, and the original union code is what should be
+    restored once the upstream ticket closes. Without this note the measures
+    read as unqualified passes, hiding both the workaround and the open defect.
+    Test cases are deliberately not listed: the workaround is library-wide, so
+    every case of every listed measure runs it. The grid matches
+    `## Measures with No Discrepancies` -- column-major, with the measure name
+    as the CQL link label -- so the two lists read the same way.
+    """
+    if not measures:
+        return []
+    out = ["## I-28 Workaround Note\n", "\n"]
+    out.append(
+        f"_{len(measures)} measures include the I-28 workaround: the original "
+        "sibling-profile "
+        "`[ConditionProblemsHealthConcerns: ...] union [ConditionEncounterDiagnosis: ...]` "
+        "retrieves were replaced with a single base `[FHIR.Condition: ...]` "
+        "retrieve. The base-`Condition` retrieve is the preferred CQL pattern "
+        "for this content while I-28 is open -- it selects the same Conditions "
+        "the union expresses, so the change is semantics-preserving, and it is "
+        "the only form the translator resolves "
+        "today. It is a workaround, not a fix: the original union code is "
+        "correct CQL, and I-28 is the translator defect that blocks it "
+        "(`Choice<...>` arguments are not widened to base `Condition`, for "
+        "either a shared-library `prevalenceInterval` overload or an ancestor "
+        "overload). The union defect is tracked by "
+        f"[cqframework/clinical_quality_language#1872]({I28_TICKET}); once that "
+        "ticket closes, these measures' workarounds should be reverted to the "
+        "original union code. Individual test cases are not listed because the "
+        "workaround is library-wide: every test case of every measure below "
+        "runs it._\n")
+    out.append("\n")
+    sorted_measures = sort_measure_names(list(measures))
+    column_count = NO_DISCREPANCY_TABLE_COLUMNS
+    rows_needed = -(-len(sorted_measures) // column_count)
+    columns = [sorted_measures[row * rows_needed:(row + 1) * rows_needed]
+               for row in range(column_count)]
+    out.extend(create_markdown_table(
+        [''] * column_count,
+        [[cql_file_link(column[row]) if row < len(column) else ''
+          for column in columns]
+         for row in range(rows_needed)]))
+    return out
 
 
 def render_cqfm_exclusions_section(
@@ -1263,6 +1353,9 @@ def generate_comparison_report(file: str,
 
         f.writelines(render_cqfm_exclusions_section(cqfm_exclusions or {},
                                                     unscored_cells or []))
+
+        f.writelines(render_i28_workaround_note_section(
+            measures_with_cql_marker(I28_MARKER)))
 
         non_discrepancy_measures = [
             m for m in sort_measure_names(list(set([k.measure_name for k in expected_results.keys()])))

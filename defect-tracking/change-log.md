@@ -24,6 +24,76 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Surface the I-28 workaround (preferred pattern) in `discrepancy_report.md`
+
+**Problem:** I-28's base-`FHIR.Condition` workaround is applied library-wide in 31 measures, but
+the report only surfaces workarounds that have a per-case `known_issues.csv` row. I-28 has none by
+design (no individual case is attributable to it), so all 31 measures read as unqualified passes and
+both the open translator defect and the pending revert were invisible to a report reader.
+
+**Fix (harness, no content change):** `scripts/compare_results.py` gained an
+`## I-28 Workaround Note` section. It is emitted whenever a measure's CQL carries the `[I-28]`
+comment marker (`measures_with_cql_marker()`, which also requires a test-case suite, so helper
+libraries such as `defectHelper.cql` are excluded). The note lists the **affected measures only**
+— never individual test cases, because the workaround is library-wide — and states that the
+base-`Condition` retrieve is the preferred CQL pattern while I-28 is open, that it is a workaround
+rather than a fix, and that
+[cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872)
+tracks the union/`Choice` widening defect, so the workaround is to be reverted when that ticket
+closes. The measure list comes from the CQL marker convention rather than a hand-maintained list,
+so it cannot drift.
+
+**Measures Affected:** no CQL, FHIR resource, or valueset changed by this entry. The section lists
+the 31 I-28 measures (CMS144 included) on every run.
+
+## Apply I-28's base `FHIR.Condition` retrieve to CMS144 (7 sites)
+
+**Problem:** `CMS144FHIRHFBetaBlockerForLVSD` failed translation library-wide: all 48 test cases,
+all 240 population cells `MISSING` against their fixtures. The translator reported seven unresolved
+calls, one per conditional-diagnosis define, all of the form
+`Could not resolve call to operator overlapsHeartFailureOutpatientEncounter with signature
+(choice<USQualityCore.ConditionEncounterDiagnosis,USQualityCore.ConditionProblemsHealthConcerns>)`.
+Each define built its Condition set from a `ConditionProblemsHealthConcerns ∪
+ConditionEncounterDiagnosis` union, which types as a `Choice<...>` that the translator will not
+widen to base `FHIR.Condition` for the AHA fluents or for `.isVerified()` — I-28.
+
+**Fix:** applied the I-28 workaround at the seven defines: each sibling-profile union is replaced
+with a single base `[FHIR.Condition: ...]` retrieve. The 4-way Allergy/Intolerance union is
+collapsed to two same-type base retrieves joined by one `union` (the CMS347 pattern), so `union`
+never mixes operand types. Semantics are unchanged — the profiles only constrain base `Condition`
+retrieves, and every union member is a Condition. The unrelated
+`[USQualityCore.AllergyIntolerance...] union [...]` retrieve and the dead local
+`isVerified(Choice<...>)` overload were deliberately left alone (CMS143/CMS159 precedent).
+
+**Example** (one of seven sites; the other six are the same substitution):
+
+```before
+  exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Hypotension"]
+      union [USQualityCore.ConditionEncounterDiagnosis: "Hypotension"] ) HypotensionAlias
+    where HypotensionAlias.overlapsHeartFailureOutpatientEncounter ( )
+      and HypotensionAlias.isVerified ( )
+```
+
+```after
+  // [I-28] base FHIR.Condition retrieve: sibling-profile union -> Choice<...> cannot widen to
+  // FHIR.Condition for the AHA overlap fluent and .isVerified() (defect-tracking/known-issues.md)
+  // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+  // Affected test cases: all 48 CMS144 cases (library-wide translate failure)
+  // Original:
+  //   exists ( ( [USQualityCore.ConditionProblemsHealthConcerns: "Hypotension"]
+  //       union [USQualityCore.ConditionEncounterDiagnosis: "Hypotension"] ) HypotensionAlias
+  exists ( [FHIR.Condition: "Hypotension"] HypotensionAlias
+    where HypotensionAlias.overlapsHeartFailureOutpatientEncounter ( )
+      and HypotensionAlias.isVerified ( )
+```
+
+**Verification:** ELM is clean, and the 48 re-executed test cases score 48/48 cases and 240/240
+population cells `PASS` (`Pass Count` 3894 → 3942; CMS144 leaves `Measures with Discrepancies`).
+The workaround is removed — restoring the original unions and its comment block together — when
+#1872 lands.
+
+**Measures Affected:** CMS144FHIRHFBetaBlockerForLVSD
+
 ## Accept HL7 JIRA upstream tickets in `known_issues.csv` (ticket validation + display)
 
 **Problem:** `load_known_issues` accepted only GitHub issue/PR ticket URLs (`GITHUB_TICKET_PATTERN`), so a known issue whose upstream ticket lives in HL7 JIRA — e.g. I-63/I-81, whose FHIRCommon defect is tracked by `FHIR-59691` / `FHIR-59689` — could not be published with its ticket: the loader raised `ValueError`, and the Ticketed column silently fell back to `N/A` for the vendored class, hiding an existing upstream ticket.
