@@ -19298,7 +19298,7 @@ CMS75FHIRChildrenDentalDecay,f076026e-a9df-4c3c-acc9-8c3af6845543,Group_1:Denomi
 CMS75FHIRChildrenDentalDecay,f076026e-a9df-4c3c-acc9-8c3af6845543,Group_1:Denominator Exclusion,0
 CMS75FHIRChildrenDentalDecay,f076026e-a9df-4c3c-acc9-8c3af6845543,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,Group_1:Initial Population,1
-CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,Group_1:Denominator,0
+CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,Group_1:Denominator Exclusion,0
 CMS771FHIRUrinarySymptomScoreBPH,051c5977-9f2c-4e8b-8e02-ac3ec0c718d6,Group_1:Numerator,0
 CMS771FHIRUrinarySymptomScoreBPH,2105cba2-6e61-487d-a737-3efe876028e8,Group_1:Initial Population,1
@@ -19310,13 +19310,13 @@ CMS771FHIRUrinarySymptomScoreBPH,228562c7-76c5-42e1-b4b6-0b952faa75c4,Group_1:De
 CMS771FHIRUrinarySymptomScoreBPH,228562c7-76c5-42e1-b4b6-0b952faa75c4,Group_1:Denominator Exclusion,0
 CMS771FHIRUrinarySymptomScoreBPH,228562c7-76c5-42e1-b4b6-0b952faa75c4,Group_1:Numerator,0
 CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,Group_1:Initial Population,1
-CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,Group_1:Denominator,0
+CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,Group_1:Denominator Exclusion,0
 CMS771FHIRUrinarySymptomScoreBPH,3ab3ac1d-9b5e-4087-8862-dcb2562fb90f,Group_1:Numerator,0
 CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,Group_1:Denominator Exclusion,0
-CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,Group_1:Numerator,0
+CMS771FHIRUrinarySymptomScoreBPH,4c234ec0-3f89-4d55-b767-219d1130f634,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,4d7a04b3-91ed-4035-85ef-0728bdf818ef,Group_1:Initial Population,0
 CMS771FHIRUrinarySymptomScoreBPH,4d7a04b3-91ed-4035-85ef-0728bdf818ef,Group_1:Denominator,0
 CMS771FHIRUrinarySymptomScoreBPH,4d7a04b3-91ed-4035-85ef-0728bdf818ef,Group_1:Denominator Exclusion,0
@@ -19372,7 +19372,7 @@ CMS771FHIRUrinarySymptomScoreBPH,9b637e49-9b8a-48c1-8304-ec5984bc47fa,Group_1:Nu
 CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,Group_1:Denominator Exclusion,0
-CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,Group_1:Numerator,0
+CMS771FHIRUrinarySymptomScoreBPH,9be591a0-517b-4be2-b652-a29be0c75c15,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,ae8b8236-bf9b-47f9-9c71-4655bca14aba,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,ae8b8236-bf9b-47f9-9c71-4655bca14aba,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,ae8b8236-bf9b-47f9-9c71-4655bca14aba,Group_1:Denominator Exclusion,1
@@ -19380,7 +19380,7 @@ CMS771FHIRUrinarySymptomScoreBPH,ae8b8236-bf9b-47f9-9c71-4655bca14aba,Group_1:Nu
 CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,Group_1:Denominator Exclusion,0
-CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,Group_1:Numerator,0
+CMS771FHIRUrinarySymptomScoreBPH,bc79e5bc-237e-44be-b5fc-c5c4efb50286,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,bf0200ab-3e37-4e90-8517-ffb351f2e563,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,bf0200ab-3e37-4e90-8517-ffb351f2e563,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,bf0200ab-3e37-4e90-8517-ffb351f2e563,Group_1:Denominator Exclusion,0
@@ -19388,7 +19388,7 @@ CMS771FHIRUrinarySymptomScoreBPH,bf0200ab-3e37-4e90-8517-ffb351f2e563,Group_1:Nu
 CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,Group_1:Denominator Exclusion,0
-CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,Group_1:Numerator,0
+CMS771FHIRUrinarySymptomScoreBPH,bf0f8968-c2c0-4416-88db-11ea3e3da968,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,c0fd6874-9560-436e-9115-63970d859c34,Group_1:Initial Population,0
 CMS771FHIRUrinarySymptomScoreBPH,c0fd6874-9560-436e-9115-63970d859c34,Group_1:Denominator,0
 CMS771FHIRUrinarySymptomScoreBPH,c0fd6874-9560-436e-9115-63970d859c34,Group_1:Denominator Exclusion,0
@@ -19408,7 +19408,7 @@ CMS771FHIRUrinarySymptomScoreBPH,dfe54ab6-e271-47e0-b8eb-5f74a8d08dce,Group_1:Nu
 CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,Group_1:Denominator Exclusion,0
-CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,Group_1:Numerator,0
+CMS771FHIRUrinarySymptomScoreBPH,e90d90a7-3071-44de-8089-ad7b6f5f3e5d,Group_1:Numerator,1
 CMS771FHIRUrinarySymptomScoreBPH,f1ccd667-ada1-4ca8-b4dc-fe4a9674d81a,Group_1:Initial Population,1
 CMS771FHIRUrinarySymptomScoreBPH,f1ccd667-ada1-4ca8-b4dc-fe4a9674d81a,Group_1:Denominator,1
 CMS771FHIRUrinarySymptomScoreBPH,f1ccd667-ada1-4ca8-b4dc-fe4a9674d81a,Group_1:Denominator Exclusion,0

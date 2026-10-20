@@ -49,7 +49,7 @@ while the valueset it needed had never been committed.
 
 <!-- OPEN_ISSUES_BEGIN: generated from the issue catalog; don't edit by hand -->
 
-## Open issues (35)
+## Open issues (34)
 
 | ID | Issue | Class | Status | Ticket | Measures |
 |---|---|---|---|---|---|
@@ -76,7 +76,6 @@ while the valueset it needed had never been committed.
 | I-61 | Translator's ChoiceType compatibility check bypasses a registered FHIRHelpers conversion when a union produces divergent tuple-element types, leaving raw `FHIR.instant` `INRLabTest.issued` unconverted (CMS108/CMS190 INR Low Risk Indicator); also seen in CMS986's `union` of raw `authoredOn` with a converted `System.DateTime` (Hospice/Dietitian Referral defines) | `translator` | Worked around | — | CMS108, CMS190, CMS986 |
 | I-62 | The test-case report cannot invoke per-member `cqfm-aggregateMethod` measure-observations for ratio / continuous-variable measures, so those cells are excluded from automated scoring | `harness` | Worked around | — | CMS1017, CMS871, CMS986 |
 | I-63 | `Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).` aborts CMS871 `98533ccd` and `fd579f44` (every population missing). An integer `[1, 0]` interval suggests a range built over an empty list; root cause not yet traced | `engine` | Open — suspected | — | CMS871 |
-| I-65 | Unexplained shared failures; root cause not yet found. The 7 CMS771 cases filed here fail on Denominator or Numerator and need re-triage | `content` | Open — suspected | — | CMS771 |
 | I-67 | CMS347 `1ba7b147`: the test case uses a start-only `abatementPeriod` to mean "resolved 2025-12-31". FHIRCommon correctly reads the missing `end` as open-ended, so `prevalenceInterval()` runs to end of time and `"Has ESRD Diagnosis"` fires (`Group_4:Denominator Exception` 0 → 1). Confirmed with SME 2026-10-08. The steward should use `abatementDateTime` or add an `end`. No CQL change | `implementation` | Open — confirmed | — | CMS347 |
 | I-68 | Interval selector returns `null` when both bounds evaluate to null (`Interval[null, null)`) instead of an interval with unknown bounds. No result difference for `overlaps`; a start-sensitive consumer (`starts before`) loses rows the spec would keep. No affected case found yet | `engine` | Open — confirmed | [cqframework/clinical_quality_language#1850](https://github.com/cqframework/clinical_quality_language/issues/1850) | CMS347 |
 | I-69 | `is Interval<T>` returns `false` when the interval has a null boundary, which also nulls an open-ended interval passed to a `Choice`-typed function parameter. FHIRCommon tests `is FHIR.Period` and isn't affected; one latent exposure (NHSN `"Normalize Interval"`), no affected case. Fixed upstream (`fb8055df`, merged 2026-10-08), not yet released | `engine` | Open — confirmed | [cqframework/clinical_quality_language#1857](https://github.com/cqframework/clinical_quality_language/pull/1857) | CMS347, CMS646 |

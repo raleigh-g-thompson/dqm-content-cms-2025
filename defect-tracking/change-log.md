@@ -2099,3 +2099,41 @@ which point the casts and their comment block should be removed together. The Al
 branch reads properties on `Event` directly and is unaffected.
 
 **Measures Affected:** CMS145
+
+## Normalize CMS771's IPSS tuple element to `System.Integer`
+
+**Problem:** `Documented IPSS Assessment Result` typed its `valueInteger` return element as
+`FHIR.integer` (`IPSSAssessment.value as FHIR.integer`), while
+`AUA Symptom Index and Quality of Life Assessment Result` returns `System.Integer` — its `+`
+operands are wrapped in `FHIRHelpers.ToInteger`. The two sides of
+`Urinary Symptom Score Assessment`'s `union` therefore had different tuple types, so the
+translator emitted `List<Choice<Tuple,Tuple>>`: at runtime the union silently dropped the AUA
+branch (`051c5977` holds two AUA tuples and the union is `[]`; `3ab3ac1d` has two in, one out),
+and the `…valueInteger` access became `Choice<FHIR.integer, System.Integer>`, which the
+subtraction in `Urinary Symptom Score Change` could not narrow, returning null. Seven cells
+failed: `Group_1:Denominator 1→0` (`051c5977`, `3ab3ac1d`) and `Group_1:Numerator 1→0`
+(`4c234ec0`, `9be591a0`, `bc79e5bc`, `bf0f8968`, `e90d90a7`). Malformed CQL, not a tracked
+defect.
+
+**Fix:** `valueInteger: FHIRHelpers.ToInteger(IPSSAssessment.value)` — both tuple elements are
+now `System.Integer`, so the union is `List<Tuple>` and the subtraction is native integer
+arithmetic.
+
+**Example** (`input/cql/CMS771FHIRUrinarySymptomScoreBPH.cql`, `Documented IPSS Assessment Result`):
+
+```cql
+-- before
+valueInteger: IPSSAssessment.value as FHIR.integer
+
+-- after
+valueInteger: FHIRHelpers.ToInteger(IPSSAssessment.value)
+```
+
+**Verified 2026-10-19:** CMS771 31/31 cases, 124/124 cells PASS; `Urinary Symptom Score Change`
+evaluates 4, 3, 10, 12 and 3 on the five Numerator cases. The comparison grid moves
+`PASS 23376→23383` / `FAIL 270→263`, with only the 7 CMS771 rows changed. `5339dd62`, `71846c52`
+and `ae8b8236` now evaluate `Numerator = true` at CQL level but still score `PASS`: the
+extraction harness reports 0 for a case whose `Denominator Exclusion = 1`, per the
+proportion-conformance rule.
+
+**Measures Affected:** CMS771FHIRUrinarySymptomScoreBPH

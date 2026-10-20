@@ -94,7 +94,7 @@ define "Documented IPSS Assessment Result":
       and IPSSAssessment.value is not null
     return {
       effectiveDatetime: IPSSAssessment.effective.earliest ( ),
-      valueInteger: IPSSAssessment.value as FHIR.integer
+      valueInteger: FHIRHelpers.ToInteger(IPSSAssessment.value)
     }
 
 define "AUA Symptom Index and Quality of Life Assessment Result":
