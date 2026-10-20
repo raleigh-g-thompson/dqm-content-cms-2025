@@ -24,6 +24,49 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Accept HL7 JIRA upstream tickets in `known_issues.csv` (ticket validation + display)
+
+**Problem:** `load_known_issues` accepted only GitHub issue/PR ticket URLs (`GITHUB_TICKET_PATTERN`), so a known issue whose upstream ticket lives in HL7 JIRA — e.g. I-63/I-81, whose FHIRCommon defect is tracked by `FHIR-59691` / `FHIR-59689` — could not be published with its ticket: the loader raised `ValueError`, and the Ticketed column silently fell back to `N/A` for the vendored class, hiding an existing upstream ticket.
+
+**Fix:** `scripts/compare_results.py` now recognizes two ticket shapes via `is_ticket_url()`: the existing GitHub issue/PR pattern and `JIRA_TICKET_PATTERN` (`https://jira.hl7.org/browse/<KEY>-<n>`, e.g. `FHIR-59691`). `ticket_link()` renders a JIRA ticket as `[FHIR-59691](url)` (GitHub stays `[owner/repo#n]`-short-form); `ticket_number()` already returned the trailing path segment, which is the JIRA key. `ticketed_cell()` now renders any recorded ticket as a link regardless of the issue's class — a vendored-library defect is tracked upstream even though no ticket is *owed* for the class — and keeps `N/A` for unticketed non-ticketable classes and `pending` for unticketed engine/translator issues. The outer tooling repo's `generate_inner_issue_files.py` validation mirrors this rule (they are deliberately kept in sync so a published ticket can never make this loader raise).
+
+**Measures Affected:** no CQL change; harness only. First consumer: I-63/I-81 (`CMS871FHIRHHHyper`), whose JIRA tickets now appear in `known_issues.csv` and the Ticketed column.
+
+## Bypass FHIRCommon's sub-24-hour `toDayNumbers` / `daysInPeriod` in CMS871 (I-63, root cause I-81)
+
+**Problem:** CMS871 test cases `98533ccd` (4-hour stay, 15:00→19:00) and `fd579f44` (14-hour stay, 08:00→22:00) aborted before any define evaluated, with all 10 population cells scored `MISSING` (actual) against 1s (expected). The engine asserted
+`Invalid Interval - the ending boundary (0) must be greater than or equal to the starting boundary (1).`
+The library's `daysInPeriod` bound to the vendored `hl7.fhir.uv.cql` FHIRCommon v2.0.0 copy, whose `toDayNumbers` builds `Interval[1, duration in days between start of period and end of period]`. `duration in days` counts whole 24-hour periods and truncates, so any period shorter than 24 hours yields `Interval[1, 0]` — an invalid interval — and the engine correctly rejects the CQL-built operand. A second, latent defect sits behind it in `daysInPeriod`: its partial-day branch returns `endPeriod = startPeriod`, i.e. the degenerate half-open `Interval[startPeriod, startPeriod)`; that branch is dead code upstream (without a clamp the day index implies ≥24 hours remain) but became reachable the moment the day count was clamped to at least 1, producing the second observed error string
+`Invalid Interval - the ending boundary (@2026-11-12T15:00:00.000+00:00) must be greater than or equal to the starting boundary (@2026-11-12T15:00:00.000+00:00).`
+Upstream tickets: `FHIR-59691` (entry point for the error) and companion `FHIR-59689`. The library defect is tracked as I-81 (vendored); this entry records the CMS871 workaround (I-63).
+
+**Fix:** measure-local replacements in `input/cql/CMS871FHIRHHHyper.cql`. `localToDayNumbers` null-guards the period and clamps the day count with `Max({1, duration in days between start of period and end of period})`, preserving FHIRCommon's 24-hour-period indexing contract — a `difference in days` + 1 rewrite was rejected because it counts *calendar* days and would re-introduce a reversed interval for overnight stays. `localDaysInPeriod` uses `nextDayStart` / `isLastSegment`: full days stay half-open (`[startPeriod, nextDayStart)` per the upstream docstring), and the final partial segment ends at `end of period` and is **closed** (`[startPeriod, endPeriod]`; a spec-valid point interval when they are equal) so a glucose result at end-of-period still counts. The original `relevantPeriod.daysInPeriod ( )` call is left commented out under the `[I-63]` comment block.
+
+**Example:**
+
+before:
+```cql
+          relevantDays: relevantPeriod.daysInPeriod ( )
+```
+
+after:
+```cql
+          // [I-63] FHIRCommon v2.0.0 daysInPeriod/toDayNumbers build an invalid Interval[1, 0] for stays shorter than 24 hours (root cause: I-81)
+          // Upstream ticket: https://jira.hl7.org/browse/FHIR-59691 (companion: https://jira.hl7.org/browse/FHIR-59689)
+          // Affected test cases: 98533ccd, fd579f44 (GUID prefixes)
+          // original
+          // relevantDays: relevantPeriod.daysInPeriod ( )
+          relevantDays: relevantPeriod.localDaysInPeriod ( )
+```
+
+plus the two new defines `localToDayNumbers` / `localDaysInPeriod` at the bottom of the library.
+
+**Measures Affected:** CMS871FHIRHHHyper
+
+**Verified:** `cql_execute` probe on `98533ccd` with the case fixtures, 2026-10-20: `Days in Hospitalization` yields `dayPeriod: [2026-11-12T15:00:00.000+00:00, 2026-11-12T19:00:00.000+00:00]` (no crash, no degenerate interval) and populations IP 1 / Den 1 / DenExcl 1 / Num 0 / NumExcl 1. Fixture expectations are IP 1 / Den 1 / DenExcl 1 / Num 0 / NumExcl 0 — the Numerator Exclusion cell (expected 0, actual 1; the CQL's `Numerator Exclusions` is the same union define as `Denominator Exclusions`) is an open follow-up to triage separately from this workaround, not a regression of it.
+
+**Removal condition:** remove both local functions, restore the original call, and delete the comment block in one change-logged edit when FHIRCommon ships the I-81 fix; the outer repo's `cases.csv` rows go at the same time.
+
 ## Normalize multi-episode Numerator Exclusion scoring in harness (I-05)
 
 **Problem:** In CMS1017 (and generally for multi-episode encounter-based measures), `validate_measure_population_counts()` in `scripts/extract_population_actual.py` did not constrain `Numerator Exclusion` to encounters that were actually members of the `Numerator`. Under HL7 CQF Measures IG v5.0.0 (Conformance Requirement 3.11), a Numerator Exclusion is defined as an exclusion *from the Numerator* (`Numerator ∩ Numerator Exclusion Criteria`). In multi-encounter patients such as `0dfafc1a` and `5ff2713d`, Encounter 1 meets Denominator Exclusion (Fall POA) and was never in Numerator, while Encounter 2 meets Numerator (inpatient fall with injury not POA). Encounter 1 cannot exclude from a Numerator it was never in. The harness's unconstrained list count emitted `actual = 1` vs `expected = 0`, causing two false FAILs.

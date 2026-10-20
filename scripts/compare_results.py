@@ -34,8 +34,8 @@ one that is real:
     cases stay in the per-measure discrepancy tables, labelled with the issue.
   * **A ticketed known issue resolves a failing test case.** A case whose
     failure is explained by a catalogued engine, translator, content, ... issue
-    is listed in ``scripts/comparison/known_issues.csv`` with the issue's GitHub
-    ticket. Once the ticket is recorded, a covered failing cell scores
+    is listed in ``scripts/comparison/known_issues.csv`` with the issue's
+    upstream ticket (a GitHub issue/PR or an HL7 JIRA issue). Once the ticket is recorded, a covered failing cell scores
     ``KNOWN_ISSUE`` and the case counts as resolved. Without a ticket the case
     still fails, and the report labels it as awaiting one -- or, for a class no
     upstream ticket could track (our own content, fixture, or harness), labels
@@ -88,7 +88,8 @@ IMPLEMENTATION = "IMPLEMENTATION"
 
 # Optional fourth input: failing test cases tied to a catalogued engine,
 # translator, content, ... issue (`defect-tracking/known-issues.md`). A case
-# resolves only once its issue has a GitHub ticket. Absent is fine.
+# resolves only once its issue has an upstream ticket (GitHub issue/PR or HL7
+# JIRA). Absent is fine.
 DEFAULT_KNOWN_ISSUES_FILE = "./scripts/comparison/known_issues.csv"
 
 # The per-cell and per-test-case verdict for a failure covered by a known issue
@@ -326,7 +327,9 @@ def failing_implementation_keys(expected_results: Dict[ResultKey, Dict[str, str]
 class KnownIssue(NamedTuple):
     """One row of ``known_issues.csv``: a test case tied to a catalogued issue.
 
-    ``ticket`` is the GitHub issue (or pull request) URL tracking the fix. A
+    ``ticket`` is the upstream ticket URL tracking the fix -- a GitHub issue (or
+    pull request), or an HL7 JIRA issue such as
+    ``https://jira.hl7.org/browse/FHIR-59691``. A
     known issue resolves a failing case only once it has one; until then the
     case stays FAIL and is reported as awaiting a ticket. ``group`` is optional,
     as in ``ImplementationIssue``.
@@ -374,6 +377,14 @@ KNOWN_ISSUE_CLASSES = ("engine", "translator", "content", "migration", "fixture"
 TICKETABLE_CLASSES = ("engine", "translator")
 
 GITHUB_TICKET_PATTERN = re.compile(r"^https://github\.com/[^/\s]+/[^/\s]+/(?:issues|pull)/\d+$")
+# HL7 JIRA, e.g. https://jira.hl7.org/browse/FHIR-59691 -- the tracker the
+# upstream projects outside GitHub (FHIRCommon, the published IGs) use.
+JIRA_TICKET_PATTERN = re.compile(r"^https://jira\.hl7\.org/browse/[A-Z][A-Z0-9]+-\d+$")
+
+
+def is_ticket_url(value: str) -> bool:
+    """True for a recognized upstream ticket URL: a GitHub issue/PR or HL7 JIRA."""
+    return bool(GITHUB_TICKET_PATTERN.match(value) or JIRA_TICKET_PATTERN.match(value))
 
 
 def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
@@ -382,7 +393,7 @@ def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
     Columns: ``issue_id,class,status,ticket,measure_name,guid,group,note``
     (``status`` optional and empty when absent). Raises ValueError on a missing
     column, an unquoted comma, a class outside ``KNOWN_ISSUE_CLASSES``, a
-    ``ticket`` that isn't a GitHub issue/PR URL (so a placeholder like ``TBD``
+    ``ticket`` that isn't a GitHub issue/PR or HL7 JIRA URL (so a placeholder like ``TBD``
     can't resolve a case), or rows of one issue that disagree on class, status
     or ticket (those belong to the issue, not the case).
 
@@ -417,9 +428,10 @@ def load_known_issues(file: Optional[str]) -> List[KnownIssue]:
                         if row["class"] == "implementation" else "")
                 raise ValueError(f"{where}: class {row['class']!r} is not one of "
                                  f"{', '.join(KNOWN_ISSUE_CLASSES)}{hint}")
-            if row["ticket"] and not GITHUB_TICKET_PATTERN.match(row["ticket"]):
-                raise ValueError(f"{where}: ticket {row['ticket']!r} is not a GitHub "
-                                 "issue or pull request URL; leave it blank until one exists")
+            if row["ticket"] and not is_ticket_url(row["ticket"]):
+                raise ValueError(f"{where}: ticket {row['ticket']!r} is neither a GitHub "
+                                 "issue or pull request URL nor an HL7 JIRA URL; leave it "
+                                 "blank until one exists")
             identity = (row["class"], row.get("status", ""), row["ticket"])
             if seen.setdefault(row["issue_id"], identity) != identity:
                 raise ValueError(f"{where}: {row['issue_id']} rows disagree on class, "
@@ -894,19 +906,24 @@ def capture_discrepancies_by_measure(expected_results: Dict[ResultKey, Dict[str,
 
 
 def ticket_link(ticket: str) -> str:
-    """`[owner/repo#123](url)` for a GitHub ticket URL; blank stays blank."""
+    """`[owner/repo#123](url)` for a GitHub ticket URL, `[FHIR-59691](url)` for
+    a JIRA one; blank stays blank."""
     if not ticket:
         return ''
+    if JIRA_TICKET_PATTERN.match(ticket):
+        return f'[{ticket_number(ticket)}]({ticket})'
     owner, repo, _, number = ticket.split('/')[3:7]
     return f'[{owner}/{repo}#{number}]({ticket})'
 
 
 def ticket_number(ticket: str) -> str:
-    """`123` from a GitHub issue or pull request URL; blank stays blank.
+    """`123` from a GitHub issue or pull request URL, `FHIR-59691` from an HL7
+    JIRA URL; blank stays blank.
 
-    The trailing path segment is the issue (or PR) number, e.g.
-    ``https://github.com/org/repo/issues/123``. ``load_known_issues`` rejects a
-    ``ticket`` that is not one of those URLs, so the shape is not in doubt here.
+    The trailing path segment is the issue (or PR) number / the JIRA key, e.g.
+    ``https://github.com/org/repo/issues/123`` or
+    ``https://jira.hl7.org/browse/FHIR-59691``. ``load_known_issues`` rejects a
+    ``ticket`` that is neither shape, so the shape is not in doubt here.
     """
     return ticket.rstrip('/').rsplit('/', 1)[-1] if ticket else ''
 
@@ -1127,15 +1144,15 @@ def generate_comparison_report(file: str,
         """`pending`, `N/A`, a link to the upstream ticket, or blank.
 
         Blank means the row has no issue, matching the ``Issue`` cell next to it.
-        ``N/A`` covers two cases. For an ``implementation`` issue the steward's
-        own test data or expectation is not something an upstream ticket tracks.
-        For a known issue outside ``TICKETABLE_CLASSES`` (i.e. neither ``engine``
-        nor ``translator``) the root cause is our own content, fixture, or
-        harness, so no ticket is owed either -- saying ``pending`` would imply
-        one is expected. Anything in ``TICKETABLE_CLASSES`` with a ticket gives a
-        markdown link to it (the link text is the ticket number, e.g.
-        ``[1868](https://github.com/.../issues/1868)``), and one without a ticket
-        reads ``pending``: an upstream defect still waiting to be filed.
+        A recorded ticket -- GitHub issue/PR or HL7 JIRA -- always renders as a
+        markdown link, whichever class the issue is in: a vendored-library
+        defect (e.g. I-63's FHIRCommon ticket) is tracked upstream even though
+        no ticket is *owed* for the class. ``N/A`` therefore means the issue has
+        no ticket and its class is outside ``TICKETABLE_CLASSES`` (neither
+        ``engine`` nor ``translator``): the root cause is our own content,
+        fixture, or harness, so nothing an upstream ticket could track is
+        expected. Inside ``TICKETABLE_CLASSES`` an issue without a ticket reads
+        ``pending``: an upstream defect still waiting to be filed.
 
         Deliberately does not use ``covering_issue``: that describes *failing*
         groups, so a matching workaround group would come back as
@@ -1147,9 +1164,11 @@ def generate_comparison_report(file: str,
         issue = implementation_issue_for(key, known_issues)
         if issue is None:
             return ''
+        if issue.ticket:
+            return f'[{ticket_number(issue.ticket)}]({issue.ticket})'
         if issue.issue_class not in TICKETABLE_CLASSES:
             return 'N/A'
-        return f'[{ticket_number(issue.ticket)}]({issue.ticket})' if issue.ticket else 'pending'
+        return 'pending'
 
     def workaround_notes(keys: Sequence[ResultKey]) -> List[str]:
         """Distinct notes of the issues holding the given passing groups up."""
