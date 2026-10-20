@@ -151,6 +151,58 @@ class TestExtractPopulationActual(unittest.TestCase):
         self.assertEqual(populations['Numerator'], 2)
         self.assertEqual(populations['Denominator Exception'], 1)
 
+    def test_validate_scoring_denom_two_or_more_numex_disjoint_from_numer_then_numex_zeroed(self):
+        """Multi-episode Numerator Exclusion disjoint from Numerator is zeroed (I-05)."""
+        populations = {
+            'Denominator': 2,
+            'Denominator Exclusion': 1,
+            'Numerator': ['Encounter(id=e2)'],
+            'Numerator Exclusion': ['Encounter(id=e1)'],
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 2)
+        self.assertEqual(populations['Denominator Exclusion'], 1)
+        self.assertEqual(populations['Numerator'], 1)
+        self.assertEqual(populations['Numerator Exclusion'], 0)
+
+    def test_validate_scoring_denom_two_or_more_numex_in_numer_preserved(self):
+        """Multi-episode Numerator Exclusion present in Numerator is preserved."""
+        populations = {
+            'Denominator': 2,
+            'Denominator Exclusion': 1,
+            'Numerator': ['Encounter(id=e1)'],
+            'Numerator Exclusion': ['Encounter(id=e1)'],
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 2)
+        self.assertEqual(populations['Denominator Exclusion'], 1)
+        self.assertEqual(populations['Numerator'], 1)
+        self.assertEqual(populations['Numerator Exclusion'], 1)
+
+    def test_validate_scoring_denom_two_or_more_numex_with_zero_numer_then_numex_zeroed(self):
+        """Multi-episode Numerator Exclusion with empty Numerator is zeroed."""
+        populations = {
+            'Denominator': 2,
+            'Numerator': 0,
+            'Numerator Exclusion': 1,
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 2)
+        self.assertEqual(populations['Numerator'], 0)
+        self.assertEqual(populations['Numerator Exclusion'], 0)
+
+    def test_validate_scoring_denom_two_or_more_mixed_numex_list_scalar_numer_bounded(self):
+        """Multi-episode Numerator Exclusion bounded when scalar shapes occur."""
+        populations = {
+            'Denominator': 2,
+            'Numerator': 1,
+            'Numerator Exclusion': 2,
+        }
+        validate_measure_population_counts('CMS-test', populations)
+        self.assertEqual(populations['Denominator'], 2)
+        self.assertEqual(populations['Numerator'], 1)
+        self.assertEqual(populations['Numerator Exclusion'], 1)
+
     def test_convert_results_to_rows(self):
         results = {
             MeasureResultId('measureA', 'guidA', 'groupA'): {

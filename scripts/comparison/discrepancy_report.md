@@ -1,29 +1,29 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-20 11:12:21.522699 |
+| Generated | 2026-10-20 11:16:52.978820 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
-| Measures with Discrepancies | 13 |
-| Pass Count | 3891 (98.16%) |
+| Measures with Discrepancies | 12 |
+| Pass Count | 3893 (98.21%) |
 | Workaround Count | 6 (0.15%) |
 | &nbsp;&nbsp;— covered by a ticketed known issue | 6 (0.15%) |
 | Implementation Issue Count | 5 (0.13%) |
 | Known Issue Count (ticketed) | 4 (0.10%) |
-| Fail Count | 58 (1.46%) |
+| Fail Count | 56 (1.41%) |
 | &nbsp;&nbsp;— known issue, needs ticket | 3 (0.08%) |
-| &nbsp;&nbsp;— known issue, no ticket expected | 7 (0.18%) |
+| &nbsp;&nbsp;— known issue, no ticket expected | 5 (0.13%) |
 | Known issues with an upstream ticket | 10 (0.25%) |
-| Resolved (Pass + Implementation + Known Issue) | 3900 (98.39%) |
+| Resolved (Pass + Implementation + Known Issue) | 3902 (98.44%) |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
 |---|:---:|:---:|
 | Missing Results | 5 | 55 |
 | Missing Populations | 0 | 0 |
-| Mismatched Test Cases | 8 | 12 |
+| Mismatched Test Cases | 7 | 10 |
 | Workarounds | 2 | 13 |
-| Unattributed Discrepancies | 6 | 58 |
+| Unattributed Discrepancies | 5 | 56 |
 
 
 
@@ -41,7 +41,7 @@ _These populations require invoking a parameterized CQL `measure-observation` fu
 
 _2085 cells excluded across 3 measures._
 
-## Measures with No Discrepancies (61 of 74)
+## Measures with No Discrepancies (62 of 74)
 
 |  |  |  |
 | --- | --- | --- |
@@ -51,24 +51,24 @@ _2085 cells excluded across 3 measures._
 | [ CMS56FHIRFuncStatHipReplacement ](../../input/cql/CMS56FHIRFuncStatHipReplacement.cql) [ test ](../../input/tests/results/CMS56FHIRFuncStatHipReplacement.txt) | [ CMS139FHIRFallRiskScreening ](../../input/cql/CMS139FHIRFallRiskScreening.cql) [ test ](../../input/tests/results/CMS139FHIRFallRiskScreening.txt) | [ CMS832FHIRHHAKI ](../../input/cql/CMS832FHIRHHAKI.cql) [ test ](../../input/tests/results/CMS832FHIRHHAKI.txt) |
 | [ CMS68FHIRDocumentationCurrentMeds ](../../input/cql/CMS68FHIRDocumentationCurrentMeds.cql) [ test ](../../input/tests/results/CMS68FHIRDocumentationCurrentMeds.txt) | [ CMS142FHIRCommWithDrManagingDiab ](../../input/cql/CMS142FHIRCommWithDrManagingDiab.cql) [ test ](../../input/tests/results/CMS142FHIRCommWithDrManagingDiab.txt) | [ CMS951FHIRKidneyHealthEval ](../../input/cql/CMS951FHIRKidneyHealthEval.cql) [ test ](../../input/tests/results/CMS951FHIRKidneyHealthEval.txt) |
 | [ CMS69FHIRPCSBMIScreenAndFollowUp ](../../input/cql/CMS69FHIRPCSBMIScreenAndFollowUp.cql) [ test ](../../input/tests/results/CMS69FHIRPCSBMIScreenAndFollowUp.txt) | [ CMS143FHIRPOAGOpticNerveEval ](../../input/cql/CMS143FHIRPOAGOpticNerveEval.cql) [ test ](../../input/tests/results/CMS143FHIRPOAGOpticNerveEval.txt) | [ CMS986FHIRMalnutritionScore ](../../input/cql/CMS986FHIRMalnutritionScore.cql) [ test ](../../input/tests/results/CMS986FHIRMalnutritionScore.txt) |
-| [ CMS71FHIRSTKAnticoagAFFlutter ](../../input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql) [ test ](../../input/tests/results/CMS71FHIRSTKAnticoagAFFlutter.txt) | [ CMS146FHIRApproTestPharyngitis ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ test ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) | [ CMS1028FHIRPCSevereOBComps ](../../input/cql/CMS1028FHIRPCSevereOBComps.cql) [ test ](../../input/tests/results/CMS1028FHIRPCSevereOBComps.txt) |
-| [ CMS74FHIRDentalCariesPrevention ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ test ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) | [ CMS149FHIRDementiaCognitiveAssess ](../../input/cql/CMS149FHIRDementiaCognitiveAssess.cql) [ test ](../../input/tests/results/CMS149FHIRDementiaCognitiveAssess.txt) | [ CMS1056FHIRCTClinical ](../../input/cql/CMS1056FHIRCTClinical.cql) [ test ](../../input/tests/results/CMS1056FHIRCTClinical.txt) |
-| [ CMS75FHIRChildrenDentalDecay ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ test ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) | [ CMS153FHIRChlamydiaScreening ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ test ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) | [ CMS1074FHIRCTIQR ](../../input/cql/CMS1074FHIRCTIQR.cql) [ test ](../../input/tests/results/CMS1074FHIRCTIQR.txt) |
-| [ CMS90FHIRFSAforHeartFailure ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ test ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) | [ CMS154FHIRAppropriateTxforURI ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ test ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) | [ CMS1154ScreeningPrediabetesFHIR ](../../input/cql/CMS1154ScreeningPrediabetesFHIR.cql) [ test ](../../input/tests/results/CMS1154ScreeningPrediabetesFHIR.txt) |
-| [ CMS104FHIRSTKDCAntithrombotic ](../../input/cql/CMS104FHIRSTKDCAntithrombotic.cql) [ test ](../../input/tests/results/CMS104FHIRSTKDCAntithrombotic.txt) | [ CMS155FHIRWgtAssessCounseling ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ test ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) | [ CMS1157FHIRHIVRetention ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ test ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) |
-| [ CMS108FHIRVTEProphylaxis ](../../input/cql/CMS108FHIRVTEProphylaxis.cql) [ test ](../../input/tests/results/CMS108FHIRVTEProphylaxis.txt) | [ CMS157FHIRPainIntensityQuantified ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ test ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) | [ CMS1173FHIRDiagnosticDelayVTE ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ test ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt) |
-| [ CMS117FHIRChildImmunStatus ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ test ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) | [ CMS159FHIRDepRemissionat12Months ](../../input/cql/CMS159FHIRDepRemissionat12Months.cql) [ test ](../../input/tests/results/CMS159FHIRDepRemissionat12Months.txt) | [ CMS1188FHIRHIVSTITesting ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ test ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) |
-| [ CMS122FHIRDiabetesAssessGT9Pct ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ test ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) | [ CMS177FHIRChildMDDSuicideAssmt ](../../input/cql/CMS177FHIRChildMDDSuicideAssmt.cql) [ test ](../../input/tests/results/CMS177FHIRChildMDDSuicideAssmt.txt) | [ CMS1206FHIRCTOQR ](../../input/cql/CMS1206FHIRCTOQR.cql) [ test ](../../input/tests/results/CMS1206FHIRCTOQR.txt) |
-| [ CMS124FHIRCervicalCancerScreen ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ test ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) | [ CMS190FHIRVTEProphylaxisICU ](../../input/cql/CMS190FHIRVTEProphylaxisICU.cql) [ test ](../../input/tests/results/CMS190FHIRVTEProphylaxisICU.txt) | [ CMS1218FHIRHHRF ](../../input/cql/CMS1218FHIRHHRF.cql) [ test ](../../input/tests/results/CMS1218FHIRHHRF.txt) |
-| [ CMS125FHIRBreastCancerScreen ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ test ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) | [ CMS314FHIRHIVViralSuppression ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ test ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) | [ CMS1244FHIRECATHOQR ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ test ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) |
-| [ CMS128FHIRAntidepressantMgmt ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ test ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) | [ CMS349FHIRHIVScreening ](../../input/cql/CMS349FHIRHIVScreening.cql) [ test ](../../input/tests/results/CMS349FHIRHIVScreening.txt) | [ CMS1264FHIRECATREHQR ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ test ](../../input/tests/results/CMS1264FHIRECATREHQR.txt) |
-| [ CMS129FHIRProstCaBoneScanUse ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ test ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) | [ CMS506FHIRSafeUseofOpioids ](../../input/cql/CMS506FHIRSafeUseofOpioids.cql) [ test ](../../input/tests/results/CMS506FHIRSafeUseofOpioids.txt) | [ NHSNAcuteCareHospitalMonthlyInitialPopulation1 ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ test ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) |
-| [ CMS130FHIRColorectalCancerScrn ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ test ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) | [ CMSFHIR529HybridHospitalWideReadmission ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ test ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) | [ NHSNGlycemicControlHypoglycemiaInitialPopulation ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ test ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) |
-| [ CMS131FHIRDiabetesEyeExam ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ test ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) | [ CMS645FHIRBoneDensityPCADTherapy ](../../input/cql/CMS645FHIRBoneDensityPCADTherapy.cql) [ test ](../../input/tests/results/CMS645FHIRBoneDensityPCADTherapy.txt) |  |
+| [ CMS71FHIRSTKAnticoagAFFlutter ](../../input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql) [ test ](../../input/tests/results/CMS71FHIRSTKAnticoagAFFlutter.txt) | [ CMS146FHIRApproTestPharyngitis ](../../input/cql/CMS146FHIRApproTestPharyngitis.cql) [ test ](../../input/tests/results/CMS146FHIRApproTestPharyngitis.txt) | [ CMS1017FHIRHHFI ](../../input/cql/CMS1017FHIRHHFI.cql) [ test ](../../input/tests/results/CMS1017FHIRHHFI.txt) |
+| [ CMS74FHIRDentalCariesPrevention ](../../input/cql/CMS74FHIRDentalCariesPrevention.cql) [ test ](../../input/tests/results/CMS74FHIRDentalCariesPrevention.txt) | [ CMS149FHIRDementiaCognitiveAssess ](../../input/cql/CMS149FHIRDementiaCognitiveAssess.cql) [ test ](../../input/tests/results/CMS149FHIRDementiaCognitiveAssess.txt) | [ CMS1028FHIRPCSevereOBComps ](../../input/cql/CMS1028FHIRPCSevereOBComps.cql) [ test ](../../input/tests/results/CMS1028FHIRPCSevereOBComps.txt) |
+| [ CMS75FHIRChildrenDentalDecay ](../../input/cql/CMS75FHIRChildrenDentalDecay.cql) [ test ](../../input/tests/results/CMS75FHIRChildrenDentalDecay.txt) | [ CMS153FHIRChlamydiaScreening ](../../input/cql/CMS153FHIRChlamydiaScreening.cql) [ test ](../../input/tests/results/CMS153FHIRChlamydiaScreening.txt) | [ CMS1056FHIRCTClinical ](../../input/cql/CMS1056FHIRCTClinical.cql) [ test ](../../input/tests/results/CMS1056FHIRCTClinical.txt) |
+| [ CMS90FHIRFSAforHeartFailure ](../../input/cql/CMS90FHIRFSAforHeartFailure.cql) [ test ](../../input/tests/results/CMS90FHIRFSAforHeartFailure.txt) | [ CMS154FHIRAppropriateTxforURI ](../../input/cql/CMS154FHIRAppropriateTxforURI.cql) [ test ](../../input/tests/results/CMS154FHIRAppropriateTxforURI.txt) | [ CMS1074FHIRCTIQR ](../../input/cql/CMS1074FHIRCTIQR.cql) [ test ](../../input/tests/results/CMS1074FHIRCTIQR.txt) |
+| [ CMS104FHIRSTKDCAntithrombotic ](../../input/cql/CMS104FHIRSTKDCAntithrombotic.cql) [ test ](../../input/tests/results/CMS104FHIRSTKDCAntithrombotic.txt) | [ CMS155FHIRWgtAssessCounseling ](../../input/cql/CMS155FHIRWgtAssessCounseling.cql) [ test ](../../input/tests/results/CMS155FHIRWgtAssessCounseling.txt) | [ CMS1154ScreeningPrediabetesFHIR ](../../input/cql/CMS1154ScreeningPrediabetesFHIR.cql) [ test ](../../input/tests/results/CMS1154ScreeningPrediabetesFHIR.txt) |
+| [ CMS108FHIRVTEProphylaxis ](../../input/cql/CMS108FHIRVTEProphylaxis.cql) [ test ](../../input/tests/results/CMS108FHIRVTEProphylaxis.txt) | [ CMS157FHIRPainIntensityQuantified ](../../input/cql/CMS157FHIRPainIntensityQuantified.cql) [ test ](../../input/tests/results/CMS157FHIRPainIntensityQuantified.txt) | [ CMS1157FHIRHIVRetention ](../../input/cql/CMS1157FHIRHIVRetention.cql) [ test ](../../input/tests/results/CMS1157FHIRHIVRetention.txt) |
+| [ CMS117FHIRChildImmunStatus ](../../input/cql/CMS117FHIRChildImmunStatus.cql) [ test ](../../input/tests/results/CMS117FHIRChildImmunStatus.txt) | [ CMS159FHIRDepRemissionat12Months ](../../input/cql/CMS159FHIRDepRemissionat12Months.cql) [ test ](../../input/tests/results/CMS159FHIRDepRemissionat12Months.txt) | [ CMS1173FHIRDiagnosticDelayVTE ](../../input/cql/CMS1173FHIRDiagnosticDelayVTE.cql) [ test ](../../input/tests/results/CMS1173FHIRDiagnosticDelayVTE.txt) |
+| [ CMS122FHIRDiabetesAssessGT9Pct ](../../input/cql/CMS122FHIRDiabetesAssessGT9Pct.cql) [ test ](../../input/tests/results/CMS122FHIRDiabetesAssessGT9Pct.txt) | [ CMS177FHIRChildMDDSuicideAssmt ](../../input/cql/CMS177FHIRChildMDDSuicideAssmt.cql) [ test ](../../input/tests/results/CMS177FHIRChildMDDSuicideAssmt.txt) | [ CMS1188FHIRHIVSTITesting ](../../input/cql/CMS1188FHIRHIVSTITesting.cql) [ test ](../../input/tests/results/CMS1188FHIRHIVSTITesting.txt) |
+| [ CMS124FHIRCervicalCancerScreen ](../../input/cql/CMS124FHIRCervicalCancerScreen.cql) [ test ](../../input/tests/results/CMS124FHIRCervicalCancerScreen.txt) | [ CMS190FHIRVTEProphylaxisICU ](../../input/cql/CMS190FHIRVTEProphylaxisICU.cql) [ test ](../../input/tests/results/CMS190FHIRVTEProphylaxisICU.txt) | [ CMS1206FHIRCTOQR ](../../input/cql/CMS1206FHIRCTOQR.cql) [ test ](../../input/tests/results/CMS1206FHIRCTOQR.txt) |
+| [ CMS125FHIRBreastCancerScreen ](../../input/cql/CMS125FHIRBreastCancerScreen.cql) [ test ](../../input/tests/results/CMS125FHIRBreastCancerScreen.txt) | [ CMS314FHIRHIVViralSuppression ](../../input/cql/CMS314FHIRHIVViralSuppression.cql) [ test ](../../input/tests/results/CMS314FHIRHIVViralSuppression.txt) | [ CMS1218FHIRHHRF ](../../input/cql/CMS1218FHIRHHRF.cql) [ test ](../../input/tests/results/CMS1218FHIRHHRF.txt) |
+| [ CMS128FHIRAntidepressantMgmt ](../../input/cql/CMS128FHIRAntidepressantMgmt.cql) [ test ](../../input/tests/results/CMS128FHIRAntidepressantMgmt.txt) | [ CMS349FHIRHIVScreening ](../../input/cql/CMS349FHIRHIVScreening.cql) [ test ](../../input/tests/results/CMS349FHIRHIVScreening.txt) | [ CMS1244FHIRECATHOQR ](../../input/cql/CMS1244FHIRECATHOQR.cql) [ test ](../../input/tests/results/CMS1244FHIRECATHOQR.txt) |
+| [ CMS129FHIRProstCaBoneScanUse ](../../input/cql/CMS129FHIRProstCaBoneScanUse.cql) [ test ](../../input/tests/results/CMS129FHIRProstCaBoneScanUse.txt) | [ CMS506FHIRSafeUseofOpioids ](../../input/cql/CMS506FHIRSafeUseofOpioids.cql) [ test ](../../input/tests/results/CMS506FHIRSafeUseofOpioids.txt) | [ CMS1264FHIRECATREHQR ](../../input/cql/CMS1264FHIRECATREHQR.cql) [ test ](../../input/tests/results/CMS1264FHIRECATREHQR.txt) |
+| [ CMS130FHIRColorectalCancerScrn ](../../input/cql/CMS130FHIRColorectalCancerScrn.cql) [ test ](../../input/tests/results/CMS130FHIRColorectalCancerScrn.txt) | [ CMSFHIR529HybridHospitalWideReadmission ](../../input/cql/CMSFHIR529HybridHospitalWideReadmission.cql) [ test ](../../input/tests/results/CMSFHIR529HybridHospitalWideReadmission.txt) | [ NHSNAcuteCareHospitalMonthlyInitialPopulation1 ](../../input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql) [ test ](../../input/tests/results/NHSNAcuteCareHospitalMonthlyInitialPopulation1.txt) |
+| [ CMS131FHIRDiabetesEyeExam ](../../input/cql/CMS131FHIRDiabetesEyeExam.cql) [ test ](../../input/tests/results/CMS131FHIRDiabetesEyeExam.txt) | [ CMS645FHIRBoneDensityPCADTherapy ](../../input/cql/CMS645FHIRBoneDensityPCADTherapy.cql) [ test ](../../input/tests/results/CMS645FHIRBoneDensityPCADTherapy.txt) | [ NHSNGlycemicControlHypoglycemiaInitialPopulation ](../../input/cql/NHSNGlycemicControlHypoglycemiaInitialPopulation.cql) [ test ](../../input/tests/results/NHSNGlycemicControlHypoglycemiaInitialPopulation.txt) |
 | [ CMS133FHIRCataracts2040BCVA90Days ](../../input/cql/CMS133FHIRCataracts2040BCVA90Days.cql) [ test ](../../input/tests/results/CMS133FHIRCataracts2040BCVA90Days.txt) | [ CMS771FHIRUrinarySymptomScoreBPH ](../../input/cql/CMS771FHIRUrinarySymptomScoreBPH.cql) [ test ](../../input/tests/results/CMS771FHIRUrinarySymptomScoreBPH.txt) |  |
 
 
-## Measures with Discrepancies (13 of 74)
+## Measures with Discrepancies (12 of 74)
 
 _Every measure with a test case that doesn't match its fixture MeasureReport, or that matches only because the CQL works around an open issue. The `Issue` column names the issue that explains a test case: `I-XX (implementation)` is the measure steward's test data or expectation (see `defect-tracking/known-issues.md`), and `I-XX (workaround reverted)` means the case is failing again. Any other `I-XX` is a known issue, and the `Ticketed` column beside it says whether a ticket is owed: `N/A` for an implementation issue or a defect in our own content, fixture, or harness (nothing an upstream ticket tracks), `pending` for an engine/translator defect whose ticket is not filed yet, and a link to it once one is. A test case nothing resolves is counted as Unattributed._
 
@@ -86,7 +86,6 @@ _Every measure with a test case that doesn't match its fixture MeasureReport, or
 | [CMSFHIR844HybridHospitalWideMortality](#cmsfhir844hybridhospitalwidemortality) | 10 | 0 | 0 | 20.00%   (2) | 0 | 2 |
 | [CMS871FHIRHHHyper](#cms871fhirhhhyper) | 26 | 2 | 0 | 0.00%   (0) | 0 | 2 |
 | [CMS996FHIRAptTxforSTEMI](#cms996fhirapttxforstemi) | 114 | 0 | 0 | 0.88%   (1) | 0 | 0 |
-| [CMS1017FHIRHHFI](#cms1017fhirhhfi) | 65 | 0 | 0 | 3.08%   (2) | 0 | 2 |
 
 
 
@@ -338,21 +337,6 @@ Mismatched Test Cases (1 of 114)
 Issues
 
 - **I-71** (`implementation`): Active thrombolytic allergy uses onsetPeriod.end to mean it ended before the ED visit; with no abatement, prevalenceInterval() correctly runs to end of time and overlaps the encounter. The steward should mark it resolved with an allergyintolerance-abatement extension, or expect Denominator Exclusion 1.
-
-
-#### CMS1017FHIRHHFI
-[ [cql] ](../../input/cql/CMS1017FHIRHHFI.cql) [ [test results] ](../../input/tests/results/CMS1017FHIRHHFI.txt)
-
-Mismatched Test Cases (2 of 65)
-| Test Case | Group | Population | Expected | Actual | Issue | Ticketed |
-|---|---|---|:---:|:---:|---|---|
-| [ 0dfafc1a-cf94-4ca1-becf-c1b843896810 ](../.././input/tests/measure/CMS1017FHIRHHFI/0dfafc1a-cf94-4ca1-becf-c1b843896810/MeasureReport-cd491c44-6ed1-483f-8775-516f92b9c16d.json) | Group_1 | Numerator Exclusion | 0 | 1 | I-05 | N/A |
-| [ 5ff2713d-ca89-42ae-91bb-cba3e1d9a487 ](../.././input/tests/measure/CMS1017FHIRHHFI/5ff2713d-ca89-42ae-91bb-cba3e1d9a487/MeasureReport-74f8c3e3-881b-4ba8-bfdb-ceef555ed020.json) | Group_1 | Numerator Exclusion | 0 | 1 | I-05 | N/A |
-
-
-Issues
-
-- **I-05** (`content`): Numerator Exclusion 0 → 1. Cause not yet documented; needs re-triage.
 
 
 

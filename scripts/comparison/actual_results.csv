@@ -576,7 +576,7 @@ CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Initial Population,
 CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Denominator,2
 CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Denominator Exclusion,1
 CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator,1
-CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator Exclusion,1
+CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator Exclusion,0
 CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Denominator Observation,0
 CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator Observation,0
 CMS1017FHIRHHFI,113d43da-4cad-4907-804e-63afb7652b27,Group_1:Initial Population,1
@@ -744,7 +744,7 @@ CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Initial Population,
 CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Denominator,2
 CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Denominator Exclusion,1
 CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator,1
-CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator Exclusion,1
+CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator Exclusion,0
 CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Denominator Observation,0
 CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator Observation,0
 CMS1017FHIRHHFI,632475eb-a20a-43d6-baa7-f377ef8c5324,Group_1:Initial Population,1

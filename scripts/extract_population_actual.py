@@ -147,6 +147,10 @@ def validate_measure_population_counts(measurename: str, populations: Dict[str, 
             numer_count = 0
         if not numer and numex:
             numex_count = 0
+        elif isinstance(numex, list) and isinstance(numer, list):
+            numex_count = len([item for item in numex if item in numer])
+        elif numex and isinstance(numex_count, int) and isinstance(numer_count, int):
+            numex_count = min(numex_count, numer_count)
         if not denom and denex:
             denex_count = 0
         if not numer and not denom:
@@ -169,6 +173,14 @@ def validate_measure_population_counts(measurename: str, populations: Dict[str, 
             else:
                 if denex >= 1 and numer > 1:
                     numer_count = numer_count - denex_count
+        if numex:
+            if isinstance(numex, list) and isinstance(numer, list):
+                numex_count = len([item for item in numex if item in numer])
+            elif not numer:
+                numex_count = 0
+            elif isinstance(numex_count, int) and isinstance(numer_count, int):
+                # Fallback for mixed list/scalar shapes: numex cannot exceed numer
+                numex_count = min(numex_count, numer_count)
 
     # save updated scoring back to population, but only if the value already existed in the population
     if 'Numerator'in populations:

@@ -49,11 +49,10 @@ while the valueset it needed had never been committed.
 
 <!-- OPEN_ISSUES_BEGIN: generated from the issue catalog; don't edit by hand -->
 
-## Open issues (35)
+## Open issues (34)
 
 | ID | Issue | Class | Status | Ticket | Measures |
 |---|---|---|---|---|---|
-| I-05 | CMS1017 HHFI: 2 cases fail `Group_1:Numerator Exclusion` (expected 0, actual 1); the Numerator Exclusions and Denominator Exclusions defines are identical. Cause not yet documented | `content` | Open — confirmed | — | CMS1017 |
 | I-08 | CMS871 HH Hyperglycemia fixture MeasureReport / Denominator authoring mismatch. Needs re-confirmation: since the I-44 fix, every failing CMS871 cell is a missing result explained by I-63, and none matches this symptom | `content` | Open — needs re-confirmation | — | CMS871 |
 | I-12 | CMS0334 Cesarean Birth test case c58acff5 fails its expected Denominator and Denominator Exclusion because one fixture Encounter names its diagnosis with an unresolvable reference | `fixture` | Open — confirmed | — | CMS0334 |
 | I-14 | CMSFHIR844 fixture MeasureReport hand-authors the Initial Population; the engine computes 0 / 1 where 1 / 2 is expected (2 cases) | `content` | Open — confirmed | — | CMSFHIR844 |

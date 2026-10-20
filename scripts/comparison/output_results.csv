@@ -13256,7 +13256,7 @@ PASS,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Initial Popula
 PASS,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Denominator,2,2
 PASS,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Denominator Exclusion,1,1
 PASS,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator,1,1
-FAIL,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator Exclusion,0,1
+PASS,CMS1017FHIRHHFI,5ff2713d-ca89-42ae-91bb-cba3e1d9a487,Group_1:Numerator Exclusion,0,0
 PASS,CMS1017FHIRHHFI,21d7f7e1-3977-4227-8792-2e316460326f,Group_1:Initial Population,1,1
 PASS,CMS1017FHIRHHFI,21d7f7e1-3977-4227-8792-2e316460326f,Group_1:Denominator,1,1
 PASS,CMS1017FHIRHHFI,21d7f7e1-3977-4227-8792-2e316460326f,Group_1:Denominator Exclusion,1,1
@@ -13291,7 +13291,7 @@ PASS,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Initial Popula
 PASS,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Denominator,2,2
 PASS,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Denominator Exclusion,1,1
 PASS,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator,1,1
-FAIL,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator Exclusion,0,1
+PASS,CMS1017FHIRHHFI,0dfafc1a-cf94-4ca1-becf-c1b843896810,Group_1:Numerator Exclusion,0,0
 PASS,CMS1017FHIRHHFI,a2630a47-3cd8-470c-9fe2-8f4e1066a2d0,Group_1:Initial Population,1,1
 PASS,CMS1017FHIRHHFI,a2630a47-3cd8-470c-9fe2-8f4e1066a2d0,Group_1:Denominator,1,1
 PASS,CMS1017FHIRHHFI,a2630a47-3cd8-470c-9fe2-8f4e1066a2d0,Group_1:Denominator Exclusion,1,1

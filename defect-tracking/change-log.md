@@ -24,6 +24,12 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Normalize multi-episode Numerator Exclusion scoring in harness (I-05)
+
+**Problem:** In CMS1017 (and generally for multi-episode encounter-based measures), `validate_measure_population_counts()` in `scripts/extract_population_actual.py` did not constrain `Numerator Exclusion` to encounters that were actually members of the `Numerator`. Under HL7 CQF Measures IG v5.0.0 (Conformance Requirement 3.11), a Numerator Exclusion is defined as an exclusion *from the Numerator* (`Numerator ∩ Numerator Exclusion Criteria`). In multi-encounter patients such as `0dfafc1a` and `5ff2713d`, Encounter 1 meets Denominator Exclusion (Fall POA) and was never in Numerator, while Encounter 2 meets Numerator (inpatient fall with injury not POA). Encounter 1 cannot exclude from a Numerator it was never in. The harness's unconstrained list count emitted `actual = 1` vs `expected = 0`, causing two false FAILs.
+
+**Fix:** Updated `validate_measure_population_counts()` in `scripts/extract_population_actual.py` so that when `numex` is present in multi-episode groups (`denom_count >= 2`), `numex` is filtered against `numer` when both are lists (`len([item for item in numex if item in numer])`), zeroed if `numer` is empty, or bounded by `min(numex_count, numer_count)` when scalar counts occur. Added symmetrical list intersection handling in the `< 2` branch. Added unit tests covering disjoint multi-episode numex, matching numex, empty numer, and scalar bounds. Regenerated inner grid artifacts (`actual_results.csv`, `output_results.csv`, `discrepancy_report.md`), resolving both failing cells in CMS1017FHIRHHFI (now 100% pass: 325/325 cells).
+
 ## Document why CMS0334 test case `c58acff5` fails its expected Denominator / Denominator Exclusion (I-12)
 
 **Problem:** CMS0334 case `c58acff5` fails two cells (`Group_1:Denominator` and `Group_1:Denominator
