@@ -810,7 +810,7 @@ def render_no_discrepancy_section(non_discrepancy_measures: List[str],
 
     As a bullet list this was the tallest thing in the report: 52 measures, one
     ~200-character line each, because the measure name appears once as text and
-    again inside both link paths. A 3-column grid cuts that by two thirds.
+    again inside the link path. A 3-column grid cuts that by two thirds.
 
     Column-major, not row-major: alphabetical order runs *down* each column, so
     the list stays scannable like a phone book and the short final column stays
@@ -820,12 +820,15 @@ def render_no_discrepancy_section(non_discrepancy_measures: List[str],
     The measure name doubles as the CQL link label here (rather than the short
     `[cql]` used in the per-measure sections below, where the `####` heading has
     already named the measure). In a grid a bare `[cql]` identifies nothing.
+    There is no `test` link: the engine's `{Measure}.txt` traces it pointed at
+    were replaced by per-measure `TestCaseResult-*.json` directories, so every
+    such link was a dead 404.
     """
     if not non_discrepancy_measures:
         return []
 
     def cell(measure: str) -> str:
-        return f'{cql_file_link(measure)} {test_results_file_link(measure, "test")}'
+        return cql_file_link(measure)
 
     column_count = NO_DISCREPANCY_TABLE_COLUMNS
     rows_needed = -(-len(non_discrepancy_measures) // column_count)

@@ -188,12 +188,11 @@ class NoDiscrepancyGridTest(unittest.TestCase):
                    for c, cell in enumerate(row) if not cell]
         self.assertEqual(empties, [(1, 2), (2, 2)])
 
-    def test_every_cell_carries_both_file_links(self):
+    def test_every_cell_carries_the_cql_link(self):
         _, grid = self._grid(["CMS300FHIRTest"])
         cell = grid[0][0]
-        self.assertIn("[ CMS300FHIRTest ](../../input/cql/CMS300FHIRTest.cql)", cell)
-        self.assertIn(
-            "[ test ](../../input/tests/results/CMS300FHIRTest.txt)", cell)
+        self.assertEqual(
+            cell, "[ CMS300FHIRTest ](../../input/cql/CMS300FHIRTest.cql)")
 
     def test_no_measures_renders_no_section(self):
         self.assertEqual(render_no_discrepancy_section([], 74), [])

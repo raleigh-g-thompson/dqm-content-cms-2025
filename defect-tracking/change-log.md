@@ -2143,3 +2143,19 @@ extraction harness reports 0 for a case whose `Denominator Exclusion = 1`, per t
 proportion-conformance rule.
 
 **Measures Affected:** CMS771FHIRUrinarySymptomScoreBPH
+
+## Remove the dead `test` link from the report's clean-measures grid (harness)
+
+**Problem:** Every cell of `## Measures with No Discrepancies` in `scripts/comparison/discrepancy_report.md`
+carried a `[ test ](../../input/tests/results/{Measure}.txt)` link alongside the CQL link. The CQL
+plugin stopped writing those flat `{Measure}.txt` traces — it now writes per-measure
+`TestCaseResult-*.json` directories — so no `.txt` trace remains under `input/tests/results/` and
+every `test` link in the report 404s.
+
+**Fix:** `render_no_discrepancy_section()` in `scripts/compare_results.py` now emits only the CQL
+link (whose label is still the measure name) per cell. `test_results_file_link()` is unchanged and
+still serves the `[test results]` links in the per-measure discrepancy sections. Updated the
+docstring and the unit test accordingly; regenerated `actual_results.csv`,
+`output_results.csv`, and `discrepancy_report.md`.
+
+**Measures Affected:** none (report rendering only; the link removal itself changes no verdict)

@@ -400,8 +400,8 @@ CMS0334FHIRPCCesareanBirth,c3028ba0-bc40-4c4a-92da-8ac76bab737b,Group_1:Denomina
 CMS0334FHIRPCCesareanBirth,c3028ba0-bc40-4c4a-92da-8ac76bab737b,Group_1:Denominator Exclusion,0
 CMS0334FHIRPCCesareanBirth,c3028ba0-bc40-4c4a-92da-8ac76bab737b,Group_1:Numerator,0
 CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Initial Population,1
-CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator,0
-CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator Exclusion,0
+CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator,1
+CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator Exclusion,1
 CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Numerator,0
 CMS0334FHIRPCCesareanBirth,c5af304c-319a-4b77-89e9-e51d5db99832,Group_1:Initial Population,1
 CMS0334FHIRPCCesareanBirth,c5af304c-319a-4b77-89e9-e51d5db99832,Group_1:Denominator,0

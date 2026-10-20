@@ -20097,8 +20097,8 @@ PASS,CMS0334FHIRPCCesareanBirth,f2b2fe3f-ad3c-42ae-b262-73345ec66e07,Group_1:Den
 PASS,CMS0334FHIRPCCesareanBirth,f2b2fe3f-ad3c-42ae-b262-73345ec66e07,Group_1:Denominator Exclusion,0,0
 PASS,CMS0334FHIRPCCesareanBirth,f2b2fe3f-ad3c-42ae-b262-73345ec66e07,Group_1:Numerator,0,0
 PASS,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Initial Population,1,1
-FAIL,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator,1,0
-FAIL,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator Exclusion,1,0
+PASS,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator,1,1
+PASS,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Denominator Exclusion,1,1
 PASS,CMS0334FHIRPCCesareanBirth,c58acff5-248b-49c9-b18d-69e4a84a08d9,Group_1:Numerator,0,0
 PASS,CMS0334FHIRPCCesareanBirth,cb800af9-771b-4850-a175-8e3b9ffbbfc3,Group_1:Initial Population,0,0
 PASS,CMS0334FHIRPCCesareanBirth,cb800af9-771b-4850-a175-8e3b9ffbbfc3,Group_1:Denominator,0,0
