@@ -193,6 +193,8 @@ define "Bipolar Disorder Diagnosis":
 
 define "Schizophrenia Diagnosis":
   // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+  // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+  // Affected test cases: all 59 CMS156 cases (library-wide translate failure)
   // Original:
   // ( [ConditionProblemsHealthConcerns: "Schizophrenia"]
   //     union [ConditionEncounterDiagnosis: "Schizophrenia"]
@@ -201,6 +203,8 @@ define "Schizophrenia Diagnosis":
 
 define "Seizure Disorder Diagnosis":
   // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+  // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+  // Affected test cases: all 59 CMS156 cases (library-wide translate failure)
   // Original:
   // ( [ConditionProblemsHealthConcerns: "Seizure Disorder"]
   //     union [ConditionEncounterDiagnosis: "Seizure Disorder"]
@@ -230,6 +234,11 @@ define "Generalized Anxiety Disorder Diagnosis":
 define "Antipsychotic Index Prescription Start Date":
   First((([USQualityCore.MedicationRequest: "Potentially Harmful Antipsychotics for Older Adults"]).isMedicationOrder()) AntipsychoticMedication
       where AntipsychoticMedication.authoredOn during "Measurement Period"
+      // [I-33] Raw FHIR.dateTime fed to `sort` throws "Values FHIR.dateTime and FHIR.dateTime are not comparable"
+      // Upstream ticket: (pending)
+      // Affected test cases: all 59 CMS156 cases (library-wide index-prescription defines)
+      // original
+      //   return AntipsychoticMedication.authoredOn
       return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)
       sort asc
   )
@@ -237,6 +246,11 @@ define "Antipsychotic Index Prescription Start Date":
 define "Benzodiazepine Index Prescription Start Date":
   First((([USQualityCore.MedicationRequest: "Potentially Harmful Benzodiazepines for Older Adults"]).isMedicationOrder()) BenzodiazepineMedication
       where BenzodiazepineMedication.authoredOn during "Measurement Period"
+      // [I-33] Raw FHIR.dateTime fed to `sort` throws "Values FHIR.dateTime and FHIR.dateTime are not comparable"
+      // Upstream ticket: (pending)
+      // Affected test cases: all 59 CMS156 cases (library-wide index-prescription defines)
+      // original
+      //   return BenzodiazepineMedication.authoredOn
       return FHIRHelpers.ToDateTime(BenzodiazepineMedication.authoredOn)
       sort asc
   )
@@ -298,6 +312,9 @@ define fluent function medicationStrengthPerUnit(Strength Concept):
 
 define fluent function medicationRequestPeriodInDays(Request MedicationRequest):
   Request R
+    // [I-25] `singleton from` on an empty list throws instead of returning null - no CQL workaround (fixture-side enrichment only)
+    // Upstream ticket: (pending)
+    // Affected test cases: c409fbc9, 07f11229 (GUID prefixes)
     let dosage: singleton from R.dosageInstruction,
     doseAndRate: singleton from dosage.doseAndRate,
     timing: dosage.timing,
@@ -317,10 +334,11 @@ define fluent function medicationRequestPeriodInDays(Request MedicationRequest):
     totalDaysSupplied: Coalesce(daysSupply, quantity.value /(dose.value * dosesPerDay)) * ( 1 + refills )
     return totalDaysSupplied
 
-// 2026-10-02
-// - the function returns grams/second
-// - the resultant is so small the value gets truncated and 0.00000000 is returned
-// - Issue is related to https://github.com/cqframework/clinical_quality_language/issues/1690
+// [I-24] Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`)
+// The function returned grams/second; the result was so small it truncated to 0.00000000, so the
+// `> 0.125 'mg/d'` and `> 6 'mg/d'` comparisons could never be true.
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1690
+// Affected test cases: 4aa75d19 (GUID prefixes)
 // original
 // define fluent function averageDailyDose(MedicationRequest MedicationRequest):
 //   MedicationRequest Order

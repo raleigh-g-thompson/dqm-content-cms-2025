@@ -61,15 +61,19 @@ define "Numerator":
 define "Denominator Exceptions":
   "Qualifying Encounter During Day of Measurement Period" QualifyingEncounter
     with [USQualityCore.ProcedureNotDone: code ~ "Documentation of current medications (procedure)"] MedicationsNotDocumented
-      // original: such that MedicationsNotDocumented.recorded ( ) during day of QualifyingEncounter.period
-      // ** This solution won't work because of an ambiguous call at runtime between the 2 Procedure recorded **
-      // ** fluent functions in USQualityCoreCommon.cql library. See the library file for more details        **
-      // Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
+      // [I-55] `recordedProcedureNotDone()` instead of `.recorded()`: recorded(ProcedureNotDone) is ambiguous with recorded(Procedure) - dodges the I-18 overload ambiguity
+      // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1855
+      // Affected test cases: all 19 CMS68 cases (library-wide .ext() bypass)
+      // original
+      //   such that MedicationsNotDocumented.recorded ( ) during day of QualifyingEncounter.period
       such that MedicationsNotDocumented.recordedProcedureNotDone() during day of QualifyingEncounter.period
         and MedicationsNotDocumented.status = 'not-done'
         and exists ( MedicationsNotDocumented.reasonCode reasonItem
             where reasonItem ~ "Acute health crisis (finding)"
         )
 
+// [I-55] `.ext()` instead of `.recorded()`: the shared `recorded()` overload is ambiguous for ProcedureNotDone - dodges the I-18 overload ambiguity
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1855
+// Affected test cases: all 19 CMS68 cases (library-wide .ext() bypass)
 define fluent function recordedProcedureNotDone(procedureNotDone ProcedureNotDone):
   procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime

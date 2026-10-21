@@ -381,11 +381,13 @@ define "No Mechanical VTE Prophylaxis Performed Or Ordered":
         return {
           id: DeviceNotApplied.id,
           requestStatusReason: DeviceNotApplied.statusReason,
-          // Original: let DeviceNotDoneTiming: DeviceNotApplied.performed; authoredOn: DeviceNotDoneTiming
-          // Proposed: authoredOn: DeviceNotApplied.recorded()
-          // ** Proposed solution won't work because of an ambiguous call at runtime between the 2 Procedure recorded **
-          // ** fluent functions in USQualityCoreCommon.cql library. See the library file for more details            **
-          // Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
+          // [I-55] `.ext()` instead of `.recorded()`: recorded(ProcedureNotDone) is ambiguous with recorded(Procedure) - dodges the I-18 overload ambiguity
+          // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1855
+          // Affected test cases: all 125 CMS190 cases (library-wide .ext() bypass)
+          // original
+          //   let DeviceNotDoneTiming: DeviceNotApplied.performed; authoredOn: DeviceNotDoneTiming
+          // proposed (not applied - ambiguous overload)
+          //   authoredOn: DeviceNotApplied.recorded()
           authoredOn: DeviceNotApplied.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
         }
     )

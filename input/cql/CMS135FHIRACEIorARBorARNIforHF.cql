@@ -117,7 +117,7 @@ define "Has Diagnosis of Renal Failure Due to ACEI":
 // when MedicationRequest.medication is a Reference (medicationReference) instead of a CodeableConcept,
 // aborting the whole library before any define evaluates.
 // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1868
-// Affected CMS135 cases: c095195c, cba5a449, ec508dbb.
+// Affected test cases: c095195c, cba5a449, ec508dbb (GUID prefixes).
 define "Has Medical or Patient Reason for Not Ordering ACEI or ARB or ARNI":
   exists ( [USQualityCore.MedicationNotRequested: medication in "ACE Inhibitor or ARB or ARNI"] NoACEIOrARBOrARNIOrdered
       where NoACEIOrARBOrARNIOrdered.isMedicationNotRequestedOrderedDuringHeartFailureOutpatientEncounter ( )

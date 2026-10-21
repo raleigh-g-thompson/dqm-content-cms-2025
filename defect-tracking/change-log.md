@@ -24,6 +24,211 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Normalize every known-issue comment to the full issue-comment block
+
+**Problem:** the issue-comment convention has two spellings in this repo. The tooling repo's
+`AGENTS.md` prescribes the full block — issue id, one-line summary, `Upstream ticket:`,
+`Affected test cases:` — and the six most recent exemplars (CMS0334 I-12, CMS135 I-26, CMS145
+I-78, CMS871 I-63, CMS144 I-28, CMS156 I-24) all use it. But 74 of the 95 issue-comment sites
+still used the older one-line form (`// [I-28] base FHIR.Condition retrieve
+(defect-tracking/known-issues.md)`), and 10 sites that carry a known defect had no marker at
+all: the I-33 `FHIRHelpers.ToDateTime()` conversions in CMS156, the I-25 `singleton from` sites
+in CMS156, the I-26 dementia-medications retrieve in `AdvancedIllnessandFrailty`, the `.ext()`
+bypass in CMS108 / CMS190 / CMS68, and the commented-out `recorded(ProcedureNotDone)` overload
+in `USQualityCoreCommon`. The same `.ext()` bypass was documented four different ways across
+five files. A reader could not tell which upstream ticket a workaround belonged to, or how far
+its blast radius reached.
+
+**Fix (comment only, no logic change):** every issue-comment site now carries the full block.
+
+1. **74 legacy sites normalized** — 71 I-28 sites (70 across 30 measures, plus the
+   `defectHelper` scaffold) and 3 I-55 sites (CMS996 ×2, CMS646 ×1) gained the two missing
+   lines. The issue id and the measure-specific description of each site were left untouched;
+   only `Upstream ticket:` and `Affected test cases:` were inserted, directly after the marker
+   line and before the existing `// Original:` block. The I-28 ticket is
+   `cqframework/clinical_quality_language#1872`; the I-55 ticket is `#1855`. Because I-28 and
+   I-55 have no per-case attribution in `cases.csv` by design, the affected-case line uses the
+   library-wide form already established by CMS144's I-28 sites: `all N <Measure> cases`, where
+   `N` is the measure's distinct test-case count in the harness grid
+   (`scripts/comparison/expected_results.csv`) — verified to equal the case-directory count.
+   I-28's parenthetical is `(library-wide translate failure)`, I-55's is
+   `(library-wide .ext() bypass)`.
+2. **8 sites restructured** — in CMS124, CMS138, CMS56, CMS69 (×3) and CMS90 (×2) the marker
+   was a trailing comment on a code line (`union ( // [I-28] …`). The marker was moved to a
+   standalone comment block immediately above the code line so that every line of the block
+   starts `//` in the same column, as the convention requires. Only the trailing comment was
+   removed from the code line; no token changed.
+3. **10 missing markers added** — I-33 (CMS156 ×2, the `FHIRHelpers.ToDateTime()` conversion
+   that makes `sort asc` comparable), I-25 (CMS156, the `singleton from` sites), I-26
+   (`AdvancedIllnessandFrailty`, the CMS165 dementia-medications fix-site), I-55 (CMS108,
+   CMS190, CMS68 ×2 — the `.ext()` bypass and the measure-local `recordedProcedureNotDone()`),
+   and I-18 (`USQualityCoreCommon`, the commented-out overload). The four `.ext()` bypass sites
+   that had no issue id now all carry `[I-55]`, matching the three that already did; the
+   ambiguity they dodge is named in the summary line (I-18).
+4. **Two label deviations fixed** — CMS0334's I-12 and CMS135's I-26 used
+   `Affected <Measure> cases:`; both now use the standard `Affected test cases:` label.
+
+Two of the new markers document a defect site rather than a CQL workaround, and are marked as
+such in their summary line: I-25's workaround is fixture-side enrichment
+(`workaround = "Fixture-side enrichment"`), and I-26 has no CQL workaround at all
+(`workaround = "**None (CQL) — fixture-side deflection only**"`). Neither site carries an
+`// original` block, because neither replaced any code. I-25 and I-33 have no upstream ticket
+in the catalog, so their blocks carry `Upstream ticket: (pending)`.
+
+**Example — legacy site normalized (I-28, one of 74):**
+
+```cql
+// before
+// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+// Original:
+
+// after
+// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+// Affected test cases: all 45 CMS117 cases (library-wide translate failure)
+// Original:
+```
+
+**Example — trailing marker restructured (I-28, one of 8):**
+
+```cql
+// before
+    union ( // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+
+// after
+    // [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+    // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+    // Affected test cases: all 34 CMS124 cases (library-wide translate failure)
+    union (
+```
+
+**Example — missing marker added (I-33, CMS156):**
+
+```cql
+// before
+      where AntipsychoticMedication.authoredOn during "Measurement Period"
+      return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)
+
+// after
+      where AntipsychoticMedication.authoredOn during "Measurement Period"
+      // [I-33] Raw FHIR.dateTime fed to `sort` throws "Values FHIR.dateTime and FHIR.dateTime are not comparable"
+      // Upstream ticket: (pending)
+      // Affected test cases: all 59 CMS156 cases (library-wide index-prescription defines)
+      // original
+      //   return AntipsychoticMedication.authoredOn
+      return FHIRHelpers.ToDateTime(AntipsychoticMedication.authoredOn)
+```
+
+**Example — `.ext()` bypass given an issue id (I-55, CMS108):**
+
+```cql
+// before
+          // Original: authoredOn: DeviceNotApplied.performed
+          // Proposed: authoredOn: DeviceNotApplied.recorded()
+          // ** Proposed solution won't work because of an ambiguous call at runtime between the 2 Procedure recorded **
+          // ** fluent functions in USQualityCoreCommon.cql library. See the library file for more details            **
+// Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
+
+// after
+          // [I-55] `.ext()` instead of `.recorded()`: recorded(ProcedureNotDone) is ambiguous with recorded(Procedure) - dodges the I-18 overload ambiguity
+          // Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1855
+          // Affected test cases: all 140 CMS108 cases (library-wide .ext() bypass)
+          // original
+          //   authoredOn: DeviceNotApplied.performed
+          // proposed (not applied - ambiguous overload)
+          //   authoredOn: DeviceNotApplied.recorded()
+```
+
+**Verified 2026-10-21:** comment-only change, so no translation or behavior change — the
+compiled ELM and every test result are unchanged. All 95 issue-comment sites now carry an
+issue id, an upstream ticket, and an affected-test-cases line.
+
+**Measures Affected:** CMS0334FHIRPCCesareanBirth, CMS108FHIRVTEProphylaxis,
+CMS1154ScreeningPrediabetesFHIR, CMS1157FHIRHIVRetention, CMS117FHIRChildImmunStatus,
+CMS1188FHIRHIVSTITesting, CMS124FHIRCervicalCancerScreen, CMS128FHIRAntidepressantMgmt,
+CMS129FHIRProstCaBoneScanUse, CMS131FHIRDiabetesEyeExam, CMS133FHIRCataracts2040BCVA90Days,
+CMS135FHIRACEIorARBorARNIforHF, CMS136FHIRChildADHDMedFollowUp,
+CMS138FHIRTobaccoScrnCessation, CMS142FHIRCommWithDrManagingDiab,
+CMS143FHIRPOAGOpticNerveEval, CMS153FHIRChlamydiaScreening, CMS155FHIRWgtAssessCounseling,
+CMS156FHIRHighRiskMedsElderly, CMS157FHIRPainIntensityQuantified,
+CMS159FHIRDepRemissionat12Months, CMS190FHIRVTEProphylaxisICU, CMS314FHIRHIVViralSuppression,
+CMS347FHIRStatinPreventionTxCVD, CMS349FHIRHIVScreening, CMS56FHIRFuncStatHipReplacement,
+CMS645FHIRBoneDensityPCADTherapy, CMS646FHIRIntravesicalBCGTherapy,
+CMS68FHIRDocumentationCurrentMeds, CMS69FHIRPCSBMIScreenAndFollowUp,
+CMS75FHIRChildrenDentalDecay, CMS771FHIRUrinarySymptomScoreBPH,
+CMS90FHIRFSAforHeartFailure, CMS951FHIRKidneyHealthEval, CMS996FHIRAptTxforSTEMI.
+Also edited: the shared libraries `AdvancedIllnessandFrailty.cql` (I-26) and
+`USQualityCoreCommon.cql` (I-18), and the `defectHelper.cql` scaffold probe (I-28).
+
+## Ticket I-55 upstream and state the issue-comment convention once
+
+**Problem:** I-55 (`defect_status = workaround-applied`) had an empty `[references]` block in
+its dossier, so it had no upstream ticket even though the underlying translator ambiguity is
+filed upstream as `cqframework/clinical_quality_language#1855` — the same report cited by its
+sibling issues I-18 and I-37, and named in I-55's own status line ("I-18 ambiguity still open
+upstream"). Separately, this repo's `AGENTS.md` and `known-issues.md` still documented the old
+one-line issue-comment form, which contradicted the full form the tooling repo prescribes and
+that the recent exemplars use.
+
+**Fix:**
+
+1. `defect-tracking/issues/I-55.md` gained
+   `upstream_issue = "https://github.com/cqframework/clinical_quality_language/issues/1855"`
+   in `[references]`, plus a body note naming the ticket. The catalog was regenerated
+   (`build_catalog.py`, `generate_engine_issues_doc.py`, `generate_inner_issue_files.py`).
+   I-55 has no per-case rows in `cases.csv` by design, so `known_issues.csv` and
+   `implementation_issues.csv` are unchanged and the report's `FAIL` → `KNOWN_ISSUE` routing
+   is unaffected; only the ticket cell of the Open issues table changes.
+2. This repo's `AGENTS.md` and `defect-tracking/known-issues.md` now document the full
+   issue-comment block (issue id, one-line summary, `Upstream ticket:`,
+   `Affected test cases:`), state that `Upstream ticket:` is required with `(pending)` as the
+   placeholder for an unfiled ticket, and state that a replaced original is kept commented out
+   immediately above the replacement under an `// original` line.
+
+**Verified 2026-10-21:** `python3 scripts/check_generated.py` reports no drift and
+`python3 -m pytest` passes in the tooling repo.
+
+**Measures Affected:** none (issue-catalog and documentation change only).
+
+## Tag the CMS156 `averageDailyDose()` workaround with its issue id (I-24)
+
+**Problem:** the comment above `averageDailyDose()` documented the defect in prose and pointed at
+the upstream ticket, but it carried no `I-24` id, no `Upstream ticket:` line, and no affected
+test cases, so it did not match the issue-comment convention the other measures follow (CMS871
+I-63, CMS145 I-78, CMS144 I-28, CMS135 I-26).
+
+**Fix (comment only, no logic change):** rewrote the comment header in the canonical order —
+issue id and a one-line summary, then `Upstream ticket:`, then `Affected test cases:` — and kept
+the original function commented out below it. The compiled CQL and every test result are
+unchanged; only the provenance of the workaround is now machine-readable. The 2026-10-02 date
+was dropped from the comment because no other measure's issue comment carries one; the date
+stays in this log.
+
+**Example:**
+
+```cql
+// before
+// 2026-10-02
+// - the function returns grams/second
+// - the resultant is so small the value gets truncated and 0.00000000 is returned
+// - Issue is related to https://github.com/cqframework/clinical_quality_language/issues/1690
+// original
+
+// after
+// [I-24] Quantity division across dimensions rounds to zero (`mg / d` normalizes to g/s and rounds to `0E-8`)
+// The function returned grams/second; the result was so small it truncated to 0.00000000, so the
+// `> 0.125 'mg/d'` and `> 6 'mg/d'` comparisons could never be true.
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1690
+// Affected test cases: 4aa75d19 (GUID prefixes)
+// original
+```
+
+**Verified 2026-10-21:** comment-only change, so no translation or behavior change. Test case
+`4aa75d19` stays green under the I-24 workaround — 12/12 cells `WORKAROUND` in
+`scripts/comparison/output_results.csv`.
+
+**Measures Affected:** CMS156FHIRHighRiskMedsElderly
+
 ## Surface the I-28 workaround (preferred pattern) in `discrepancy_report.md`
 
 **Problem:** I-28's base-`FHIR.Condition` workaround is applied library-wide in 31 measures, but

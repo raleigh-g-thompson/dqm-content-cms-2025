@@ -15,8 +15,18 @@ matching family as a one-line fingerprint plus the fix, and cite the `I-` id in
 your `change-log.md` entry. Its row leaves **Open issues** on the next update.
 To report something new, open an issue on this repository.
 
-Issue ids also appear in CQL comments next to the affected logic, e.g.
-`// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)`.
+Issue ids also appear in CQL comments next to the affected logic. Use the full block —
+issue id, one-line summary, upstream ticket, affected test cases — e.g.
+
+```cql
+// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+// Affected test cases: all 45 CMS117 cases (library-wide translate failure)
+```
+
+`Upstream ticket:` is required; use `(pending)` when no ticket is filed yet. When code
+was replaced, keep the original commented out immediately above the replacement under
+an `// original` line, with every line of that block starting `//` in the same column.
 
 ## Root-cause classes
 
@@ -70,7 +80,7 @@ while the valueset it needed had never been committed.
 | I-31 | Singleton-source query skips `return` when its source is null, so `FHIRCommon.prevalenceInterval()` returns null for a non-active or no-status Condition with no abatement end | `engine` | Worked around (CMS108, CMS71) | — | CMS108, CMS71 |
 | I-33 | Raw `FHIR.dateTime` returned from a define breaks `sort` and a mixed-type `Interval` endpoint — `"Values FHIR.dateTime and FHIR.dateTime are not comparable"` (CMS156 Index Prescription Start Date; CMS646 `342d2bec`) | `engine` | Worked around (CMS156); CMS646 `342d2bec` open | — | CMS156, CMS646 |
 | I-37 | Ambiguous `recorded(...)` overload in `USQualityCoreCommon` threw and aborted CMS68 `f2e2e1c0`; the overload was removed and its call sites bypassed (see `change-log.md`) | `translator` | Worked around | [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | CMS68, CMS190 |
-| I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | — | CMS190, CMS996, CMS108, CMS68, CMS646 |
+| I-55 | Field swapped `.recorded` → `.effective`/`.performed` to dodge a translator ambiguity | `migration` | Worked around | [cqframework/clinical_quality_language#1855](https://github.com/cqframework/clinical_quality_language/issues/1855) | CMS190, CMS996, CMS108, CMS68, CMS646 |
 | I-56 | `AHAOverall.cql` Choice narrowing dropped `ConditionProblemsHealthConcerns` support (CMS144) | `migration` | Open — confirmed | — | CMS144 |
 | I-61 | Translator's ChoiceType compatibility check bypasses a registered FHIRHelpers conversion when a union produces divergent tuple-element types, leaving raw `FHIR.instant` `INRLabTest.issued` unconverted (CMS108/CMS190 INR Low Risk Indicator); also seen in CMS986's `union` of raw `authoredOn` with a converted `System.DateTime` (Hospice/Dietitian Referral defines) | `translator` | Worked around | — | CMS108, CMS190, CMS986 |
 | I-62 | The test-case report cannot invoke per-member `cqfm-aggregateMethod` measure-observations for ratio / continuous-variable measures, so those cells are excluded from automated scoring | `harness` | Worked around | — | CMS1017, CMS871, CMS986 |

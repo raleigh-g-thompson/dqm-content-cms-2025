@@ -174,12 +174,11 @@ define fluent function recorded(procedure Procedure):
 /*
 @description: Returns the value of the recorded extension for a Procedure Not Done
 */
-// 2026-10-02: 
-// - Issue Reported here: https://github.com/cqframework/clinical_quality_language/issues/1855
-// - This won't work because it is ambiguous with the recorded(procedure Procedure) fluent function.
-// - The engine dispatches on model types not profiles. So recorded(procedure Procedure) and recorded(procedureNotDone ProcedureNotDone)
-//   have the same parameter signature, FHIR.Procedure types. At runtime the engine doesn't know which function to call.
-// - There should be a warning/error letting the library author know that this is not allowed.  
+// [I-18] Ambiguous fluent overload - recorded(procedure Procedure) and recorded(procedureNotDone ProcedureNotDone)
+// share one runtime signature (the engine dispatches on model types, not profiles), so the overload below stays commented out
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1855
+// Affected test cases: n/a (shared library; per-measure impact tracked under I-18)
+// original
 // define fluent function recorded(procedureNotDone ProcedureNotDone):
 //   procedureNotDone.ext('http://fhir.org/guides/astp/us-quality-core/StructureDefinition/us-quality-core-recorded').value as FHIR.dateTime
 

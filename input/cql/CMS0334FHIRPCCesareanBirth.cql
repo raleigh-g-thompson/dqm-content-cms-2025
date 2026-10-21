@@ -76,7 +76,7 @@ define "Delivery Encounter With Gestational Age Greater Than Or Equal To 37 Week
 // case is expected to keep failing; it is a test-data defect, not a translator or engine
 // defect.
 // Upstream ticket: N/A (fixture data, not a translator/engine issue)
-// Affected CMS0334 cases: c58acff5.
+// Affected test cases: c58acff5 (GUID prefixes).
 define "Denominator":
   "Singleton Delivery Encounters At 37 Plus Weeks Gravida 1 Parity 0, No Previous Births"
 

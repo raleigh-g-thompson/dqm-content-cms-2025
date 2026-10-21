@@ -26,8 +26,18 @@ python3 -m pytest
   "fixing" something, so you don't undo a deliberate decision. Add an entry for any CQL, FHIR
   resource/fixture, or valueset change you apply.
 
-Issue ids appear in CQL comments next to the affected logic, e.g.
-`// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)`.
+Issue ids appear in CQL comments next to the affected logic. Use the full block —
+issue id, one-line summary, upstream ticket, affected test cases — e.g.
+
+```cql
+// [I-28] base FHIR.Condition retrieve (defect-tracking/known-issues.md)
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/issues/1872
+// Affected test cases: all 45 CMS117 cases (library-wide translate failure)
+```
+
+`Upstream ticket:` is required; use `(pending)` when no ticket is filed yet. When code
+was replaced, keep the original commented out immediately above the replacement under
+an `// original` line, with every line of that block starting `//` in the same column.
 
 Deeper per-issue analysis (reproduction steps, engine/translator root causes, ELM traces) lives in
 a separate internal tooling repo, keyed by the same `I-XX` ids.
