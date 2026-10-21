@@ -560,15 +560,15 @@ def render_i28_workaround_note_section(measures: Sequence[str]) -> List[str]:
         "the union expresses, so the change is semantics-preserving, and it is "
         "the only form the translator resolves "
         "today. It is a workaround, not a fix: the original union code is "
-        "correct CQL, and I-28 is the translator defect that blocks it "
+        "valid CQL, and I-28 is the translator defect that blocks it "
         "(`Choice<...>` arguments are not widened to base `Condition`, for "
         "either a shared-library `prevalenceInterval` overload or an ancestor "
         "overload). The union defect is tracked by "
         f"[cqframework/clinical_quality_language#1872]({I28_TICKET}); once that "
-        "ticket closes, these measures' workarounds should be reverted to the "
-        "original union code. Individual test cases are not listed because the "
-        "workaround is library-wide: every test case of every measure below "
-        "runs it._\n")
+        "ticket closes, these measures' workarounds could be reverted to the "
+        "original union code, but using just Condition is the preferred pattern."
+        "Individual test cases are not listed because the workaround is "
+        "library-wide: every test case of every measure below runs it._\n")
     out.append("\n")
     sorted_measures = sort_measure_names(list(measures))
     column_count = NO_DISCREPANCY_TABLE_COLUMNS

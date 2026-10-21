@@ -1,7 +1,7 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-21 07:37:18.355169 |
+| Generated | 2026-10-21 07:45:57.323797 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 10 |
@@ -43,7 +43,7 @@ _2085 cells excluded across 3 measures._
 
 ## I-28 Workaround Note
 
-_31 measures include the I-28 workaround: the original sibling-profile `[ConditionProblemsHealthConcerns: ...] union [ConditionEncounterDiagnosis: ...]` retrieves were replaced with a single base `[FHIR.Condition: ...]` retrieve. The base-`Condition` retrieve is the preferred CQL pattern for this content while I-28 is open -- it selects the same Conditions the union expresses, so the change is semantics-preserving, and it is the only form the translator resolves today. It is a workaround, not a fix: the original union code is correct CQL, and I-28 is the translator defect that blocks it (`Choice<...>` arguments are not widened to base `Condition`, for either a shared-library `prevalenceInterval` overload or an ancestor overload). The union defect is tracked by [cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872); once that ticket closes, these measures' workarounds should be reverted to the original union code. Individual test cases are not listed because the workaround is library-wide: every test case of every measure below runs it._
+_31 measures include the I-28 workaround: the original sibling-profile `[ConditionProblemsHealthConcerns: ...] union [ConditionEncounterDiagnosis: ...]` retrieves were replaced with a single base `[FHIR.Condition: ...]` retrieve. The base-`Condition` retrieve is the preferred CQL pattern for this content while I-28 is open -- it selects the same Conditions the union expresses, so the change is semantics-preserving, and it is the only form the translator resolves today. It is a workaround, not a fix: the original union code is valid CQL, and I-28 is the translator defect that blocks it (`Choice<...>` arguments are not widened to base `Condition`, for either a shared-library `prevalenceInterval` overload or an ancestor overload). The union defect is tracked by [cqframework/clinical_quality_language#1872](https://github.com/cqframework/clinical_quality_language/issues/1872); once that ticket closes, these measures' workarounds could be reverted to the original union code, but using just Condition is the preferred pattern.Individual test cases are not listed because the workaround is library-wide: every test case of every measure below runs it._
 
 |  |  |  |
 | --- | --- | --- |
