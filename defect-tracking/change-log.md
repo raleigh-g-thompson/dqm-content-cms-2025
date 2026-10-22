@@ -24,6 +24,54 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
 
+## Normalize I-31 workaround comments in CMS108 and CMS71 and record reclassification (engine → vendored)
+
+**Problem:** the measure-local `localPrevalenceInterval` workarounds in `CMS108FHIRVTEProphylaxis.cql`
+(line 235) and `CMS71FHIRSTKAnticoagAFFlutter.cql` (lines 58, 70, 79, and function definition)
+had replaced the original calls silently without the AGENTS.md-mandated comment blocks.
+Additionally, review following upstream discussion on #1879 confirmed that a singleton query over a
+null source evaluating to null is spec-mandated CQL behavior (Developer's Guide §Non-Retrieve Queries),
+exonerating the engine and identifying the true root cause as a library defect in `FHIRCommon.cql`
+(v2.0.0 `:394-405`), reclassifying I-31 from `engine` to `vendored`.
+
+**Fix:** comment only, no CQL logic changed.
+
+- `input/cql/CMS108FHIRVTEProphylaxis.cql` — added AGENTS.md comment block at line 235 leaving the
+  original line commented above the replacement, and added an `[I-31]` header above
+  `localPrevalenceInterval`.
+- `input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql` — added AGENTS.md comment blocks at all three call
+  sites (lines 58, 70, 79) leaving original lines commented above replacements, and added an `[I-31]`
+  header above `localPrevalenceInterval`.
+- Upstream ticket is noted as `(pending)` pending HL7 JIRA ticket filing.
+
+**Measures Affected:** none (documentation/comment changes only; CMS108 and CMS71 logic unchanged)
+
+## Cite the upstream #1857 fix in the I-69 probe and the NHSN `"Normalize Interval"` exposure
+
+**Problem:** the I-69 marker in the inner repo carried no upstream ticket. The probe
+`input/cql/testI69IsIntervalNullBound.cql` used the one-line comment form, and the one latent
+CMS-side exposure of the defect — `"Normalize Interval"(choice Choice<DateTime, Interval<DateTime>>)`
+in `NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql`, whose `is Interval<DateTime>` test rejects
+an interval with a null bound — had no marker at all. The engine fix is merged upstream
+(`fb8055df`, 2026-10-08) but not yet released, so a reader of the inner repo had no way to find the
+upstream report.
+
+**Fix:** comment only, no CQL logic changed.
+
+- `input/cql/testI69IsIntervalNullBound.cql` — the one-line comment became the standard issue
+  block: issue id and a one-line summary, the upstream ticket
+  (`https://github.com/cqframework/clinical_quality_language/pull/1857`), and the
+  affected-test-cases line (none on the CMS side — the probe has no model and no data; the affected
+  cases are QI-Core-side, CMS347 `1ba7b147` and CMS646 `ab48e0c0`).
+- `input/cql/NHSNAcuteCareHospitalMonthlyInitialPopulation1.cql` — an `[I-69]` marker above
+  `"Normalize Interval"` naming the null-boundary hazard and the same upstream ticket. No NHSN
+  fixture carries an open-ended period today, so no result changes.
+- The filename reference in the "Update upstream ticket-file references" entry below now reads
+  `T1857-is-interval-null-bound.md`; the outer tooling repo renamed the ticket file when the
+  upstream pull-request number was assigned.
+
+**Measures Affected:** none (comment only; NHSNAcuteCareHospitalMonthlyInitialPopulation1 touched, no logic change)
+
 ## Normalize every known-issue comment to the full issue-comment block
 
 **Problem:** the issue-comment convention has two spellings in this repo. The tooling repo's
@@ -726,7 +774,7 @@ assigned, then become `T<number>-<slug>.md`). Two inner-repo references still po
 filenames.
 
 **Fix:** updated the stale references — `known-issues.md` (I-69 →
-`TXXXX-is-interval-null-bound.md`) and this file (`TXXXX-prevalence-interval-null-singleton-return.md`).
+`T1857-is-interval-null-bound.md`) and this file (`TXXXX-prevalence-interval-null-singleton-return.md`).
 No CQL, FHIR resource, fixture, or valueset content changed.
 
 **Measures Affected:** none (documentation references only)

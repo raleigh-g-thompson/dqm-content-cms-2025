@@ -1,6 +1,8 @@
 library testI69IsIntervalNullBound version '0.0.1'
 
-// Engine-only I-69 probe: System types only, no model, no data.
+// [I-69] `is Interval<T>` returns false when the interval has a null boundary (engine `IsEvaluator`)
+// Upstream ticket: https://github.com/cqframework/clinical_quality_language/pull/1857
+// Affected test cases: none — engine-only probe, no model and no data (QI-Core side: CMS347 1ba7b147, CMS646 ab48e0c0)
 
 // Same dispatch as QICoreCommon.toInterval(), cut down to the DateTime / Interval<DateTime> branches
 define function localToInterval(choice Choice<DateTime, Interval<DateTime>>):
