@@ -1,29 +1,28 @@
 # Discrepancy Report
 | Details | Value |
 | --- | --- |
-| Generated | 2026-10-21 07:45:57.323797 |
+| Generated | 2026-10-29 15:40:28.127616 |
 | Total Measures | 74 |
 | Total Test Cases | 3964 |
 | Measures with Discrepancies | 10 |
 | Pass Count | 3942 (99.45%) |
-| Workaround Count | 6 (0.15%) |
-| &nbsp;&nbsp;— covered by a ticketed known issue | 6 (0.15%) |
+| Workaround Count | 8 (0.20%) |
+| &nbsp;&nbsp;— covered by a ticketed known issue | 8 (0.20%) |
 | Implementation Issue Count | 5 (0.13%) |
-| Known Issue Count (ticketed) | 6 (0.15%) |
-| Fail Count | 5 (0.13%) |
-| &nbsp;&nbsp;— known issue, needs ticket | 1 (0.03%) |
+| Known Issue Count (ticketed) | 5 (0.13%) |
+| Fail Count | 4 (0.10%) |
 | &nbsp;&nbsp;— known issue, no ticket expected | 4 (0.10%) |
-| Known issues with an upstream ticket | 12 (0.30%) |
-| Resolved (Pass + Implementation + Known Issue) | 3953 (99.72%) |
+| Known issues with an upstream ticket | 13 (0.33%) |
+| Resolved (Pass + Implementation + Known Issue) | 3952 (99.70%) |
 
 
 | Discrepancy Summary | Measure Count | Test Case Count |
 |---|:---:|:---:|
-| Missing Results | 4 | 7 |
+| Missing Results | 3 | 5 |
 | Missing Populations | 0 | 0 |
 | Mismatched Test Cases | 6 | 9 |
-| Workarounds | 2 | 13 |
-| Unattributed Discrepancies | 2 | 5 |
+| Workarounds | 3 | 15 |
+| Unattributed Discrepancies | 2 | 4 |
 
 
 
@@ -39,7 +38,7 @@ _These populations require invoking a parameterized CQL `measure-observation` fu
 | CMS986FHIRMalnutritionScore | Group_1:Measure Observation, Group_2:Measure Observation, Group_3:Measure Observation, Group_4:Measure Observation, Group_5:Measure Observation, Group_6:Measure Observation |
 | CMS1017FHIRHHFI | Group_1:Denominator Observation, Group_1:Measure Observation, Group_1:Numerator Observation |
 
-_2085 cells excluded across 3 measures._
+_2089 cells excluded across 3 measures._
 
 ## I-28 Workaround Note
 
@@ -100,9 +99,9 @@ _Every measure with a test case that doesn't match its fixture MeasureReport, or
 | [CMS156FHIRHighRiskMedsElderly](#cms156fhirhighriskmedselderly) | 177 | 0 | 0 | 0.00%   (0) | 3 | 0 |
 | [CMS165FHIRControllingHighBP](#cms165fhircontrollinghighbp) | 68 | 1 | 0 | 0.00%   (0) | 0 | 0 |
 | [CMS347FHIRStatinPreventionTxCVD](#cms347fhirstatinpreventiontxcvd) | 752 | 0 | 0 | 0.13%   (1) | 0 | 0 |
-| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 7.89%   (3) | 0 | 3 |
+| [CMS646FHIRIntravesicalBCGTherapy](#cms646fhirintravesicalbcgtherapy) | 38 | 1 | 0 | 7.89%   (3) | 0 | 2 |
 | [CMSFHIR844HybridHospitalWideMortality](#cmsfhir844hybridhospitalwidemortality) | 10 | 0 | 0 | 20.00%   (2) | 0 | 2 |
-| [CMS871FHIRHHHyper](#cms871fhirhhhyper) | 26 | 2 | 0 | 0.00%   (0) | 0 | 0 |
+| [CMS871FHIRHHHyper](#cms871fhirhhhyper) | 26 | 0 | 0 | 0.00%   (0) | 2 | 0 |
 | [CMS996FHIRAptTxforSTEMI](#cms996fhirapttxforstemi) | 114 | 0 | 0 | 0.88%   (1) | 0 | 0 |
 
 
@@ -223,7 +222,7 @@ Issues
 Missing Results (1 of 38 test cases)
 | Test Case | Group | Issue | Ticketed |
 | --- | --- | --- | --- |
-| [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | I-33 (workaround reverted) | pending |
+| [ 342d2bec-0acc-43e5-aaf7-3c9a65b09f91 ](../.././input/tests/measure/CMS646FHIRIntravesicalBCGTherapy/342d2bec-0acc-43e5-aaf7-3c9a65b09f91/MeasureReport-12cd358b-deb0-4130-a045-4c6b61e110c0.json) | Group_1 | I-33 (workaround reverted) | [1878](https://github.com/cqframework/clinical_quality_language/issues/1878) |
 
 
 Mismatched Test Cases (3 of 38)
@@ -260,11 +259,14 @@ Issues
 #### CMS871FHIRHHHyper
 [ [cql] ](../../input/cql/CMS871FHIRHHHyper.cql) [ [test results] ](../../input/tests/results/CMS871FHIRHHHyper.txt)
 
-Missing Results (2 of 26 test cases)
+Workarounds (2 of 26 test cases)
+_These cases match their fixture only because the measure's CQL works around an open issue. Removing the workaround makes them fail again, so they count as neither a pass nor a failure._
+_Both cases fail with the original FHIRCommon functions and evaluate only because the workaround is applied. Upstream tickets: FHIR-59691, FHIR-59689._
+
 | Test Case | Group | Issue | Ticketed |
 | --- | --- | --- | --- |
-| [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) | Group_1 | I-63 (workaround reverted) | [FHIR-59691](https://jira.hl7.org/browse/FHIR-59691) |
-| [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) | Group_1 | I-63 (workaround reverted) | [FHIR-59691](https://jira.hl7.org/browse/FHIR-59691) |
+| [ 98533ccd-24ee-41b3-aab2-ef6cbf89e00d ](../.././input/tests/measure/CMS871FHIRHHHyper/98533ccd-24ee-41b3-aab2-ef6cbf89e00d/MeasureReport-82c8805c-b129-4009-8533-1ed12cf5d18f.json) | Group_1 | I-63 (workaround applied) | [FHIR-59691](https://jira.hl7.org/browse/FHIR-59691) |
+| [ fd579f44-757b-4c98-9b09-27b17b935650 ](../.././input/tests/measure/CMS871FHIRHHHyper/fd579f44-757b-4c98-9b09-27b17b935650/MeasureReport-22df2e2a-404d-4ab0-831a-e2ab043197a2.json) | Group_1 | I-63 (workaround applied) | [FHIR-59691](https://jira.hl7.org/browse/FHIR-59691) |
 
 
 Issues

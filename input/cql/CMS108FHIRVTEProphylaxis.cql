@@ -233,7 +233,7 @@ define "Encounter With Prior Or Present Diagnosis Of Atrial Fibrillation Or Prio
               and VTEDiagnosis.verificationStatus !~ FHIRCommon."entered-in-error"
           )
             // [I-31] FHIRCommon prevalenceInterval() returns null for non-active Condition with null abatement end
-            // Upstream ticket: (pending)
+            // Upstream ticket: https://jira.hl7.org/browse/FHIR-59708
             // Affected test cases: d9b7ffa9, dd5a1e46, 33d162ce
             // original
             // and VTEDiagnosis.prevalenceInterval ( ) before start of QualifyingEncounter.period
@@ -466,7 +466,7 @@ define fluent function "fromDayOfStartOfHospitalizationToDayAfterAdmission"(Enco
   Interval[date from ( start of Encounter.hospitalizationWithObservation ( ) ), date from ( start of Encounter.period ) + 1 days]
 
 // [I-31] Measure-local workaround for FHIRCommon.prevalenceInterval() null return on non-active Conditions
-// Upstream ticket: (pending)
+// Upstream ticket: https://jira.hl7.org/browse/FHIR-59708
 // Affected test cases: d9b7ffa9, dd5a1e46, 33d162ce
 define fluent function localPrevalenceInterval(condition Condition):
   if condition.clinicalStatus ~ FHIRCommon."active"

@@ -1,6 +1,10 @@
 library testProbeSingletonNullReturn version '0.0.1'
 
 // Minimal analogue of FHIRCommon 2.0.0 prevalenceInterval() else-branch (FHIRCommon.cql:400-405)
+// [I-31] Singleton query over null source evaluates to null (CQL §Non-Retrieve Queries)
+// Upstream ticket: https://jira.hl7.org/browse/FHIR-59708 (re-authorship of FHIRCommon.cql)
+// Affected test cases: none (System-types probe; CMS108 'before'+CMS71 history-of-atrial-ablation
+// join isolates the same null path using CMS71 fixtures — see testPrevalenceIntervalNullPath.cql)
 
 define "Onset": @2025-12-31T00:00:00.000Z
 

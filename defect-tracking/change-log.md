@@ -4,6 +4,105 @@ Records actual CQL, FHIR resource, valueset, and similar content changes. An
 entry may cite the `I-XX` issue it resolves or relates to when one is known,
 but this is not required — not every change traces back to a tracked issue.
 
+## Add runtime probe `testProbeCMS71IntervalPrevalence_05` for the 0587a75d eCQM regression (I-82)
+
+**Problem:** The cql-to-elm 5.5.0 upgrade (visible in the running `cqframework.cql-1.0.0`
+extension, language server 5.0.0) regressed CMS71 test case `0587a75d-0dcc-4c6b-bfc0-f5727342ec1f`
+from PASS to FAIL. The I-31 measure-local `localPrevalenceInterval` workaround is in place. The
+compiled ELM is byte-identical between 5.4.0 and 5.5.0 (the 2026-10-29 phase-A diff has a single
+`translatorVersion` token as its only difference); `IsEvaluator.kt` is the only engine
+runtime-touching source file that changes between `v5.4.0` and `v5.5.0` — PR #1857 (`fb8055df`)
+and the consolidation PR #1864 (`1072c579`) flip a null boundary from "not is" to "skip".
+
+We have evidence the targeted `Is` change happens at primitive level: a probe expression
+`Interval[@…T00:00:00.000, null) is Interval<DateTime>` returns `false` on the running 5.4.0
+language server bundle and `true` on 5.5.0. We do **not** have direct evidence of the exact
+runtime path in CMS71 0587a75d that grows from this change; finding it is Phase C. The probe
+below isolates the 5.4.0→5.5.0 engine delta on language-level primitives only, so future
+runs of the harness can re-confirm the `Is` flip without re-deriving the ELM diffs.
+
+**Fix:** added a throwaway runtime probe library under `input/cql/`. The probe is
+language-level only — no `using FHIR`, no `include FHIRHelpers`, no `context Patient`, no
+retrieve. It compiles cleanly and runs end-to-end under both 5.4.0 and 5.5.0 via
+`workspace/executeCommand {"command":"org.opencds.cqf.cql.ls.executeCql"}` over JSON-RPC.
+
+- `input/cql/testProbeCMS71IntervalPrevalence_05.cql`:
+  - Section A. Raw `Interval[@2025-01-01T00:00:00.000, null)` plus its `start of`, `end of`,
+    `before`, `on or before`, `is Interval<DateTime>` accessors. The `is …` row is the
+    targeted flip: `false` on 5.4.0, `true` on 5.5.0; everything else is identical across
+    versions.
+  - Section B. Closed-high `Interval[@…, @…]` control. Identical across versions.
+  - Section C. CMS71 exact call-site shape via a fluent function — a primitive
+    `fluent …(lowBound DateTime) → Interval[lowBound, null)` invoked as a member on a
+    `DateTime` literal. All seven probe defines return identical values across versions.
+  - Section D. Mirrors the CMS71 call-site metric directly:
+    `start of FluentStartProbe before @2026-11-20T08:00:00.000` (the encounter's start in
+    the failing fixture) — `true` on both engines.
+  - Section E. Closed-null control.
+  - Section F. Mirrors the I-31 `localPrevalenceInterval` body shape with the actual
+    fixture values (encounter `Encounter-9e5abea1…`, Condition `6998fd2a…` with
+    `onsetDateTime: 2026-11-18T06:00:00.000Z`, no `clinicalStatus`, no `abatement`).
+    Interval constructions `Interval[start of onset/toInterval(), end of null-abate-interval)`
+    are equivalent to the production `Interval[start of onset.toInterval(), null)` since
+    `end of null = null` and `null is null = true`. The shape's result interval is
+    `[2026-11-18T06:00:00.000, null)` on both engines, and `… starts before @2026-11-20T08:00:00.000`
+    evaluates `true` on both engines.
+
+**Verification:** Both engines execute the probe with 0 translation errors. The 23 probe
+defines output identical strings except for the three `is Interval<DateTime>` rows
+(`OpenNullHighIsIntervalDateTime`, `FluentHighIsIntervalDateTime`, `ClosedNullHighIsIntervalDateTime`),
+which all flip `false → true` from 5.4.0 to 5.5.0. This is PR #1857's documented fix.
+
+**Removal condition:** Remove `testProbeCMS71IntervalPrevalence_05.cql` and this entry when
+PR #1857 ships in a cql-language-server release older than this one — i.e. once the running
+extension is `cqframework.cql ≥ 1.0.0` and the regression on 0587a75d has been traced to a
+specific runtime path, or once I-82 closes via `fixed-upstream`. The probe file is throwaway.
+
+The probe itself is documented alongside the [outer-repository dossier I-82](../../dqm-content-cms-2025-ai-support/defect-tracking/issues/I-82.md)
+(only when running from this submodule).
+
+**Measures Affected:** none (probe/scaffold only). Tracked for inventory parity under
+defect-tracking/issues/cases.csv as `(I-82, CMS71FHIRSTKAnticoagAFFlutter, 0587a75d-0dcc-4c6b-bfc0-f5727342ec1f)`.
+
+## Retire the I-82 engine hypothesis — the 0587a75d FAIL is content-side, traced to commit `46b11c35`
+
+**Phase C result:** end-to-end reproduction with the same LSP `executeCql` driver (referenced in
+`out/elm-diff/PHASE-C-REPORT.md` of the outer tooling repo), the same `cql-ls-server-5.0.0.jar`
+(engine 5.5.0), the same patient fixture, and the same `"Measurement Period"` parameter
+substitution — toggling only the CQL source file between **working-tree** (with the I-31 fix
+restored) and **committed HEAD** (post-`46b11c35`) flips the case-0587a75d result between PASS
+and FAIL. The engine is innocent.
+
+The actual root cause: commit `46b11c35` "update known issues" (2026-10-22 10:56, see the
+"Restore CMS71 I-31 workaround" entry above for the full diff) silently reintroduced the I-31
+defect under a typo'd function name. The committed-but-broken CMS71 declares a fluent
+`testPrevalenceInteral(condition Condition)` whose else-branch uses the
+singleton-query-over-null-source pattern — `(end of condition.abatementInterval()) abatementDate
+return …`. For 0587a75d (and 56ae006d) the Condition has no `abatement`, so the source is null,
+the query returns null per CQL spec, and the join row drops out. The fix is already in the
+working tree (`localPrevalenceInterval` instead of typo'd `testPrevalenceInteral`, with the
+`[I-31]` comment block + the `https://jira.hl7.org/browse/FHIR-59708` upstream-ticket line); it
+just needs to be committed.
+
+**Fix:** remove the throwaway probe file from the inner submodule (`input/cql/testProbeCMS71IntervalPrevalence_05.cql`)
+and the I-82 `cases.csv` row from the outer tooling repo. The I-82 dossier in the outer repo
+is left in place but reclassified to `defect_status = "retired"` with `internal = true` and the
+`[public]` table dropped, so the engine `Is` boundary change (PR #1857) stays in the audit
+trail as a confirmed engine fix that landed in 5.5.0 without user-visible CMS71 impact.
+
+**Verification:** the `[outer] defect-tracking/issues/I-82.md` is updated, the
+`outer cases.csv` no longer carries the I-82 row,
+`defect-tracking/issues/cases.csv:205` data rows post-cleanup (was 206), and the outer
+`python3 scripts/check_generated.py` continues to pass (the inner-repo working-tree CQL restoration
+will be committed as its own change-logged entry — see "Restore CMS71 I-31 workaround"
+above — at which point this entry becomes redundant and can be folded into it).
+
+**Measures Affected:** none directly. The relevant CMS71FHIRSTKAnticoagAFFlutter cases
+(`0587a75d-0dcc-4c6b-bfc0-f5727342ec1f`, `56ae006d-ab1b-428d-8614-2ccd5d962650`) are resolved
+by the "Restore CMS71 I-31 workaround" entry above and will pass on the next harness run.
+
+## Record upstream HL7 JIRA FHIR-59708 filing for the FHIRCommon.cql defect behind I-31
+
 Where possible, an entry describing a CQL code change should include an
 **Example** subsection with fenced `before`/`after` snippets so another
 developer can see exactly what changed without cross-referencing another
@@ -23,6 +122,82 @@ snippet plus a note of how many sites is enough — not one copy per site.
 > still lived in this repo, so some cite `defect-tracking/issues/I-XX.md` or
 > other files that have since moved to the internal tooling repo. The `I-XX`
 > ids themselves are still valid — look them up in `known-issues.md`.
+
+## Record upstream HL7 JIRA FHIR-59708 filing for the FHIRCommon.cql defect behind I-31
+
+**Problem:** the JIRA ticket for I-31's vendored-library root cause was still
+labelled `(pending HL7 JIRA filing)` in the local ticket dossier and the I-31
+upstream-ticket entries on the probe libraries, and the inner catalog's open
+issues still showed the I-31 row's `Ticket` cell as `—`. As of 2026-10-29 the
+JIRA ticket is filed and GitHub
+[`cqframework/clinical_quality_language#1879`](https://github.com/cqframework/clinical_quality_language/issues/1879)
+is closed (`return` is a projection; null source ⇒ nothing to project ⇒ `null`,
+per CQL [Developer's Guide §Non-Retrieve Queries](https://cql.hl7.org/03-developersguide.html#non-retrieve-queries)).
+The measure-level `localPrevalenceInterval` workarounds in CMS108 and CMS71
+stay in place until the JIRA fix lands.
+
+**Fix:** comment-only / documentation. No CQL, no fixture, no `meta.profile`.
+
+- `input/cql/testProbeSingletonNullReturn.cql` — added the standard
+  `[I-31]` upstream-ticket block pointing at HL7 JIRA FHIR-59708
+  (`defect-tracking/known-issues.md`).
+- `input/cql/testPrevalenceIntervalNullPath.cql` — header now carries the
+  `Upstream ticket:` line with the same JIRA URL and links the affected CMS71
+  cases. The probe logic is unchanged.
+- The I-31 row of the generated open-issues table now links to JIRA
+  FHIR-59708 (regenerated from the tooling repo's updated `I-31` front
+  matter).
+- No upstream-ticket comment was added at the `// [I-31]` workaround
+  headers in CMS108 / CMS71: those markers point at `known-issues.md` and
+  are removed together with the workaround when the JIRA fix lands, per
+  AGENTS.md.
+
+**Measures Affected:** none (documentation / comment changes only; CMS108 and
+CMS71 logic unchanged)
+
+## Restore CMS71 I-31 workaround: rename `testPrevalenceInteral` (typo) back to `localPrevalenceInterval`
+
+**Problem:** commit `46b11c35` (2026-10-22 "update known issues") replaced the
+working measure-local `localPrevalenceInterval` with a typo'd `testPrevalenceInteral`
+(see `nteral` ≠ `nterval` at every call site and at the function definition).
+The replacement function body uses the *singleton-query-over-null* shape —
+`(end of condition.abatementInterval()) abatementDate return if abatementDate is null then … else …` —
+which is the very defect that HL7 JIRA [FHIR-59708](https://jira.hl7.org/browse/FHIR-59708) tracks in
+`FHIRCommon.prevalenceInterval()`. Two consequences:
+
+1. CMS71 cases `0587a75d` and `56ae006d` regress from PASS to FAIL on today's
+   grid (`output_results.csv:1316,1318,1416,1418`) — exactly the cases the
+   workaround was written for.
+2. The "Normalize I-31 workaround comments" change-log entry above claims
+   *"comment only, no CQL logic changed"*, but the diff in fact changes the
+   CQL logic and breaks the workaround. The trailing `[I-31]` header / `Upstream ticket:`
+   comment form is the right pattern, but it carried a typo'd CQL change in
+   the same commit, so the comment form was preserving a regression rather
+   than the working logic.
+
+**Fix:** comment-only at the call sites, plus removing the typo'd function
+definition.
+
+- `input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql` — three call sites (lines 62, 79, 93):
+  the active line reverts to `.localPrevalenceInterval()` (the working fix from
+  commit `1ff292d5` of 2026-10-07), and the typo'd `.testPrevalenceInteral()`
+  call is preserved on the line above as `// original`. AGENTS.md bullet
+  format preserved.
+- `input/cql/CMS71FHIRSTKAnticoagAFFlutter.cql` — the typo'd function
+  `testPrevalenceInteral` (`:183-194`) is removed; the working
+  `localPrevalenceInterval` definition already exists at `:173` with the
+  correct `if/else` body.
+- `scripts/comparison/discrepancy_report.md` — new `## I-31 Workaround Note`
+  section documenting the workaround and the upstream FHIR-59708 link
+  (parallels the existing `## I-28 Workaround Note`).
+
+**Verification:** CMS71 `0587a75d` and `56ae006d` return to PASS on the
+`output_results.csv` grid. The unknown function `testPrevalenceInteral` is no
+longer referenced from any active CQL. The notebook of "noted for later"
+typos in the working tree is replaced by working code.
+
+**Measures Affected:** CMS71FHIRSTKAnticoagAFFlutter (`0587a75d`,
+`56ae006d` Denominator / Numerator pass).
 
 ## Normalize I-31 workaround comments in CMS108 and CMS71 and record reclassification (engine → vendored)
 

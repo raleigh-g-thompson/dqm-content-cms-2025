@@ -13,6 +13,11 @@
 #   retrieves. Compares FHIRCommon.prevalenceInterval() against a local if/else
 #   variant with a closed null high bound.
 #
+# Upstream ticket: https://jira.hl7.org/browse/FHIR-59708 (re-authorship of FHIRCommon.cql
+# prevalenceInterval(), specifying singleton-query over null returns null per CQL
+# [Developer's Guide §Non-Retrieve Queries](https://cql.hl7.org/03-developersguide.html#non-retrieve-queries))
+# Affected test cases: CMS71 '0587a75d', '56ae006d' (reproduces on 5.4.0 until fix lands)
+#
 # NOT REGISTERED - scaffold probe only, no Library/Measure resource.
 ###############################################################################
 */
